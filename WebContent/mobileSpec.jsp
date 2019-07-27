@@ -7,12 +7,6 @@
 <title>mobileSpec</title>
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <style>
-    * {
-        box-sizing: border-box;
-    }
-	div {
-		/* border: 1px solid red; */
-	}
     .Mobilecontainer {
         width: 1080px;
         margin: 0 60px;
@@ -353,5 +347,6 @@
             <br><br>
         </div>
     </section>
+    <%@ include file ="mobileComment.jsp" %>
 </body>
 </html>
