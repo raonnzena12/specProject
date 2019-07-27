@@ -101,63 +101,6 @@
         font-size: 15px;
         cursor: pointer;
     }
-    #main-bn {
-        height: 300px;
-        clear: both;
-    }
-    #sect-3 {
-        height: 200px;
-
-    }
-    #ranking article {
-        width: 33.3333%;
-        height: 100%;
-    }
-    #ranking {
-        height: 250px;
-    }
-    #sub-bn {
-        width:60%;
-        float: left;
-        height: 100%;
-    }
-    #main-ad {
-        width:40%;
-        height: 100%;
-        float: left;
-    }
-    #sect-4 {
-        height: 300px;
-    }
-    #release {
-        height: 20%;
-    }
-    #rel-art {
-        height: 80%;
-    }
-    #rel-art>article {
-        height: 100%;
-    }
-    #sect-5 {
-        height: 400px;
-    }
-    #brand {
-        height: 20%;
-    }
-    #brand-1, #brand-2 {
-        height: 40%;
-    }
-    #brand-1>article , #brand-2>article {
-        height: 100%;
-    }
-    #sub-ad {
-        height: 200px;
-        clear: both;
-    }
-    #footer {
-        clear: both;
-        height: 200px;
-    }
 
     /* 여기까지 틀잡기 */
 
@@ -171,21 +114,6 @@
     ul a {
         color : white;
         font-size: 20px;
-    }
-
-    /* 클래스 스타일 지정 */
-    .emp {
-        font-size: 17px;
-        font-weight: 700;
-    }
-    .taright {
-        text-align: right;
-    }
-    .gray {
-        color: #666;
-    }
-    .blue {
-        color: dodgerblue;
     }
 </style>
 <script>
@@ -205,38 +133,38 @@
 </head>
 <body>
 	<header>
-            <section id="logo">SPEC</section>
-            <nav>
-                <ul>
-                    <li><a href="#">MOBILE</a></li>
-                    <li><a href="#">COMPARE</a></li>
-                    <li><a href="#">CALENDAR</a></li>
-                    <li><a href="#">COMMUNITY</a></li>
-                </ul>
-            </nav>
-            <section id="blank"></section>
-            <section id="login">
-                <i class="material-icons" id="account">account_circle</i></section>
-            <div id="login-menu">
-                <table id="login-table">
-                    <tr>
-                        <td><input type="text" name="userId" id="user-id" placeholder="이메일 주소" autocomplete="off"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="password" name="userPwd" id="user-pwd" placeholder="비밀번호"></td>
-                    </tr>
-                    <tr>
-                        <td><button type="submit">L O G I N</button></td>
-                    </tr>
-                    <tr>
-                        <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="#" class="gray">비밀번호</a> 찾기</td>
-                    </tr>
-                    <tr>
-                        <td><br>회원이 아니신가요?<br> <a href="#"><p class="emp blue">가입하기</p></a>
-                        </td>
-                    </tr>
-                </table>
-            </div>    
-        </header>
+        <section id="logo">SPEC</section>
+        <nav>
+            <ul>
+                <li><a href="#">MOBILE</a></li>
+                <li><a href="#">COMPARE</a></li>
+                <li><a href="#">CALENDAR</a></li>
+                <li><a href="#">COMMUNITY</a></li>
+            </ul>
+        </nav>
+        <section id="blank"></section>
+        <section id="login">
+            <i class="material-icons" id="account">account_circle</i></section>
+        <div id="login-menu">
+            <table id="login-table">
+                <tr>
+                    <td><input type="text" name="userId" id="user-id" placeholder="이메일 주소" autocomplete="off"></td>
+                </tr>
+                <tr>
+                    <td><input type="password" name="userPwd" id="user-pwd" placeholder="비밀번호"></td>
+                </tr>
+                <tr>
+                    <td><button type="submit">L O G I N</button></td>
+                </tr>
+                <tr>
+                    <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="#" class="gray">비밀번호</a> 찾기</td>
+                </tr>
+                <tr>
+                    <td><br>회원이 아니신가요?<br> <a href="#"><p class="emp blue">가입하기</p></a>
+                    </td>
+                </tr>
+            </table>
+        </div>    
+    </header>
 </body>
 </html>

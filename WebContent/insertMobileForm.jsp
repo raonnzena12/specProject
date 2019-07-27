@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style>
-    body {
+    .Mobilecontainer {
         width: 1080px;
     }
     body *{
@@ -31,30 +31,41 @@
     .Mobilecontainer .table {
         margin-top: 15px;
     }
-    .Mobilecontainer .table>tr>td:nth-of-type(2n) {
-        width: 200px;
+    .Mobilecontainer .table td:nth-of-type(odd) {
+        width: 150px;
+        text-align: center;
+    }
+    .insertMobileBottom .Btn {
+        text-align: center;
+    }
+    .Mobilecontainer button {
+        margin: 0 10px;
+        width: 100px;
+    }
+    .nameInsert .form-control {
+        
     }
 </style>
 </head>
 <body>
+	<%@ include file ="WEB-INF/views/common/menubar.jsp" %>
 	<section class="Mobilecontainer">
+        <form action="" method="POST">
         <div class="insertMobileTop">
             <div></div>
             <div></div>
-            <div class="nameInsert form-group">
-                <form action="" class="form-inline">
+            <div class="nameInsert">
                 <label>브랜드<select name="brand" id="brand"  class="form-control">
                     <option selected>-----</option>
                     <option value="samsung">삼성</option>
                     <option value="apple">apple</option>
                     <option value="lg">LG전자</option>
                     <option value="xiaomi">샤오미</option>
-                </select></label><br><br>
-                <label class="control-label">모델명</label><input type="text" name="modelName" id="modelName" class="form-control" placeholder="모델명 입력">
-                </form>
+                </select></label>
+                <br><br>
+                <label>모델명<input type="text" name="modelName" id="modelName" class="form-control" placeholder="모델명 입력"></label>
             </div>
         </div>
-        <form action="">
         <div class="insertMobileMid">
             <h2>제품 스펙</h2>
             <div>
@@ -234,6 +245,12 @@
             </div>
         </div>
         <div class="insertMobileBottom">
+            <br><label><input type="checkbox" name="hidden" id="hidden"> 비밀글로 올리기</label>
+            <br><br>
+            <div class="Btn">
+                <button type="button" class="btn btn-default btn-lg">취소</button>
+                <button type="button" class="btn btn-primary btn-lg">등록</button>
+            </div>
         </div>
         </form>
     </section>
