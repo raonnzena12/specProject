@@ -13,9 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style>
     * {
-        /* border: 1px solid #ccc; */
         box-sizing: border-box;
-        text-align: center;
         margin: 0px;
         padding: 0px;
         text-decoration: none;
@@ -26,7 +24,6 @@
         font-size: 14px;
         width: 1200px;
         margin: auto;
-        /* border: 1px solid red; */
         height: auto;
     }
     header {
@@ -34,17 +31,14 @@
         background-color: #34495E;
         position: relative;
     }
-    article {
-        width: 20%;
-        float: left;
-    }
     #logo {
         width:15%;
         float: left;
         line-height: 70px;
         color: #fff;
         font-weight: 900;
-        font-size: 60px
+        font-size: 60px;
+        text-align: center;
     }
     nav {
         width:50%;
@@ -110,6 +104,7 @@
         list-style-type: none;
         line-height: 80px;
         margin: 0 15px;
+        text-align: center;
     }
     #menubarNav ul a {
         color : white;

@@ -39,6 +39,7 @@
         float: left;
         width: 780px;
         height: 150px;
+        cursor: pointer;
     }
     .clear {
         clear: both;
@@ -55,10 +56,76 @@
         border: 10px solid white;
     }
     #specSummary {
-        height: 300px;
+        height: 310px;
         background-color: #eee;
-        margin: 30px 0;
+        margin: 30px auto;
         border-radius: 5px;
+        padding: 5px;
+        width: 590px;
+        position: relative;
+    }
+    #specSummary div {
+        display: inline-block;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: white;
+        margin: 5px;
+        float: left;
+    }
+    #brand {
+        width: 200px;
+        height: 200px;
+    }
+    #size {
+        width: 180px;
+        height: 80px;
+    }
+    #weight {
+        width: 80px;
+        height: 80px;
+    }
+    #gb {
+        width: 80px;
+        height: 80px;
+        float: right;
+    }
+    #ap {
+        width: 110px;
+        height: 110px;
+    }
+    #os {
+        width: 110px;
+        height: 110px;
+    }
+    #battery {
+        clear: both;
+        width: 200px;
+        height: 80px;
+    }
+    #display {
+        width: 80px;
+        height: 80px;
+    }
+    #ram {
+        width: 140px;
+        height: 80px;
+    }
+    #disSize {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        width: 120px;
+        height: 200px;
+    }
+    .long-Ad {
+        clear: both;
+        width: 900px;
+        height: 200px;
+        background-color: antiquewhite;
+        margin: 0 auto 50px auto;
+    }
+    .mobile-label {
+        margin: 50px 0 20px 0;
     }
 </style>
 <script>
@@ -90,10 +157,22 @@
             <div class="clear"></div>
         </div>
         <div id="specSummary">
-
+            <div id="brand">브랜드</div>
+            <div id="size">크기</div>
+            <div id="weight">무게</div>
+            <div id="gb">gb</div>
+            <div id="ap">AP</div>
+            <div id="os">OS</div>
+            <div id="battery">배터리</div>
+            <div id="display">액정</div>
+            <div id="ram">램</div>
+            <div id="disSize">disSize</div>
+        </div>
+        <div class="long-Ad">
+            가로광고란
         </div>
         <div class="mobileMid">
-            <h2>제품 스펙</h2>
+            <h2 class="mobile-label">제품 스펙</h2>
             <div>
                 <table class="table">
                     <tr>
@@ -111,7 +190,7 @@
                 </table>
             </div>
             <div>
-                <h3>외형</h3>
+                <h3 class="mobile-label">외형</h3>
                 <table class="table">
                     <tr>
                         <td>주요재질</td>
@@ -128,7 +207,7 @@
                 </table>
             </div>
             <div>
-                <h3>디스플레이</h3>
+                <h3 class="mobile-label">디스플레이</h3>
                 <table class="table">
                     <tr>
                         <td>액정크기(인치)</td>
@@ -151,7 +230,7 @@
                 </table>
             </div>
             <div>
-                <h3>성능</h3>
+                <h3 class="mobile-label">성능</h3>
                 <table class="table">
                     <tr>
                         <td>AP</td>
@@ -180,7 +259,7 @@
                 </table>
             </div>
             <div>
-                <h3>카메라</h3>
+                <h3 class="mobile-label">카메라</h3>
                 <table class="table">
                     <tr>
                         <td>카메라 센서</td>
@@ -215,7 +294,7 @@
                 </table>
             </div>
             <div>
-                <h3>배터리</h3>
+                <h3 class="mobile-label">배터리</h3>
                 <table class="table">
                     <tr>
                         <td>배터리(mAH)</td>
@@ -232,7 +311,7 @@
                 </table>
             </div>
             <div>
-                <h3>통신</h3>
+                <h3 class="mobile-label">통신</h3>
                 <table class="table">
                     <tr>
                         <td>대기 시간</td>
@@ -249,7 +328,7 @@
                 </table>
             </div>
             <div>
-                <h3>특징</h3>
+                <h3 class="mobile-label">특징</h3>
                 <table class="table">
                     <tr>
                         <td>USB버전</td>
