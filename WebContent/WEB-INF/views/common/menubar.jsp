@@ -161,7 +161,7 @@
                 </tr>
                 <tr>
                     <td><br>회원이 아니신가요?<br> <a href="#"><p class="emp blue">가입하기</p></a>
-                    </td>
+                    </td> 
                 </tr>
             </table>
         </div>    
