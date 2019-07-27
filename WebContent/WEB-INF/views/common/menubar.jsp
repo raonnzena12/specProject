@@ -104,16 +104,21 @@
 
     /* 여기까지 틀잡기 */
 
-    ul>li {
+    #menubarNav ul>li {
         width: 20%;
         float: left;
         list-style-type: none;
         line-height: 80px;
         margin: 0 15px;
     }
-    ul a {
+    #menubarNav ul a {
         color : white;
         font-size: 20px;
+    }
+    
+    #mypageMenu ul>li>a {
+    	text-decoration:none;
+    	font-size:20px;
     }
 </style>
 <script>
@@ -134,7 +139,7 @@
 <body>
 	<header>
         <section id="logo">SPEC</section>
-        <nav>
+        <nav id="menubarNav">
             <ul>
                 <li><a href="#">MOBILE</a></li>
                 <li><a href="#">COMPARE</a></li>
@@ -160,10 +165,19 @@
                     <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="#" class="gray">비밀번호</a> 찾기</td>
                 </tr>
                 <tr>
-                    <td><br>회원이 아니신가요?<br> <a href="#"><p class="emp blue">가입하기</p></a>
+                    <td><br>회원이 아니신가요?<br> <a href="../member/joinForm.jsp"><p class="emp blue">가입하기</p></a>
                     </td> 
                 </tr>
             </table>
+        </div>
+        <div id="mypageMenu" display="none">
+        	<ul>
+        		<li><a href="#">회원정보</a></li>
+        		<li><a href="#">정보수정</a></li>
+        		<li><a href="#">내글관리</a></li>
+        		<li><a href="#">내리뷰관리</a></li>
+        		<li><a href="#">내댓글관리</a></li>
+        	</ul>
         </div>    
     </header>
 </body>
