@@ -120,6 +120,9 @@
     	text-decoration:none;
     	font-size:20px;
     }
+    #mypageMenu {
+    	display: none;
+    }
 </style>
 <script>
     $(document).ready(function(){
@@ -170,7 +173,7 @@
                 </tr>
             </table>
         </div>
-        <div id="mypageMenu" display="none">
+        <div id="mypageMenu">
         	<ul>
         		<li><a href="#">회원정보</a></li>
         		<li><a href="#">정보수정</a></li>
