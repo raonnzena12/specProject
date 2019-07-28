@@ -14,6 +14,9 @@ $(function () {
 	  $('[data-toggle="tooltip"]').tooltip()
 	})
 </script>
+<style>
+	a { margin: 10px;}
+</style>
 </head>
 <body>
 <br clear="both ">
@@ -24,6 +27,7 @@ $(function () {
 	<a href="https://medium.com/@j.thechois/node-js%EB%A1%9C-sms-%EC%9D%B8%EC%A6%9D%EB%B2%88%ED%98%B8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%A7%81%EC%A0%91-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-612b748257bb" target="_blank"><button type="button" class="btn btn-light border" data-toggle="tooltip" data-placement="top" title="Node.js로 구현하는 방법이네요 일단 참고용으로.." >SMS 인증번호 시스템</button></a>
 	<a href="https://opentutorials.org/course/3424" target="_blank"><button type="button" class="btn btn-light border" data-toggle="tooltip" data-placement="top" title="생활코딩" >구글로그인 API</button></a>
 	<a href="https://www.erdcloud.com/" target="_blank"><button type="button" class="btn btn-light border" data-toggle="tooltip" data-placement="top" title="DB테이블 그리는 툴입니다. 조회 원하시면 해당 사이트 가입후 카톡주세요" >erdCloud</button></a>
-	<a href="auiproject.com/prj/view.html?i=MTA5MjE3OTczMjQ5NzIyMzkxMzIzLDEzMTA0LGty" target="_blank"><button type="button" class="btn btn-light border" data-toggle="tooltip" data-placement="top" title="프로젝트 일정관리 간트차트" >AUI프로젝트</button></a>
+	<a href="auiproject.com/prj/view.html?i=MTA5MjE3OTczMjQ5NzIyMzkxMzIzLDEzMTA0LGty" target="_blank"><button type="button" class="btn btn-light border" data-toggle="tooltip" data-placement="top" title="프로젝트 일정관리 간트차트" >AUI프로젝트</button></a><br>
+	<img src="<%=request.getContextPath() %>/image/midnightBlue.jpg" width="300px">
 </body>
 </html>
