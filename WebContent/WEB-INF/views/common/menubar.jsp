@@ -22,7 +22,7 @@
     }
     body {
         font-family: 'Noto Sans KR', sans-serif;
-        /* font-size: 14px !important; */
+        font-size: 14px !important;
         min-width: 1200px !important;
         width:100%;
         margin: auto;
@@ -30,11 +30,11 @@
     }
     header {
         height: 80px;
-        background-color: #34495E;
+        background-color: #00264B;
         position: relative;
     }
     #logo {
-        width:15%;
+        width:180px;
         float: left;
         line-height: 70px;
         color: #fff;
@@ -43,7 +43,7 @@
         text-align: center;
     }
     nav {
-        width:50%;
+        width:600px;
         float: left;
     }
     #blank {

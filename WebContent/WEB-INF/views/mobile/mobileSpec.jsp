@@ -19,36 +19,6 @@
     .mobileMid {
     	clear: both;
     }
-    #mobileView {
-        width: 300px;
-        height: 500px;
-        float: left;
-    }
-    #mobileName {
-        float: right;
-        height: 350px;
-        width: 780px;
-    }
-    #mobileTab {
-        float: left;
-        width: 780px;
-        height: 150px;
-        cursor: pointer;
-    }
-    .clear {
-        clear: both;
-        border: 1px solid #ccc;
-    }
-    .tab {
-        display: inline-block;
-        width: 33%;
-        height: 100%;
-        line-height: 150px;
-        font-size: 50px;
-        color: #999;
-        text-align: center;
-        border: 10px solid white;
-    }
     #specSummary {
         height: 310px;
         background-color: #eee;
@@ -122,34 +92,9 @@
         margin: 50px 0 20px 0;
     }
 </style>
-<script>
-    $(function() {
-        $(".tab").mouseenter(function(){
-            $(this).css({color:"#00264B", "font-weight":"600", "border-bottom":"10px solid #00264B"});
-        }).mouseleave(function() {
-            $(this).css({color:"#999", "font-weight":"400", "border":"10px solid white"});
-        });
-    });
-</script>
 </head>
 <body>
-    <%@ include file ="WEB-INF/views/common/menubar.jsp" %>
 	<section class="Mobilecontainer">
-        <div class="mobileTop">
-            <div id="mobileView">
-            </div>
-            <div id="mobileName">
-                <label>브랜드</label>
-                <br><br>
-                <label>모델명</label>
-            </div>
-            <div id="mobileTab">
-                <div class="tab">SPEC</div>
-                <div class="tab">REVIEW</div>
-                <div class="tab">COMPARE</div>
-            </div>
-            <div class="clear"></div>
-        </div>
         <div id="specSummary">
             <div id="brand">브랜드</div>
             <div id="size">크기</div>
