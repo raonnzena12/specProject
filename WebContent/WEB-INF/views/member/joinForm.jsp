@@ -11,8 +11,6 @@
     #layer{
         margin: auto;
         width: 300px;
-        
-       
     }
     #layer *{
         box-sizing: border-box;
@@ -35,7 +33,12 @@
     #mid form{
         height: 100%;
     }
-
+    #input1 table {
+        width: 100%;
+    }
+    #input1 input {
+        margin: 5px 0;
+    }
     #mid form>ul{
         height: 40%;
     }
@@ -44,18 +47,27 @@
     }
     #optionInfo table{
         box-sizing: border-box;
+        width: 100%;
     }
-
+    #optionInfo input {
+        margin: 5px 0;
+        width: 96%;
+    }
     #table1{
         box-sizing: border-box;
     }
-
     #input1{
         padding-top: 10px;
         padding-bottom: 20px;
     }
     #input1 table{
         padding: 0px 10px;
+    }
+    #mid p {
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+        margin: 20px;
     }
 </style>
 <title>회원가입</title>
@@ -78,42 +90,43 @@
         </div>
 		
 		<div id="mid">
-                <form action="#">
-                        <div id="input1">
-                                <table>
-                                        <tr><td><input type="email" name="email" class="form-control" placeholder="이메일 주소"></td></tr>
-                                        <tr><td><input type="text" name="name" class="form-control" placeholder="닉네임"></td></tr>
-                                        <tr><td><input type="password" name="pwd" class="form-control" placeholder="비밀번호"></td></tr>
-                                        <tr><td><input type="password" name="pwd2" class="form-control" placeholder="비밀번호 확인"></td></tr>
-                                        <tr><td><input type="checkbox" name="optionInfo">&nbsp;선택정보 입력하기</td></tr>
-                                </table>
-                        </div>
-                        <div id="optionInfo" class="form-group">
-                            <table>
-                                <tr>
-                                    <td><input class="form-control" type="tel" name="phone"
-                                        placeholder="핸드폰번호(01012341234)"></td>
-                                    <td><button type="button" class="btn btn-info">문자발송</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-control" type="text" name="auth" placeholder="인증번호 입력"></td>
-                                    <td><button type="button" class="btn btn-info">인증확인</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-control" type="text" name="device" placeholder="기종찾기"></td>
-                                    <td><button type="button" class="btn btn-info">기종찾기</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div id="submit">
-                            <div class="center">
-                                <button type="submit" class="btn btn-lg btn-block btn-info">JOIN</button>
-                            </div>
-                            <p style="text-align: center">
-                                가입하면 약관, 데이터 정책 및 쿠키 정책에 동의하게 됩니다.
-                            </p>
-                        </div>
-                </form>
+            <form action="#">
+                <div id="input1">
+                    <table>
+                        <tr><td><input type="email" name="email" class="form-control" placeholder="이메일 주소"></td></tr>
+                        <tr><td><input type="text" name="name" class="form-control" placeholder="닉네임"></td></tr>
+                        <tr><td><input type="password" name="pwd" class="form-control" placeholder="비밀번호"></td></tr>
+                        <tr><td><input type="password" name="pwd2" class="form-control" placeholder="비밀번호 확인"></td></tr>
+                        <tr><td><input type="checkbox" name="optionInfo">&nbsp;선택정보 입력하기</td></tr>
+                    </table>
+                </div>
+                <div id="optionInfo" class="form-group">
+                    <table>
+                        <tr>
+                            <td><input class="form-control" type="tel" name="phone"
+                                placeholder="핸드폰번호(01012341234)"></td>
+                            <td><button type="button" class="btn btn-info">문자발송</button></td>
+                        </tr>
+                        <tr>
+                            <td><input class="form-control" type="text" name="auth" placeholder="인증번호 입력"></td>
+                            <td><button type="button" class="btn btn-info">인증확인</button></td>
+                        </tr>
+                        <tr>
+                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기"></td>
+                            <td><button type="button" class="btn btn-info">기종찾기</button></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="submit">
+                    <div class="center">
+                        <button type="submit" class="btn btn-lg btn-block btn-info">JOIN</button>
+                    </div>
+                </div>
+                <p>
+                    가입하면 SPEC의 약관, 데이터 정책 및<br>
+                    쿠키 정책에 동의하게 됩니다.
+                </p>
+            </form>
         </div>
     </div>
         
