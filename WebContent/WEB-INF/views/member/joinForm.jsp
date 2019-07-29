@@ -69,6 +69,10 @@
         color: #666;
         margin: 20px;
     }
+    .form-control, .btn{
+    	font-size : 1em !important;
+    }
+    
 </style>
 <title>회원가입</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->

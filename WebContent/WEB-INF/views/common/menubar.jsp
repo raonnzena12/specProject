@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	boolean loginUser = true;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +64,7 @@
         line-height: 80px;
         cursor: pointer;
     }
-    #login-menu {
+    #login-menu,#mypageMenu {
         width: 230px;
         height: 270px;
         background-color: white;
@@ -73,6 +76,7 @@
         right: 0px;
         display: none;
     }
+    
     #login-table {
         margin: 20px 12px;
     }
@@ -113,27 +117,33 @@
         font-size: 20px;
     }
     
+    
     #mypageMenu ul>li>a {
     	text-decoration:none;
     	font-size:20px;
     }
-    #mypageMenu {
+    /* #mypageMenu {
     	display: none;
-    }
+    } */
 </style>
 <script>
     $(document).ready(function(){
         $("#account").click(function(){
             $("#login-menu").css("display","block");
-            $("#user-id").focus();
+            $("#mypageMenu").css("display","block")
         });
         
-        $("#login-menu").mouseenter(function(){
-            $("#login-menu").css("display","block");
-        }).mouseleave(function(){
-            $("#login-menu").css("display","none");
-        });
-    });
+     
+	   
+		$("#login-menu").mouseenter(function() {
+			$("#login-menu").css("display", "block");
+			$("#mypageMenu").css("display", "block")
+		}).mouseleave(function() {
+			$("#login-menu").css("display", "none");
+			$("#mypageMenu").css("display", "none")
+		});
+
+	});
 </script>
 </head>
 <body>
@@ -150,6 +160,7 @@
         <section id="blank"></section>
         <section id="login">
             <i class="material-icons" id="account">account_circle</i></section>
+        <% if(!loginUser){ %>
         <div id="login-menu">
             <table id="login-table">
                 <tr>
@@ -170,15 +181,17 @@
                 </tr>
             </table>
         </div>
+        <% } else{%>
         <div id="mypageMenu">
         	<ul>
-        		<li><a href="#">회원정보</a></li>
+        		<li><a href="<%=request.getContextPath()%>/mypageInfo.me">회원정보</a></li>
         		<li><a href="#">정보수정</a></li>
         		<li><a href="#">내글관리</a></li>
         		<li><a href="#">내리뷰관리</a></li>
         		<li><a href="#">내댓글관리</a></li>
         	</ul>
-        </div>    
+        </div>
+        <% } %>    
     </header>
 </body>
 </html>
