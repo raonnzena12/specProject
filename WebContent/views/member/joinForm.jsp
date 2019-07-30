@@ -10,6 +10,7 @@
     }
     #layer{
         margin: auto;
+        margin-top: 5%;
         width: 300px;
     }
     #layer *{

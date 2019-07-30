@@ -45,7 +45,7 @@
         font-size: 60px;
         text-align: center;
     }
-    nav {
+    #menubarNav {
         width:600px;
         float: left;
     }
@@ -162,24 +162,26 @@
             <i class="material-icons" id="account">account_circle</i></section>
         <% if(!loginUser){ %>
         <div id="login-menu">
-            <table id="login-table">
-                <tr>
-                    <td><input type="text" name="userId" id="user-id" placeholder="이메일 주소" autocomplete="off"></td>
-                </tr>
-                <tr>
-                    <td><input type="password" name="userPwd" id="user-pwd" placeholder="비밀번호"></td>
-                </tr>
-                <tr>
-                    <td><button type="submit">L O G I N</button></td>
-                </tr>
-                <tr>
-                    <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="#" class="gray">비밀번호</a> 찾기</td>
-                </tr>
-                <tr>
-                    <td><br>회원이 아니신가요?<br> <a href="<%=request.getContextPath()%>/joinInputForm.me"><p class="emp blue">가입하기</p></a>
-                    </td> 
-                </tr>
-            </table>
+            <form action="<%=request.getContextPath()%>/login.me">
+            	<table id="login-table">
+	                <tr>
+	                    <td><input type="text" name="userId" id="user-id" placeholder="이메일 주소" autocomplete="off"></td>
+	                </tr>
+	                <tr>
+	                    <td><input type="password" name="userPwd" id="user-pwd" placeholder="비밀번호"></td>
+	                </tr>
+	                <tr>
+	                    <td><button type="submit">L O G I N</button></td>
+	                </tr>
+	                <tr>
+	                    <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="#" class="gray">비밀번호</a> 찾기</td>
+	                </tr>
+	                <tr>
+	                    <td><br>회원이 아니신가요?<br> <a href="<%=request.getContextPath()%>/joinInputForm.me"><p class="emp blue">가입하기</p></a>
+	                    </td> 
+	                </tr>
+            	</table>
+            </form>
         </div>
         <% } else{%>
         <div id="mypageMenu">

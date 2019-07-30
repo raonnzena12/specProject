@@ -6,12 +6,17 @@
 <meta charset="UTF-8">
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <style>
-    
-	#mypageNav ul>li {
+    #mypageNav{
+    	width:1000px;
+    	height: 100px;
+    	margin-top: 5%;
+    }
+	#mypageNav ul>li{
         width: 20%;
         float: left;
         list-style-type: none;
         line-height: 80px;
+        
         margin: 0 15px;
         text-align: center;
         

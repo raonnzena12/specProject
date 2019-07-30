@@ -2,26 +2,41 @@ package member.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import member.model.vo.Member;
 
 
-@WebServlet("/mypageInfo.me")
-public class MypageInfoFormServlet extends HttpServlet {
+@WebServlet("/login.me")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
-    public MypageInfoFormServlet() {
+    
+    public LoginServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("mypageInfo.jsp");
-		view.forward(request, response);
+		
+		String userId = request.getParameter("userId");
+		String userPwd = request.getParameter("userPwd");
+		
+		Member loginUser = new Member(userId, userPwd);
+		
+		if(loginUser != null) {
+			HttpSession session = request.getSession();
+			session.setMaxInactiveInterval(18000);
+			
+			session.setAttribute("loginUser", loginUser);
+			
+			response.sendRedirect(request.getContextPath());
+			
+		} 
 	}
 
 	/**
