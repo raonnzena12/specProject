@@ -7,7 +7,7 @@
 <title>INDEX</title>
 </head>
 <body>
-	<%@ include file ="/WEB-INF/views/common/menubar.jsp" %>
-	<%@ include file ="/WEB-INF/views/common/file.jsp" %>
+	<%@ include file ="/views/common/menubar.jsp" %>
+	<%@ include file ="/views/common/file.jsp" %>
 </body>
 </html>

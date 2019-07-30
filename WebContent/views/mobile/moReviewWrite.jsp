@@ -35,17 +35,17 @@
 		cursor: pointer;
 	}
 	.star_left{
-		background: url(image/star.png) no-repeat 0 0; 
+		background: url(../../image/star.png) no-repeat 0 0; 
 		background-size: 60px; 
 		/* margin-right: -3px; */
 	}
 	.star_right{
-		background: url(image/star.png) no-repeat -30px 0; 
+		background: url(../../image/star.png) no-repeat -30px 0; 
 		background-size: 60px; 
 		margin-left: -3.5px;
 	}
 	.star.on{
-	  	background-image: url(image/star_onn.png);
+	  	background-image: url(../../image/star_onn.png);
 	}
 	#reviewText {
 		clear: both;
@@ -65,7 +65,7 @@
 </script>
 </head>
 <body>
-    <%@ include file="WEB-INF/views/common/menubar.jsp"%>
+    <%@ include file="/views/common/menubar.jsp"%>
     <section class="reviewWrite">
         <h1>리뷰 작성</h1>
         <form action="#" method="post">

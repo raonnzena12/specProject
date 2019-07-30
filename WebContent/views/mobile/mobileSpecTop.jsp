@@ -72,7 +72,7 @@
     </script>
 </head>
 <body>
-    <%@ include file ="WEB-INF/views/common/menubar.jsp" %>
+    <%@ include file ="/views/common/menubar.jsp" %>
     <div class="mobileTop">
         <div id="mobileView">
         </div>

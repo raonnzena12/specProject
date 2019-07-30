@@ -11,10 +11,10 @@
 <style>
     .Mobilecontainer {
         width: 1080px;
-        margin: 0 60px;
+        margin: 0 auto;
     }
     body *{
-        border: 1px solid salmon;
+        /* border: 1px solid salmon; */
         box-sizing: border-box;
         margin: 0px;
         padding: 0px;
