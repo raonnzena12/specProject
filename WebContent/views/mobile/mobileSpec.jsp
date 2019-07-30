@@ -94,6 +94,7 @@
 </style>
 </head>
 <body>
+    <%@ include file = "mobileSpecTop.jsp"%>
 	<section class="Mobilecontainer">
         <div id="specSummary">
             <div id="brand">브랜드</div>

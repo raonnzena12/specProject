@@ -23,7 +23,7 @@
     }
     #mobileName {
         float: right;
-        height: 350px;
+        height: 180px;
         width: 780px;
         text-align: right;
     }
@@ -32,10 +32,21 @@
         font-weight: 900;
         margin-right: 20px;
     }
+    #clear {
+        float: right;
+        height: 110px;
+        width: 780px;
+    }
+    #mobileCount {
+        text-align: right;
+        float: right;
+        width: 780px;
+        height: 60px;
+    }
     #mobileTab {
         float: left;
         width: 780px;
-        height: 150px;
+        height: 120px;
         cursor: pointer;
     }
     .tab {
@@ -81,6 +92,8 @@
             <br><br>
             <label>모델명</label>
         </div>
+        <div id="mobileCount">좋아요 / 소지수</div>
+        <div id="clear"></div>
         <div id="mobileTab">
             <div class="tab">SPEC<div class="bar"></div>
             </div>
@@ -89,6 +102,5 @@
         </div>
         <div class="clear"></div>
     </div>
-    <%@ include file="mobileReview.jsp"%>
 </body>
 </html>

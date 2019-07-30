@@ -36,7 +36,7 @@
         background-color: #00264B;
         position: relative;
     }
-    #logo {
+    #logo{
         width:180px;
         float: left;
         line-height: 70px;
@@ -44,6 +44,7 @@
         font-weight: 900;
         font-size: 60px;
         text-align: center;
+        cursor: pointer;
     }
     #menubarNav {
         width:600px;
@@ -142,13 +143,13 @@
 			$("#login-menu").css("display", "none");
 			$("#mypageMenu").css("display", "none")
 		});
-
+        
 	});
 </script>
 </head>
 <body>
 	<header>
-        <section id="logo">SPEC</section>
+        <section id="logo" onclick="location.href='<%=request.getContextPath()%>'">SPEC</section>
         <nav id="menubarNav">
             <ul>
                 <li><a href="#">MOBILE</a></li>
