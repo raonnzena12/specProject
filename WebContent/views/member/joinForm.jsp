@@ -86,7 +86,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<%@ include file ="/WEB-INF/views/common/menubar.jsp" %>
+	<%@ include file ="/views/common/menubar.jsp" %>
 	
 	<div id="layer">
 		<div id="head">

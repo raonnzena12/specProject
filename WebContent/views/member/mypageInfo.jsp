@@ -50,8 +50,8 @@
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/menubar.jsp" %>
-	<%@ include file ="/mypageMenubar.jsp" %>
+	<%@ include file="/views/common/menubar.jsp" %>
+	<%@ include file ="mypageMenubar.jsp" %>
 	
 	<div id="infoLayer">
 		<div id="mobile" class="fl">

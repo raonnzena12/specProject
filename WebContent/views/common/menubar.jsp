@@ -48,6 +48,7 @@
     #menubarNav {
         width:600px;
         float: left;
+        /* height: 80px; */
     }
     #blank {
         width: 28%;
