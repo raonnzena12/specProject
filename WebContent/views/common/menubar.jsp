@@ -64,7 +64,7 @@
         line-height: 80px;
         cursor: pointer;
     }
-    #login-menu,#mypageMenu {
+    #login-menu{
         width: 230px;
         height: 270px;
         background-color: white;
@@ -73,6 +73,20 @@
         position: absolute;
         top: 70px;
         text-align: center;
+        right: 0px;
+        display: none;
+    }
+    
+    #mypageMenu{
+    	width: 200px;
+        height: 180px;
+        background-color: white;
+        border: 1px solid #ccc;
+        float: right;
+        position: absolute;
+        top: 70px;
+        padding: 10px 20px;
+        text-align: left;
         right: 0px;
         display: none;
     }
@@ -117,7 +131,10 @@
         font-size: 20px;
     }
     
-    
+    #mypageMenu ul>li{
+    	list-style-type: none;
+    	
+    }
     #mypageMenu ul>li>a {
     	text-decoration:none;
     	font-size:20px;
@@ -130,14 +147,14 @@
     $(document).ready(function(){
         $("#account").click(function(){
             $("#login-menu").css("display","block");
-            $("#mypageMenu").css("display","block")
+            $("#mypageMenu").css("display","block");
         });
         
      
 	   
 		$("#login-menu").mouseenter(function() {
 			$("#login-menu").css("display", "block");
-			$("#mypageMenu").css("display", "block")
+			$("#mypageMenu").css("display" , "block");
 		}).mouseleave(function() {
 			$("#login-menu").css("display", "none");
 			$("#mypageMenu").css("display", "none")
@@ -186,7 +203,7 @@
         <% } else{%>
         <div id="mypageMenu">
         	<ul>
-        		<li><a href="<%=request.getContextPath()%>/mypageInfo.me">회원정보</a></li>
+        		<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp">회원정보</a></li>
         		<li><a href="#">정보수정</a></li>
         		<li><a href="#">내글관리</a></li>
         		<li><a href="#">내리뷰관리</a></li>
