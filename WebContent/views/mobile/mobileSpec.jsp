@@ -91,6 +91,10 @@
     .mobile-label {
         margin: 50px 0 20px 0;
     }
+    .insertMobileBottom {
+        width: 900px;
+        margin: 0 auto;
+    }
 </style>
 </head>
 <body>
@@ -291,8 +295,8 @@
         </div>
         <div class="insertMobileBottom">
             <br><br>
+            <%@ include file ="mobileComment.jsp" %>
         </div>
     </section>
-    <%@ include file ="mobileComment.jsp" %>
 </body>
 </html>
