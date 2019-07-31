@@ -70,9 +70,9 @@
 	<%@ include file ="/views/common/menubar.jsp" %>
 	<nav id="mypageNav">
 		<ul>
-			<li><a href="#" id="info">회원정보</a></li>
-			<li><a href="#">작성글보기</a></li>
-			<li><a href="#">작성리뷰보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp" id="info">회원정보</a></li>
+			<li><a href="<%=request.getContextPath()%>/views/member/myArticleList.jsp">작성글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/views/member/myReviewList.jsp">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
 		</ul>
     </nav>
