@@ -25,10 +25,10 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userId = request.getParameter("userId");
+		String userEmail = request.getParameter("userEmail");
 		String userPwd = request.getParameter("userPwd");
 		
-		Member member = new Member(userId, userPwd);
+		Member member = new Member(userEmail, userPwd);
 		
 		Member loginUser = new MemberService().loginMember(member);
 		if(loginUser != null) {

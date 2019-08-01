@@ -35,25 +35,17 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, member.getUserId());
+			pstmt.setString(1, member.getUserEmail());
 			pstmt.setString(2, member.getUserPwd());
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				loginUser = new Member(rset.getInt("USER_NO"),
-							rset.getString("USER_ID"),
-							rset.getString("USER_PWD"),
-							rset.getString("USER_NAME"),
-							rset.getString("PHONE"),
-							rset.getString("EMAIL"),
-							rset.getString("ADDRESS"),
-							rset.getString("INTEREST"),
-							rset.getDate("ENROLL_DATE"),
-							rset.getDate("MODIFY_DATE"),
-							rset.getString("STATUS")
-						);
-		
-				
+				loginUser = new Member(rset.getInt(1), 
+						rset.getString(2), rset.getString(3),
+						rset.getString(4), rset.getString(5), 
+						rset.getDate(6), rset.getDate(7), 
+						rset.getString(8), rset.getString(9), 
+						rset.getInt(10), rset.getInt(11));
 			}
 			
 		} catch (SQLException e) {
