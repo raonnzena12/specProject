@@ -198,7 +198,7 @@
 </script>
 </head>
 <body>
-	<header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+	<header class="navbar sticky-top navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
         <section id="logo" onclick="location.href='<%=request.getContextPath()%>'">SPEC</section>
         <div id="menubarNav" class="navbar-nav-scroll">
             <ul class="navbar-nav bd-navbar-nav flex-row" >
