@@ -16,8 +16,9 @@ public class Member implements java.io.Serializable { /**
 	private Date enrollDate;
 	private Date modifyDate;
 	private String userEvent;
-	private String userStatus;
-	private String userMno;
+	private String userVerify;
+	private int userStatus;
+	private int userMno;
 	
 	public Member() {
 		// TODO Auto-generated constructor stub
@@ -32,8 +33,9 @@ public class Member implements java.io.Serializable { /**
 	}
 
 
+
 	public Member(int userNo, String userEmail, String userPwd, String userName, String phone, Date enrollDate,
-			Date modifyDate, String userEvent, String userStatus, String userMno) {
+			Date modifyDate, String userEvent, String userVerify, int userStatus, int userMno) {
 		super();
 		this.userNo = userNo;
 		this.userEmail = userEmail;
@@ -43,9 +45,13 @@ public class Member implements java.io.Serializable { /**
 		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
 		this.userEvent = userEvent;
+		this.userVerify = userVerify;
 		this.userStatus = userStatus;
 		this.userMno = userMno;
 	}
+
+
+	
 
 
 	public int getUserNo() {
@@ -128,28 +134,33 @@ public class Member implements java.io.Serializable { /**
 	}
 
 
-	public String getUserStatus() {
+	public String getUserVerify() {
+		return userVerify;
+	}
+
+
+	public void setUserVerify(String userVerify) {
+		this.userVerify = userVerify;
+	}
+
+
+	public int getUserStatus() {
 		return userStatus;
 	}
 
 
-	public void setUserStatus(String userStatus) {
+	public void setUserStatus(int userStatus) {
 		this.userStatus = userStatus;
 	}
 
 
-	public String getUserMno() {
+	public int getUserMno() {
 		return userMno;
 	}
 
 
-	public void setUserMno(String userMno) {
+	public void setUserMno(int userMno) {
 		this.userMno = userMno;
-	}
-
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 

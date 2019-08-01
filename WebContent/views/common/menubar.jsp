@@ -210,7 +210,7 @@
         </div>
         <!-- <section id="blank"></section> -->
         <ul id="login" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-            <% if( loginUser != null && loginUser.getUserStatus().equals("관리자")) {%>
+            <% if( loginUser != null && loginUser.getUserStatus() == 0) {%>
             <li><i class="material-icons">settings</i></li>
             	<% } %>
             <li class=" nav-item dropdown">
@@ -221,7 +221,7 @@
             <form action="<%=request.getContextPath()%>/login.me">
             	<table id="login-table">
 	                <tr>
-	                    <td><input type="text" name="userId" id="user-id" placeholder="이메일 주소" autocomplete="off"></td>
+	                    <td><input type="text" name="userEmail" id="user-email" placeholder="이메일 주소" autocomplete="off"></td>
 	                </tr>
 	                <tr>
 	                    <td><input type="password" name="userPwd" id="user-pwd" placeholder="비밀번호"></td>
