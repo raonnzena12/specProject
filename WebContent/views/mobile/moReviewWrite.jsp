@@ -51,6 +51,12 @@
 		clear: both;
 		margin: 50px 0 0 0;
 	}
+	.reviewWrite .btnArea {
+		text-align: right;
+	}
+	#insertReview {
+		margin: 0 20px;
+	}
 </style>
 <script>
 	$(function() {
@@ -87,9 +93,11 @@
 				<span class="star star_left"></span>
 				<span class="star star_right"></span>
 			</div><br>
-            <textarea name="reviewText" id="reviewText" class="form-control" rows="3" placeholder="리뷰 내용을 입력해주세요(1000자 이내)"></textarea>
+            <textarea name="reviewText" id="reviewText" class="form-control" rows="3" placeholder="리뷰 내용을 입력해주세요(1000자 이내)"></textarea><br>
+			<div class="btnArea">
+				<button type="button" class="btn btn-light border">취소</button><button type="button" class="btn btn-primary" id="insertReview">리뷰 등록</button>
+			</div>
         </div><br>
-
         </form> 
     </section>
 </body>
