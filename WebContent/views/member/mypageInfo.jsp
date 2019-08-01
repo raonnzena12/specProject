@@ -128,7 +128,7 @@
 			<li><a href="#">작성댓글보기</a></li>
 		</ul>
     </nav>
-	
+
 	<div id="infoLayer">
 		<div id="mobile" class="fl">
 			<div id="mobileImg">
