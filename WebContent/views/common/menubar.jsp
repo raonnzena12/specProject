@@ -142,7 +142,7 @@
         height: 650px;
         background-color: rgba(0,38,75,0.8);
         text-align: center;
-        /* display: none; */
+        display: none; 
     }
     #compareMenu * {
         /* border: 1px solid white; */
@@ -210,8 +210,11 @@
         </div>
         <!-- <section id="blank"></section> -->
         <ul id="login" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+            <% if( loginUser != null && loginUser.getUserStatus().equals("관리자")) {%>
             <li><i class="material-icons">settings</i></li>
+            	<% } %>
             <li class=" nav-item dropdown">
+            
             	<i class="material-icons" id="account">account_circle</i>
             	<% if(loginUser == null){ %>
         <div id="login-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
