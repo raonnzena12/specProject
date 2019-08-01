@@ -38,9 +38,9 @@
             $(this).css("color","#00264B");
         }).mouseleave(function(){
             $(this).css("color","gray");
-        }).bind("click", function(){
+        })/* on("click", function(){
             $(this).css("border-bottom","2px solid #00264B");
-        }).unbind("click");
+        }).off("click") */;
     });
 </script>
 </head>
@@ -48,9 +48,9 @@
 	
 	<nav id="mypageNav">
 		<ul>
-			<li><a href="#">회원정보</a></li>
-			<li><a href="#">작성글보기</a></li>
-			<li><a href="#">작성리뷰보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp">회원정보</a></li>
+			<li><a href="<%=request.getContextPath()%>/views/member/myArticleList.jsp">작성글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/views/member/myReviewList.jsp">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
 		</ul>
     </nav>

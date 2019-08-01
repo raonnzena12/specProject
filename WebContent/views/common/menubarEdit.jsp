@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	boolean loginUser = false;
+	boolean loginUser = true;
 %>
 <!DOCTYPE html>
 <html>
@@ -30,26 +30,10 @@
         margin: auto;
         height: auto;
     }
-    header {
-        height: 80px;
-        background-color: #00264B;
-        position: relative;
-        z-index: 2;
-    }
-    #logo{
-        width:180px;
-        float: left;
-        line-height: 70px;
-        color: #fff;
-        font-weight: 900;
-        font-size: 60px;
-        text-align: center;
-        cursor: pointer;
-    }
+
     #menubarNav {
         width:600px;
         float: left;
-        /* height: 80px; */
     }
     #blank {
         width: 28%;
@@ -66,7 +50,7 @@
         line-height: 80px;
         cursor: pointer;
     }
-    #login-menu{
+    #login-menu,#mypageMenu {
         width: 230px;
         height: 270px;
         background-color: white;
@@ -75,20 +59,6 @@
         position: absolute;
         top: 70px;
         text-align: center;
-        right: 0px;
-        display: none;
-    }
-    
-    #mypageMenu{
-    	width: 200px;
-        height: 180px;
-        background-color: white;
-        border: 1px solid #ccc;
-        float: right;
-        position: absolute;
-        top: 70px;
-        padding: 10px 20px;
-        text-align: left;
         right: 0px;
         display: none;
     }
@@ -133,10 +103,7 @@
         font-size: 20px;
     }
     
-    #mypageMenu ul>li{
-    	list-style-type: none;
-    	
-    }
+    
     #mypageMenu ul>li>a {
     	text-decoration:none;
     	font-size:20px;
@@ -156,11 +123,11 @@
     $(document).ready(function(){
         $("#account").click(function(){
             $("#login-menu").css("display","block");
-            $("#mypageMenu").css("display","block");
+            $("#mypageMenu").css("display","block")
         });
 		$("#login-menu").mouseenter(function() {
 			$("#login-menu").css("display", "block");
-			$("#mypageMenu").css("display" , "block");
+			$("#mypageMenu").css("display", "block")
 		}).mouseleave(function() {
 			$("#login-menu").css("display", "none");
 			$("#mypageMenu").css("display", "none")
@@ -171,14 +138,40 @@
 <body>
     <div class="compareMenu"></div>
 	<header>
-        <section id="logo" onclick="location.href='<%=request.getContextPath()%>'">SPEC</section>
-        <nav id="menubarNav">
-            <ul>
-                <li><a href="#">MOBILE</a></li>
-                <li><a href="#">COMPARE</a></li>
-                <li><a href="#">CALENDAR</a></li>
-                <li><a href="#">COMMUNITY</a></li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="<%=request.getContextPath()%>">SPEC</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">MOBILE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">COMPARE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">CALENDAR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">COMMUNITY</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons" id="account">account_circle</i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </nav>
         <section id="blank"></section>
         <section id="login">
@@ -209,7 +202,7 @@
         <% } else{%>
         <div id="mypageMenu">
         	<ul>
-        		<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp">회원정보</a></li>
+        		<li><a href="<%=request.getContextPath()%>/mypageInfo.me">회원정보</a></li>
         		<li><a href="#">정보수정</a></li>
         		<li><a href="#">내글관리</a></li>
         		<li><a href="#">내리뷰관리</a></li>

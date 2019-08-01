@@ -21,7 +21,7 @@ public class JoinInputForm extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/joinForm.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/views/member/joinForm.jsp");
 		view.forward(request, response);
 	}
 
