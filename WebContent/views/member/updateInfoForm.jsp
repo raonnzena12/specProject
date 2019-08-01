@@ -10,8 +10,9 @@
     }
     #layer{
         margin: auto;
-        margin-top: 5%;
+        /* margin-top: 5%; */
         width: 300px;
+        
     }
     #layer *{
         box-sizing: border-box;
@@ -74,8 +75,67 @@
     	font-size : 1em !important;
     }
     
+	#mypageNav{
+    	width:1000px;
+    	height: 100px;
+    	margin-top: 5%;
+    }
+	#mypageNav ul>li{
+        width: 20%;
+        float: left;
+        list-style-type: none;
+        line-height: 80px;
+        
+        margin: 0 15px;
+        text-align: center;
+    }
+
+    #mypageNav ul a {
+    	color: gray;
+        text-decoration:none;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
+    #info{
+    	padding-bottom : 10px;
+		border-bottom: 2px solid #00264B;    
+    }
+    
+    .center{
+    	padding-left:100px !important;
+    }
+    
+    .menu {
+		font-size: 2em;
+		text-align:right;
+		width:180px;
+		height:50px;
+		
+	}
+	
+	.menu:hover {
+		color:#00264B;
+		font-weight:bold;
+		cursor:pointer;
+	}
+	
+	.fl{
+		float:right;
+	}
 </style>
-<title>회원가입</title>
+<script>
+	$(function() {
+
+		$("a").mouseenter(function() {
+			$(this).css("color", "#00264B");
+		}).mouseleave(function() {
+			$(this).css("color", "gray");
+		})
+		
+	});
+</script>
+<title>회원정보 수정</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -87,21 +147,27 @@
 </head>
 <body>
 	<%@ include file ="/views/common/menubar.jsp" %>
-	
+	<nav id="mypageNav">
+		<ul>
+			<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp" id="info">회원정보</a></li>
+			<li><a href="#">작성글보기</a></li>
+			<li><a href="#">작성리뷰보기</a></li>
+			<li><a href="#">작성댓글보기</a></li>
+		</ul>
+    </nav>
+    
 	<div id="layer">
 		<div id="head">
-            <p style="font-size:40px; text-align: center;">SPEC</p>
-            <p style="text-align: center">간단히 가입하고 핸드폰 스펙을<br>편리하게 조회하세요</p>
+            <p style="font-size:40px; text-align: center;">회원정보 수정</p>
         </div>
 		
 		<div id="mid">
             <form action="#">
                 <div id="input1">
                     <table>
-                        <tr><td><input type="email" name="email" class="form-control" placeholder="이메일 주소"></td></tr>
-                        <tr><td><input type="text" name="name" class="form-control" placeholder="닉네임"></td></tr>
-                        <tr><td><input type="password" name="pwd" class="form-control" placeholder="비밀번호"></td></tr>
-                        <tr><td><input type="password" name="pwd2" class="form-control" placeholder="비밀번호 확인"></td></tr>
+                        <tr><td><label>아이디</label><input type="email" name="email" class="form-control" placeholder="이메일 주소"></td></tr>
+                        <tr><td><label>닉네임</label><input type="text" name="name" class="form-control" placeholder="닉네임"></td></tr>
+                        
                         <tr><td><input type="checkbox" name="optionInfo">&nbsp;선택정보 입력하기</td></tr>
                     </table>
                 </div>
@@ -124,16 +190,15 @@
                 </div>
                 <div id="submit">
                     <div class="center">
-                        <button type="submit" class="btn btn-lg btn-block btn-info">JOIN</button>
+                        <!-- <button type="submit" class="btn btn-lg btn-block btn-info">JOIN</button> -->
+                        <button type="button" class="btn btn-secondary btn-lg">취소</button>
+			  			<button type="submit" class="btn btn-info btn-lg">확인</button>
                     </div>
                 </div>
-                <p>
-                    가입하면 SPEC의 약관, 데이터 정책 및<br>
-                    쿠키 정책에 동의하게 됩니다.
-                </p>
             </form>
         </div>
     </div>
+       
         
 </body>
 </html>
