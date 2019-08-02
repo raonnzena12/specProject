@@ -20,6 +20,15 @@ public class MemberService {
 		
 		return loginUser;
 	}
+
+	public int emailCheck(String email) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().checkEmail(conn, email);
+		
+		return result;
+	}
 	
 	
 }

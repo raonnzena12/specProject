@@ -53,6 +53,7 @@
     #optionInfo input {
         margin: 5px 0;
         width: 96%;
+        
     }
     #table1{
         box-sizing: border-box;
@@ -91,7 +92,24 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script>
+	$(function(){
+		
+		var clicks = true;
+		$("input[name=optionInfo]").click(function(){
+			
+			if(clicks){
+				$("#optionInfo input").removeAttr("disabled");
+			}else{
+				$("#optionInfo input").attr("disabled","disabled");
+			}
+			clicks = !clicks;
+		});
+		
+	});
+</script>
 </head>
 <body>
 	<%@ include file ="/views/common/menubar.jsp" %>
@@ -108,22 +126,18 @@
                     <table>
                         <tr>
                         	<td width="275px"><input type="email" name="email" class="form-control" placeholder="이메일 주소"></td>
-                        	<td width="60px"><span class="result" id="emailCheck">충족</span></td>
                         </tr>
                         <tr>
                         	<td><input type="text" name="name" class="form-control" placeholder="닉네임"></td>
-                        	<td width="60px"><span class="result" id="nameCheck">왜안돼</span></td>
                         </tr>
                         <tr>
                         	<td><input type="password" name="pwd" class="form-control" placeholder="비밀번호"></td>
-                        	<td width="60px"><span class="result" id="pwdCheck">왜안돼</span></td>
                         </tr>
                         <tr>
                         	<td><input type="password" name="pwd2" class="form-control" placeholder="비밀번호 확인"></td>
-                        	<td width="60px"><span class="result" id="pwd2Check">왜안돼</span></td>
                         </tr>
                         <tr>
-                        	<td><input type="checkbox" name="optionInfo">&nbsp;선택정보 입력하기</td>
+                        	<td><input type="checkbox" name="optionInfo" >&nbsp;선택정보 입력하기</td>
                         </tr>
                     </table>
                 </div>
@@ -131,15 +145,15 @@
                     <table>
                         <tr>
                             <td><input class="form-control" type="tel" name="phone"
-                                placeholder="핸드폰번호(01012341234)"></td>
+                                placeholder="핸드폰번호(01012341234)" disabled></td>
                             <td><button type="button" class="btn btn-info">문자발송</button></td>
                         </tr>
                         <tr>
-                            <td><input class="form-control" type="text" name="auth" placeholder="인증번호 입력"></td>
+                            <td><input class="form-control" type="text" name="auth" placeholder="인증번호 입력" disabled></td>
                             <td><button type="button" class="btn btn-info">인증확인</button></td>
                         </tr>
                         <tr>
-                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기"></td>
+                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled></td>
                             <td><button type="button" class="btn btn-info">기종찾기</button></td>
                         </tr>
                     </table>
@@ -150,21 +164,49 @@
                     </div>
                 </div>
                 <p>
-                    가입하면 SPEC의 약관, 데이터 정책 및<br>
-                    쿠키 정책에 동의하게 됩니다.
+			                    가입하면 SPEC의 약관, 데이터 정책 및<br>
+			                    쿠키 정책에 동의하게 됩니다.
                 </p>
             </form>
         </div>
     </div>
     
     <script>
+    	
+    
+    	var eCk;
     	$(function(){
     		
-    		$("input[name=userEmail]").on("input", function(){
+    		$("input[name=email]").on("input", function(){
     			var email = $(this).val().trim();
     			
     			var regExp = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{1,5}$/g;
     			
+    			if(regExp.test(email)){
+    				
+    				$.ajax({
+    					url: "<%=request.getContextPath()%>/emailCheck.me",
+    					type: "POST",
+    					data : {email : email},
+    					success : function(check){
+    						console.log(check);
+		    				if(check){
+		    					$(this).css("color", "green");
+		    				} else{
+			    				$(this).css("color","red");
+		    					eCk = true;
+		    				}
+    					},
+    					
+    					error: function(){
+    						console.log("Ajax 통신 실패")
+    					}
+    				});
+    				
+    			} else{
+    				$(this).css("color","red");
+ 
+    			}
     			
     		});
     		

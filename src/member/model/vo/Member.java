@@ -16,7 +16,7 @@ public class Member implements java.io.Serializable { /**
 	private Date enrollDate;
 	private Date modifyDate;
 	private String userEvent;
-	private String userVerify;
+	private int userVerify;
 	private int userStatus;
 	private int userMno;
 	
@@ -35,7 +35,7 @@ public class Member implements java.io.Serializable { /**
 
 
 	public Member(int userNo, String userEmail, String userPwd, String userName, String phone, Date enrollDate,
-			Date modifyDate, String userEvent, String userVerify, int userStatus, int userMno) {
+			Date modifyDate, String userEvent, int userVerify, int userStatus, int userMno) {
 		super();
 		this.userNo = userNo;
 		this.userEmail = userEmail;
@@ -134,12 +134,12 @@ public class Member implements java.io.Serializable { /**
 	}
 
 
-	public String getUserVerify() {
+	public int getUserVerify() {
 		return userVerify;
 	}
 
 
-	public void setUserVerify(String userVerify) {
+	public void setUserVerify(int userVerify) {
 		this.userVerify = userVerify;
 	}
 
