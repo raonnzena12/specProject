@@ -92,8 +92,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script>
 	$(function(){
 		
@@ -174,29 +174,37 @@
     <script>
     	
     
-    	var eCk = false;
+    	var eCk;
     	$(function(){
     		
-    		$("input[name=userEmail]").on("input", function(){
+    		$("input[name=email]").on("input", function(){
     			var email = $(this).val().trim();
     			
     			var regExp = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{1,5}$/g;
     			
     			if(regExp.test(email)){
+    				
     				$.ajax({
-    					url: "<%=request.getContextPath()%>/idCheck.me",
+    					url: "<%=request.getContextPath()%>/emailCheck.me",
     					type: "POST",
     					data : {email : email},
-    					success : function(){
-    						
+    					success : function(check){
+    						console.log(check);
+		    				if(check){
+		    					$(this).css("color", "green");
+		    				} else{
+			    				$(this).css("color","red");
+		    					eCk = true;
+		    				}
     					},
     					
     					error: function(){
-    						
+    						console.log("Ajax 통신 실패")
     					}
     				});
+    				
     			} else{
-    				$(this).css("border","1px solid red");
+    				$(this).css("color","red");
  
     			}
     			
