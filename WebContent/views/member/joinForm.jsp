@@ -11,7 +11,7 @@
     #layer{
         margin: auto;
         margin-top: 5%;
-        width: 300px;
+        width: 350px;
     }
     #layer *{
         box-sizing: border-box;
@@ -74,6 +74,14 @@
     	font-size : 1em !important;
     }
     
+    .result{
+    	margin:auto;
+    	width:100%;
+    	height:100%;
+    	padding: 10px;
+    	text-align:center;
+    }
+    
 </style>
 <title>회원가입</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -95,14 +103,28 @@
         </div>
 		
 		<div id="mid">
-            <form action="#">
+            <form>
                 <div id="input1">
                     <table>
-                        <tr><td><input type="email" name="email" class="form-control" placeholder="이메일 주소"></td></tr>
-                        <tr><td><input type="text" name="name" class="form-control" placeholder="닉네임"></td></tr>
-                        <tr><td><input type="password" name="pwd" class="form-control" placeholder="비밀번호"></td></tr>
-                        <tr><td><input type="password" name="pwd2" class="form-control" placeholder="비밀번호 확인"></td></tr>
-                        <tr><td><input type="checkbox" name="optionInfo">&nbsp;선택정보 입력하기</td></tr>
+                        <tr>
+                        	<td width="275px"><input type="email" name="email" class="form-control" placeholder="이메일 주소"></td>
+                        	<td width="60px"><span class="result" id="emailCheck">충족</span></td>
+                        </tr>
+                        <tr>
+                        	<td><input type="text" name="name" class="form-control" placeholder="닉네임"></td>
+                        	<td width="60px"><span class="result" id="nameCheck">왜안돼</span></td>
+                        </tr>
+                        <tr>
+                        	<td><input type="password" name="pwd" class="form-control" placeholder="비밀번호"></td>
+                        	<td width="60px"><span class="result" id="pwdCheck">왜안돼</span></td>
+                        </tr>
+                        <tr>
+                        	<td><input type="password" name="pwd2" class="form-control" placeholder="비밀번호 확인"></td>
+                        	<td width="60px"><span class="result" id="pwd2Check">왜안돼</span></td>
+                        </tr>
+                        <tr>
+                        	<td><input type="checkbox" name="optionInfo">&nbsp;선택정보 입력하기</td>
+                        </tr>
                     </table>
                 </div>
                 <div id="optionInfo" class="form-group">
@@ -134,6 +156,26 @@
             </form>
         </div>
     </div>
+    
+    <script>
+    	$(function(){
+    		
+    		$("input[name=userEmail]").on("input", function(){
+    			var email = $(this).val().trim();
+    			
+    			var regExp = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{1,5}$/g;
+    			
+    			
+    		});
+    		
+    		$("form").submit(function(){
+    			
+    			
+    			
+    		});
+    		
+    	});
+    </script>
         
 </body>
 </html>

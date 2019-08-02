@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>INDEX</title>
+<title>SPEC</title>
 </head>
 <body>
 	<%@ include file ="/views/common/menubar.jsp" %>

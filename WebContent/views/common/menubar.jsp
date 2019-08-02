@@ -1,21 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%
-	boolean loginUser = true;
+	Member loginUser = (Member)session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>MENUBAR</title>
-<script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<style> 
     * {
         box-sizing: border-box;
         margin: 0px;
@@ -26,54 +25,64 @@
     body {
         font-family: 'Noto Sans KR', sans-serif;
         font-size: 14px !important;
-        min-width: 1200px !important;
+        /* min-width: 1200px !important; */
         width:100%;
         margin: auto;
         height: auto;
     }
     header {
-        height: 80px;
         background-color: #00264B;
-        position: relative;
+        z-index: 2;
     }
-    #logo {
+    #logo{
         width:180px;
-        float: left;
-        line-height: 70px;
         color: #fff;
         font-weight: 900;
-        font-size: 60px;
+        font-size: 40px;
         text-align: center;
+        cursor: pointer;
     }
     #menubarNav {
-        width:600px;
         float: left;
         /* height: 80px; */
     }
-    #blank {
+/*     #blank {
         width: 28%;
         float: left;
-    }
+    } */
     #login {
         width: 7%;
         float: right;
     }
     #login i {
         text-align: center;
-        font-size: 60px;
+        font-size: 40px;
         color: white;
-        line-height: 80px;
         cursor: pointer;
     }
-    #login-menu,#mypageMenu {
+    #login-menu{
         width: 230px;
         height: 270px;
         background-color: white;
         border: 1px solid #ccc;
         float: right;
         position: absolute;
-        top: 70px;
+        top: 50px;
         text-align: center;
+        right: 0px;
+        display: none;
+    }
+    
+    #mypageMenu{
+    	width: 200px;
+        height: 180px;
+        background-color: white;
+        border: 1px solid #ccc;
+        float: right;
+        position: absolute;
+        top: 70px;
+        padding: 10px 20px;
+        text-align: left;
         right: 0px;
         display: none;
     }
@@ -109,64 +118,110 @@
         width: 20%;
         float: left;
         list-style-type: none;
-        line-height: 80px;
         margin: 0 15px;
         text-align: center;
     }
     #menubarNav ul a {
         color : white;
-        font-size: 20px;
+        font-size: 16px;
     }
-    
-    
+    #menubarNav ul a:hover {
+        color : yellowgreen;
+        text-decoration: none;
+    }
+    header ul {
+    	list-style-type: none;
+    }
     #mypageMenu ul>li>a {
     	text-decoration:none;
     	font-size:20px;
     }
-    /* #mypageMenu {
-    	display: none;
-    } */
+    #compareMenu {
+        z-index: 1;
+        width: 100%;
+        height: 650px;
+        background-color: rgba(0,38,75,0.8);
+        text-align: center;
+        display: none; 
+    }
+    #compareMenu * {
+        /* border: 1px solid white; */
+        display: inline-block;
+    }
+    .comWrapper {
+        width: 900px;
+        height: 500px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+    }
+    .comWrapper i, .comStart {
+        cursor: pointer;
+        line-height: 500px;
+        font-size: 100px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    .comDevice1, .comDevice2 {
+        width: 400px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+    }
+    .comDevice1 {
+        left: 0;
+    }
+    .comDevice2 {
+        right: 0;
+    }
+    .comStart {
+        width: 90px;
+        height: 100%;
+    }
 </style>
 <script>
     $(document).ready(function(){
         $("#account").click(function(){
             $("#login-menu").css("display","block");
-            $("#mypageMenu").css("display","block")
+            $("#mypageMenu").css("display","block");
         });
-        
-     
-	   
 		$("#login-menu").mouseenter(function() {
 			$("#login-menu").css("display", "block");
-			$("#mypageMenu").css("display", "block")
+			$("#mypageMenu").css("display" , "block");
 		}).mouseleave(function() {
 			$("#login-menu").css("display", "none");
 			$("#mypageMenu").css("display", "none")
 		});
-
+        $("#compareOpen").click(function(){
+            $(".compareMenu").slideToggle(500);
+        });
 	});
 </script>
 </head>
 <body>
-	<header>
-        <section id="logo">SPEC</section>
-        <nav id="menubarNav">
-            <ul>
-                <li><a href="#">MOBILE</a></li>
-                <li><a href="#">COMPARE</a></li>
-                <li><a href="#">CALENDAR</a></li>
-                <li><a href="#">COMMUNITY</a></li>
+	<header class="navbar sticky-top navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+        <section id="logo" onclick="location.href='<%=request.getContextPath()%>'">SPEC</section>
+        <div id="menubarNav" class="navbar-nav-scroll">
+            <ul class="navbar-nav bd-navbar-nav flex-row" >
+                <li class="nav-item"><a href="#">MOBILE</a></li>
+                <li class="nav-item"><a href="#" id="compareOpen">COMPARE</a></li>
+                <li class="nav-item"><a href="#">CALENDAR</a></li>
+                <li class="nav-item"><a href="#">COMMUNITY</a></li>
             </ul>
-        </nav>
-        <section id="blank"></section>
-        <section id="login">
-            <i class="material-icons" id="account">account_circle</i></section>
-        <% if(!loginUser){ %>
-        <div id="login-menu">
+        </div>
+        <!-- <section id="blank"></section> -->
+        <ul id="login" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+            <% if( loginUser != null && loginUser.getUserStatus() == 0) {%>
+            <li><i class="material-icons">settings</i></li>
+            	<% } %>
+            <li class=" nav-item dropdown">
+            
+            	<i class="material-icons" id="account">account_circle</i>
+            	<% if(loginUser == null){ %>
+        <div id="login-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <form action="<%=request.getContextPath()%>/login.me">
             	<table id="login-table">
 	                <tr>
-	                    <td><input type="text" name="userId" id="user-id" placeholder="이메일 주소" autocomplete="off"></td>
+	                    <td><input type="text" name="userEmail" id="user-email" placeholder="이메일 주소" autocomplete="off"></td>
 	                </tr>
 	                <tr>
 	                    <td><input type="password" name="userPwd" id="user-pwd" placeholder="비밀번호"></td>
@@ -184,17 +239,30 @@
             	</table>
             </form>
         </div>
-        <% } else{%>
-        <div id="mypageMenu">
+        <% } else{ %>
+        <div id="mypageMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account">
         	<ul>
-        		<li><a href="<%=request.getContextPath()%>/mypageInfo.me">회원정보</a></li>
+        		<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp">회원정보</a></li>
         		<li><a href="#">정보수정</a></li>
         		<li><a href="#">내글관리</a></li>
         		<li><a href="#">내리뷰관리</a></li>
         		<li><a href="#">내댓글관리</a></li>
+        		<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
         	</ul>
         </div>
         <% } %>    
+            </li>
+        </ul>
     </header>
+    <div class="compareMenu" id="compareMenu">
+        <form>
+            <div class="comWrapper">
+                <div class="comDevice1"><i class="material-icons">add_circle</i></div>
+                <div class="comStart">VS</div>
+                <div class="comDevice2"><i class="material-icons">add_circle</i></div>
+            </div>
+
+        </form>
+    </div>
 </body>
 </html>
