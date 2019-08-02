@@ -44,7 +44,7 @@ public class MemberDao {
 						rset.getString(2), rset.getString(3),
 						rset.getString(4), rset.getString(5), 
 						rset.getDate(6), rset.getDate(7), 
-						rset.getString(8), rset.getString(9), 
+						rset.getString(8), rset.getInt(9), 
 						rset.getInt(10), rset.getInt(11));
 			}
 			
