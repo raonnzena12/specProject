@@ -40,6 +40,9 @@
         }
         #subwrite{
         	height : 130px;
+        	background-color: #dee2e6;
+        	border-radius: 5px;
+        	border: 1px solid black;
         }
         #listbtn{
         	height:50px;
@@ -110,7 +113,27 @@
        .num > p{
        		margin:5px 0 5px 0;
        }
-       
+       #subdiv{
+       		background-color: #dee2e6;
+       		width: 100%;
+       		height: 20px;
+       }
+       .conth{
+       		text-align: left;
+       }
+       .contd1{
+       		text-align: center;
+       }
+       .contd2{
+       		text-align: right;
+       }
+       .subdanger{
+       		width: auto;
+       		height:30px;
+       		font-weight:bold;
+       		float: right;
+       		
+       }
         
         
 	</style>
@@ -128,9 +151,9 @@
 	   	<table class="table" id="contenttable">
 		  	<thead>
 			    <tr>
-			      <th scope="col">잡담</th>
-			      <th scope="col" colspan="3">제목</th>
-			      <th scope="col">작성일</th>
+			      <th scope="col" class="conth">잡담</th>
+			      <th scope="col" colspan="3" class="contd1">제목</th>
+			      <th scope="col" class="contd2">작성일</th>
 			    </tr>
 		 	</thead>
 		</table>
@@ -152,18 +175,60 @@
    	</section>
 
 	<section id="sub">
-	댓글
+		<article>
+			<div id="subdiv">
+				
+			</div>
+		</article>
+		<table class="table" id="subtable">
+			<tr>
+               <th scope="row">작성자</th>
+               <td>
+               		<pre>댓글댓글</pre>
+               </td>
+               <td>
+               		<button type="button" class="btn btn-link subdanger" style="color: red;">신고</button>
+               </td>
+            </tr>	
+			<tr>
+               <th scope="row">작성자2</th>
+               <td>
+               		<pre>
+               		댓글댓글2
+               		ㅁ
+               		ㅁ
+               		ㅁ
+               		ㅁ	
+               		</pre>
+               </td>
+               <td>
+               	<button type="button" class="btn btn-link subdanger" style="color: red;">신고</button>	
+               </td>
+            </tr>	
+            <tr>
+               <th scope="row">작성자3</th>
+               <td>
+               		<pre>댓글댓글3</pre>
+               </td>
+               <td>
+               	<button type="button" class="btn btn-link subdanger" style="color: red;">신고</button>
+               </td>
+            </tr>
+		</table>
 	</section>   	
-	
+	<br>
+	<br>
 	<section id="subwrite">
-		<textarea rol="3" col="2" id="text"></textarea>
+		<textarea rol="3" col="2" id="text" placeholder="댓글을 입력해주세요."></textarea>
 		<button type="button" class="btn btn-secondary" id="subwritebtn" >댓글<br>등록</button>
 	</section>
-	
+	<br>
+	<br>
 	<section id="listbtn">
 		<button type="button" class="btn btn-secondary" id="listbtnbtn">목록</button>
 	</section>
-	
+	<br>
+	<br>
 	<section id="contentlist">
 		<%@include file="/views/Board/BoardList.jsp" %>
 	</section>
