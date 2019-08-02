@@ -12,7 +12,7 @@
  	body{
             width: 1080px;
             height: auto;
-            margin: auto; 
+            margin: auto;  
         }
   /*  #btn, #page, #list{
         	border: 1px solid black;

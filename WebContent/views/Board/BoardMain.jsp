@@ -89,7 +89,7 @@
             margin : auto;
         }
         #page{
-            padding-left: 450px;
+            padding-left: 450px; 
         } 
         </style>
 </head>

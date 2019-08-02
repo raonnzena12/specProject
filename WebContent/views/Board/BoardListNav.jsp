@@ -14,7 +14,7 @@
 			padding: 0;
 			clear : both; 
 		}
-		#menu > a{
+		#menu > a{ 
             text-decoration: none;
             padding: 40px;
             color: #00264B;
