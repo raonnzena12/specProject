@@ -5,16 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>BoardWrite</title>
-
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <!-- include libraries(jQuery, bootstrap) -->
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+  
         <!-- include summernote css/js -->
         <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+       <!--  <script src="../../dist/lang/summernote-ko-KR.js"></script> -->
+       
         <!-- include summernote-ko-KR -->
-        <script src="lang/summernote-ko-KR.js"></script>
+        
+        <!-- <script
+				  src="https://code.jquery.com/jquery-3.4.1.js"
+				  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+				  crossorigin="anonymous">
+        </script> -->
 
 	<style>
         body{
@@ -30,34 +37,37 @@
         	paddin : 0;
         	clear : both;
         }
-       section{
+     	/* .sec{
            	border: 1px solid black;
-       	}
-            #name{
-                width: 1080px;
-                height: 100px;
-                margin: auto;
-                padding: 0;
-            }
-            #title{
-                width: 1080px;
-                height: 50px;
-                margin: auto;
-                padding: 0;
-            }
-            #content{
-                width:  1080px;
-                height: 600px;
-                margin: auto;
-                padding: 0;  
-            }
-            #btn{
-                width:  1080px;
-                height: 100px;
-                margin: auto;
-                padding: 0;
-            }
+       	} */
+        #nametitle{
+			width: 1080px;
+			height: 100px;
+			margin: auto;
+			padding: 0;
+		}
+		#title{
+			width: 1080px;
+			height: 50px;
+			margin: auto;
+       		padding: 0;
+     	}
+		#content{
+     		width:  1080px;
+     		height: 600px;
+   		 	margin: auto;
+  		  	padding: 0;  
+   		}
+  		#btn{
+       		width:  1080px;
+     		height: 100px;
+      		margin: auto;
+      		padding: 0;
+    	}
             /*---------------------------------------------*/
+            #name{
+            	line-height: 100px;
+            }
             #title-1{
                 width: 810px;
                 height: 50%;
@@ -104,16 +114,25 @@
                 height: 100%;
                 clear: both;
             } */
+           /*  
+            .note-editable{
+            	height: 550px;
+            }
+            
+            
+            .popover-content, .note-popover {
+            	display: none; 
+            } */
 	</style>
 </head>
 <body>
 	<header id="header">
 			<%@include file="/views/common/menubar.jsp"%>
 	</header>
-	<section id="name">
-           <h1>글쓰기</h1>
+	<section id="nametitle" class="sec">
+           <h1 id="name">글쓰기</h1>
     </section>
-    <section id="title"> 
+    <section id="title" class="sec"> 
     	<select name="brand" id="brand">
      		<option value="lg">LG게시판</option>
      		<option value="ss">삼성게시판</option>
@@ -129,18 +148,30 @@
   		<input type="text" name="title-1" id="title-1" placeholder="제목을 입력하세요.">    
   	</section>
 
-  	<section id="content">
-  		<div id="summernote"><p>Hello Summernote</p></div>
+  	<section id="content" class="sec">
+  		<!-- <div id="summernote"><p>Hello Summernote</p></div>
    			<script>
 	              $(document).ready(function() {
-	                  $('#summernote').summernote();
+	                  $('#summernote').summernote({
+	                	  height: 300,                 
+		                  minHeight: null,            
+		                  maxHeight: null,            
+		                  focus: true 
+	                  });
+	              
 	              });
-            </script>
+            </script> -->
+            <%@ include file="/views/Board/WriteAPI.jsp" %>
  	</section>
-	<section id="btn">
+	<section id="btn" class="sec">
 		<button type="button" class="btn btn-secondary btn1" id="preveal">미리보기</button>
 		<button type="submit" class="btn btn-secondary btn1" id="write">글쓰기</button>
 		<button type="reset" class="btn btn-secondary btn1" id="cancel">취소</button>
 	</section>
+	
+	
+	
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+	
 </body>
 </html>
