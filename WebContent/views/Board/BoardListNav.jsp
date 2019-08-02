@@ -12,7 +12,7 @@
 			height: 100px;
 			margin: auto;
 			padding: 0;
-			clear : both;
+			clear : both; 
 		}
 		#menu > a{
             text-decoration: none;

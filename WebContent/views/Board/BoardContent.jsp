@@ -130,10 +130,10 @@
        .subdanger{
        		width: auto;
        		height:30px;
-       		font-weight:bold;
        		float: right;
-       		
+       		font-size: 20px;
        }
+      
         
         
 	</style>
@@ -187,7 +187,7 @@
                		<pre>댓글댓글</pre>
                </td>
                <td>
-               		<button type="button" class="btn btn-link subdanger" style="color: red;">신고</button>
+               		<button type="button" class="btn btn-link subdanger" style="color: red; font-weight:bold;">신고</button>
                </td>
             </tr>	
 			<tr>
@@ -202,7 +202,7 @@
                		</pre>
                </td>
                <td>
-               	<button type="button" class="btn btn-link subdanger" style="color: red;">신고</button>	
+               	<button type="button" class="btn btn-link subdanger" style="color: red; font-weight:bold;">신고</button>	
                </td>
             </tr>	
             <tr>
@@ -211,7 +211,7 @@
                		<pre>댓글댓글3</pre>
                </td>
                <td>
-               	<button type="button" class="btn btn-link subdanger" style="color: red;">신고</button>
+               	<button type="button" class="btn btn-link subdanger" style="color: red; font-weight:bold;">신고</button>
                </td>
             </tr>
 		</table>

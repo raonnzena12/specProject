@@ -14,7 +14,7 @@
         <!-- include summernote css/js -->
         <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
        <!--  <script src="../../dist/lang/summernote-ko-KR.js"></script> -->
-       
+         
         <!-- include summernote-ko-KR -->
         
         <!-- <script

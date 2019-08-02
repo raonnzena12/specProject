@@ -90,7 +90,7 @@
         }
         #page{
             padding-left: 450px;
-        }
+        } 
         </style>
 </head>
 <body>
