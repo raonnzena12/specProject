@@ -193,9 +193,9 @@
 			<tr>
                <th scope="row">작성자2</th>
                <td>
-               		<pre>
+               		<pre> 
                		댓글댓글2
-               		ㅁ
+               		ㅁ 
                		ㅁ
                		ㅁ
                		ㅁ	
