@@ -247,6 +247,7 @@
         		<li><a href="#">내글관리</a></li>
         		<li><a href="#">내리뷰관리</a></li>
         		<li><a href="#">내댓글관리</a></li>
+        		<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
         	</ul>
         </div>
         <% } %>    
