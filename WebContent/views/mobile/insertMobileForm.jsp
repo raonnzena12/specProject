@@ -5,23 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert Mobile</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style>
     .Mobilecontainer {
         width: 1080px;
         margin: 0 auto;
     }
-    body *{
-        /* border: 1px solid salmon; */
-        box-sizing: border-box;
-        margin: 0px;
-        padding: 0px;
-    }
-    div {
+    /* .Mobilecontainer div {
         min-height: 100px;
-    }
+    } */
     .insertMobileTop>div {
         display: inline-block;
         width: 32%;
@@ -39,19 +30,16 @@
     .insertMobileBottom .Btn {
         text-align: center;
     }
-    .Mobilecontainer button {
+    .btn button {
         margin: 0 10px;
         width: 100px;
-    }
-    .nameInsert .form-control {
-        
     }
 </style>
 </head>
 <body>
 	<%@ include file ="../common/menubar.jsp" %>
 	<section class="Mobilecontainer">
-        <form action="" method="POST">
+        <form action="/insertMobile.mo" method="POST">
         <div class="insertMobileTop">
             <div></div>
             <div></div>
@@ -64,7 +52,7 @@
                     <option value="xiaomi">샤오미</option>
                 </select></label>
                 <br><br>
-                <label>모델명<input type="text" name="modelName" id="modelName" class="form-control" placeholder="모델명 입력"></label>
+                <label>모델명<input type="text" name="moName" id="modelName" class="form-control" placeholder="모델명 입력"></label>
             </div>
         </div>
         <div class="insertMobileMid">
@@ -73,15 +61,29 @@
                 <table class="table">
                     <tr>
                         <td>제조사</td>
-                        <td><input type="text" class="form-control"></td>
-                        <td>모델명</td>
-                        <td><input type="text" class="form-control"></td>
+                        <td><input type="text" class="form-control" readonly></td>
+                        <td>모델명(영문)</td>
+                        <td><input type="text" class="form-control" name="moNameEn"></td>
                     </tr>
                     <tr>
                         <td>출시일</td>
-                        <td><input type="text" class="form-control"></td>
+                        <td><input type="text" class="form-control" name="releaseDate" placeholder="2000-01-01"></td>
                         <td>출시OS</td>
-                        <td><input type="text" class="form-control"></td>
+                        <td>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <div role="separator" class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Separated link</a>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                            </div>
+                        </td>
                     </tr>
                 </table>
             </div>
