@@ -83,7 +83,6 @@
     </script>
 </head>
 <body>
-    <%@ include file ="/views/common/menubar.jsp" %>
     <div class="mobileTop">
         <div id="mobileView">
         </div>
