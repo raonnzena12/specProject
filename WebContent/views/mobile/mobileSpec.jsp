@@ -7,6 +7,9 @@
 <title>mobileSpec</title>
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <style>
+	body {
+		width: 100%;
+	}
     .Mobilecontainer {
         width: 1080px;
         margin: 0 60px;
@@ -98,6 +101,7 @@
 </style>
 </head>
 <body>
+	<%@ include file ="/views/common/menubar.jsp" %>
     <%@ include file = "mobileSpecTop.jsp"%>
 	<section class="Mobilecontainer">
         <div id="specSummary">
