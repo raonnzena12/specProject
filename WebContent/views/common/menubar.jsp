@@ -210,9 +210,9 @@
         </div>
         <!-- <section id="blank"></section> -->
         <ul id="login" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-            <% if( loginUser != null && loginUser.getUserStatus() == 0) {%>
+             <% if( loginUser != null && loginUser.getUserStatus() == 0) {%>
             <li><i class="material-icons">settings</i></li>
-            	<% } %>
+            	<% } %> 
             <li class=" nav-item dropdown">
             
             	<i class="material-icons" id="account">account_circle</i>
