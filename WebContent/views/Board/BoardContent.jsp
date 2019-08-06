@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>BoardContent</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	
 	<style>
 		#header{
         	
@@ -15,7 +18,7 @@
         }
         
         #boardcontent{/* 바디 */
-        	height:auto;
+        	/* height:auto; */
         	margin: auto;
         	padding: 0;
         	
@@ -61,7 +64,7 @@
         	height:80px;
         	margin:25px 0 0 30px;
         }
-       #subwritebtn{
+      	#subwritebtn{
        		background-color : white;
        		color: black;
        		font-weight: bold;
@@ -69,8 +72,8 @@
        		height:80px;
        		margin: 24px 20px 20px 20px;
        		float: right;
-       }
-       #listbtnbtn{
+       	}
+       	#listbtnbtn{
        		float:left;
         	margin: 4px;
         	display:block;
@@ -79,22 +82,23 @@
         	font-weight: bold;
         	width: 60px;
         	height:40px;
-       }
-       #contentarea{
+       	}
+       	#contentarea{
        		width: 100%;
        		height: 420px;
        		margin: 0;
        		padding:0;
-       }
-       #contenttable{
+       	}
+       	#contenttable{
        		margin:0;
        		padding:0;
-       }
-      #contenttable tr{
+       		text-align: center;
+      	}
+      	#contenttable tr{
       		text-align: center;
-      }
+      	}
       
-       #deletebtn, #motifybtn{
+      	#deletebtn, #motifybtn{
        		background-color : white;
        		color: black; 
        		font-weight: bold;
@@ -103,36 +107,51 @@
         	display:block;
         	width: 60px;
         	height:40px;
-       }
-       .num{
+       	}
+       	.num{
        		float:right;
        		display:block;
        		/* border: 1px solid black; */
        		width:50px;
-       }
-       .num > p{
+       	}
+       	.num > p{
        		margin:5px 0 5px 0;
-       }
-       #subdiv{
+       	}
+       	#subdiv{
        		background-color: #dee2e6;
        		width: 100%;
        		height: 20px;
-       }
-       .conth{
-       		text-align: left;
-       }
-       .contd1{
-       		text-align: center;
-       }
-       .contd2{
-       		text-align: right;
-       }
-       .subdanger{
+       	}
+       	}
+       	#subdanger, #subupdate, #subdelete{
+       		width: auto;
+       		height:30px;
+       		float: right;
+       		font-size: 10px;
+       	}
+       	/* {
        		width: auto;
        		height:30px;
        		float: right;
        		font-size: 20px;
-       }
+       		display:block;
+       	} */
+       	
+       	#listbtnup{
+       		float:right;
+       		display:block;
+       		margin-top: 13px;
+       		
+      	}
+       	#listbtndown{
+       		float:right;
+       		display:block;
+       		margin-top: 13px;
+       		
+      	}
+      	.updown{
+      		color: black;
+      	}
       
         
         
@@ -151,9 +170,9 @@
 	   	<table class="table" id="contenttable">
 		  	<thead>
 			    <tr>
-			      <th scope="col" class="conth">잡담</th>
-			      <th scope="col" colspan="3" class="contd1">제목</th>
-			      <th scope="col" class="contd2">작성일</th>
+			      <th scope="col" width="10%">잡담</th>
+			      <th scope="col" width="75%">제목</th>
+			      <th scope="col" width="15%">작성일</th>
 			    </tr>
 		 	</thead>
 		</table>
@@ -182,12 +201,14 @@
 		</article>
 		<table class="table" id="subtable">
 			<tr>
-               <th scope="row">작성자</th>
-               <td>
+               <th scope="row" width="10%">작성자</th>
+               <td widht="75%">
                		<pre>댓글댓글</pre>
                </td>
-               <td>
-               		<button type="button" class="btn btn-link subdanger" style="color: red; font-weight:bold;">신고</button>
+               <td width="15%">
+               		<button type="button" class="btn btn-link" id="subdanger" style="color: red; font-weight:bold;">신고</button> <br>
+               		<button type="button" class="btn btn-link " id="subupdate" style="color: black; font-weight:bold;">수정</button>
+               		<button type="button" class="btn btn-link" id="subdelete" style="color: black; font-weight:bold;">삭제</button>
                </td>
             </tr>	
 			<tr>
@@ -225,7 +246,10 @@
 	<br>
 	<br>
 	<section id="listbtn">
-		<button type="button" class="btn btn-secondary" id="listbtnbtn">목록</button>
+		<button type="button" class="btn btn-secondary" id="listbtnbtn" onclick="location.href='<%=request.getContextPath()%>/list.bo'">목록</button>
+		
+		<a href="#boardcontent" class="updown"><i class="material-icons" id="listbtndown">arrow_upward</i></a>
+		<a href="#footer" class="updown"><i class = "material-icons" id="listbtnup">arrow_downward</i></a>
 	</section>
 	<br>
 	<br>
@@ -235,5 +259,6 @@
 	
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   
+  <footer id="footer"></footer>
 </body>
 </html>
