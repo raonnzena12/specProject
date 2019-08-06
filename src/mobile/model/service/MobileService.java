@@ -3,6 +3,7 @@ package mobile.model.service;
 import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import mobile.model.dao.MobileDao;
 import mobile.model.vo.Mobile;
@@ -38,6 +39,28 @@ public class MobileService {
 		Connection conn = getConnection();
 		Mobile device = new MobileDao().selectMobile(conn, mId);
 		return device;
+	}
+
+	/**
+	 * (페이징용) 전체 게시글 수를 조회하는 Service
+	 * @return listCount
+	 */
+	public int getListCount() {
+		Connection conn = getConnection();
+		int listCount = new MobileDao().getListCount(conn);
+		return listCount;
+	}
+
+	/**
+	 * 페이지 리스트를 받아오는 Service
+	 * @param currentPage
+	 * @param limit
+	 * @return list
+	 */
+	public ArrayList<Mobile> selectList(int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<Mobile> list = new MobileDao().selectList(conn, currentPage, limit);
+		return list;
 	}
 	
 	
