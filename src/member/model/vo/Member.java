@@ -15,10 +15,15 @@ public class Member implements java.io.Serializable { /**
 	private String phone;
 	private Date enrollDate;
 	private Date modifyDate;
-	private String userEvent;
+	private char userEvent;
 	private int userVerify;
 	private int userStatus;
 	private int userMno;
+	private String userEmailHash;
+		
+
+
+
 	
 	public Member() {
 		// TODO Auto-generated constructor stub
@@ -32,10 +37,35 @@ public class Member implements java.io.Serializable { /**
 		this.userPwd = userPwd;
 	}
 
+	
+
+	
+	
+	public Member(String userEmail, String userPwd, String userName, char userEvent, String userEmailHash) {
+		super();
+		this.userEmail = userEmail;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userEvent = userEvent;
+		this.userEmailHash = userEmailHash;
+	}
+
+
+	public Member(String userEmail, String userPwd, String userName, String phone, char userEvent, int userMno,
+			String userEmailHash) {
+		super();
+		this.userEmail = userEmail;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.userEvent = userEvent;
+		this.userMno = userMno;
+		this.userEmailHash = userEmailHash;
+	}
 
 
 	public Member(int userNo, String userEmail, String userPwd, String userName, String phone, Date enrollDate,
-			Date modifyDate, String userEvent, int userVerify, int userStatus, int userMno) {
+			Date modifyDate, char userEvent, int userVerify, int userStatus, int userMno) {
 		super();
 		this.userNo = userNo;
 		this.userEmail = userEmail;
@@ -53,6 +83,26 @@ public class Member implements java.io.Serializable { /**
 
 	
 
+
+	public Member(int userNo, String userEmail, String userPwd, String userName, String phone, Date enrollDate,
+			Date modifyDate, char userEvent, int userVerify, int userStatus, int userMno, String userEmailHash) {
+		super();
+		this.userNo = userNo;
+		this.userEmail = userEmail;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.userEvent = userEvent;
+		this.userVerify = userVerify;
+		this.userStatus = userStatus;
+		this.userMno = userMno;
+		this.userEmailHash = userEmailHash;
+	}
+
+	
+	
 
 	public int getUserNo() {
 		return userNo;
@@ -124,12 +174,12 @@ public class Member implements java.io.Serializable { /**
 	}
 
 
-	public String getUserEvent() {
+	public char getUserEvent() {
 		return userEvent;
 	}
 
 
-	public void setUserEvent(String userEvent) {
+	public void setUserEvent(char userEvent) {
 		this.userEvent = userEvent;
 	}
 
@@ -164,13 +214,24 @@ public class Member implements java.io.Serializable { /**
 	}
 
 
+	public String getUserEmailHash() {
+		return userEmailHash;
+	}
+
+
+	public void setUserEmailHash(String userEmailHash) {
+		this.userEmailHash = userEmailHash;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userEmail=" + userEmail + ", userPwd=" + userPwd + ", userName="
 				+ userName + ", phone=" + phone + ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate
-				+ ", userEvent=" + userEvent + ", userStatus=" + userStatus + ", userMno=" + userMno + "]";
+				+ ", userEvent=" + userEvent + ", userVerify=" + userVerify + ", userStatus=" + userStatus
+				+ ", userMno=" + userMno + ", userEmailHash=" + userEmailHash + "]";
 	}
 
-	
+
 	
 }

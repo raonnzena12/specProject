@@ -44,7 +44,7 @@ public class MemberDao {
 						rset.getString(2), rset.getString(3),
 						rset.getString(4), rset.getString(5), 
 						rset.getDate(6), rset.getDate(7), 
-						rset.getString(8), rset.getInt(9), 
+						rset.getString(8).charAt(0), rset.getInt(9), 
 						rset.getInt(10), rset.getInt(11));
 			}
 			
@@ -85,5 +85,49 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+	
+	public int checkName(Connection conn, String name) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("nameCheck");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, name);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertMemebr");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 }
