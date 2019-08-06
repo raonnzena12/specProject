@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, mobile.model.vo.*"%>
+<% 
+	ArrayList<Mobile> list = (ArrayList<Mobile>)request.getAttribute("list");
+	PageInfo pInf = (PageInfo)request.getAttribute("pInf");
+	int randomAd = (int)(Math.random()*list.size());
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,20 +34,42 @@
         padding: 20px;
     }
     #mobileList .listArea {
-        display: flex;
+        display: inline-flex;
         width: 100%;
         flex-wrap: wrap;
-        /* grid-template-columns: 100px 100px 100px 100px;
-        grid-template-rows: 100px 100px 100px; */
+        justify-content: space-around;
+        align-content: space-around;
     }
-    #mobileList .listArea div {
-        display: inline-block;
-        border: 1px solid salmon;
-        background-color: aquamarine;
+    #mobileList .listArea>div {
         margin: 10px;
         min-width: 300px;
-        min-height: 300px;
+        height: 300px;
         flex: 1;
+        flex-basis: 20%;
+        padding: 10px;
+    }
+    #mobileList .deviceCon {
+        width: 300px;
+        height: 100%;
+        margin: 30px auto;
+        display: grid;
+        grid-template-columns: 52% 48%;
+        grid-template-rows: 50% 50%;
+    }
+    #mobileList .item1 {
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+    #mobileList .item1 img {
+        height: 100%;
+    }
+    #mobileList .item3 {
+        padding-left: 10px;
+        float: left;
+        text-align: left;
+        font-weight: bolder;
+        font-size: 35px;
+        line-height: 35px;
     }
 </style>
 <script>
@@ -88,20 +115,35 @@
                 <p>당신에게 딱 맞는, 당신을 위한 핸드폰</p>
             </div>
             <div class="listArea">
-                <div>1</div>
-                <div>2</div>
-                <div>3</div>
-                <div>4</div>
-                <div>5</div>
-                <div>6</div>
-                <div>7</div>
-                <div>8</div>
-                <div>9</div>
-                <div>10</div>
-                <div>11</div>
-                <div>12</div>
+            <% if ( list.isEmpty() ) { %>
+                <p> 등록된 기기가 없습니다. </p>
+            <% } else { 
+                for ( int i = 0 ; i < list.size() ; i++ ) {
+                	if ( i == randomAd ) { %>
+                <div>
+                	<div class="deviceCon">AD</div>
+                </div>
+            <% randomAd = 0; i--; } else { %>
+                <div>
+                    <div class="deviceCon">
+                        <div class="item1">
+                            <img src="<%=request.getContextPath()%>/image/testImgV50.png">
+                        </div>
+                        <div class="item2"></div>
+                        <div class="item3"><%= list.get(i).getmNameEn() %></div>
+                    </div>
+                </div>
+            <% } } } %>
             </div>
         </section>
     </section>
+    <script>
+        function listLoading() {
+
+            $.ajax({
+                url:
+            });
+        }
+    </script>
 </body>
 </html>
