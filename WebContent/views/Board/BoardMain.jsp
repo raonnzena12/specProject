@@ -9,16 +9,16 @@
 
         <style>
        body{
-           	width: 1080px;
-         	height: 1000px;
+           /* 	width: 100%; */
+         	height: auto;
            	margin: auto;
           	padding: 0;
        	}
        	#header{
         	width: 100%;
-        	height : 80px;
+        	/* height : 80px; */
         	margin : 0;
-        	paddin : 0;
+        	padding : 0;
         	clear : both;
         }
        /*  body{
@@ -31,13 +31,6 @@
             margin: 0;
             padding: 0;
             width: 1080px;
-        } */
-      #header{
-        	width: 100%;
-        	height : 80px;
-        	margin : 0;
-        	paddin : 0;
-        	clear : both;
         } */
         #bnav{
             width: 1080px;
@@ -52,13 +45,13 @@
             margin: auto;
             padding: 0;
         }
-        #list{
+        #blist{
             width: 1080px;
             height: 500px;
             margin: auto;
             padding: 0;
         }
-        #btn{
+       /*  #btn{
             width: 1080px;
             height: 100px;
             margin: auto;
@@ -70,7 +63,7 @@
             height: 100px;
             margin: auto;
             padding: 0;
-        }
+        } */
         /* -----틀잡기----- */
        
        
@@ -82,28 +75,28 @@
             background-color: gray;
             color : white;
         }
-        #menu{
+       /*  #menu{
             width: 1080px;
             height: 100px;
             padding-top: 15px;
             margin : auto;
         }
         #page{
-            padding-left: 450px;
-        } 
+            padding-left: 450px; 
+        }  */
         </style>
 </head>
 <body>
 	<header id="header">
 			<%@include file="/views/common/menubar.jsp"%>
 	</header>
-	<nav id="bnav">
+	<nav id="bnav"> 
 		<%@include file="/views/Board/BoardListNav.jsp"%>
 	</nav>
     <section id="ad">
      <article id="ad-2">광고</article>
    	</section>
-   	<section id="list">
+   	<section id="blist">
    		<%@include file="/views/Board/BoardList.jsp" %>
    	</section>
     
