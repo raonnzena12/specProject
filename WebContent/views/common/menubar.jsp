@@ -23,7 +23,7 @@
         user-select: none;
     }
     body {
-        font-family: 'Noto Sans KR', sans-serif;
+        /* font-family: 'Noto Sans KR', sans-serif; */
         font-size: 14px !important;
         /* min-width: 1200px !important; */
         width:100%;
@@ -203,7 +203,7 @@
         <section id="logo" onclick="location.href='<%=request.getContextPath()%>'">SPEC</section>
         <div id="menubarNav" class="navbar-nav-scroll">
             <ul class="navbar-nav bd-navbar-nav flex-row" >
-                <li class="nav-item"><a href="#">MOBILE</a></li>
+                <li class="nav-item"><a href="<%=request.getContextPath()%>/devicelist.mo">MOBILE</a></li>
                 <li class="nav-item"><a href="#" id="compareOpen">COMPARE</a></li>
                 <li class="nav-item"><a href="#">CALENDAR</a></li>
                 <li class="nav-item"><a href="#">COMMUNITY</a></li>
