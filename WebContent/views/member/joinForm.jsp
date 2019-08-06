@@ -121,20 +121,20 @@
         </div>
 		
 		<div id="mid">
-            <form>
+            <form id="joinForm" action="<%=request.getContextPath()%>/insert.me" method="POST">
                 <div id="input1">
                     <table>
                         <tr>
-                        	<td width="275px"><input type="email" name="email" class="form-control" placeholder="이메일 주소"></td>
+                        	<td width="275px"><input type="text" name="userEmail" class="form-control" placeholder="이메일 주소" required></td>
                         </tr>
                         <tr>
-                        	<td><input type="text" name="name" class="form-control" placeholder="닉네임"></td>
+                        	<td><input type="text" name="userName" class="form-control" placeholder="닉네임" required></td>
                         </tr>
                         <tr>
-                        	<td><input type="password" name="pwd" class="form-control" placeholder="비밀번호"></td>
+                        	<td><input type="password" name="pwd" class="form-control" placeholder="비밀번호" required autocomplete=off></td>
                         </tr>
                         <tr>
-                        	<td><input type="password" name="pwd2" class="form-control" placeholder="비밀번호 확인"></td>
+                        	<td><input type="password" name="pwd2" class="form-control" placeholder="비밀번호 확인" required></td>
                         </tr>
                         <tr>
                         	<td><input type="checkbox" name="optionInfo" >&nbsp;선택정보 입력하기</td>
@@ -144,13 +144,8 @@
                 <div id="optionInfo" class="form-group">
                     <table>
                         <tr>
-                            <td><input class="form-control" type="tel" name="phone"
+                            <td colspan="2"><input class="form-control" type="tel" name="phone"
                                 placeholder="핸드폰번호(01012341234)" disabled></td>
-                            <td><button type="button" class="btn btn-info">문자발송</button></td>
-                        </tr>
-                        <tr>
-                            <td><input class="form-control" type="text" name="auth" placeholder="인증번호 입력" disabled></td>
-                            <td><button type="button" class="btn btn-info">인증확인</button></td>
                         </tr>
                         <tr>
                             <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled></td>
@@ -175,26 +170,69 @@
     	
     
     	var eCk;
+    	var nCk;
+    	var pCk;
+    	var pCk2;
+    	var oCk;
     	$(function(){
     		
-    		$("input[name=email]").on("input", function(){
-    			var email = $(this).val().trim();
+    		$("#joinForm input[name=userEmail]").on("input", function(){
+    			var userEmail = $(this).val().trim();
     			
     			var regExp = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{1,5}$/g;
     			
-    			if(regExp.test(email)){
+    			console.log(userEmail);
+    			if(regExp.test(userEmail)){
     				
     				$.ajax({
     					url: "<%=request.getContextPath()%>/emailCheck.me",
     					type: "POST",
-    					data : {email : email},
-    					success : function(check){
-    						console.log(check);
-		    				if(check){
-		    					$(this).css("color", "green");
+    					data : {email : userEmail},
+    					success : function(result){
+		    				if(result > 0){
+    							console.log(result);
+		    					$("#joinForm input[name=userEmail]").css("color", "red");
+		    					eCk = false;
 		    				} else{
-			    				$(this).css("color","red");
-		    					eCk = true;
+    							console.log(result);
+			    				$("#joinForm input[name=userEmail]").css("color","green");
+			    				eCk = true;
+		    				}
+    					},
+    					
+    					error: function(){
+    						console.log("Ajax 통신 실패")
+    					}
+    				});
+    				
+    			} else {
+    				console.log("이메일 형식 충족 실패")
+    				$("#joinForm input[name=userEmail]").css("color","red");
+ 					eCk = false;
+    			}
+    			
+    		});
+    		
+    		$("#joinForm input[name=userName]").on("input", function(){
+    			var userName = $("#joinForm input[name=userName]").val().trim();
+    			
+    			var regExp = /^[a-z][a-zA-Z0-9]{4,}$/;
+    			console.log(userName);
+    			if(regExp.test(userName)){
+    				
+    				$.ajax({
+    					url: "<%=request.getContextPath()%>/nameCheck.me",
+    					type: "POST",
+    					data : {name : userName},
+    					success : function(result){
+		    				if(result > 0){
+    							console.log(result);
+			    				$("#joinForm input[name=userName]").css("color","red");
+			    				nCk = false;
+		    				} else{
+		    					console.log(result);
+		    					$("#joinForm input[name=userName]").css("color", "green");
+		    					nCk = true;
 		    				}
     					},
     					
@@ -204,16 +242,55 @@
     				});
     				
     			} else{
-    				$(this).css("color","red");
- 
+    				console.log("이름 형식 충족 실패")
+    				$("#joinForm input[name=userName]").css("color","red");
+ 					nCk = false;
     			}
     			
     		});
     		
-    		$("form").submit(function(){
+    		$("#joinForm input[name=pwd]").keyup(function(){
+    			var pwd = $("#joinForm input[name=pwd]").val().trim();
     			
+    			var regExp = /^[a-zA-Z0-9]{6,12}$/;
     			
+    			if(regExp.test(pwd)){
+		    		pCk = true;
+		    			
+    			} else{
+    				console.log("비밀번호 형식 충족 실패")
+ 					pCk = false;
+    			}
     			
+    		});
+    		
+    		$("#joinForm input[name=pwd],input[name=pwd2]").keyup(function(){
+				var pwd = $("input[name=pwd]").val().trim();
+				var pwd2 = $("input[name=pwd2]").val().trim();
+			
+				if(pwd == pwd2){
+					console.log("비밀번호 일치");
+					pCk2=true;
+				} else{
+					console.log("비밀번호 불일치");
+					pCk2=false;
+				}
+			});
+    		
+    		
+    		
+    		$("#joinForm").submit(function(){
+    			console.log("phone:" + $("#joinForm input[name=phone]").val())
+    			if($("#joinForm input[name=optionInfo]").is(":checked")){
+    				if($("#joinForm input[name=phone]").val().trim() == "" || $("#joinForm input[name=device]").val().trim()){
+    					oCk = false;
+    				}
+    			}
+    			if(!eCk){alert("사용 가능한 이메일을 입력해주세요."); return false;}
+    			if(!nCk){alert("이름 형식을 확인해주세요."); return false;}
+    			if(!pCk){alert("비밀번호 형식을 확인해주세요. 영어 대소문자 포함 6자리 이상 12자리 미만입니다."); return false;}
+    			if(!pCk2){alert("비밀번호가 일치하지 않습니다."); return false;}
+    			if(!oCk){alert("휴대폰 번호 및 기종 정보를 입력해주세요"); return false;}
     		});
     		
     	});

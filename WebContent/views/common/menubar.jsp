@@ -234,7 +234,7 @@
 	                    <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="#" class="gray">비밀번호</a> 찾기</td>
 	                </tr>
 	                <tr>
-	                    <td><br>회원이 아니신가요?<br> <a href="/views/member/joinForm.jsp"><p class="emp blue">가입하기</p></a>
+	                    <td><br>회원이 아니신가요?<br> <a href="views/member/joinForm.jsp"><p class="emp blue">가입하기</p></a>
 	                    </td> 
 	                </tr>
             	</table>
