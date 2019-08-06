@@ -15,7 +15,7 @@ public class Mobile {
 	private String mSize;
 	private String mWeight;
 	private String mLink;
-	private String mInch;
+	private double mInch;
 	private String mResolution;
 	private String mPixel;
 	private String mDisplayType;
@@ -59,7 +59,7 @@ public class Mobile {
 
 	public Mobile(int mNo, String mCode, String mName, String mNameEn, String mBrandName, Date mReleaseDate,
 			String mOsName, String mOsVersion, String mMaterial, String mSize, String mWeight, String mLink,
-			String mInch, String mResolution, String mPixel, String mDisplayType, String mDisWidth, String mDisHeight,
+			double mInch, String mResolution, String mPixel, String mDisplayType, String mDisWidth, String mDisHeight,
 			String mAp, String mCpu, String mCpuCore, String mCpuClock, String mGpu, String mRam, String mInnerMemory,
 			String mOuterMemory, String mSensor, String mIris, String mFlash, String mPicResolution,
 			String mVidResolution, String mVidFrame, String mFrontResolution, String mFrontVidResolution,
@@ -216,11 +216,11 @@ public class Mobile {
 		this.mLink = mLink;
 	}
 
-	public String getmInch() {
+	public double getmInch() {
 		return mInch;
 	}
 
-	public void setmInch(String mInch) {
+	public void setmInch(double mInch) {
 		this.mInch = mInch;
 	}
 

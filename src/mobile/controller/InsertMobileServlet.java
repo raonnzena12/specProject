@@ -53,7 +53,7 @@ public class InsertMobileServlet extends HttpServlet {
 			}
 			String os = request.getParameter("osCode");
 			int osCode = 0;
-			if ( os != null ) osCode = Integer.parseInt(os); 
+			if ( os != null && !os.equals("") ) osCode = Integer.parseInt(os); 
 			String osVersion = request.getParameter("osVersion");
 			String material = request.getParameter("material");
 			String size = request.getParameter("size");
@@ -61,7 +61,7 @@ public class InsertMobileServlet extends HttpServlet {
 			String link = request.getParameter("link");
 			String inc = request.getParameter("inch");
 			double inch = 0;
-			if ( inc != null ) inch = Double.parseDouble(inc);
+			if ( inc != null && !inc.equals("") ) inch = Double.parseDouble(inc);
 			String resolution = request.getParameter("resolution");
 			String pixelInch = request.getParameter("pixelInch");
 			String displayType = request.getParameter("displayType");
@@ -87,7 +87,7 @@ public class InsertMobileServlet extends HttpServlet {
 			String camera = request.getParameter("camera");
 			String bat = request.getParameter("battery");
 			int battery = 0;
-			if ( bat != null ) battery = Integer.parseInt(bat);
+			if ( bat != null && !bat.equals("") ) battery = Integer.parseInt(bat);
 			String batteryType = request.getParameter("batteryType");
 			String fastCharging = request.getParameter("fastCharging");
 			String removableBattery = request.getParameter("removableBattery");
