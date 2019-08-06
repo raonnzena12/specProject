@@ -17,7 +17,7 @@ import mobile.model.vo.MobileInsert2;
 
 public class JsoupTest {
 	public static void main(String[] args) {
-		 String url = "https://review.cetizen.com/6982/view/3/6982/review"; //크롤링할 url지정
+		 String url = "https://review.cetizen.com/7151/view/3/7151/review"; //크롤링할 url지정
 		 Document doc = null;        //Document에는 페이지의 전체 소스가 저장된다
 		 try {
 	            doc = Jsoup.connect(url).get();
@@ -67,6 +67,7 @@ public class JsoupTest {
 		 // MobileInser2 객체 생성
 		 // String date형으로 변환
 		 String date = element4.text().trim().substring(6);
+		 if (date.length()==7) date = date + "/01";
 		 date = date.replaceAll("/", "-");
 		 Date releaseDate;
 		 try {

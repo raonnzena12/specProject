@@ -32,6 +32,7 @@
     }
     header {
         background-color: #00264B;
+        width: 100%;
         z-index: 2;
     }
     #logo{

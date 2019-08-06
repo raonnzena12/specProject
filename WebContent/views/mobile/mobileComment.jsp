@@ -7,10 +7,6 @@
 <html>
 <head>
 <style>
-    body {
-        width: 900px;
-        margin: 0 auto;
-    }
     .comment>.borderLine, .comment .commWriteA {
         border: 1px solid #aaa;
         border-radius: 4px;
