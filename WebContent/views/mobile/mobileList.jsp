@@ -12,25 +12,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Smartphone</title>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-	<!-- bin/jquery.slider.min.css -->
-	<link rel="stylesheet" href="css/jslider/jslider.css" type="text/css">
-    <link rel="stylesheet" href="css/jslider/jslider.plastic.css" type="text/css">
-    <link rel="stylesheet" href="css/jslider/jquery.slider.min.css" type="text/css">
-    	<script type="text/javascript" src="js/jslider/jquery-1.7.1.js"></script>
-    	<!-- bin/jquery.slider.min.js -->
-	<script type="text/javascript" src="js/jslider/jshashtable-2.1_src.js"></script>
-	<script type="text/javascript" src="js/jslider/jquery.numberformatter-1.2.3.js"></script>
-	<script type="text/javascript" src="js/jslider/tmpl.js"></script>
-	<script type="text/javascript" src="js/jslider/jquery.dependClass-0.1.js"></script>
-	<script type="text/javascript" src="js/jslider/draggable-0.1.js"></script>
-	<script type="text/javascript" src="js/jslider/jquery.slider.js"></script>
-	<script type="text/javascript" src="js/jslider/jquery.slider.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
 <style>
     #mobileList ul {
         list-style-type: none;
     }
-    #mobileList .sidenav div {
+    #mobileList .sidenav>ul>div {
         display: none;
     }
     #mobileList .sidenav {
@@ -92,12 +82,19 @@
     .brandName input:checked +label{
         font-weight: 900;
     }
+    #amount {
+  		border: 0px;
+  		font-weight: bold;
+  		background-color: #eee;
+  	}
 </style>
 <script>
     $(function() {
+        // 사이드바 필터메뉴 수납
         $(".sideOpen").click(function(){
             $(this).next().slideToggle();
         });
+        // 사이드바 브랜드 체크값 받기
         $("input:checkbox").change(function(){
             var brand="";
             $("input:checkbox[name=brand]").each(function(){
@@ -105,9 +102,35 @@
                     brand += ","+($(this).val());
                 }
             });
-            console.log(data);
+            console.log(brand);
         });
+        // 사이드바 배터리 슬라이더 설정
+        $( "#slider-range" ).slider({
+        range: true,
+        min: 1000,
+        max: 5000,
+        values: [ 1500, 4000 ],
+        step: 100,
+        slide: function( event, ui ) {
+            $( "#amount" ).val( ui.values[ 0 ] + " mAh - " + ui.values[ 1 ] + " mAh");
+            // console.log(ui.values[0]);
+            // console.log(ui.values[1]);
+            // 슬라이더 변화값 확인
+        },
+        stop: function(event, ui){
+            console.log(ui.values[0]);
+            console.log(ui.values[1]);
+        }
+        });
+        $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+        " mAh - " + $( "#slider-range" ).slider( "values", 1 ) + " mAh" );
     });
+    function testtest() {
+        var int1 = $("#slider-range").slider("values",0);
+        var int2 = $("#slider-range").slider("values",1);
+        console.log(int1);
+        console.log(int2);
+    }
 </script>
 </head>
 <body>
@@ -147,19 +170,13 @@
                 <li class="sideOpen">
                     Battery
                 </li>
-                <div class="layout-slider">
-                    <span style="display: inline-block; width: 400px; padding: 0 5px;"><input id="Slider2" type="slider" name="price" value="-0.5;0.5" /></span>
+                <div>
+                	<p>
+					  <label for="amount">Price range:</label>
+					  <input type="text" id="amount" readonly style="border:0; font-weight:bold;">
+					</p>
+					<div id="slider-range"></div>
                 </div>
-                <script type="text/javascript" charset="utf-8">
-                    $("#Slider2").slider({
-                      from: -1, 
-                      to: 1, 
-                      step: 0.1,
-                      round: 1, 
-                      dimension: 'px',
-                      skin: 'plastic'
-                    });
-                  </script>
             </ul>
         </div>
         <!-- Page content -->
