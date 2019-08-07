@@ -139,9 +139,37 @@
     </section>
     <script>
         function listLoading() {
-
+        	var currentPage = <%=pInf.getCurrentPage()%> + 1;
+        	var maxPage = <%=pInf.getMaxPage()%>;
+        	
+        	if ( currentPage > maxPage ) {
+        		currentPage = maxPage;
+        		return false;
+        	}
+        	
             $.ajax({
-                url:
+                url: "/listUpdate.mo",
+                type: "POST",
+                data: { currentPage: currentPage },
+                dataType: "json",
+                success: function(dList){
+                	var $listArea = $("#listArea");
+                	$.each(dList, function(i){
+                		var $div = $("<div>");
+                		var $deviceCon = $("<div>").addClass("deviceCon");
+                		var $item1 = $("<div>").addClass("item1");
+                		var $img = $("<img>").addAttr("src","<%=request.getContextPath()%>/image/testImgV50.png");
+                		$item1.append($img);
+                		var $item2 = $("<div>").addClass("item2");
+                		var $item3 = $("<div>").addClass("item3").text(dList[i].getNameEn());
+                		$deviceCon.append($item1, $item2, $item3);
+                		$div.append($deviceCon);
+                		$listArea.append($div);
+                	});
+                },
+                error: function(e){
+                	console.log(e);
+                }
             });
         }
     </script>
