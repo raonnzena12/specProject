@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import mobile.model.dao.MobileDao;
+import mobile.model.util.CreateQuery;
 import mobile.model.vo.Mobile;
 import mobile.model.vo.MobileInsert1;
 import mobile.model.vo.MobileInsert2;
@@ -61,6 +62,27 @@ public class MobileService {
 		Connection conn = getConnection();
 		ArrayList<Mobile> list = new MobileDao().selectList(conn, currentPage, limit);
 		return list;
+	}
+
+	/**
+	 * 검색 필터 결과리스트를 받아오는 Service
+	 * @param currentPage
+	 * @param limit
+	 * @param bArr
+	 * @return list
+	 */
+	public ArrayList<Mobile> filterList(int currentPage, int limit, String[] bArr) {
+		Connection conn = getConnection();
+		
+		String query = "";
+		// 쿼리문 조합
+		// 브랜드 쿼리문 조합
+		if ( bArr != null ) {
+			query = new CreateQuery().createBrandq(bArr);
+		}
+		
+		ArrayList<Mobile> fList = new MobileDao().filterList(conn, currentPage, limit, query);
+		return fList;
 	}
 	
 	

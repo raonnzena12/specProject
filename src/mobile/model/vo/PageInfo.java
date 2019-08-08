@@ -25,11 +25,11 @@ public class PageInfo {
 		this.endPage = endPage;
 	}
 
-	public int getBoardCount() {
+	public int getListCount() {
 		return listCount;
 	}
 
-	public void setBoardCount(int listCount) {
+	public void setListCount(int listCount) {
 		this.listCount = listCount;
 	}
 
