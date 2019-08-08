@@ -71,14 +71,18 @@ public class MobileService {
 	 * @param bArr
 	 * @return list
 	 */
-	public ArrayList<Mobile> filterList(int currentPage, int limit, String[] bArr) {
+	public ArrayList<Mobile> filterList(int currentPage, int limit, ArrayList<String[]> queryList) {
 		Connection conn = getConnection();
-		
+		CreateQuery cq = new CreateQuery();
 		String query = "";
 		// 쿼리문 조합
-		// 브랜드 쿼리문 조합
-		if ( bArr != null ) {
-			query = new CreateQuery().createBrandq(bArr);
+		if ( !queryList.isEmpty() ) {
+			for ( String[] strArr : queryList ) {
+				switch ( strArr[0] ) {
+				case "brand" : query += cq.createBrandq(strArr); break;
+				case "battery" : query += cq.createBatteryq(strArr); break;
+				}
+			}
 		}
 		
 		ArrayList<Mobile> fList = new MobileDao().filterList(conn, currentPage, limit, query);

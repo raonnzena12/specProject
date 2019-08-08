@@ -102,7 +102,7 @@
             alert("Browser does not support HTML5.");
         }
     }
-    // 주소창 변경용 함수
+    // 주소창 쿼리스트링 조립용 함수
     function assembleUrl(urlName, urlString) {
         var url = document.location.href;
         var checkUrl = url.split("?");
@@ -111,39 +111,67 @@
             return;
         } 
         var checkVals = checkUrl[1].split(",");
-        if ( checkVals.length == 1 ) {
-            if ( checkVals[0].includes(urlName) ) {
+        if ( checkVals.length == 1 ) { // 하나만 추가가 되어있는 상황
+            if ( checkVals[0].includes(urlName) ) { // 추가되어있는 값이 이미 있는 값과 같은 카테고리 일때
                 ChangeUrl(urlName, '?' + urlString)
-            } else {
+            } else { // 추가되어있는 값이 다른 카테고리일때
                 ChangeUrl(urlName, '?' + checkVals[0] + ',' + urlString);
             }
-        } else {
+        } else { // 여러개가 추가 되어있는 상황
             for ( var i = 0 ; i < checkVals.length ; i++ ) {
                 if ( checkVals[i].includes(urlName) ) {
                     checkVals[i] = urlString
-                }
+                } // 해당 카테고리의 값만 입력된 스트링으로 대체 한 뒤
             }
-            var newUrl = checkVals.join(",");
+            var newUrl = checkVals.join(","); // 해당 배열을 문자열로 만들어 주소값으로 대체한다
             ChangeUrl(urlName, '?' + newUrl);
         }
     }
+    // 주소창 쿼리스트링 삭제용 함수
     function deleteUrl(urlString) {
         var url = document.location.href;
         var checkUrl = url.split("?");
-        if ( checkUrl.length == 1 ) {
+        if ( checkUrl.length == 1 ) { // (그럴일은 없겠지만) 쿼리스트링이 없을경우 리턴
             return false;
         } 
         var checkVals = checkUrl[1].split(",");
         var newUrl = "";
-        if ( checkVals.length == 1 ) {
+        if ( checkVals.length == 1 ) { // 추가된 값이 하나였을 경우 주소값을 디폴트로 되돌린다
             ChangeUrl("origin", "./devicelist.mo");
-        } else {
-            var newArr = checkVals.filter(function(e){
+        } else { // 추가된 값이 여러개였을 경우
+            var newArr = checkVals.filter(function(e){ // 필터로 해당 값만 걸러내고 만든 새 배열을
                 return !e.includes(urlString);
             })
-            newUrl = newArr.join(",");
+            newUrl = newArr.join(","); // 조인하여 스트링으로 주소창에 붙인다
             ChangeUrl("ch", '?'+newUrl);
         }
+    }
+    // ajax 호출 -> 리스트 업데이트용! 
+    function filtering(){
+
+        var address = document.location.href.split("?");
+        if ( address.length != 1 ) {
+
+            currentPage = 1;
+            console.log(address[1]);
+            // $.ajax({
+            //     url: "devicelist.mo",
+            //     type: "GET",
+            //     data: { qString: address[1],
+            //             currentPage: currentPage},
+            //     dataType: "json",
+            //     error: function(e) {
+            //         console.log(e);
+            //     },
+            //     success: function(dList){
+            //         console.log("I'm start");   
+            //         $("#listArea").html("");
+            //         printList(dList);
+            //     }
+            // });
+        }
+
+
     }
     $(function() {
         // 사이드바 필터메뉴 수납
@@ -160,8 +188,8 @@
             });
             var text = document.location.href;
             if ( brand.split(":").length != 1) {
-            // ChangeUrl('brand', '?' + brand);
             assembleUrl('brand', brand);
+            filtering();
             currentPage = 1;
             $.ajax({
                 url: "devicelist.mo",
@@ -205,7 +233,7 @@
         range: true,
         min: 1000,
         max: 5000,
-        values: [ 1500, 4000 ],
+        values: [ 1000, 5000 ],
         step: 100,
         slide: function( event, ui ) {
             $( "#amount" ).val( ui.values[ 0 ] + " mAh - " + ui.values[ 1 ] + " mAh");
@@ -216,22 +244,14 @@
         stop: function(event, ui){
             console.log(ui.values[0]);
             console.log(ui.values[1]);
-            var slider="slider:"+ui.values[0]+":"+ui.values[1];
-            assembleUrl('slider',slider);
+            if ( ui.values[0] == 1000 && ui.values[1]== 5000 ) {
+                deleteUrl('battery')
+            } else {
+                var slider="battery:"+ui.values[0]+":"+ui.values[1];
+                assembleUrl('battery',slider);
+                filtering();
+            }
 
-            // $.ajax({
-            //     url: "listUpdate.mo",
-            //     type: "GET",
-            //     data: { minB: brand },
-            //     dataType: "json",
-            //     success: function(dList) {
-            //         $("#listArea").html("");
-            //         printList(dList);
-            //     },
-            //     error: function(e){
-            //         console.log(e);
-            //     }
-            // });
         }
         });
         $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
