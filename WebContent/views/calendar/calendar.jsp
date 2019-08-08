@@ -17,7 +17,53 @@
 <title>Calendar</title>
 <script>
 
-	$(document).ready(function() {
+	$(document).ready(function(){
+		
+		loadCalendar();
+
+		$("#calendar").fullCalendar({
+			// put your options and callbacks here
+			/*
+			selectable: true,
+      		eventLimit: true, // allow "more" link when too many events
+      		dayClick: function() {
+      		},
+      		*/
+      		/*
+      		eventClick: function(event) {
+      			
+      	    	if(confirm('삭제하시겠습니까?')) {
+      	    		$("#calendar").fullCalendar('removeEvents', function(eventObject) {
+      	    			return false;
+      	    		});
+      	    	}
+      	    	return false;
+      			
+      	    }
+      		*/
+      		/*
+       		select: function(start, end) {
+       			
+      	        var title = prompt('제목 입력 :');
+      	        var url = prompt('주소 입력 : ');
+      	        var eventData;
+      	        if (title) {
+      	          eventData = {
+      	            title: title,
+      	            url: url,
+      	            start: start,
+      	            end: end
+      	          };
+      	          $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+      	        }
+      	     	
+      	        $('#calendar').fullCalendar('unselect');
+      	    }
+      	    */
+    	});
+	});
+	
+	function loadCalendar() {
 		var calendarEl = document.getElementById('calendar');
 		$.ajax({
 			url :"../../loadCalendar.do",
@@ -58,50 +104,10 @@
 				});
 			},
 			error : function() {
-				console.log("통신 실패");
+				alert("일정을 불러오지 못했습니다.")
 			}
 		});
-		
-		
-		$("#calendar").fullCalendar({
-			// put your options and callbacks here
-			/*
-			selectable: true,
-      		eventLimit: true, // allow "more" link when too many events
-      		dayClick: function() {
-      		},
-      		*/
-      		eventClick: function(event) {
-      			
-      	    	if(confirm('삭제하시겠습니까?')) {
-      	    		$("#calendar").fullCalendar('removeEvents', function(eventObject) {
-      	    			return false;
-      	    		});
-      	    	}
-      	    	return false;
-      			
-      	    }
-      	    /*
-       		select: function(start, end) {
-       			
-      	        var title = prompt('제목 입력 :');
-      	        var url = prompt('주소 입력 : ');
-      	        var eventData;
-      	        if (title) {
-      	          eventData = {
-      	            title: title,
-      	            url: url,
-      	            start: start,
-      	            end: end
-      	          };
-      	          $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-      	        }
-      	     	
-      	        $('#calendar').fullCalendar('unselect');
-      	    }
-      	    */
-      	});
-	});
+	}
 	
 	function closeBtn(){
 		$(".registerModal").css("display", "none");
@@ -140,7 +146,7 @@
 			success : function(check) {
 				if(check > 0) {
 					alert("일정이 성공적으로 등록이 되었습니다");
-					$('#calendar').fullCalendar("refetchEvents");
+					location.reload();	
 				}
 			},
 			error : function() {
