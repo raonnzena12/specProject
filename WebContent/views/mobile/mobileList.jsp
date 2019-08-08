@@ -87,8 +87,64 @@
   		font-weight: bold;
   		background-color: #eee;
   	}
+    #countBanner {
+        display: inline-block;
+        margin-right: 10px;
+    }
 </style>
 <script>
+    // 주소창 변경용 기본함수
+    function ChangeUrl(page, url) {
+        if (typeof (history.pushState) != "undefined") {
+            // var obj = { Page: null, Url: null };
+            history.pushState({page: page, url:url}, page, ""+url);
+        } else {
+            alert("Browser does not support HTML5.");
+        }
+    }
+    // 주소창 변경용 함수
+    function assembleUrl(urlName, urlString) {
+        var url = document.location.href;
+        var checkUrl = url.split("?");
+        if ( checkUrl.length == 1 ) { // 아무것도 추가가 안 되어있는 상황
+            ChangeUrl(urlName, '?' + urlString);
+            return;
+        } 
+        var checkVals = checkUrl[1].split(",");
+        if ( checkVals.length == 1 ) {
+            if ( checkVals[0].includes(urlName) ) {
+                ChangeUrl(urlName, '?' + urlString)
+            } else {
+                ChangeUrl(urlName, '?' + checkVals[0] + ',' + urlString);
+            }
+        } else {
+            for ( var i = 0 ; i < checkVals.length ; i++ ) {
+                if ( checkVals[i].includes(urlName) ) {
+                    checkVals[i] = urlString
+                }
+            }
+            var newUrl = checkVals.join(",");
+            ChangeUrl(urlName, '?' + newUrl);
+        }
+    }
+    function deleteUrl(urlString) {
+        var url = document.location.href;
+        var checkUrl = url.split("?");
+        if ( checkUrl.length == 1 ) {
+            return false;
+        } 
+        var checkVals = checkUrl[1].split(",");
+        var newUrl = "";
+        if ( checkVals.length == 1 ) {
+            ChangeUrl("origin", "./devicelist.mo");
+        } else {
+            var newArr = checkVals.filter(function(e){
+                return !e.includes(urlString);
+            })
+            newUrl = newArr.join(",");
+            ChangeUrl("ch", '?'+newUrl);
+        }
+    }
     $(function() {
         // 사이드바 필터메뉴 수납
         $(".sideOpen").click(function(){
@@ -96,13 +152,53 @@
         });
         // 사이드바 브랜드 체크값 받기
         $("input:checkbox").change(function(){
-            var brand="";
+            var brand="brand";
             $("input:checkbox[name=brand]").each(function(){
                 if ($(this).is(":checked")) {
-                    brand += ","+($(this).val());
+                    brand += ":"+($(this).val());
                 }
             });
-            console.log(brand);
+            var text = document.location.href;
+            if ( brand.split(":").length != 1) {
+            // ChangeUrl('brand', '?' + brand);
+            assembleUrl('brand', brand);
+            currentPage = 1;
+            $.ajax({
+                url: "devicelist.mo",
+                type: "GET",
+                data: { brand: brand,
+                        currentPage: currentPage,
+                        limit: limit,
+                        input: 1 },
+                dataType: "json",
+                success: function(dList) {
+                    console.log("I'm start");   
+                    $("#listArea").html("");
+                    printList(dList);
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+            } else {
+                deleteUrl('brand');  
+                $.ajax({
+                url: "listUpdate.mo",
+                type: "POST",
+                data: { currentPage: currentPage,
+                    limit: limit },
+                dataType: "json",
+                success: function(dList){
+                    printList(dList);
+                    if ( currentPage == maxPage ) {
+                        $("#loadBtn").attr("disabled","disabled");
+                    }
+                },
+                error: function(e){
+                	console.log(e);
+                }
+            });
+            }
         });
         // 사이드바 배터리 슬라이더 설정
         $( "#slider-range" ).slider({
@@ -120,17 +216,27 @@
         stop: function(event, ui){
             console.log(ui.values[0]);
             console.log(ui.values[1]);
+            var slider="slider:"+ui.values[0]+":"+ui.values[1];
+            assembleUrl('slider',slider);
+
+            // $.ajax({
+            //     url: "listUpdate.mo",
+            //     type: "GET",
+            //     data: { minB: brand },
+            //     dataType: "json",
+            //     success: function(dList) {
+            //         $("#listArea").html("");
+            //         printList(dList);
+            //     },
+            //     error: function(e){
+            //         console.log(e);
+            //     }
+            // });
         }
         });
         $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
         " mAh - " + $( "#slider-range" ).slider( "values", 1 ) + " mAh" );
     });
-    function testtest() {
-        var int1 = $("#slider-range").slider("values",0);
-        var int2 = $("#slider-range").slider("values",1);
-        console.log(int1);
-        console.log(int2);
-    }
 </script>
 </head>
 <body>
@@ -178,6 +284,9 @@
 					<div id="slider-range"></div>
                 </div>
             </ul>
+            <input type="button" value="Page1" id="button1" />
+            <input type="button" value="Page2" id="button2" />
+            <input type="button" value="Page3" id="button3" />
         </div>
         <!-- Page content -->
         <section class="main">
@@ -191,7 +300,7 @@
                 </div>
                     <% } %>
                 <h3 id="countBanner" class="font-weight-bolder">Search Results</h3>
-                <span id="countNum"></span>
+                <span id="countNum"><%=pInf.getListCount()%></span>
             </div>
             <div class="listArea" id="listArea">
             <% if ( list.isEmpty() ) { %>
@@ -219,13 +328,15 @@
     </section>
     <script>
         var currentPage = 1;
+        var limit = <%=pInf.getLimit()%>;
+        var maxPage = <%=pInf.getMaxPage()%>;
+        <%-- 리스트 갱신 함수
+         처음 접속했을때는 모든 리스트를 받아오고
+         필터링 했을때는 필터링한 리스트를 받아옴(그렇게 동작했으면 좋겠다) --%>
         function listLoading() {
-            var maxPage = <%=pInf.getMaxPage()%>;
-            var limit = <%=pInf.getLimit()%>;
-            console.log(maxPage);
-            console.log(currentPage);
             currentPage += 1;
-            console.log(currentPage);
+            var check = document.location.href.split("?");
+            if ( check.length == 1 ) {
             $.ajax({
                 url: "listUpdate.mo",
                 type: "POST",
@@ -233,23 +344,7 @@
                     limit: limit },
                 dataType: "json",
                 success: function(dList){
-                    var $listArea = $("#listArea");
-                    var $addiv = $("<div>");
-                        var $adCon = $("<div>").addClass("deviceCon").text("AD");
-                            $addiv.append($adCon);
-                            $listArea.append($addiv);
-                	$.each(dList, function(i){
-                        var $div = $("<div>");
-                            var $deviceCon = $("<div>").addClass("deviceCon");
-                		var $item1 = $("<div>").addClass("item1");
-                		var $img = $("<img>").attr("src","<%=request.getContextPath()%>/image/testImgV50.png");
-                		$item1.append($img);
-                		var $item2 = $("<div>").addClass("item2");
-                		var $item3 = $("<div>").addClass("item3").text(dList[i].mNameEn);
-                            $deviceCon.append($item1, $item2, $item3);
-                		$div.append($deviceCon);
-                        $listArea.append($div);
-                	});
+                    printList(dList);
                     if ( currentPage == maxPage ) {
                         $("#loadBtn").attr("disabled","disabled");
                     }
@@ -257,6 +352,46 @@
                 error: function(e){
                 	console.log(e);
                 }
+            });
+            } else {
+                $.ajax({
+                    url: "listUpdate.mo",
+                    type: "GET",
+                    data: { currentPage: currentPage,
+                            limit: limit,
+                            input: 1,
+                            qString: check[1] },
+                    dataType: "json",
+                    success: function(dList){
+                        printList(dList);
+                        if ( currentPage == maxPage ) {
+                            $("#loadBtn").attr("disabled","disabled");
+                        }
+                    },
+                    error: function(e){
+                        console.log(e);
+                    }
+                });
+            }
+        }
+
+        function printList(dList){
+            var $listArea = $("#listArea");
+            var $addiv = $("<div>");
+            var $adCon = $("<div>").addClass("deviceCon").text("AD");
+            $addiv.append($adCon);
+            $listArea.append($addiv);
+            $.each(dList, function(i){
+                var $div = $("<div>");
+                    var $deviceCon = $("<div>").addClass("deviceCon");
+                var $item1 = $("<div>").addClass("item1");
+                var $img = $("<img>").attr("src","<%=request.getContextPath()%>/image/testImgV50.png");
+                $item1.append($img);
+                var $item2 = $("<div>").addClass("item2");
+                var $item3 = $("<div>").addClass("item3").text(dList[i].mNameEn);
+                    $deviceCon.append($item1, $item2, $item3);
+                $div.append($deviceCon);
+                $listArea.append($div);
             });
         }
     </script>

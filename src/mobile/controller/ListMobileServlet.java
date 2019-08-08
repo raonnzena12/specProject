@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import mobile.model.service.MobileService;
 import mobile.model.vo.*;
 
@@ -23,6 +25,7 @@ public class ListMobileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 서비스 객체 생성
 		MobileService mService = new MobileService();
+		String input = request.getParameter("input");
 		
 		// === === === 페이징 처리  === === ===
 		// 전체 게시글 수 구하기
@@ -50,12 +53,24 @@ public class ListMobileServlet extends HttpServlet {
 		
 		PageInfo pInf = new PageInfo(listCount, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
 		
-		// === === === 게시글 목록 조회 시작 === === ===
-		ArrayList<Mobile> list = mService.selectList(currentPage, limit);
+		ArrayList<Mobile> list = null;
+		if ( input != null && input.equals("1") ) {
+			String brand = request.getParameter("brand");
+			String[] bArr = brand.split(":");
+			System.out.println(Arrays.toString(bArr));
+			list = mService.filterList(currentPage, limit , bArr);
+			
+		} else {
+			// === === === 게시글 목록 조회 시작 === === ===
+			list = mService.selectList(currentPage, limit);
+		}
 		
 		// 게시글 목록 조회 결과에 따른 view 연결처리
 		String page = "";
-		if ( list != null ) {
+		if ( input != null && input.equals("1") ) {
+			new Gson().toJson(list, response.getWriter());
+			return;
+		} else if ( list != null ) {
 			page = "/views/mobile/mobileList.jsp";
 			request.setAttribute("pInf", pInf);
 			request.setAttribute("list", list);
