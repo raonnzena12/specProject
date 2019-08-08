@@ -101,9 +101,9 @@
 		$("input[name=optionInfo]").click(function(){
 			
 			if(clicks){
-				$("#optionInfo input").removeAttr("disabled");
+				$("#optionInfo *").removeAttr("disabled");
 			}else{
-				$("#optionInfo input").attr("disabled","disabled");
+				$("#optionInfo *").attr("disabled","disabled");
 			}
 			clicks = !clicks;
 		});
@@ -149,7 +149,7 @@
                         </tr>
                         <tr>
                             <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled readonly></td>
-                            <td><button type="button" class="btn btn-info">기종찾기</button></td>
+                            <td><button type="button" class="btn btn-info" disabled>기종찾기</button></td>
                         </tr>
                     </table>
                 </div>
@@ -290,11 +290,14 @@
     					return false;
     				}
     				
+    				return false;
+    				
     			}
     			if(!eCk){alert("사용 가능한 이메일을 입력해주세요."); return false;}
     			if(!nCk){alert("이름 형식을 확인해주세요."); return false;}
     			if(!pCk){alert("비밀번호 형식을 확인해주세요. 영어 대소문자 포함 6자리 이상 12자리 미만입니다."); return false;}
     			if(!pCk2){alert("비밀번호가 일치하지 않습니다."); return false;}
+    			if(!oCk){alert("비밀번호가 일치하지 않습니다."); return false;}
     		});
     		
     	});
