@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <link href='<%= request.getContextPath() %>/css/fullcalendar.min.css' rel='stylesheet' />
 <link href='<%= request.getContextPath() %>/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='<%= request.getContextPath() %>/js/jquery.min.js'></script>
 <script src='<%= request.getContextPath() %>/js/moment.min.js'></script>
 <script src='<%= request.getContextPath() %>/js/fullcalendar.min.js'></script>
 <title>Calendar</title>
@@ -61,7 +61,7 @@
 				console.log("통신 실패");
 			}
 		});
-
+		
 		
 		$("#calendar").fullCalendar({
 			// put your options and callbacks here
@@ -73,15 +73,12 @@
       		*/
       		eventClick: function(event) {
       			
-      			
-      			
       	    	if(confirm('삭제하시겠습니까?')) {
       	    		$("#calendar").fullCalendar('removeEvents', function(eventObject) {
-      	    			return true;
+      	    			return false;
       	    		});
-      	    	}else{
-      	    		return false;
       	    	}
+      	    	return false;
       			
       	    }
       	    /*
@@ -105,7 +102,7 @@
       	    */
       	});
 	});
-
+	
 	function closeBtn(){
 		$(".registerModal").css("display", "none");
 	}
@@ -155,11 +152,6 @@
 </script>
 <style>
 
-  body {
-  	width: 1080px;
-  	margin: auto;
-  }
-
   #calendar {
     max-width: 900px;
     margin: 0 auto;
@@ -187,6 +179,10 @@
     position: relative;
   }
   
+  #modal-content {
+    width: 400px;
+  }
+  
   .modalRegister {
   	width: 320px;
   	height: 100%;
@@ -203,58 +199,57 @@
 </style>
 </head>
 <body>
-	<%@ include file ="../common/menubar.jsp" %>
-
+	<%@ include file ="/views/common/menubar.jsp" %>
 	<button type="button" onclick="registerEvent();">일정 등록</button>
 
 	<div id="calendar"></div>
 	
-	<div class="registerModal">
-	   	<div class="modal-content">
-	   		<div class="modalRegister">
-	   			<table id="registerTable">
-	   				<tr>
-	   					<td><label>일정 유형</label>
-	   					<td>
-	   						<input type="radio" id="news" name="code" value="0" checked>
-	   						<label for="code">기사</label> &nbsp;
-	   						<input type="radio" id="release" name="code" value="1" >
-	   						<label for="release">발매</label> &nbsp;
-	   						<input type="radio" id="reservation" name="code" value="2" >
-	   						<label for="reservation">예약</label> &nbsp;
-	   					</td>
-	   				</tr>
-		   			<tr>
-		   				<td><label name="title">일정 등록</label></td>
-		   				<td><input type="text" name="title" id="title"></td>
-		   			</tr>
-		   			<tr>
-		   				<td><label name="url">url 등록</label></td>
-		   				<td><input type="url" name="url" id="url"></td>
-		   			</tr>
-		   			<tr>
-		   				<td><label name="date">날짜 지정</label></td>
-		   				<td><input type="date" name="date" id="date"></td>
-		   			</tr>
-		   			<tr>
-		   				<td>공개 여부</td>
-		   				<td>
-		   					<select id="status">
-		   						<option value="Y">공개</option>
-		   						<option value="N">비공개</option>
-		   					</select>
-		   				</td>
-		   			</tr>
-		   			<tr>
-		   				<td colspan="2" style="text-align:center">
-		   					<button type="button" id="saveBtn" onclick="saveBtn();">저장</button> &nbsp;&nbsp;
-		   					<button type="button" id="closeBtn" onclick="closeBtn();">취소</button>
-		   				</td>
-		   			</tr>
-		   		</table>
-	   		</div>
-	   	</div>
-	</div>
+		<div class="registerModal">
+		   	<div class="modal-content" id="modal-content">
+		   		<div class="modalRegister">
+		   			<table id="registerTable">
+		   				<tr>
+		   					<td><label>일정 유형</label>
+		   					<td>
+		   						<input type="radio" id="news" name="code" value="0" checked>
+		   						<label for="code">기사</label> &nbsp;
+		   						<input type="radio" id="release" name="code" value="1" >
+		   						<label for="release">발매</label> &nbsp;
+		   						<input type="radio" id="reservation" name="code" value="2" >
+		   						<label for="reservation">예약</label> &nbsp;
+		   					</td>
+		   				</tr>
+			   			<tr>
+			   				<td><label name="title">일정 등록</label></td>
+			   				<td><input type="text" name="title" id="title"></td>
+			   			</tr>
+			   			<tr>
+			   				<td><label name="url">url 등록</label></td>
+			   				<td><input type="url" name="url" id="url"></td>
+			   			</tr>
+			   			<tr>
+			   				<td><label name="date">날짜 지정</label></td>
+			   				<td><input type="date" name="date" id="date"></td>
+			   			</tr>
+			   			<tr>
+			   				<td>공개 여부</td>
+			   				<td>
+			   					<select id="status">
+			   						<option value="Y">공개</option>
+			   						<option value="N">비공개</option>
+			   					</select>
+			   				</td>
+			   			</tr>
+			   			<tr>
+			   				<td colspan="2" style="text-align:center">
+			   					<button type="button" id="saveBtn" onclick="saveBtn();">저장</button> &nbsp;&nbsp;
+			   					<button type="button" id="closeBtn" onclick="closeBtn();">취소</button>
+			   				</td>
+			   			</tr>
+			   		</table>
+		   		</div>
+		   	</div>
+		</div>
 	
 </body>
 </html>
