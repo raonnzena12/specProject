@@ -20,16 +20,14 @@
 	$(document).ready(function(){
 		
 		loadCalendar();
-
-		$("#calendar").fullCalendar({
+/*
+ 		$("#calendar").fullCalendar({
 			// put your options and callbacks here
 			/*
 			selectable: true,
       		eventLimit: true, // allow "more" link when too many events
       		dayClick: function() {
       		},
-      		*/
-      		/*
       		eventClick: function(event) {
       			
       	    	if(confirm('삭제하시겠습니까?')) {
@@ -39,9 +37,7 @@
       	    	}
       	    	return false;
       			
-      	    }
-      		*/
-      		/*
+      	    },
        		select: function(start, end) {
        			
       	        var title = prompt('제목 입력 :');
@@ -59,8 +55,9 @@
       	     	
       	        $('#calendar').fullCalendar('unselect');
       	    }
-      	    */
+      	    
     	});
+*/
 	});
 	
 	function loadCalendar() {
