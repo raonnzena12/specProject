@@ -1,15 +1,16 @@
 package member.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 import member.model.vo.Member;
-
-import static common.JDBCTemplate.*;
 
 public class MemberDao {
 	private Properties prop = new Properties();
@@ -119,15 +120,85 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertMemebr");
+		String query ="";
 		
 		try {
-			pstmt = conn.prepareStatement(query);
-		} catch (SQLException e) {
+			if(member.getPhone() != null) {
+				query = prop.getProperty("insertMember2");
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1,member.getUserEmail());
+				pstmt.setString(2, member.getUserPwd());
+				pstmt.setString(3,member.getUserName());
+				pstmt.setString(4, member.getPhone());
+				pstmt.setInt(5,member.getUserMno());
+				pstmt.setString(6, member.getUserEmailHash());
+				
+				result = pstmt.executeUpdate();
+			}else {
+				query = prop.getProperty("insertMember1");
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1,member.getUserEmail());
+				pstmt.setString(2, member.getUserPwd());
+				pstmt.setString(3,member.getUserName());
+				pstmt.setString(4, member.getUserEmailHash());
+				
+				result = pstmt.executeUpdate();
+			}
+			
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		
-		return 0;
+		return result;
+	}
+
+	public Member selectMember(Connection conn, String userEmail) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Member member = null;
+		
+		String query = prop.getProperty("selectMember");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userEmail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				member = new Member(rset.getString("USER_EMAIL"), rset.getString("USER_PWD"), rset.getString("USER_NAME"), rset.getInt("USER_STATUS"), rset.getString("USER_EMAILHASH"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return member;
+	}
+
+	public int updateVerify(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		String query = prop.getProperty("updateVerify");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, email);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }

@@ -38,7 +38,6 @@ public class Member implements java.io.Serializable { /**
 	}
 
 	
-
 	
 	
 	public Member(String userEmail, String userPwd, String userName, char userEvent, String userEmailHash) {
@@ -47,6 +46,15 @@ public class Member implements java.io.Serializable { /**
 		this.userPwd = userPwd;
 		this.userName = userName;
 		this.userEvent = userEvent;
+		this.userEmailHash = userEmailHash;
+	}
+
+	public Member(String userEmail, String userPwd, String userName, int userVerify, String userEmailHash) {
+		super();
+		this.userEmail = userEmail;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userVerify = userVerify;
 		this.userEmailHash = userEmailHash;
 	}
 
