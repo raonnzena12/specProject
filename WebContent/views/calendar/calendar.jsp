@@ -19,7 +19,7 @@
 
 	$(document).ready(function(){
 		
-		loadCalendar(); 
+		loadCalendar();  
 /* 
  		$("#calendar").fullCalendar({
 			// put your options and callbacks here
