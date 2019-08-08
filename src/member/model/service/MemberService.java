@@ -51,6 +51,27 @@ public class MemberService {
 		}
 		return result;
 	}
+
+	public Member selectMember(String userEmail) {
+		Connection conn = getConnection();
+		
+		Member member = new MemberDao().selectMember(conn, userEmail);
+		
+		return member;
+	}
+
+	public int updateVerify(String email) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateVerify(conn, email);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
 	
 	
 }
