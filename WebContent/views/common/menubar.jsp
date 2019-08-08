@@ -8,6 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>MENUBAR</title>
+
+
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -23,7 +26,7 @@
         user-select: none;
     }
     body {
-        font-family: 'Noto Sans KR', sans-serif;
+        /* font-family: 'Noto Sans KR', sans-serif; */
         font-size: 14px !important;
         /* min-width: 1200px !important; */
         width:100%;
@@ -32,6 +35,7 @@
     }
     header {
         background-color: #00264B;
+        width: 100%;
         z-index: 2;
     }
     #logo{
@@ -202,7 +206,7 @@
         <section id="logo" onclick="location.href='<%=request.getContextPath()%>'">SPEC</section>
         <div id="menubarNav" class="navbar-nav-scroll">
             <ul class="navbar-nav bd-navbar-nav flex-row" >
-                <li class="nav-item"><a href="#">MOBILE</a></li>
+                <li class="nav-item"><a href="<%=request.getContextPath()%>/devicelist.mo">MOBILE</a></li>
                 <li class="nav-item"><a href="#" id="compareOpen">COMPARE</a></li>
                 <li class="nav-item"><a href="#">CALENDAR</a></li>
                 <li class="nav-item"><a href="#">COMMUNITY</a></li>
@@ -210,9 +214,9 @@
         </div>
         <!-- <section id="blank"></section> -->
         <ul id="login" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-            <% if( loginUser != null && loginUser.getUserStatus() == 0) {%>
+             <% if( loginUser != null && loginUser.getUserStatus() == 0) {%>
             <li><i class="material-icons">settings</i></li>
-            	<% } %>
+            	<% } %> 
             <li class=" nav-item dropdown">
             
             	<i class="material-icons" id="account">account_circle</i>
@@ -233,7 +237,7 @@
 	                    <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="#" class="gray">비밀번호</a> 찾기</td>
 	                </tr>
 	                <tr>
-	                    <td><br>회원이 아니신가요?<br> <a href="/views/member/joinForm.jsp"><p class="emp blue">가입하기</p></a>
+	                    <td><br>회원이 아니신가요?<br> <a href="views/member/joinForm.jsp"><p class="emp blue">가입하기</p></a>
 	                    </td> 
 	                </tr>
             	</table>

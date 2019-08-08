@@ -1,6 +1,6 @@
 package member.model.service;
 
-import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
@@ -21,12 +21,34 @@ public class MemberService {
 		return loginUser;
 	}
 
-	public int emailCheck(String email) {
+	public int checkEmail(String email) {
 		
 		Connection conn = getConnection();
 		
 		int result = new MemberDao().checkEmail(conn, email);
 		
+		return result;
+	}
+	
+	public int checkName(String name) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().checkName(conn, name);
+		
+		return result;
+	}
+
+	public int insertMember(Member member) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().insertMember(conn, member);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		return result;
 	}
 	

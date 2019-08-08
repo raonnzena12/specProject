@@ -1,7 +1,7 @@
-package member.controller;
+package mobile.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,35 +9,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.service.MemberService;
+import com.google.gson.Gson;
 
+import mobile.model.service.MobileService;
+import mobile.model.vo.Mobile;
 
-@WebServlet("/emailCheck.me")
-public class EmailCheckServlet extends HttpServlet {
+@WebServlet("/listUpdate.mo")
+public class ListUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public EmailCheckServlet() {
+    public ListUpdateServlet() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
 		
-		int result = new MemberService().checkEmail(email);
+		ArrayList<Mobile> list = new MobileService().selectList(currentPage, limit);
 		
-		System.out.println(result);
-		
-		PrintWriter out = response.getWriter();
-		
-		out.print(result);
+		new Gson().toJson(list, response.getWriter());
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

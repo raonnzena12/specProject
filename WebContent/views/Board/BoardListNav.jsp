@@ -14,7 +14,7 @@
 			padding: 0;
 			clear : both; 
 		}
-		#menu > a{
+		#menu > a{ 
             text-decoration: none;
             padding: 40px;
             color: #00264B;
@@ -34,7 +34,7 @@
 <body>
 	<nav id="bnav">
 		<article id="menu">
-	    	<a href="">전체게시판</a>|
+	    	<a href="<%=request.getContextPath()%>/list.bo">전체게시판</a>|
 	        <a href="">Apple게시판</a>|
 	        <a href="">LG게시판</a>|
 	        <a href="">삼성게시판</a>|

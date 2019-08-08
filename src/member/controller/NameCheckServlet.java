@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import member.model.service.MemberService;
 
 
-@WebServlet("/emailCheck.me")
-public class EmailCheckServlet extends HttpServlet {
+@WebServlet("/nameCheck.me")
+public class NameCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public EmailCheckServlet() {
+    public NameCheckServlet() {
         super();
     }
 
@@ -24,13 +24,14 @@ public class EmailCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
+		String name = request.getParameter("name");
 		
-		int result = new MemberService().checkEmail(email);
+		int result = new MemberService().checkName(name);
 		
 		System.out.println(result);
 		
 		PrintWriter out = response.getWriter();
+		
 		
 		out.print(result);
 		

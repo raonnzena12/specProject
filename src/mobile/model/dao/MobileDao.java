@@ -98,4 +98,112 @@ public class MobileDao {
 		}
 		return result;
 	}
+
+	public Mobile selectMobile(Connection conn, int mId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Mobile device = null;
+		
+		String query = prop.getProperty("selectMobile");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mId);
+			
+			rset = pstmt.executeQuery();
+			
+			if ( rset.next() ) {
+				device = new Mobile(rset.getInt(1), rset.getString(2), rset.getString(3), 
+						rset.getString(4), rset.getString(5), rset.getDate(6), rset.getString(7), 
+						rset.getString(8), rset.getString(9), rset.getString(10), rset.getString(11), 
+						rset.getString(12), rset.getDouble(13), rset.getString(14), rset.getString(15), 
+						rset.getString(16), rset.getString(17), rset.getString(18), rset.getString(19), 
+						rset.getString(20), rset.getString(21), rset.getString(22), rset.getString(23), 
+						rset.getString(24), rset.getString(25), rset.getString(26), rset.getString(27), 
+						rset.getString(28), rset.getString(29), rset.getString(30), rset.getString(31),
+						rset.getString(32), rset.getString(33), rset.getString(34), rset.getString(35),
+						rset.getString(36), rset.getInt(37), rset.getString(38), rset.getString(39), 
+						rset.getString(40), rset.getString(41), rset.getString(42), rset.getString(43),
+						rset.getString(44), rset.getString(45), rset.getString(46), rset.getString(47), 
+						rset.getString(48), rset.getString(49), rset.getString(50), rset.getString(51));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return device;
+	}
+
+	/**
+	 * (페이징용) 전체 게시글 수를 조회하는 Dao
+	 * @param conn
+	 * @return listCount
+	 */
+	public int getListCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("getListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			if ( rset.next() ) {
+				listCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return listCount;
+	}
+
+	/**
+	 * 페이지 리스트를 받아오는 Dao
+	 * @param conn
+	 * @param currentPage
+	 * @param limit
+	 * @return list
+	 */
+	public ArrayList<Mobile> selectList(Connection conn, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Mobile> list = new ArrayList<Mobile>();
+		
+		String query = prop.getProperty("selectList");
+		try {
+			pstmt = conn.prepareStatement(query);
+			int startRow = ( currentPage - 1 ) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Mobile(rset.getInt(2), rset.getString(3), rset.getString(4), 
+						rset.getString(5), rset.getString(6), rset.getDate(7), rset.getString(8), 
+						rset.getString(9), rset.getString(10), rset.getString(11), rset.getString(12), 
+						rset.getString(13), rset.getDouble(14), rset.getString(15), rset.getString(16), 
+						rset.getString(17), rset.getString(18), rset.getString(19), rset.getString(20), 
+						rset.getString(21), rset.getString(22), rset.getString(23), rset.getString(24), 
+						rset.getString(25), rset.getString(26), rset.getString(27), rset.getString(28), 
+						rset.getString(29), rset.getString(30), rset.getString(31), rset.getString(32),
+						rset.getString(33), rset.getString(34), rset.getString(35), rset.getString(36),
+						rset.getString(37), rset.getInt(38), rset.getString(39), rset.getString(40), 
+						rset.getString(41), rset.getString(42), rset.getString(43), rset.getString(44),
+						rset.getString(45), rset.getString(46), rset.getString(47), rset.getString(48), 
+						rset.getString(49), rset.getString(50), rset.getString(51), rset.getString(52)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }

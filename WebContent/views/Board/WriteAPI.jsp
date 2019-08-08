@@ -15,7 +15,7 @@
 				  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 				  crossorigin="anonymous">
         </script>
-       <style>
+       <style> 
        		.note-editing-area{
        			height:550px;
        		}

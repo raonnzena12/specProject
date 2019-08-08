@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
  <style>
  	body{
-            width: 1080px;
+          /*   width: 1080px; */
             height: auto;
-            margin: auto; 
+            margin: auto;  
         }
   /*  #btn, #page, #list{
         	border: 1px solid black;
@@ -53,39 +53,47 @@
            margin-right: 10px;
            margin-top:0;
        }
+    #listtable{
+    	text-align: center;
+    }
     
     
  </style>
 </head>
 <body>
 	<section id="list">
-      	<table class="table table-hover">
+      	<table class="table table-hover" id="listtable">
         	<thead>
             	<tr>
-                    <th scope="col">Type</th>
-                    <th scope="col">Column heading</th>
-                    <th scope="col">Column heading</th>
-                    <th scope="col">Column heading</th>
+                    <th scope="col" width="10%">번호</th>
+                    <th scope="col" width="10%">분류</th>
+                    <th scope="col" width="55%">제목</th>
+                    <th scope="col" width="15%">날짜</th>
+                    <th scope="col" width="10%">조회</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">Default</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                </tr>
-                <tr>
-                    <th scope="row">Default</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                </tr>
+            	<%-- <% if(list.isEmpty()){ %>
+            	<tr>
+            		<td colspan="5">등록된 게시글이 없습니다.</td>
+            	</tr>
+            	
+            	<% }else{ %>
+	            	<% for(Board b : list){ %>
+	                <tr>
+	                    <td><%= %></td>
+	                    <td><%= %></td>
+	                    <td><%= %></td>
+	                    <td><%= %></td>
+	                    <td><%= %></td>
+	                </tr>
+	              	<% } %>
+				<% } %> --%>
             </tbody>   
        	</table>
    	</section>
     <section id="btn">
-       	<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : left; margin: 0 10px 0 5px;">목록</button>
+       	<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : left; margin: 0 10px 0 5px;" onclick="location.href='<%=request.getContextPath()%>/list.bo'">목록</button>
         <form class="form-inline my-2 my-lg-0">
 	        <input class="form-control mr-sm-2" type="text" placeholder="Search">
 	        <button type="button" class="btn btn-secondary"style="background-color : white; color : black; font-weight:bold; margin:0;">검색</button>
@@ -96,7 +104,11 @@
 			<option value="content">내용</option>
 			<option value="head">말머리</option>
 		</select>
+		
+			<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : right; margin: 0 10px 0 5px;" onclick="location.href='<%=request.getContextPath()%>/write.bo'">글쓰기</button>
     </section>
+    
+    <!-- 페이징바 -->
     <section id="page">
 		<div>
 	         <ul class="pagination pagination-sm">
