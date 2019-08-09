@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="mobile.model.vo.Mobile"%>
+<%
+	Mobile mo = (Mobile)request.getAttribute("device");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,9 +10,6 @@
 <title>SPEC TOP</title>
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <style>
-    * {
-        /* border: 1px solid salmon; */
-    }
     .mobileTop {
         width: 1080px;
         margin: 0 auto;
@@ -77,20 +77,20 @@
                 $(this).children().css("background-color","#00264B")
             }).mouseleave(function() {
                 $(this).css({color:"#999", "font-weight":"400"});
-                $(this).children().css("background-color","#fff")
+                $(this).children().css("background-color","#fff");
             });
         });
     </script>
 </head>
 <body>
-    <%@ include file ="/views/common/menubar.jsp" %>
+	<%-- <%@ include file ="/views/common/menubar.jsp" %> --%>
     <div class="mobileTop">
         <div id="mobileView">
         </div>
         <div id="mobileName">
-            <label>브랜드</label>
+            <label><%= mo.getmBrandName() %></label>
             <br><br>
-            <label>모델명</label>
+            <label><%= mo.getmName() %></label>
         </div>
         <div id="mobileCount">좋아요 / 소지수</div>
         <div id="clear"></div>
