@@ -1,10 +1,18 @@
+<%@page import="board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Board b = (Board)request.getAttribute("board");
+
+	
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>BoardContent</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -39,7 +47,7 @@
         	height: 60px;
         }
         #sub{
-        	height: 300px;
+        	height: 400px;
         }
         #subwrite{
         	height : 130px;
@@ -170,22 +178,22 @@
 	   	<table class="table" id="contenttable">
 		  	<thead>
 			    <tr>
-			      <th scope="col" width="10%">잡담</th>
-			      <th scope="col" width="75%">제목</th>
-			      <th scope="col" width="15%">작성일</th>
+			      <th scope="col" width="10%"><%=b.getCgCategory() %></th>
+			      <th scope="col" width="75%"><%=b.getbTitle() %></th>
+			      <th scope="col" width="15%"><%=b.getbRegdate() %></th>
 			    </tr>
 		 	</thead>
 		</table>
 		<article>
 			<div class="num">
-				<p>조회10</p>
+				<p>조회<%= b.getbCount()%></p>
 			</div>
 			<div class="num">
-				<p>댓글5</p>
+				<p>댓글</p>
 			</div>
 		</article>
 		
-		<textarea row="50" col="15" name="content" id="contentarea" style="resize:none;" readonly></textarea>
+		<textarea row="50" col="15" name="content" id="contentarea" style="resize:none;" readonly><%=b.getbContent() %></textarea>
    	</section>
    	
    	<section id="conbtn">
@@ -195,9 +203,7 @@
 
 	<section id="sub">
 		<article>
-			<div id="subdiv">
-				
-			</div>
+			<div id="subdiv"></div>
 		</article>
 		<table class="table" id="subtable">
 			<tr>
@@ -246,7 +252,7 @@
 	<br>
 	<br>
 	<section id="listbtn">
-		<button type="button" class="btn btn-secondary" id="listbtnbtn" onclick="location.href='<%=request.getContextPath()%>/list.bo'">목록</button>
+		<button type="button" class="btn btn-secondary" id="listbtnbtn" onclick="javascript:history.back();">목록</button>
 		
 		<a href="#boardcontent" class="updown"><i class="material-icons" id="listbtndown">arrow_upward</i></a>
 		<a href="#footer" class="updown"><i class = "material-icons" id="listbtnup">arrow_downward</i></a>
@@ -254,7 +260,7 @@
 	<br>
 	<br>
 	<section id="contentlist">
-		<%@include file="/views/Board/BoardList.jsp" %>
+		<%@include file="BoardList.jsp" %>
 	</section>
 	
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
