@@ -17,7 +17,7 @@ import mobile.model.vo.MobileInsert2;
 
 public class JsoupTest {
 	public static void main(String[] args) {
-		 String url = "https://review.cetizen.com/7151/view/3/7151/review"; //크롤링할 url지정
+		 String url = "https://review.cetizen.com/7097/view/3/7097/review"; //크롤링할 url지정
 		 Document doc = null;        //Document에는 페이지의 전체 소스가 저장된다
 		 try {
 	            doc = Jsoup.connect(url).get();
@@ -83,9 +83,13 @@ public class JsoupTest {
 		 int osCode = 0;
 		 switch (os[0]) {
 		 case "안드로이드" : osCode = 1; break;
+		 case "Android" : osCode = 1; break;
 		 case "iOS" : osCode = 2; break;
 		 }
-		 String osVersion = os[1].trim();
+		 String osVersion = "";
+		 if ( os.length != 1 ) {
+			 osVersion = os[1].trim();
+		 }
 		 String material = eList2.get(4).text().trim().equals("")? null : eList2.get(4).text().trim();
 		 String size = eList2.get(5).text().trim();
 		 String weight = eList2.get(6).text().trim();
@@ -122,7 +126,8 @@ public class JsoupTest {
 		 String camera = eList2.get(31).text().trim().equals("")? null : eList2.get(31).text().trim();
 		 // 배터리 저장하기
 		 String[] batArr = eList2.get(32).text().trim().split(" ");
-		 int battery = Integer.parseInt(batArr[0]);
+		 int battery = 0;
+		 if ( batArr.length != 1 ) battery = Integer.parseInt(batArr[0]);
 		 String batteryType = eList2.get(33).text().trim();
 		 // 배터리 급속충전/탈착여부 저장 ㅠㅠㅠ
 		 String[] batArr2 = eList2.get(34).text().trim().split(" ");
@@ -148,7 +153,7 @@ public class JsoupTest {
 		 MobileService moService = new MobileService();
 		 int result = moService.insertMobileSummary(mi1);
 		 if ( result > 0 ) result = moService.insertMobile(mi2);
-		 if ( result > 0 ) System.out.println(moName + "DB 입력 성공");
+		 if ( result > 0 ) System.out.println(moName + " DB 입력 성공");
 		 
 	        //Iterator을 사용하여 하나씩 값 가져오기
 

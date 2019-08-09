@@ -27,8 +27,8 @@ public class MobileDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, mi1.getMoCode());
 			pstmt.setString(2, mi1.getMoName());
-			pstmt.setInt(3, mi1.getMoBrandCode());
-			pstmt.setString(4, mi1.getMoNameEn());
+			pstmt.setString(3, mi1.getMoNameEn());
+			pstmt.setInt(4, mi1.getMoBrandCode());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,20 +76,20 @@ public class MobileDao {
 			pstmt.setString(30, mi2.getCamera());
 			pstmt.setInt(31, mi2.getBattery());
 			pstmt.setString(32, mi2.getBatteryType());
-			pstmt.setString(33, mi2.getWirelessCharging());
-			pstmt.setString(34, mi2.getStandBy());
-			pstmt.setString(35, mi2.getProtocol());
-			pstmt.setString(36, mi2.getWifi());
-			pstmt.setString(37, mi2.getBluetooth());
-			pstmt.setString(38, mi2.getUsb());
-			pstmt.setString(39, mi2.getBio());
-			pstmt.setString(40, mi2.getPayment());
-			pstmt.setString(41, mi2.getVerify());
-			pstmt.setString(42, mi2.getEtc());
-			pstmt.setString(43, "Y");
-			pstmt.setInt(44, mi2.getOsCode());
-			pstmt.setString(45, mi2.getFastCharging());
-			pstmt.setString(46, mi2.getRemovableBattery());
+			pstmt.setString(33, mi2.getFastCharging());
+			pstmt.setString(34, mi2.getRemovableBattery());
+			pstmt.setString(35, mi2.getWirelessCharging());
+			pstmt.setString(36, mi2.getStandBy());
+			pstmt.setString(37, mi2.getProtocol());
+			pstmt.setString(38, mi2.getWifi());
+			pstmt.setString(39, mi2.getBluetooth());
+			pstmt.setString(40, mi2.getUsb());
+			pstmt.setString(41, mi2.getBio());
+			pstmt.setString(42, mi2.getPayment());
+			pstmt.setString(43, mi2.getVerify());
+			pstmt.setString(44, mi2.getEtc());
+			pstmt.setString(45, "Y");
+			pstmt.setInt(46, mi2.getOsCode());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,7 +124,7 @@ public class MobileDao {
 						rset.getString(32), rset.getString(33), rset.getString(34), rset.getString(35),
 						rset.getString(36), rset.getInt(37), rset.getString(38), rset.getString(39), 
 						rset.getString(40), rset.getString(41), rset.getString(42), rset.getString(43),
-						rset.getString(44), rset.getString(45), rset.getString(46), rset.getString(47), 
+						rset.getString(44), rset.getString(42), rset.getString(46), rset.getString(47), 
 						rset.getString(48), rset.getString(49), rset.getString(50), rset.getString(51));
 			}
 		} catch (Exception e) {
