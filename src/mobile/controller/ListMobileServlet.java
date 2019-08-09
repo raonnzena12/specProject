@@ -26,7 +26,9 @@ public class ListMobileServlet extends HttpServlet {
 		// 서비스 객체 생성
 		MobileService mService = new MobileService();
 		String qString = request.getParameter("qString");
-		
+		System.out.println(qString);
+		if ( qString != null ) System.out.println(qString.trim().length());
+		 
 		// === === === 페이징 처리  === === ===
 		// 전체 게시글 수 구하기
 		int listCount = mService.getListCount(); 
@@ -54,8 +56,8 @@ public class ListMobileServlet extends HttpServlet {
 		PageInfo pInf = new PageInfo(listCount, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
 		
 		ArrayList<Mobile> list = null;
-		if ( qString != null && !qString.equals("") ) {
-			String[] queryArr = qString.split(",");
+		if ( qString != null && qString.trim().length() != 0 ) {
+			String[] queryArr = qString.split(","); 
 			ArrayList<String[]> queryList = new ArrayList<String[]>();
 			for ( int i = 0 ; i < queryArr.length ; i++ ) {
 				queryList.add(queryArr[i].split(":"));
@@ -69,9 +71,12 @@ public class ListMobileServlet extends HttpServlet {
 		
 		// 게시글 목록 조회 결과에 따른 view 연결처리
 		String page = "";
-		if ( qString != null && !qString.equals("") ) {
+		if ( qString != null ) { 
 			new Gson().toJson(list, response.getWriter());
 			return;
+//		} else if ( qString != null && qString.trim().length() == 0 ) {
+			
+//			return;
 		} else if ( list != null ) {
 			page = "/views/mobile/mobileList.jsp";
 			request.setAttribute("pInf", pInf);

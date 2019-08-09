@@ -93,6 +93,9 @@
     }
 </style>
 <script>
+    // 시작시 함수 한번 호출 (주소창 값으로 필터링 하기 위해)
+    filtering(); 
+
     // 주소창 변경용 기본함수
     function ChangeUrl(page, url) {
         if (typeof (history.pushState) != "undefined") {
@@ -148,30 +151,67 @@
     }
     // ajax 호출 -> 리스트 업데이트용! 
     function filtering(){
-
         var address = document.location.href.split("?");
+        var qString = "";
         if ( address.length != 1 ) {
-
-            currentPage = 1;
-            console.log(address[1]);
-            // $.ajax({
-            //     url: "devicelist.mo",
-            //     type: "GET",
-            //     data: { qString: address[1],
-            //             currentPage: currentPage},
-            //     dataType: "json",
-            //     error: function(e) {
-            //         console.log(e);
-            //     },
-            //     success: function(dList){
-            //         console.log("I'm start");   
-            //         $("#listArea").html("");
-            //         printList(dList);
-            //     }
-            // });
+            qString = address[1];
         }
-
-
+        currentPage = 1;
+        $.ajax({
+            url: "devicelist.mo",
+            type: "GET",
+            data: { qString: qString,
+                    currentPage: currentPage},
+            dataType: "json",
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(dList){
+                if ( dList.return == false ) return false;
+                filteringCount();
+                $("#listArea").html("");
+                printList(dList);
+            }
+        });
+    }
+    // 리스트 출력용
+    function printList(dList){
+        var $listArea = $("#listArea");
+        var $addiv = $("<div>");
+        var $adCon = $("<div>").addClass("deviceCon").text("AD");
+        $addiv.append($adCon);
+        $listArea.append($addiv);
+        $.each(dList, function(i){
+            var $div = $("<div>");
+                var $deviceCon = $("<div>").addClass("deviceCon");
+            var $item1 = $("<div>").addClass("item1");
+            var $img = $("<img>").attr("src","<%=request.getContextPath()%>/image/testImgV50.png");
+            $item1.append($img);
+            var $item2 = $("<div>").addClass("item2");
+            var $item3 = $("<div>").addClass("item3").text(dList[i].mNameEn);
+                $deviceCon.append($item1, $item2, $item3);
+            $div.append($deviceCon);
+            $listArea.append($div);
+        });
+    }
+    // 검색결과 값 출력용 함수
+    function filteringCount(){
+        var address = document.location.href.split("?");
+        var qString = "";
+        if ( address.length != 1 ) {
+            qString = address[1];
+        }
+        $.ajax({
+            url: "count.mo",
+            type: "GET",
+            data: { qString: qString },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(listCount){
+                $("#countNum").html(listCount);
+            }
+        });
     }
     $(function() {
         // 사이드바 필터메뉴 수납
@@ -188,74 +228,59 @@
             });
             var text = document.location.href;
             if ( brand.split(":").length != 1) {
-            assembleUrl('brand', brand);
-            filtering();
-            currentPage = 1;
-            $.ajax({
-                url: "devicelist.mo",
-                type: "GET",
-                data: { brand: brand,
-                        currentPage: currentPage,
-                        limit: limit,
-                        input: 1 },
-                dataType: "json",
-                success: function(dList) {
-                    console.log("I'm start");   
-                    $("#listArea").html("");
-                    printList(dList);
-                },
-                error: function(e){
-                    console.log(e);
-                }
-            });
+                assembleUrl('brand', brand);
+                filtering();
             } else {
                 deleteUrl('brand');  
-                $.ajax({
-                url: "listUpdate.mo",
-                type: "POST",
-                data: { currentPage: currentPage,
-                    limit: limit },
-                dataType: "json",
-                success: function(dList){
-                    printList(dList);
-                    if ( currentPage == maxPage ) {
-                        $("#loadBtn").attr("disabled","disabled");
-                    }
-                },
-                error: function(e){
-                	console.log(e);
-                }
-            });
+                filtering();    
             }
         });
-        // 사이드바 배터리 슬라이더 설정
-        $( "#slider-range" ).slider({
+        // 슬라이더바 배터리 슬라이더 설정
+        $( "#slider-battery" ).slider({
         range: true,
         min: 1000,
         max: 5000,
         values: [ 1000, 5000 ],
         step: 100,
         slide: function( event, ui ) {
-            $( "#amount" ).val( ui.values[ 0 ] + " mAh - " + ui.values[ 1 ] + " mAh");
-            // console.log(ui.values[0]);
-            // console.log(ui.values[1]);
-            // 슬라이더 변화값 확인
+            $( "#batAmount" ).val( ui.values[ 0 ] + " mAh - " + ui.values[ 1 ] + " mAh");
         },
         stop: function(event, ui){
-            console.log(ui.values[0]);
-            console.log(ui.values[1]);
             if ( ui.values[0] == 1000 && ui.values[1]== 5000 ) {
                 deleteUrl('battery')
+                filtering();
             } else {
                 var slider="battery:"+ui.values[0]+":"+ui.values[1];
                 assembleUrl('battery',slider);
                 filtering();
             }
-
         }
         });
-        $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
-        " mAh - " + $( "#slider-range" ).slider( "values", 1 ) + " mAh" );
+        $( "#batAmount" ).val( $( "#slider-battery" ).slider( "values", 0 ) +
+        " mAh - " + $( "#slider-battery" ).slider( "values", 1 ) + " mAh" );
+        // 슬라이더바 스크린 설정
+        $( "#slider-screen" ).slider({
+        range: true,
+        min: 1000,
+        max: 5000,
+        values: [ 1000, 5000 ],
+        step: 100,
+        slide: function( event, ui ) {
+            $( "#ScreenAmount" ).val( ui.values[ 0 ] + " mAh - " + ui.values[ 1 ] + " mAh");
+        },
+        stop: function(event, ui){
+            if ( ui.values[0] == 1000 && ui.values[1]== 5000 ) {
+                deleteUrl('screen')
+                filtering();
+            } else {
+                var screen="screen:"+ui.values[0]+":"+ui.values[1];
+                assembleUrl('screen',screen);
+                filtering();
+            }
+        }
+        });
+        $( "#ScreenAmount" ).val( $( "#slider-screen" ).slider( "values", 0 ) +
+        " mAh - " + $( "#slider-screen" ).slider( "values", 1 ) + " mAh" );
     });
 </script>
 </head>
@@ -282,13 +307,15 @@
                     <input type="checkbox" name="brand" id="nokia" value="nokia"><label for="nokia">노키아</label>
                 </div>
                 <li class="sideOpen">
-                    Price
-                </li>
-                <div>가격대~</div>
-                <li class="sideOpen">
                     Screen
                 </li>
-                <div>스크린~</div>
+                <div>
+                    <p>
+                        <label for="ScreenAmount">Price range:</label>
+                        <input type="text" id="ScreenAmount" readonly style="border:0; font-weight:bold;">
+                    </p>
+                    <div id="slider-screen"></div>
+                </div>
                 <li class="sideOpen">
                     Color
                 </li>
@@ -298,15 +325,12 @@
                 </li>
                 <div>
                 	<p>
-					  <label for="amount">Price range:</label>
-					  <input type="text" id="amount" readonly style="border:0; font-weight:bold;">
+					  <label for="batAmount">Price range:</label>
+					  <input type="text" id="batAmount" readonly style="border:0; font-weight:bold;">
 					</p>
-					<div id="slider-range"></div>
+					<div id="slider-battery"></div>
                 </div>
             </ul>
-            <input type="button" value="Page1" id="button1" />
-            <input type="button" value="Page2" id="button2" />
-            <input type="button" value="Page3" id="button3" />
         </div>
         <!-- Page content -->
         <section class="main">
@@ -314,7 +338,7 @@
                 <p class="lead font-weight-bolder" id="printComment">당신에게 딱 맞는, 당신을 위한 핸드폰</p>
             </div>
             <div class="resultsCont">
-                <% if ( true ) { %>
+                <% if ( loginUser != null && loginUser.getUserName().equals("admin") ) { %>
                 <div>
                     <button class="btn btn-primary float-right">등록</button>
                 </div>
@@ -393,26 +417,6 @@
                     }
                 });
             }
-        }
-
-        function printList(dList){
-            var $listArea = $("#listArea");
-            var $addiv = $("<div>");
-            var $adCon = $("<div>").addClass("deviceCon").text("AD");
-            $addiv.append($adCon);
-            $listArea.append($addiv);
-            $.each(dList, function(i){
-                var $div = $("<div>");
-                    var $deviceCon = $("<div>").addClass("deviceCon");
-                var $item1 = $("<div>").addClass("item1");
-                var $img = $("<img>").attr("src","<%=request.getContextPath()%>/image/testImgV50.png");
-                $item1.append($img);
-                var $item2 = $("<div>").addClass("item2");
-                var $item3 = $("<div>").addClass("item3").text(dList[i].mNameEn);
-                    $deviceCon.append($item1, $item2, $item3);
-                $div.append($deviceCon);
-                $listArea.append($div);
-            });
         }
     </script>
 </body>
