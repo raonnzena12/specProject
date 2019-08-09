@@ -15,6 +15,11 @@ public class MobileService {
 	
 	public MobileService() {}
 
+	/**
+	 * 모바일 정보(간략개요) insert Service
+	 * @param mi1
+	 * @return result
+	 */
 	public int insertMobileSummary(MobileInsert1 mi1) {
 		Connection conn = getConnection();
 		int result = new MobileDao().insertMobileSummary(conn, mi1);
@@ -23,6 +28,11 @@ public class MobileService {
 		return result;
 	}
 
+	/**
+	 * 모바일 정보 (상세) insert Service
+	 * @param mi2
+	 * @return result
+	 */
 	public int insertMobile(MobileInsert2 mi2) {
 		Connection conn = getConnection();
 		int result = new MobileDao().insertMobile(conn, mi2);
@@ -53,6 +63,28 @@ public class MobileService {
 	}
 
 	/**
+	 * 필터링된 게시글 수를 조회하는 Service
+	 * @param queryList
+	 * @return listCount
+	 */
+	public int getListCount(ArrayList<String[]> queryList) {
+		Connection conn = getConnection();
+		CreateQuery cq = new CreateQuery();
+		String query = "";
+		// 쿼리문 조합
+		if ( !queryList.isEmpty() ) {
+			for ( String[] strArr : queryList ) {
+				switch ( strArr[0] ) {
+				case "brand" : query += cq.createBrandq(strArr); break;
+				case "battery" : query += cq.createBatteryq(strArr); break;
+				}
+			}
+		}
+		int listCount = new MobileDao().getListCount(conn, query);
+		return listCount;
+	}
+
+	/**
 	 * 페이지 리스트를 받아오는 Service
 	 * @param currentPage
 	 * @param limit
@@ -71,19 +103,33 @@ public class MobileService {
 	 * @param bArr
 	 * @return list
 	 */
-	public ArrayList<Mobile> filterList(int currentPage, int limit, String[] bArr) {
+	public ArrayList<Mobile> filterList(int currentPage, int limit, ArrayList<String[]> queryList) {
 		Connection conn = getConnection();
-		
+		CreateQuery cq = new CreateQuery();
 		String query = "";
 		// 쿼리문 조합
-		// 브랜드 쿼리문 조합
-		if ( bArr != null ) {
-			query = new CreateQuery().createBrandq(bArr);
+		if ( !queryList.isEmpty() ) {
+			for ( String[] strArr : queryList ) {
+				switch ( strArr[0] ) {
+				case "brand" : query += cq.createBrandq(strArr); break;
+				case "battery" : query += cq.createBatteryq(strArr); break;
+				}
+			}
 		}
 		
 		ArrayList<Mobile> fList = new MobileDao().filterList(conn, currentPage, limit, query);
 		return fList;
 	}
-	
+
+	/**
+	 * 핸드폰 기종 개요 출력하는 Service
+	 * @return mdList
+	 */
+	public ArrayList<MobileInsert1> selectDigest() {
+		Connection conn = getConnection();
+		ArrayList<MobileInsert1> mdList = new MobileDao().selectDigest(conn);
+		
+		return mdList;
+	}
 	
 }

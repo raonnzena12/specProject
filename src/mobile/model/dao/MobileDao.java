@@ -162,6 +162,26 @@ public class MobileDao {
 		}
 		return listCount;
 	}
+	
+	public int getListCount(Connection conn, String query) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String baseQuery = prop.getProperty("getListCount");
+		String finQuery = baseQuery + query;
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(finQuery);
+			if ( rset.next() ) {
+				listCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listCount;
+	}
 
 	/**
 	 * 페이지 리스트를 받아오는 Dao
@@ -255,4 +275,34 @@ public class MobileDao {
 		
 		return fList;
 	}
+
+	/**
+	 * 핸드폰 기종 개요 출력하는 DAO
+	 * @param conn
+	 * @return mdList
+	 */
+	public ArrayList<MobileInsert1> selectDigest(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<MobileInsert1> mdList = new ArrayList<MobileInsert1>();
+		
+		String query = prop.getProperty("selectDigest");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while ( rset.next() ) {
+				mdList.add(new MobileInsert1(rset.getInt("MO_NO"), rset.getString("MO_CODE"), rset.getString("MO_NAME"), rset.getString("MO_NAME_EN"), rset.getInt("MO_BRANDCODE")));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return mdList;
+	}
+
 }

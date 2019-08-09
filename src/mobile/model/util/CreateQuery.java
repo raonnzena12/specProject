@@ -4,7 +4,7 @@ public class CreateQuery {
 	public CreateQuery() {}
 	
 	public String createBrandq(String[] bArr) {
-		String query = " AND \"제조사\" IN (";
+		String query = " AND \"제조사\" IN ( ";
 		for ( int i = 0 ; i < bArr.length ;  i++ ) {
 			switch( bArr[i] ) {
 			case "samsung" : query += "\'삼성전자\'"; break;
@@ -19,9 +19,14 @@ public class CreateQuery {
 			case "nokia" : query += "\'노키아\'"; break;
 			default : break;
 			}
-			query += ( i == bArr.length-1 || i == 0 ) ? " " : ",";
+			query += ( i == bArr.length-1 || i == 0 ) ? "" : ",";
 		}
 		query += " ) "; 
+		return query;
+	}
+
+	public String createBatteryq(String[] strArr) {
+		String query = " AND \"배터리\" > " + strArr[1] +" AND \"배터리\" < " + strArr[2];
 		return query;
 	}
 }
