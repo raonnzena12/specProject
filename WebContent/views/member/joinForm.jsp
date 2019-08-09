@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <style>
-    body *{
+    #joinFormBody *{
         /* border: 1px solid black; */
     }
     #layer{
@@ -21,6 +21,7 @@
         padding-top: 10px;
         padding-bottom: 10px; 
         padding-right: 20px;
+        font-size:18px !important;
     }
     #head{
         width: 100%;
@@ -83,6 +84,9 @@
     	text-align:center;
     }
     
+    #deviceSelect * {
+    	font-size:18px !important;
+    }
 </style>
 <title>회원가입</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -110,9 +114,9 @@
 		
 	});
 </script>
+<%@ include file ="/views/common/menubar.jsp" %>
 </head>
-<body>
-	<%@ include file ="/views/common/menubar.jsp" %>
+<body id="joinFormBody">
 	
 	<div id="layer">
 		<div id="head">
@@ -137,15 +141,72 @@
                         	<td><input type="password" name="pwd2" class="form-control" placeholder="비밀번호 확인" required></td>
                         </tr>
                         <tr>
-                        	<td><input type="checkbox" name="optionInfo" >&nbsp;선택정보 입력하기</td>
+                        	<td><input type="checkbox" id="selectOption" name="optionInfo" >&nbsp;<label for="selectOption">선택정보 입력하기</label></td>
                         </tr>
                     </table>
                 </div>
                 <div id="optionInfo" class="form-group">
                     <table>
-                        <tr>
+                        <!-- <tr>
                             <td colspan="2"><input class="form-control" type="tel" name="phone"
                                 placeholder="핸드폰번호(01012341234)" disabled></td>
+                        </tr> -->
+                        <tr>
+                        	<td colspan="2">
+                        		<select class="selectpicker" data-live-search="true" id="deviceSelect" >
+									<option data-tokens="ketchup mustard">Hot Dog, Fries
+										and a Soda</option>
+									<option data-tokens="mustard">Burger, Shake and a
+										Smile</option>
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+									<option data-tokens="frosting">Sugar, Spice and all
+										things nice</option>
+									<option value="salt">abc소금</option>
+								</select>
+
+							</td>
                         </tr>
                         <tr>
                             <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled readonly></td>
@@ -167,7 +228,19 @@
     </div>
     
     <script>
+    	$("#deviceSelect").change(function(){
+    		console.log($(this).val());
+    		console.log($("#optionInfo > table > tbody > tr:nth-child(1) > td > div > div > div > input").val());
+    	});
+    
     	
+    	// 모바일 기종 리스트 조회용 function
+    	function selectMlist(){
+    		$.ajax({
+    			url: "select"
+    		})
+    		
+    	}
     
     	var eCk;
     	var nCk;
@@ -191,11 +264,13 @@
     					success : function(result){
 		    				if(result > 0){
     							console.log(result);
-		    					$("#joinForm input[name=userEmail]").css("color", "red");
+		    					$("#joinForm input[name=userEmail]").removeClass('is-valid');
+		    					$("#joinForm input[name=userEmail]").addClass('is-invalid');
 		    					eCk = false;
 		    				} else{
     							console.log(result);
-			    				$("#joinForm input[name=userEmail]").css("color","green");
+			    				$("#joinForm input[name=userEmail]").removeClass('is-invalid');
+			    				$("#joinForm input[name=userEmail]").addClass('is-valid');
 			    				eCk = true;
 		    				}
     					},
@@ -206,8 +281,9 @@
     				});
     				
     			} else {
-    				console.log("이메일 형식 충족 실패")
-    				$("#joinForm input[name=userEmail]").css("color","red");
+    				console.log("이메일 형식 충족 실패");
+					$("#joinForm input[name=userEmail]").removeClass('is-valid');
+    				$("#joinForm input[name=userEmail]").addClass('is-invalid');
  					eCk = false;
     			}
     			
@@ -227,11 +303,13 @@
     					success : function(result){
 		    				if(result > 0){
     							console.log(result);
-			    				$("#joinForm input[name=userName]").css("color","red");
+			    				$("#joinForm input[name=userName]").removeClass('is-valid');
+			    				$("#joinForm input[name=userName]").addClass('is-invalid');
 			    				nCk = false;
 		    				} else{
 		    					console.log(result);
-		    					$("#joinForm input[name=userName]").css("color", "green");
+		    					$("#joinForm input[name=userName]").removeClass('is-invalid');
+			    				$("#joinForm input[name=userName]").addClass('is-valid');
 		    					nCk = true;
 		    				}
     					},
@@ -243,7 +321,8 @@
     				
     			} else{
     				console.log("이름 형식 충족 실패")
-    				$("#joinForm input[name=userName]").css("color","red");
+    				$("#joinForm input[name=userName]").removeClass('is-valid');
+			    	$("#joinForm input[name=userName]").addClass('is-invalid');
  					nCk = false;
     			}
     			
@@ -255,10 +334,14 @@
     			var regExp = /^[a-zA-Z0-9]{6,12}$/;
     			
     			if(regExp.test(pwd)){
+    				$("#joinForm input[name=pwd]").removeClass('is-invalid');
+    				$("#joinForm input[name=pwd]").addClass('is-valid');
 		    		pCk = true;
 		    			
     			} else{
-    				console.log("비밀번호 형식 충족 실패")
+    				console.log("비밀번호 형식 충족 실패");
+    				$("#joinForm input[name=pwd]").removeClass('is-valid');
+    				$("#joinForm input[name=pwd]").addClass('is-invalid');
  					pCk = false;
     			}
     			
@@ -270,9 +353,13 @@
 			
 				if(pwd == pwd2){
 					console.log("비밀번호 일치");
+					$("#joinForm input[name=pwd2]").removeClass('is-invalid');
+					$("#joinForm input[name=pwd2]").addClass('is-valid');
 					pCk2=true;
 				} else{
 					console.log("비밀번호 불일치");
+					$("#joinForm input[name=pwd2]").removeClass('is-valid');
+					$("#joinForm input[name=pwd2]").addClass('is-invalid');
 					pCk2=false;
 				}
 			});
@@ -287,6 +374,7 @@
     				if($("#joinForm input[name=phone]").val().trim() == "" || $("#joinForm input[name=device]").val().trim() == ""){
     					console.log($("#joinForm input[name=phone]").val().trim());
     					alert("휴대폰 번호 및 기종 정보를 입력해주세요");
+    					$("#joinForm input[name=phone]").focus();
     					return false;
     				}
     				
