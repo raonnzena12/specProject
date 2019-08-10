@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import mobile.model.dao.MobileDao;
 import mobile.model.util.CreateQuery;
 import mobile.model.vo.Mobile;
+import mobile.model.vo.MobileComment;
 import mobile.model.vo.MobileInsert1;
 import mobile.model.vo.MobileInsert2;
 
@@ -130,6 +131,30 @@ public class MobileService {
 		ArrayList<MobileInsert1> mdList = new MobileDao().selectDigest(conn);
 		
 		return mdList;
+	}
+
+	/**
+	 * 모바일 디바이스별 댓글 리스트를 받아오는 Service
+	 * @param mno
+	 * @return mcList
+	 */
+	public ArrayList<MobileComment> selectCommList(int mno) {
+		Connection conn = getConnection();
+		ArrayList<MobileComment> mcList = new MobileDao().selectCommList(conn, mno);
+		return mcList;
+	}
+
+	/**
+	 * 모바일 디바이스 페이지 댓글을 입력하는 Service
+	 * @param mc
+	 * @return result
+	 */
+	public int insertComment(MobileComment mc) {
+		Connection conn = getConnection();
+		int result = new MobileDao().insertComment(conn, mc);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
 	}
 	
 }

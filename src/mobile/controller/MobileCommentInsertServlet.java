@@ -8,28 +8,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mobile.model.service.MobileService;
-import mobile.model.vo.*;
+import mobile.model.vo.MobileComment;
 
-@WebServlet("/spec.mo")
-public class ViewMobileServlet extends HttpServlet {
+@WebServlet("/commentInsert.mo")
+public class MobileCommentInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public ViewMobileServlet() {
+       
+    public MobileCommentInsertServlet() {
+        super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mId = Integer.parseInt(request.getParameter("mno"));
+		int refMoNo = Integer.parseInt(request.getParameter("mno"));
+		int mcoWriter = Integer.parseInt(request.getParameter("writer"));
+		String mcoContent = request.getParameter("commCon");
+		mcoContent = mcoContent.replaceAll("\n", "<br>");
 		
-		Mobile device = new MobileService().selectMobile(mId);
-		String page = "";
-		if ( device != null ) {
-			request.setAttribute("device", device);
-			page = "views/mobile/mobileSpec.jsp";
-		} else {
-			request.setAttribute("msg", "로딩 실패");
-			page = "views/common/errorPage.jsp";
-		}
-		request.getRequestDispatcher(page).forward(request, response);
+		MobileComment mc = new MobileComment(mcoContent, refMoNo, mcoWriter);
+		int result = new MobileService().insertComment(mc);
+		
+		response.getWriter().print(result);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

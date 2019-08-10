@@ -1,35 +1,31 @@
 package mobile.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import mobile.model.service.MobileService;
-import mobile.model.vo.*;
+import mobile.model.vo.MobileComment;
 
-@WebServlet("/spec.mo")
-public class ViewMobileServlet extends HttpServlet {
+@WebServlet("/commentLoad.mo")
+public class MobileCommentLoadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public ViewMobileServlet() {
+       
+    public MobileCommentLoadServlet() {
+        super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mId = Integer.parseInt(request.getParameter("mno"));
-		
-		Mobile device = new MobileService().selectMobile(mId);
-		String page = "";
-		if ( device != null ) {
-			request.setAttribute("device", device);
-			page = "views/mobile/mobileSpec.jsp";
-		} else {
-			request.setAttribute("msg", "로딩 실패");
-			page = "views/common/errorPage.jsp";
-		}
-		request.getRequestDispatcher(page).forward(request, response);
+		int mno = Integer.parseInt(request.getParameter("mno"));
+		ArrayList<MobileComment> mcList = new MobileService().selectCommList(mno);
+		new Gson().toJson(mcList, response.getWriter());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
