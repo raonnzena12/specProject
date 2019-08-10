@@ -33,7 +33,7 @@ public class MemberDao {
 		Member loginUser = null;
 		
 		String query = prop.getProperty("loginMember");
-		
+		System.out.println(query);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, member.getUserEmail());

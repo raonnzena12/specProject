@@ -20,6 +20,7 @@ public class Member implements java.io.Serializable { /**
 	private int userStatus;
 	private int userMno;
 	private String userEmailHash;
+	private String userDevice;
 		
 
 
@@ -86,10 +87,28 @@ public class Member implements java.io.Serializable { /**
 		this.userVerify = userVerify;
 		this.userStatus = userStatus;
 		this.userMno = userMno;
+		
 	}
 
 
 	
+
+
+	public Member(int userNo, String userEmail, String userPwd, String userName, String phone, Date enrollDate,
+			Date modifyDate, char userEvent, int userVerify, int userStatus, String userDevice) {
+		super();
+		this.userNo = userNo;
+		this.userEmail = userEmail;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.userEvent = userEvent;
+		this.userVerify = userVerify;
+		this.userStatus = userStatus;
+		this.userDevice = userDevice;
+	}
 
 
 	public Member(int userNo, String userEmail, String userPwd, String userName, String phone, Date enrollDate,
