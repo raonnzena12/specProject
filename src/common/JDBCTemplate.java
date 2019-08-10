@@ -41,7 +41,7 @@ public class JDBCTemplate {
 		// --> DB와의 연결 작업 진행
 		
 		
-		String fileName = JDBCTemplate.class.getResource("/sql/driver2.properties").getPath();
+		String fileName = JDBCTemplate.class.getResource("/sql/driver.properties").getPath();
 		// 현재 파일로부터 리소스(properties) 경로까지의 상대경로를 맹글어줌
 		
 		if(conn == null) {

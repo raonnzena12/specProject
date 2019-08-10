@@ -4,7 +4,7 @@ public class CreateQuery {
 	public CreateQuery() {}
 	
 	public String createBrandq(String[] bArr) {
-		String query = " AND \"제조사\" IN ( ";
+		String query = " AND BRAND IN ( ";
 		for ( int i = 0 ; i < bArr.length ;  i++ ) {
 			switch( bArr[i] ) {
 			case "samsung" : query += "\'삼성전자\'"; break;

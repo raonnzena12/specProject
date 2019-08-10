@@ -1,14 +1,12 @@
 package mobile.model.vo;
 
-import java.sql.Date;
-
 public class Mobile {
 	private int mNo;
 	private String mCode;
 	private String mName;
 	private String mNameEn;
 	private String mBrandName;
-	private Date mReleaseDate;
+	private String mReleaseDate;
 	private String mOsName;
 	private String mOsVersion;
 	private String mMaterial;
@@ -57,7 +55,7 @@ public class Mobile {
 	
 	public Mobile() {}
 
-	public Mobile(int mNo, String mCode, String mName, String mNameEn, String mBrandName, Date mReleaseDate,
+	public Mobile(int mNo, String mCode, String mName, String mNameEn, String mBrandName, String mReleaseDate,
 			String mOsName, String mOsVersion, String mMaterial, String mSize, String mWeight, String mLink,
 			double mInch, String mResolution, String mPixel, String mDisplayType, String mDisWidth, String mDisHeight,
 			String mAp, String mCpu, String mCpuCore, String mCpuClock, String mGpu, String mRam, String mInnerMemory,
@@ -160,11 +158,11 @@ public class Mobile {
 		this.mBrandName = mBrandName;
 	}
 
-	public Date getmReleaseDate() {
+	public String getmReleaseDate() {
 		return mReleaseDate;
 	}
 
-	public void setmReleaseDate(Date mReleaseDate) {
+	public void setmReleaseDate(String mReleaseDate) {
 		this.mReleaseDate = mReleaseDate;
 	}
 
