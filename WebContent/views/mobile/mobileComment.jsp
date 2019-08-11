@@ -127,9 +127,29 @@
     // 코멘트 삭제 함수
     function deleteComment(id){
         $.ajax({
-            url: "",
+            url: "commentDelete.mo",
+            type: "POST",
             data: { mcNo: id},
-
+            error: function(e){
+                console.log(e);
+            },
+            success: function(result){
+                if ( result > 0 ) {
+                    Swal.fire(
+                    '삭제 성공!',
+                    '댓글이 성공적으로 삭제 되었습니다!',
+                    'success'
+                    );
+                    loadComment();
+                } else {
+                    Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: '댓글삭제에 실패했습니다!'
+                    // footer: '<a href>Why do I have this issue?</a>'
+                    });
+                }
+            }
         });
 
     }
@@ -141,6 +161,7 @@
         var listSize = Object.keys(cList).length; 
         console.log(cList);
         var $commentArea = $(".commentArea");
+        $commentArea.html("");
         var $commEA = $("<div>").addClass("commEA");
         if ( listSize == 0 ) { // 넘어온 리스트의 사이즈가 0일떄 ( 댓글이 없을때 출력 )
             var $noneP = $("<p>").addClass("noneP").text("등록된 댓글이 없습니다.");
@@ -153,19 +174,39 @@
                 if ( cList[i].mcoWriter == userNo ) { // 내 댓글일 경우 클래스 추가 ( 이름 색 변경용 )
                     $userName.addClass("myComment");
                 } 
-                var $date = $("<span>").addClass("date").text(cList[i].mcoRegDate);
+                var $date = $("<span>").addClass("date");
+                if ( cList[i].mcoStatus == "2" || cList[i].mcoStatus == "3" ) {
+                    // 댓글이 삭제/혹은 신고로 의한 제재 상태일 경우 수정일을 저장한다
+                    $date.text(cList[i].mcoModiDate);
+                } else {
+                    // 댓글이 일반 상태일 경우 등록일을 저장한다.
+                    $date.text(cList[i].mcoRegDate);
+                }
                 var $control = $("<span>").addClass("control").attr("id",cList[i].mcoNo);
                 var $report = $("<a>").addClass("reportComm").text("신고");
                 var $modify = $("<a>").addClass("modifyComm").text("수정");
                 var $delete = $("<a>").addClass("deleteComm").text("삭제");
-                if ( cList[i].mcoWriter == userNo ) { // 내 댓글일 경우 수정 / 삭제 출력
+                if ( cList[i].mcoStatus == 2 || cList[i].mcoStatus == 3 ){
+                    // 댓글이 삭제/ 혹은 신고로 의한 제재 상태일 경우 아무버튼도 노출하지 않는다
+                } 
+                else if ( cList[i].mcoWriter == userNo ) { // 내 댓글일 경우 수정 / 삭제 출력
                     $control.append($modify, $delete);
                 } else { // 내 댓글이 아닐 경우 신고 출력
                     $control.append($report);
                 }
-                var $commCon = $("<div>").addClass("commCon").html(cList[i].mcoContent);
+                var $commCon = $("<div>").addClass("commCon");
+                if ( cList[i].mcoStatus == 2 ) {
+                    // 유저에 의하여 삭제된 댓글일 경우 출력글
+                    $commCon.text("유저에 의하여 삭제된 댓글입니다.");
+                } else if ( cList[i].mcoStatus == 3 ) {
+                    // 신고 누적으로 제재당한 댓글일 경우 출력글
+                    $commCon.text("신고 누적으로 운영자에 의하여 삭제된 댓글입니다.");
+                } else {
+                    // 일반 상태일 경우 댓글내용을 출력
+                    $commCon.html(cList[i].mcoContent);
+                }
                 var $hr = $("<hr>");
-                $userInfo.append($userName,$date,$control);
+                $userInfo.append($userName, $date, $control);
                 $commEA.append($userInfo, $commCon, $hr);
                 $commentArea.append($commEA);
             });
@@ -217,6 +258,7 @@
 
             // }
             $(document).on("click",".deleteComm", function(){
+                var id = $(this).parent().attr("id");
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                     confirmButton: 'btn btn-primary',
@@ -235,11 +277,7 @@
                     reverseButtons: true
                 }).then((result) => {
                 if (result.value) { // 삭제버튼을 눌렀을 떄 
-                    swalWithBootstrapButtons.fire(
-                    '삭제 성공!',
-                    '댓글이 성공적으로 삭제 되었습니다!',
-                    'success'
-                    );
+                    deleteComment(id)
                 } 
                 // else if ( 취소시 액션을 주고싶다면 이걸 만지면 될것같다
                 //     /* Read more about handling dismissals below */

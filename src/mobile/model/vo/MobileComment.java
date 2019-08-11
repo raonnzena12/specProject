@@ -28,6 +28,7 @@ public class MobileComment {
 		this.mcoRegDate = mcoRegDate;
 		this.mcoWriter = mcoWriter;
 		this.mcoWName = mcoWName;
+		this.mcoStatus = mcoStatus;
 	}
 
 	public MobileComment(int mcoNo, String mcoContent, Timestamp mcoRegDate, Timestamp mcoModiDate, int refMoNo,

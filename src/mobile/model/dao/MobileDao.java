@@ -323,7 +323,7 @@ public class MobileDao {
 			rset = pstmt.executeQuery();
 			
 			while ( rset.next() ) {
-				mcList.add(new MobileComment(rset.getInt(1), rset.getString(2), rset.getTimestamp(3), rset.getInt(4), rset.getInt(5), rset.getString(6), rset.getInt(7)));
+				mcList.add(new MobileComment(rset.getInt(1), rset.getString(2), rset.getTimestamp(3), rset.getTimestamp(4), rset.getInt(5), rset.getInt(6), rset.getString(7), rset.getInt(8)));
 			}
 			
 		} catch (Exception e) {
@@ -354,6 +354,30 @@ public class MobileDao {
 			pstmt.setInt(2, mc.getRefMoNo());
 			pstmt.setInt(3, mc.getMcoWriter());
 			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * 모바일 디바이스 페이지 댓글을 삭제하는 DAO
+	 * @param conn
+	 * @param mcNo
+	 * @return result
+	 */
+	public int deleteComment(Connection conn, int mcNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteComment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mcNo);
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
