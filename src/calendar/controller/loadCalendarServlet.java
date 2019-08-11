@@ -30,7 +30,16 @@ public class loadCalendarServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Calendar> list = new CalendarService().loadCalendar();
+		int code = Integer.parseInt(request.getParameter("code"));
+		
+		ArrayList<Calendar> list = null;
+		
+		if(code == 3){
+			list = new CalendarService().loadCalendar();
+		}else {
+			list = new CalendarService().selectLoadCalendar(code);
+		}
+		
 		
 //		request.setAttribute("eventList", list);
 //		RequestDispatcher view = request.getRequestDispatcher("views/calendar/calendar.jsp");
@@ -46,10 +55,11 @@ public class loadCalendarServlet extends HttpServlet {
 			Calendar tmp = list.get(i);
 			cal = new JSONObject();
 			
+			cal.put("id", tmp.getId());
 			cal.put("title", tmp.getTitle());
-			cal.put("status", tmp.getStatus());
 			cal.put("url", tmp.getUrl());
 			cal.put("date", ft.format(tmp.getDate()));
+			cal.put("status", tmp.getStatus());
 			cal.put("code", tmp.getCode());
 			
 			map.put(i, cal);

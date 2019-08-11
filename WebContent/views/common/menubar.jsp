@@ -219,7 +219,7 @@
             <ul class="navbar-nav bd-navbar-nav flex-row" >
                 <li class="nav-item"><a href="<%=request.getContextPath()%>/devicelist.mo">MOBILE</a></li>
                 <li class="nav-item"><a href="#" id="compareOpen">COMPARE</a></li>
-                <li class="nav-item"><a href="#">CALENDAR</a></li>
+                <li class="nav-item"><a href="<%=request.getContextPath()%>/calendar.do">CALENDAR</a></li>
                 <li class="nav-item"><a href="#">COMMUNITY</a></li>
             </ul>
         </div>
