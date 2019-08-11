@@ -33,7 +33,7 @@ public class MemberDao {
 		Member loginUser = null;
 		
 		String query = prop.getProperty("loginMember");
-		
+		System.out.println(query);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, member.getUserEmail());
@@ -41,12 +41,7 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				loginUser = new Member(rset.getInt(1), 
-						rset.getString(2), rset.getString(3),
-						rset.getString(4), rset.getString(5), 
-						rset.getDate(6), rset.getDate(7), 
-						rset.getString(8).charAt(0), rset.getInt(9), 
-						rset.getInt(10), rset.getInt(11));
+				loginUser = new Member(rset.getInt("USER_NO"), rset.getString("USER_EMAIL"), rset.getString("USER_PWD"), rset.getString("USER_NAME"), rset.getString("USER_PHONE"), rset.getDate("USER_ENDATE"), rset.getDate("USER_MDDATE"), rset.getString("USER_EVENT").charAt(0), rset.getInt("USER_VERIFY"), rset.getInt("USER_STATUS"), rset.getString("USER_DEVICE"));
 			}
 			
 		} catch (SQLException e) {

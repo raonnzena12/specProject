@@ -1,5 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="board.model.vo.Board" import="java.util.ArrayList" import="board.model.vo.BoardPageInfo"%>
+    
+<%
+	ArrayList<Board> tlist = (ArrayList<Board>)request.getAttribute("tlist");
+	
+	BoardPageInfo bpi = (BoardPageInfo)request.getAttribute("bpi");
+	
+	int boardCount = bpi.getBoardCount();
+	int currentPage = bpi.getCurrentPage();
+	int maxPage = bpi.getMaxPage();
+	int startPage = bpi.getStartPage();
+	int endPage = bpi.getEndPage();
+	int limit = bpi.getLimit();
+	int pagingBarSize = bpi.getPageingBarSize();
+
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +35,7 @@
         }  */
 	#list{
             width: 1080px;
-            height: 500px;
+            height: 600px;
             margin: auto;
             padding: 0;
         }
@@ -73,27 +89,26 @@
                 </tr>
             </thead>
             <tbody>
-            	<%-- <% if(list.isEmpty()){ %>
+            	<% if(tlist.isEmpty()){ %>
             	<tr>
-            		<td colspan="5">등록된 게시글이 없습니다.</td>
+            		<td colspan="5"> 등록된 게시글이 없습니다.</td>
             	</tr>
-            	
             	<% }else{ %>
-	            	<% for(Board b : list){ %>
-	                <tr>
-	                    <td><%= %></td>
-	                    <td><%= %></td>
-	                    <td><%= %></td>
-	                    <td><%= %></td>
-	                    <td><%= %></td>
-	                </tr>
-	              	<% } %>
-				<% } %> --%>
+            		<%for(Board b2 : tlist){ %>
+            		<tr>
+            			<td><%= b2.getbNo()%></td>
+            			<td><%= b2.getCgCategory()%></td>
+            			<td><%= b2.getbTitle()%></td>
+            			<td><%= b2.getbRegdate()%></td>
+            			<td><%= b2.getbCount()%></td>
+            		</tr>
+            		<% } %>
+            	<% } %>
             </tbody>   
        	</table>
    	</section>
     <section id="btn">
-       	<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : left; margin: 0 10px 0 5px;" onclick="location.href='<%=request.getContextPath()%>/list.bo'">목록</button>
+       	<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : left; margin: 0 10px 0 5px;" onclick="location.href='<%=request.getContextPath()%>/maintotalform.bo'">목록</button>
         <form class="form-inline my-2 my-lg-0">
 	        <input class="form-control mr-sm-2" type="text" placeholder="Search">
 	        <button type="button" class="btn btn-secondary"style="background-color : white; color : black; font-weight:bold; margin:0;">검색</button>
@@ -105,20 +120,32 @@
 			<option value="head">말머리</option>
 		</select>
 		
-			<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : right; margin: 0 10px 0 5px;" onclick="location.href='<%=request.getContextPath()%>/write.bo'">글쓰기</button>
+			<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : right; margin: 0 10px 0 5px;" onclick="location.href='<%=request.getContextPath()%>/writeform.bo'">글쓰기</button>
     </section>
     
     <!-- 페이징바 -->
     <section id="page">
 		<div>
 	         <ul class="pagination pagination-sm">
+	   			<!-- 맨 처음(<<) -->
 	   			<li class="page-item disabled">
-	   				<a class="page-link" href="#">&laquo;</a>
+	   				<a class="page-link" href="<%= request.getContextPath()%>/maintotal.bo?currentPage=1&bno=<%=request.getAttribute("bno")%>">&laquo;</a>
 	   			</li>
-	   			<li class="page-item active">
-	   				<a class="page-link" href="#">1</a>
-	    		</li>
-	            <li class="page-item">
+	   			
+	   			<!-- 페이지 목록 넘기기 -->
+	   			
+	   			<% for(int p = startPage; p <= endPage; p++){ %>
+		   				<%if(p == currentPage){ %>
+				   			<li class="page-item">
+			   					<a class="page-link"><%= p %></a>
+			   				</li>
+			   			<% } else { %>
+				   			<li class="page-item">
+				   				<a class="page-link" href="<%= request.getContextPath()%>/maintotal.bo?currentPage=<%= p%>&bno=<%=request.getAttribute("bno")%>"><%= p %></a>
+				   			</li>
+			   			<% } %>
+		   			<% } %>
+	            <!-- <li class="page-item">
 	                 <a class="page-link" href="#">2</a>
 	      		</li>
 	     		<li class="page-item">
@@ -129,9 +156,11 @@
 	    		</li>
 	    		<li class="page-item">
 	     			<a class="page-link" href="#">5</a>
-	     		</li>
+	     		</li> -->
+	     		
+	     		<!-- 맨끝으로(>>) -->
 	    		 <li class="page-item">
-	     			<a class="page-link" href="#">&raquo;</a>
+	     			<a class="page-link" href="<%=request.getContextPath()%>/maintotal.bo?currentPage=<%= maxPage %>&bno=<%=request.getAttribute("bno")%>">&raquo;</a>
 	     		</li>
    			</ul>
    		</div> 

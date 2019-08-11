@@ -114,7 +114,7 @@ public class MobileDao {
 			
 			if ( rset.next() ) {
 				device = new Mobile(rset.getInt(1), rset.getString(2), rset.getString(3), 
-						rset.getString(4), rset.getString(5), rset.getDate(6), rset.getString(7), 
+						rset.getString(4), rset.getString(5), rset.getString(6), rset.getString(7), 
 						rset.getString(8), rset.getString(9), rset.getString(10), rset.getString(11), 
 						rset.getString(12), rset.getDouble(13), rset.getString(14), rset.getString(15), 
 						rset.getString(16), rset.getString(17), rset.getString(18), rset.getString(19), 
@@ -205,7 +205,7 @@ public class MobileDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Mobile(rset.getInt(2), rset.getString(3), rset.getString(4), 
-						rset.getString(5), rset.getString(6), rset.getDate(7), rset.getString(8), 
+						rset.getString(5), rset.getString(6), rset.getString(7), rset.getString(8), 
 						rset.getString(9), rset.getString(10), rset.getString(11), rset.getString(12), 
 						rset.getString(13), rset.getDouble(14), rset.getString(15), rset.getString(16), 
 						rset.getString(17), rset.getString(18), rset.getString(19), rset.getString(20), 
@@ -253,7 +253,7 @@ public class MobileDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				fList.add(new Mobile(rset.getInt(2), rset.getString(3), rset.getString(4), 
-						rset.getString(5), rset.getString(6), rset.getDate(7), rset.getString(8), 
+						rset.getString(5), rset.getString(6), rset.getString(7), rset.getString(8), 
 						rset.getString(9), rset.getString(10), rset.getString(11), rset.getString(12), 
 						rset.getString(13), rset.getDouble(14), rset.getString(15), rset.getString(16), 
 						rset.getString(17), rset.getString(18), rset.getString(19), rset.getString(20), 
@@ -303,6 +303,140 @@ public class MobileDao {
 			close(stmt);
 		}
 		return mdList;
+	}
+
+	/**
+	 * 모바일 디바이스별 댓글 리스트를 받아오는 Service
+	 * @param conn
+	 * @param mno
+	 * @return mcList
+	 */
+	public ArrayList<MobileComment> selectCommList(Connection conn, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MobileComment> mcList = new ArrayList<MobileComment>();
+		
+		String query = prop.getProperty("selectCommList");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			rset = pstmt.executeQuery();
+			
+			while ( rset.next() ) {
+				mcList.add(new MobileComment(rset.getInt(1), rset.getString(2), rset.getTimestamp(3), rset.getTimestamp(4), rset.getInt(5), rset.getInt(6), rset.getString(7), rset.getInt(8)));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println(mcList.size());
+		return mcList;
+	}
+
+	/**
+	 * 모바일 디바이스 페이지 댓글을 입력하는 Service
+	 * @param conn
+	 * @param mc
+	 * @return result
+	 */
+	public int insertComment(Connection conn, MobileComment mc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertComment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, mc.getMcoContent());
+			pstmt.setInt(2, mc.getRefMoNo());
+			pstmt.setInt(3, mc.getMcoWriter());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * 모바일 디바이스 페이지 댓글을 삭제하는 DAO
+	 * @param conn
+	 * @param mcNo
+	 * @return result
+	 */
+	public int deleteComment(Connection conn, int mcNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteComment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mcNo);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * 모바일 댓글을 수정하기위해 댓글 하나를 불러오는 DAO
+	 * @param conn
+	 * @param mcNo
+	 * @return mc
+	 */
+	public MobileComment selectComment(Connection conn, int mcNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		MobileComment mc = null;
+		
+		String query = prop.getProperty("selectComment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mcNo);
+			
+			rset = pstmt.executeQuery();
+			if ( rset.next() ) {
+				mc = new MobileComment(rset.getInt(1), rset.getString(2), rset.getTimestamp(3), rset.getTimestamp(4), rset.getInt(5), rset.getInt(6), rset.getString(7), rset.getInt(8));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mc;
+	}
+
+	public int updateComment(Connection conn, MobileComment mc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateComment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, mc.getMcoContent());
+			pstmt.setInt(2, mc.getMcoNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+				
+		return result;
 	}
 
 }

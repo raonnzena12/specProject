@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="mobile.model.vo.Mobile"%>
 <%
-	Mobile mo = (Mobile)request.getAttribute("device");
+    Mobile mo = (Mobile)request.getAttribute("device");
 %>
 <!DOCTYPE html>
 <html>
@@ -49,7 +49,7 @@
         height: 120px;
         cursor: pointer;
     }
-    .tab {
+    .tab, .page {
         display: inline-block;
         width: 30.4%;
         height: 100%;
@@ -69,18 +69,36 @@
         border: 1px solid #ccc;
         margin-bottom: 50px;
     }
+    .page, .on {
+        color: #00264B;
+        font-weight: 600;
+    }
+    .page div, .on div {
+        background-color: #00264B;
+    }
 </style>
 <script>
+        // url에 있는 파라메터 받아오기
+        $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results[1] || 0;
+        }   
         $(function() {
             $(".tab").mouseenter(function(){
-                $(this).css({color:"#00264B", "font-weight":"600"});
-                $(this).children().css("background-color","#00264B")
+                $(this).addClass("page");
             }).mouseleave(function() {
-                $(this).css({color:"#999", "font-weight":"400"});
-                $(this).children().css("background-color","#fff");
+                $(this).removeClass("page");
             });
+            var page = $.urlParam("page")
+            var pageNum = 0;
+            switch (page) {
+                case "1" : pageNum = 0; break;
+                case "2" : pageNum = 1; break;
+                case "3" : pageNum = 2; break;
+            }
+            $("#mobileTab").children().eq(pageNum).addClass("on");
         });
-    </script>
+</script>
 </head>
 <body>
 	<%-- <%@ include file ="/views/common/menubar.jsp" %> --%>
@@ -95,12 +113,20 @@
         <div id="mobileCount">좋아요 / 소지수</div>
         <div id="clear"></div>
         <div id="mobileTab">
-            <div class="tab">SPEC<div class="bar"></div>
-            </div>
-            <div class="tab">REVIEW<div class="bar"></div></div>
-            <div class="tab">COMPARE<div class="bar"></div></div>
+            <div class="tab" id="1"><a>SPEC</a><div class="bar"></div></div>
+            <div class="tab" id="2"><a>REVIEW</a><div class="bar"></div></div>
+            <div class="tab" id="3"><a>COMPARE</a><div class="bar"></div></div>
         </div>
         <div class="clear"></div>
     </div>
+    <script>
+        $(function(){
+            var currentPage = $.urlParam("currentPage");
+            var mno = $.urlParam("mno");
+            $(document).on("click", ".tab", function(){
+                location.href = "<%=request.getContextPath()%>/spec.mo?currentPage="+currentPage+"&mno="+mno+"&page="+$(this).attr("id");
+            });
+        });
+    </script>
 </body>
 </html>

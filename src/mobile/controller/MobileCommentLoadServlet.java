@@ -9,30 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mobile.model.service.MobileService;
+import com.google.gson.Gson;
 
-@WebServlet("/count.mo")
-public class ListCountServlet extends HttpServlet {
+import mobile.model.service.MobileService;
+import mobile.model.vo.MobileComment;
+
+@WebServlet("/commentLoad.mo")
+public class MobileCommentLoadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ListCountServlet() {
+    public MobileCommentLoadServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String qString = request.getParameter("qString");
-		int listCount = 0;
-		
-		if ( qString != null && qString.trim().length() != 0 ) {
-			String[] queryArr = qString.split(","); 
-			ArrayList<String[]> queryList = new ArrayList<String[]>();
-			for ( int i = 0 ; i < queryArr.length ; i++ ) {
-				queryList.add(queryArr[i].split(":"));
-			}
-			listCount = new MobileService().getListCount(queryList);
-		} else {
-			listCount = new MobileService().getListCount(); 
-		}
+		int mno = Integer.parseInt(request.getParameter("mno"));
+		ArrayList<MobileComment> mcList = new MobileService().selectCommList(mno);
+		new Gson().toJson(mcList, response.getWriter());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

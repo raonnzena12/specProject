@@ -83,7 +83,7 @@
     .brandName input:checked +label{
         font-weight: 900;
     }
-    #amount {
+    #batAmount, #ScreenAmount {
   		border: 0px;
   		font-weight: bold;
   		background-color: #eee;
@@ -262,15 +262,15 @@
         // 슬라이더바 스크린 설정
         $( "#slider-screen" ).slider({
         range: true,
-        min: 1000,
-        max: 5000,
-        values: [ 1000, 5000 ],
-        step: 100,
+        min: 2,
+        max: 8,
+        values: [ 2, 8 ],
+        step: 0.1,
         slide: function( event, ui ) {
-            $( "#ScreenAmount" ).val( ui.values[ 0 ] + " mAh - " + ui.values[ 1 ] + " mAh");
+            $( "#ScreenAmount" ).val( ui.values[ 0 ] + " Inch - " + ui.values[ 1 ] + " Inch");
         },
         stop: function(event, ui){
-            if ( ui.values[0] == 1000 && ui.values[1]== 5000 ) {
+            if ( ui.values[0] == 2 && ui.values[1]== 8 ) {
                 deleteUrl('screen')
                 filtering();
             } else {
@@ -281,7 +281,13 @@
         }
         });
         $( "#ScreenAmount" ).val( $( "#slider-screen" ).slider( "values", 0 ) +
-        " mAh - " + $( "#slider-screen" ).slider( "values", 1 ) + " mAh" );
+        " Inch - " + $( "#slider-screen" ).slider( "values", 1 ) + " Inch" );
+        // 리스트 상세 조회용 함수!
+        $(document).on("click",".deviceCon",function(){
+            var mno = $(this).attr("id");
+            console.log(mno);
+            location.href="<%=request.getContextPath()%>/spec.mo?currentPage="+currentPage+"&mno="+mno+"&page="+1;
+        });
     });
 </script>
 </head>
@@ -363,7 +369,7 @@
                             <img src="<%=request.getContextPath()%>/image/testImgV50.png">
                         </div>
                         <div class="item2"></div>
-                        <div class="item3"><%= list.get(i).getmNameEn() %></div>
+                        <div class="item3" id="<%=list.get(i).getmNo()%>"><%= list.get(i).getmNameEn() %></div>
                     </div>
                 </div>
             <% } } } %>
@@ -375,6 +381,7 @@
         var currentPage = 1;
         var limit = <%=pInf.getLimit()%>;
         var maxPage = <%=pInf.getMaxPage()%>;
+
         <%-- 리스트 갱신 함수
          처음 접속했을때는 모든 리스트를 받아오고
          필터링 했을때는 필터링한 리스트를 받아옴(그렇게 동작했으면 좋겠다) --%>

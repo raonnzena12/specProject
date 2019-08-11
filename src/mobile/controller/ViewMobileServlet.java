@@ -18,15 +18,18 @@ public class ViewMobileServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		int mId = Integer.parseInt(request.getParameter("mId"));
-		// 테스트용
-		int mId = 1;
+		int mId = Integer.parseInt(request.getParameter("mno"));
+		int specPage = Integer.parseInt(request.getParameter("page"));
+		// 스펙/리뷰/비교중 한 페이지로 연결해주기 위해 파라미터의 page를 받는다
 		
 		Mobile device = new MobileService().selectMobile(mId);
 		String page = "";
-		if ( device != null ) {
+		if ( device != null && specPage == 1 ) {
 			request.setAttribute("device", device);
 			page = "views/mobile/mobileSpec.jsp";
+		} else if ( device != null && specPage == 2 ) {
+			request.setAttribute("device", device);
+			page = "views/mobile/mobileReview.jsp";
 		} else {
 			request.setAttribute("msg", "로딩 실패");
 			page = "views/common/errorPage.jsp";
