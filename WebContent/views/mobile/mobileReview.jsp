@@ -96,6 +96,8 @@
 </script>
 </head>
 <body>
+    <%@ include file ="/views/common/menubar.jsp" %>
+    <%@ include file = "mobileSpecTop.jsp"%>
     <% for ( int i = 0 ; i < size ; i++ ) { %>
     <div class="border rounded reviewCon">
         <div class="modify"><% if( myReview ) { %><i class="material-icons">create</i><i class="material-icons">clear</i><% } else { %><i class="material-icons">error</i><% } %></div>
