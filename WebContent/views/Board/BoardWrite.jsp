@@ -134,10 +134,10 @@
     </section>
     <section id="title" class="sec"> 
     	<select name="brand" id="brand">
-     		<option value="lg">LG게시판</option>
-     		<option value="ss">삼성게시판</option>
-     		<option value="ap">애플게시판</option>
-     		<option value="fr" selected>자유게시판</option>
+     		<option value="1">LG게시판</option>
+     		<option value="2">삼성게시판</option>
+     		<option value="3">애플게시판</option>
+     		<option value="4" selected>자유게시판</option>
      	</select>
             
      	<select name="category" id="category">
