@@ -281,7 +281,7 @@
         });
         $( "#ScreenAmount" ).val( $( "#slider-screen" ).slider( "values", 0 ) +
         " Inch - " + $( "#slider-screen" ).slider( "values", 1 ) + " Inch" );
-
+        // 리스트 상세 조회용 함수!
         $(document).on("click",".deviceCon",function(){
             var mno = $(this).attr("id");
             console.log(mno);
@@ -380,7 +380,6 @@
         var currentPage = 1;
         var limit = <%=pInf.getLimit()%>;
         var maxPage = <%=pInf.getMaxPage()%>;
-        // 핸드폰 상세페이지 조회 함수
 
         <%-- 리스트 갱신 함수
          처음 접속했을때는 모든 리스트를 받아오고

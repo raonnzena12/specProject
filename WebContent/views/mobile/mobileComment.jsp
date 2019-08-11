@@ -61,7 +61,6 @@
     // 코멘트 로딩 함수
     function loadComment(){
         var mno = <%=mo.getmNo()%>;
-        console.log(mno);
 
         $.ajax({
             url: "commentLoad.mo",
@@ -72,7 +71,6 @@
                 console.log(e);
             },
             success: function(cList){
-                console.log("im start");
                 printComment(cList);
             }
         });
@@ -83,7 +81,7 @@
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////// 회원번호 지금은 없으니 임시 변수 넣어둠...!! 수정필요!!!!!!!!!!!!!!!!!!!!!!!!!!1///////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        var writer = 0;
+        <%if ( loginUser != null ) {%>var writer = <%=loginUser.getUserNo()%>;<%}%>
         var commCon = $("#commCon").val();
         if ( commCon.trim().length == 0 ) {
             Swal.fire({ type: 'warning',
@@ -99,7 +97,7 @@
         }
 
         $.ajax({
-            url: "",
+            url: "commentInsert.mo",
             data: { mno: mno,
                     writer: writer,
                     commCon: commCon },
@@ -109,7 +107,6 @@
             },
             success: function(result){
                 if ( result > 0 ) { //댓글 등록이 성공했을 경우
-                    console.log("댓글 등록");
                     $("#commCon").val("");
                     loadComment();
                 } else {
@@ -161,9 +158,8 @@
     function printComment(cList){
         var userNo = 0;
         // 유저login 확인 가능한 즉시
-        // <% if( loginUser != null ) { %> userNo = <%=loginUser.getUserNo()%>;<% } %>
+        <% if( loginUser != null ) { %> userNo = <%=loginUser.getUserNo()%>;<% } %>
         var listSize = Object.keys(cList).length; 
-        console.log(cList);
         var $commentArea = $(".commentArea");
         $commentArea.html("");
         var $commEA = $("<div>").addClass("commEA");
@@ -175,7 +171,7 @@
             $.each(cList, function(i){
                 var $userInfo = $("<div>").addClass("userInfo");
                 var $userName = $("<span>").addClass("userName").text(cList[i].mcoWName);
-                if ( cList[i].mcoWriter == userNo ) { // 내 댓글일 경우 클래스 추가 ( 이름 색 변경용 )
+                if ( <%=loginUser != null %> && cList[i].mcoWriter == userNo ) { // 내 댓글일 경우 클래스 추가 ( 이름 색 변경용 )
                     $userName.addClass("myComment");
                 } 
                 var $date = $("<span>").addClass("date");
@@ -190,7 +186,7 @@
                 var $report = $("<a>").addClass("reportComm").text("신고");
                 var $modify = $("<a>").addClass("modifyComm").text("수정");
                 var $delete = $("<a>").addClass("deleteComm").text("삭제");
-                if ( cList[i].mcoStatus == 2 || cList[i].mcoStatus == 3 ){
+                if ( <%=loginUser == null%> || cList[i].mcoStatus == 2 || cList[i].mcoStatus == 3 ){
                     // 댓글이 삭제/ 혹은 신고로 의한 제재 상태일 경우 아무버튼도 노출하지 않는다
                 } 
                 else if ( cList[i].mcoWriter == userNo ) { // 내 댓글일 경우 수정 / 삭제 출력

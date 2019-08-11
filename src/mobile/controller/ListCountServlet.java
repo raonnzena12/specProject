@@ -21,7 +21,6 @@ public class ListCountServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String qString = request.getParameter("qString");
-		System.out.println(qString);
 		int listCount = 0;
 		
 		if ( qString != null && qString.trim().length() != 0 ) {
@@ -34,7 +33,6 @@ public class ListCountServlet extends HttpServlet {
 		} else {
 			listCount = new MobileService().getListCount(); 
 		}
-		response.getWriter().print(listCount);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
