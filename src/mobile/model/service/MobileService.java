@@ -156,5 +156,18 @@ public class MobileService {
 		else rollback(conn);
 		return result;
 	}
+
+	/**
+	 * 모바일 디바이스 페이지 댓글을 삭제하는 Service
+	 * @param mcNo
+	 * @return result
+	 */
+	public int deleteComment(int mcNo) {
+		Connection conn = getConnection();
+		int result = new MobileDao().deleteComment(conn, mcNo);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
 	
 }
