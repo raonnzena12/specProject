@@ -30,7 +30,8 @@ $(function () {
 	<a href="http://www.auiproject.com/prj/view.html?i=MTA5MjE3OTczMjQ5NzIyMzkxMzIzLDEzMTA0LGty" target="_blank"><button type="button" class="btn btn-light border" data-toggle="tooltip" data-placement="top" title="프로젝트 일정관리 간트차트(클릭 후 주소창에서 엔터 한번 쳐주면 보임)" >AUI프로젝트</button></a><br>
 	<a href="https://www.cmsfactory.net/10035" target="_blank"><button type="button" class="btn btn-light border" data-toggle="tooltip" data-placement="top" title="간편하게 아이콘 삽입하기" >구글 웹 아이콘</button></a>
 	<a href="http://bootstrapk.com/" target="_blank"><button type="button" class="btn btn-light border" data-toggle="tooltip" data-placement="top" title="부트스트랩(한글)" >부트스트랩</button></a>
-	<a href="https://getbootstrap.com/" target="_blank"><button type="button" class="btn btn-light border" data-toggle="tooltip" data-placement="top" title="부트스트랩(영어) - 자료 많음" >BootStrap</button></a><br>
+	<a href="https://getbootstrap.com/" target="_blank"><button type="button" class="btn btn-light border" data-toggle="tooltip" data-placement="top" title="부트스트랩(영어) - 자료 많음" >BootStrap</button></a>
+	<a href="https://sweetalert2.github.io/" target="_blank"><button type="button" class="btn btn-light border" data-toggle="tooltip" data-placement="top" title="sweetalert - 디자인 얼럿창" >sweetalert2</button></a><br>
 	<img src="<%=request.getContextPath() %>/image/midnightBlue.jpg" width="300px">
 </body>
 </html>

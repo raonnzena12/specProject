@@ -169,5 +169,29 @@ public class MobileService {
 		else rollback(conn);
 		return result;
 	}
+
+	/**
+	 * 모바일 댓글을 수정하기위해 댓글 하나를 불러오는 Service
+	 * @param mcNo
+	 * @return mc
+	 */
+	public MobileComment selectComment(int mcNo) {
+		Connection conn = getConnection();
+		MobileComment mc = new MobileDao().selectComment(conn, mcNo);
+		return mc;
+	}
+
+	/**
+	 * 모바일 댓글을 수정하는 Service
+	 * @param mc
+	 * @return result
+	 */
+	public int updateComment(MobileComment mc) {
+		Connection conn = getConnection();
+		int result = new MobileDao().updateComment(conn, mc);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
 	
 }

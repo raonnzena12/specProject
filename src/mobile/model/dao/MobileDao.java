@@ -387,4 +387,56 @@ public class MobileDao {
 		return result;
 	}
 
+	/**
+	 * 모바일 댓글을 수정하기위해 댓글 하나를 불러오는 DAO
+	 * @param conn
+	 * @param mcNo
+	 * @return mc
+	 */
+	public MobileComment selectComment(Connection conn, int mcNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		MobileComment mc = null;
+		
+		String query = prop.getProperty("selectComment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mcNo);
+			
+			rset = pstmt.executeQuery();
+			if ( rset.next() ) {
+				mc = new MobileComment(rset.getInt(1), rset.getString(2), rset.getTimestamp(3), rset.getTimestamp(4), rset.getInt(5), rset.getInt(6), rset.getString(7), rset.getInt(8));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mc;
+	}
+
+	public int updateComment(Connection conn, MobileComment mc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateComment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, mc.getMcoContent());
+			pstmt.setInt(2, mc.getMcoNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
+
 }
