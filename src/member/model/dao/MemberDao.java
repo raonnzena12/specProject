@@ -196,4 +196,13 @@ public class MemberDao {
 		}
 		return result;
 	}
+
+	public int updateMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateMember");
+		
+		return 0;
+	}
 }

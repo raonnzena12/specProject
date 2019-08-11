@@ -52,6 +52,15 @@
 <title>회원정보 메뉴바</title>
 	
 <script>
+
+	
+	var msg = "<%=(String)request.getAttribute("msg")%>";
+	
+	if(msg != "null") { // msg 값이 있을 경우
+		alert(msg);
+		<% session.removeAttribute("msg"); %>
+		// 한번 출력 후 제거 (안하면 모든 페이지에서 계속 출력됨)
+	}
     $(function(){
 
         $("a").mouseenter(function(){
