@@ -5,6 +5,7 @@ import java.time.temporal.TemporalAccessor;
 
 public class Calendar {
 	
+	private int id;
 	private String title;
 	private String url;
 	private Date date;
@@ -13,6 +14,8 @@ public class Calendar {
 	
 	public Calendar() {}
 	
+	
+
 	public Calendar(String title, String url, Date date, char status, int code) {
 		super();
 		this.title = title;
@@ -20,6 +23,24 @@ public class Calendar {
 		this.date = date;
 		this.status = status;
 		this.code = code;
+	}
+
+	public Calendar(int id, String title, String url, Date date, char status, int code) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.url = url;
+		this.date = date;
+		this.status = status;
+		this.code = code;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -64,9 +85,8 @@ public class Calendar {
 
 	@Override
 	public String toString() {
-		return "Calendar [title=" + title + ", url=" + url + ", date=" + date + ", status=" + status + ", code=" + code
-				+ "]";
+		return "Calendar [id=" + id + ", title=" + title + ", url=" + url + ", date=" + date + ", status=" + status
+				+ ", code=" + code + "]";
 	}
 	
-
 }
