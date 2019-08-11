@@ -153,6 +153,10 @@
         });
 
     }
+    // 코멘트 수정창 호출 함수
+    function updateComment(id) {
+        window.open("modifyComment.mo?mcNo="+id, "updateForm", "width=800px, height=300px, resizable = no, scrollbars = no");
+    }
     // 코멘트 프린트 함수
     function printComment(cList){
         var userNo = 0;
@@ -232,14 +236,12 @@
                 <% } 
              } %> -->
         </div>
-        <form action="" method="POST">
         <div class="commWriteA input-group mb-3" id="commWriteA">
             <textarea name="commCon" id="commCon" rows="3" class="form-control" aria-describedby="button-addon2"placeholder="댓글을 입력해주세요"></textarea>
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="writeComment();">댓글 입력</button>
             </div>
         </div>
-        </form>
     </section>
     <script>
         $(function(){
@@ -290,6 +292,10 @@
                 //     )
                 // }
                 });
+            });
+            $(document).on("click",".modifyComm", function(){
+                var id = $(this).parent().attr("id");
+                updateComment(id);
             });
         });
     </script>

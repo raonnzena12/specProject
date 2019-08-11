@@ -14,6 +14,12 @@ public class MobileComment {
 	
 	public MobileComment() {}
 	
+	public MobileComment(int mcoNo, String mcoContent) {
+		super();
+		this.mcoNo = mcoNo;
+		this.mcoContent = mcoContent;
+	}
+
 	public MobileComment(String mcoContent, int refMoNo, int mcoWriter) {
 		super();
 		this.mcoContent = mcoContent;
