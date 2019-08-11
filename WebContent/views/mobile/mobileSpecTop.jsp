@@ -97,6 +97,11 @@
                 case "3" : pageNum = 2; break;
             }
             $("#mobileTab").children().eq(pageNum).addClass("on");
+            var currentPage = $.urlParam("currentPage");
+            var mno = $.urlParam("mno");
+            $(".mobileTap").children().eq(0).children().attr("href","");
+            $(".mobileTap").children().eq(1).children().attr("href","");
+            $(".mobileTap").children().eq(2).children().attr("href","");
         });
 </script>
 </head>
@@ -113,9 +118,9 @@
         <div id="mobileCount">좋아요 / 소지수</div>
         <div id="clear"></div>
         <div id="mobileTab">
-            <div class="tab">SPEC<div class="bar"></div></div>
-            <div class="tab">REVIEW<div class="bar"></div></div>
-            <div class="tab">COMPARE<div class="bar"></div></div>
+            <div class="tab"><a>SPEC</a><div class="bar"></div></div>
+            <div class="tab"><a>REVIEW</a><div class="bar"></div></div>
+            <div class="tab"><a>COMPARE</a><div class="bar"></div></div>
         </div>
         <div class="clear"></div>
     </div>

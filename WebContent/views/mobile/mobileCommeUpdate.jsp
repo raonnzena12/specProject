@@ -51,16 +51,30 @@
             },
             success: function(result){
                 if ( result > 0 ) {
-                    Swal.fire(
-                    '수정 성공!',
-                    '댓글이 성공적으로 수정 되었습니다!',
-                    'success'
-                    );
-                    opener.location.href="javascript:loadComment();"
-                    if (opener!= null) {
-                        opener.updateForm = null;
-                        self.close();
+                    let timerInterval
+                    Swal.fire({
+                    title: '댓글 수정 성공!',
+                    html: '댓글 수정에 성공하였습니다',
+                    timer: 1000,
+                    onBeforeOpen: () => {
+                        // Swal.showLoading()
+                        timerInterval = setInterval(() => {
+                        }, 100)
+                    },
+                    onClose: () => {
+                        clearInterval(timerInterval)
                     }
+                    }).then((result) => {
+                    if (
+                        result.dismiss === Swal.DismissReason.timer
+                    ) {
+                        opener.location.href="javascript:loadComment();"
+                        if (opener!= null) {
+                            opener.updateForm = null;
+                            self.close();
+                        }
+                    }
+                    });
                 } else {
                     Swal.fire({ type: 'error',
                     title: '수정 오류',
