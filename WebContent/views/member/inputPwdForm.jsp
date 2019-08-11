@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file ="/views/common/menubar.jsp" %>
 <meta charset="UTF-8">
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <style>
@@ -49,6 +50,7 @@
     }
 </style>
 <title>회원정보 메뉴바</title>
+	
 <script>
     $(function(){
 
@@ -61,7 +63,6 @@
 </script>
 </head>
 <body>
-	<%@ include file ="/views/common/menubar.jsp" %>
 	<nav id="mypageNav">
 		<ul>
 			<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp" id="info">회원정보</a></li>
@@ -73,7 +74,7 @@
     
     
     <div id="pwdInputLayer">
-    	<form id="checkPwdForm" action="<%=loginUser.getUserPwd()%>/checkPwd.me" method="POST">
+    	<form id="checkPwdForm" action="<%=request.getContextPath()%>/checkPwd.me" method="POST">
 	    	<div id="pwdText">
 	    		<p style="font-size:40px; text-align: center;">비밀번호 입력</p>
 	            <p style="text-align: center">회원 정보를 안전하게 보호하기 위하여 비밀번호를 한번 더 입력해주세요.</p>
@@ -92,6 +93,10 @@
     		
     	
     </div>
+    
+    <script>
+    	
+    </script>
    
 </body>
 </html>

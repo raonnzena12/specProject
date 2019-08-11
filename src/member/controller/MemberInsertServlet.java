@@ -22,7 +22,7 @@ import member.model.vo.Member;
 import util.Gmail;
 import util.SHA256;
 
-@WebServlet("/insert.me")
+@WebServlet(urlPatterns = "/insert.me", name="MemberInsertServlet")
 public class MemberInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -56,7 +56,7 @@ public class MemberInsertServlet extends HttpServlet {
 		String page = "";
 		if(result > 0) {
 			 String host = "http://localhost:8080/SpecProject/";
-			 String from = "hhyeseol@gmail.com";
+			 String from = "specprojectmanager@gmail.com";
 			 String to = member.getUserEmail();
 			 String subject = "SPEC 회원가입을 위한 이메일 확인 메일 입니다.";
 			 String content = "다음 링크에 접속하여 이메일 확인을 진행하세요." +
@@ -98,6 +98,7 @@ public class MemberInsertServlet extends HttpServlet {
 			}
 			request.setAttribute("msg", "이메일 주소 인증 메일이 전송되었습니다. 이메일에 들어가셔서 인증해주세요");
 			page = "views/member/checkEmailVerify.jsp";
+			
 		 } else {
 			request.setAttribute("msg", "회원가입 실패");
 			page = "views/common/errorPage.jsp";

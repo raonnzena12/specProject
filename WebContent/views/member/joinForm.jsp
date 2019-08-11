@@ -159,50 +159,7 @@
 									<option data-tokens="mustard">Burger, Shake and a
 										Smile</option>
 									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-									<option data-tokens="frosting">Sugar, Spice and all
-										things nice</option>
+									
 									<option value="salt">abc소금</option>
 								</select>
 
@@ -228,20 +185,20 @@
     </div>
     
     <script>
-    	$("#deviceSelect").change(function(){
+    	/* $("#deviceSelect").change(function(){
     		console.log($(this).val());
     		console.log($("#optionInfo > table > tbody > tr:nth-child(1) > td > div > div > div > input").val());
     	});
-    
+     */
     	
     	// 모바일 기종 리스트 조회용 function
-    	function selectMlist(){
+    	/* function selectMlist(){
     		$.ajax({
     			url: "select"
     		})
     		
     	}
-    
+     */
     	var eCk;
     	var nCk;
     	var pCk;
@@ -378,14 +335,14 @@
     					return false;
     				}
     				
-    				return false;
+    			
     				
     			}
     			if(!eCk){alert("사용 가능한 이메일을 입력해주세요."); return false;}
     			if(!nCk){alert("이름 형식을 확인해주세요."); return false;}
     			if(!pCk){alert("비밀번호 형식을 확인해주세요. 영어 대소문자 포함 6자리 이상 12자리 미만입니다."); return false;}
     			if(!pCk2){alert("비밀번호가 일치하지 않습니다."); return false;}
-    			if(!oCk){alert("비밀번호가 일치하지 않습니다."); return false;}
+    			/* if(!oCk){alert("비밀번호가 일치하지 않습니다."); return false;} */
     		});
     		
     	});
