@@ -150,13 +150,19 @@ public class MemberDao {
 		return result;
 	}
 
-	public Member selectMember(Connection conn, String userEmail) {
+	/**
+	 * 이메일 인증 체크용 DAO
+	 * @param conn
+	 * @param userEmail
+	 * @return
+	 */
+	public Member selectMember1(Connection conn, String userEmail) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		Member member = null;
 		
-		String query = prop.getProperty("selectMember");
+		String query = prop.getProperty("selectMember1");
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userEmail);
@@ -200,9 +206,71 @@ public class MemberDao {
 	public int updateMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0;
+		String query ="";
 		
-		String query = prop.getProperty("updateMember");
+		try {
+			if(member.getUserEvent() != 'N') {
+				query = prop.getProperty("updateMember2");
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1,member.getUserName());
+				pstmt.setString(2, member.getPhone());
+				pstmt.setString(3, member.getUserEvent()+"");
+				pstmt.setInt(4,member.getUserMno());
+				pstmt.setString(5, member.getUserEmail());
+				
+				result = pstmt.executeUpdate();
+			}else {
+				query = prop.getProperty("updateMember1");
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1,member.getUserName());
+				pstmt.setString(2, member.getUserEvent()+"");
+				pstmt.setString(3, member.getUserEmail());
+				
+				result = pstmt.executeUpdate();
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		
-		return 0;
+		return result;
+		
+	}
+
+	/**
+	 * 마이페이지 정보 조회용 dao
+	 * @param conn
+	 * @param userEmail
+	 * @return
+	 */
+	public Member selectMember2(Connection conn, String userEmail) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Member member = null;
+		
+		String query = prop.getProperty("selectMember2");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,userEmail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				member = new Member(rset.getInt("USER_NO"), rset.getString("USER_EMAIL"), rset.getString("USER_PWD"), rset.getString("USER_NAME"), rset.getString("USER_PHONE"), rset.getDate("USER_ENDATE"), rset.getDate("USER_MDDATE"), rset.getString("USER_EVENT").charAt(0), rset.getInt("USER_VERIFY"), rset.getInt("USER_STATUS"), rset.getString("USER_DEVICE"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return member;
 	}
 }
