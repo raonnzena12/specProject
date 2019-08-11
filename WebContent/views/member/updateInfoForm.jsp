@@ -125,17 +125,7 @@
 		float:right;
 	}
 </style>
-<script>
-	$(function() {
 
-		$("a").mouseenter(function() {
-			$(this).css("color", "#00264B");
-		}).mouseleave(function() {
-			$(this).css("color", "gray");
-		})
-		
-	});
-</script>
 <title>회원정보 수정</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -159,6 +149,12 @@
 			clicks = !clicks;
 		});
 		
+		$("a").mouseenter(function() {
+			$(this).css("color", "#00264B");
+		}).mouseleave(function() {
+			$(this).css("color", "gray");
+		});
+		
 	});
 </script>
 </head>
@@ -179,11 +175,11 @@
         </div>
 		
 		<div id="mid">
-            <form action="#">
+            <form action="update.me" id="updateForm">
                 <div id="input1">
                     <table>
-                        <tr><td><label>아이디</label><input type="email" name="email" class="form-control" placeholder="이메일 주소"></td></tr>
-                        <tr><td><label>닉네임</label><input type="text" name="name" class="form-control" placeholder="닉네임"></td></tr>
+                        <tr><td><label>이메일</label><input type="email" name="userEmail" class="form-control" value="<%=loginUser.getUserEmail()%>" readonly></td></tr>
+                        <tr><td><label>닉네임</label><input type="text" name="userName" class="form-control" placeholder="닉네임"></td></tr>
                         
                         <tr><td><input type="checkbox" name="optionInfo">&nbsp;선택정보 입력하기</td></tr>
                     </table>
@@ -225,6 +221,107 @@
         </div>
     </div>
        
-        
+    <script>
+    
+    	$(function(){
+    		var eCk;
+        	var nCk;
+        	
+        	$("#updateForm input[name=userEmail]").on("input", function(){
+        			var userEmail = $(this).val().trim();
+        			
+        			var regExp = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{1,5}$/g;
+        			
+        			console.log(userEmail);
+        			if(regExp.test(userEmail)){
+        				
+        				$.ajax({
+        					url: "<%=request.getContextPath()%>/emailCheck.me",
+        					type: "POST",
+        					data : {email : userEmail},
+        					success : function(result){
+    		    				if(result > 0){
+        							console.log(result);
+    		    					$("#updateForm input[name=userEmail]").removeClass('is-valid');
+    		    					$("#updateForm input[name=userEmail]").addClass('is-invalid');
+    		    					eCk = false;
+    		    				} else{
+        							console.log(result);
+    			    				$("#updateForm input[name=userEmail]").removeClass('is-invalid');
+    			    				$("#updateForm input[name=userEmail]").addClass('is-valid');
+    			    				eCk = true;
+    		    				}
+        					},
+        					
+        					error: function(){
+        						console.log("Ajax 통신 실패")
+        					}
+        				});
+        				
+        			} else {
+        				console.log("이메일 형식 충족 실패");
+    					$("#updateForm input[name=userEmail]").removeClass('is-valid');
+        				$("#updateForm input[name=userEmail]").addClass('is-invalid');
+     					eCk = false;
+        			}
+        			
+        			if($("#updateForm input[name=userEmail]").val().trim() == ""){
+        				
+        				eCk = false;
+        			}
+        			
+        		});
+        		
+        		$("#updateForm input[name=userName]").on("input", function(){
+        			var userName = $("#updateForm input[name=userName]").val().trim();
+        			
+        			var regExp = /^[a-z][a-zA-Z0-9]{4,}$/;
+        			console.log(userName);
+        			if(regExp.test(userName)){
+        				
+        				$.ajax({
+        					url: "<%=request.getContextPath()%>/nameCheck.me",
+        					type: "POST",
+        					data : {name : userName},
+        					success : function(result){
+    		    				if(result > 0){
+        							console.log(result);
+    			    				$("#updateForm input[name=userName]").removeClass('is-valid');
+    			    				$("#updateForm input[name=userName]").addClass('is-invalid');
+    			    				nCk = false;
+    		    				} else{
+    		    					console.log(result);
+    		    					$("#updateForm input[name=userName]").removeClass('is-invalid');
+    			    				$("#updateForm input[name=userName]").addClass('is-valid');
+    		    					nCk = true;
+    		    				}
+        					},
+        					
+        					error: function(){
+        						console.log("Ajax 통신 실패")
+        					}
+        				});
+        				
+        			} else{
+        				console.log("이름 형식 충족 실패")
+        				$("#updateForm input[name=userName]").removeClass('is-valid');
+    			    	$("#updateForm input[name=userName]").addClass('is-invalid');
+     					nCk = false;
+        			}
+        			
+        			if($("#updateForm input[name=userName]").val().trim() == ""){
+        				nCk = false;
+        			}
+        			
+        		});
+        		
+        		
+        		$("#updateForm").submit(function(){
+        			if(!eCk){alert("사용 가능한 이메일을 입력해주세요."); return false;}
+        			if(!nCk){alert("이름 형식을 확인해주세요."); return false;}
+        			
+        		});
+    	});
+    </script>  
 </body>
 </html>

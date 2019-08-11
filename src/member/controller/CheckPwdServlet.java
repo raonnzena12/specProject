@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,11 +27,15 @@ public class CheckPwdServlet extends HttpServlet {
 		System.out.println(loginUser.toString());
 		String page = "";
 		if(checkPwd.equals(loginUser.getUserPwd())) {
-			page = "views/member/updateInfoForm.jsp";
+			/*page = "views/member/updateInfoForm.jsp";*/
+			response.sendRedirect("updateInfoForm.me");
 		} else {
-			page = "views/common/errorPage.jsp";
+			
+			request.setAttribute("msg", "비밀번호가 일치하지 않습니다");
+			page = "views/member/inputPwdForm.jsp";
+			
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	

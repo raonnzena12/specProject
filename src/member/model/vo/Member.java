@@ -41,6 +41,30 @@ public class Member implements java.io.Serializable { /**
 	
 	
 	
+	
+
+
+	public Member(String userEmail, String userName, char userEvent) {
+		super();
+		this.userEmail = userEmail;
+		this.userName = userName;
+		this.userEvent = userEvent;
+	}
+	
+	
+	
+
+
+	public Member(String userEmail, String userName, String phone, char userEvent, int Mno) {
+		super();
+		this.userEmail = userEmail;
+		this.userName = userName;
+		this.phone = phone;
+		this.userEvent = userEvent;
+		this.userMno = userMno;
+	}
+
+
 	public Member(String userEmail, String userPwd, String userName, char userEvent, String userEmailHash) {
 		super();
 		this.userEmail = userEmail;
