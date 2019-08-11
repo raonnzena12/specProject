@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.model.vo.Member;
 
-@WebServlet("/checkPwd.me")
+@WebServlet(urlPatterns="/checkPwd.me", name="CheckPwdServlet")
 public class CheckPwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

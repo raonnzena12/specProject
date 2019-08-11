@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<%@ include file ="/views/common/menubar.jsp" %>
 <style>
     body *{
         /* border: 1px solid black; */
@@ -144,9 +145,25 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script>
+	$(function(){
+		
+		clicks = true;
+		$("input[name=optionInfo]").click(function(){
+			
+			if(clicks){
+				$("#optionInfo *").removeAttr("disabled");
+			}else{
+				$("#optionInfo *").attr("disabled","disabled");
+			}
+			clicks = !clicks;
+		});
+		
+	});
+</script>
 </head>
 <body>
-	<%@ include file ="/views/common/menubar.jsp" %>
+	
 	<nav id="mypageNav">
 		<ul>
 			<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp" id="info">회원정보</a></li>
@@ -172,19 +189,28 @@
                     </table>
                 </div>
                 <div id="optionInfo" class="form-group">
-                    <table>
+                     <table>
                         <tr>
-                            <td><input class="form-control" type="tel" name="phone"
-                                placeholder="핸드폰번호(01012341234)"></td>
-                            <td><button type="button" class="btn btn-info">문자발송</button></td>
+                            <td colspan="2"><input class="form-control" type="tel" name="phone"
+                                placeholder="핸드폰번호(01012341234)" disabled></td>
                         </tr>
                         <tr>
-                            <td><input class="form-control" type="text" name="auth" placeholder="인증번호 입력"></td>
-                            <td><button type="button" class="btn btn-info">인증확인</button></td>
+                        	<td colspan="2">
+                        		<select class="selectpicker" data-live-search="true" id="deviceSelect" >
+									<option data-tokens="ketchup mustard">Hot Dog, Fries
+										and a Soda</option>
+									<option data-tokens="mustard">Burger, Shake and a
+										Smile</option>
+									<option data-tokens="frosting">Sugar, Spice and all
+									
+									<option value="salt">abc소금</option>
+								</select>
+
+							</td>
                         </tr>
                         <tr>
-                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기"></td>
-                            <td><button type="button" class="btn btn-info">기종찾기</button></td>
+                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled readonly></td>
+                            <td><button type="button" class="btn btn-info" disabled>기종찾기</button></td>
                         </tr>
                     </table>
                 </div>
