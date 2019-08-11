@@ -232,6 +232,9 @@
                 <% } 
              } %> -->
         </div>
+        <div class="reloadBtn">
+            <button type="button" class="btn btn-light border text-center" onclick="loadComment();">새로운 댓글 확인</button>
+        </div>
         <div class="commWriteA input-group mb-3" id="commWriteA">
             <textarea name="commCon" id="commCon" rows="3" class="form-control" aria-describedby="button-addon2"placeholder="댓글을 입력해주세요"></textarea>
             <div class="input-group-append">
