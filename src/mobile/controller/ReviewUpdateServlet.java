@@ -28,6 +28,8 @@ public class ReviewUpdateServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// post 방식으로 접근했을때 ( 리뷰 수정할 때 )
+		// . . .. . . . 힝
+		doGet(request, response);
 	}
 
 }
