@@ -132,17 +132,19 @@
 	<section id="nametitle" class="sec">
            <h1 id="bname">글쓰기</h1>
     </section>
+     <form action="<%= request.getContextPath()%>/write.bo" method="post">
     <section id="title" class="sec"> 
     	<select name="brand" id="brand">
      		<option value="1">LG게시판</option>
      		<option value="2">삼성게시판</option>
-     		<option value="3">애플게시판</option>
-     		<option value="4" selected>자유게시판</option>
+     	 	<option value="3">애플게시판</option>
+     		<option value="4">타브랜드게시판</option>
+     		<option value="5" selected>자유게시판</option>
      	</select>
             
      	<select name="category" id="category">
-    		<option value="issue">이슈</option>
-   			<option value="talk">잡담</option>
+    		<option value="1">이슈</option>
+   			<option value="2">잡담</option>
    			<option value="category" selected>카테고리</option>
   		</select>
   		<input type="text" name="title-1" id="title-1" placeholder="제목을 입력하세요.">    
@@ -168,7 +170,7 @@
 		<button type="submit" class="btn btn-secondary btn1" id="write">글쓰기</button>
 		<button type="reset" class="btn btn-secondary btn1" id="cancel" onclick="javascript:history.back();">취소</button>
 	</section>
-	
+	</form>
 	
 	
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>

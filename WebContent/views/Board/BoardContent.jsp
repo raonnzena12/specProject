@@ -1,10 +1,7 @@
-<%@page import="board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="board.model.vo.Board"%>
 <%
 	Board b = (Board)request.getAttribute("board");
-
-	
 %>
 
 <!DOCTYPE html>
@@ -260,7 +257,7 @@
 	<br>
 	<br>
 	<section id="contentlist">
-		<%@include file="BoardList.jsp" %>
+		<%-- <%@include file="BoardList.jsp" %> --%>
 	</section>
 	
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
