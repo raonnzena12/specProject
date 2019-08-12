@@ -439,4 +439,90 @@ public class MobileDao {
 		return result;
 	}
 
+	/**
+	 * 모바일 디바이스별 리뷰 리스트를 받아오는 DAO
+	 * @param conn
+	 * @param mno
+	 * @param uno 
+	 * @return rList
+	 */
+	public ArrayList<Review> selectReviewList(Connection conn, int mno, int uno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> rList = new ArrayList<Review>();
+		
+		String query = prop.getProperty("selectReviewList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, mno);
+			
+			rset = pstmt.executeQuery();
+			while ( rset.next() ) {
+				rList.add(new Review(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getDouble(4), rset.getDate(5), rset.getDate(6), rset.getInt(7), rset.getInt(8), rset.getInt(9), rset.getString(10), rset.getInt(11), rset.getInt(12)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rList;
+	}
+
+	/**
+	 * 리뷰 좋아요 찍는 DAO
+	 * @param conn
+	 * @param rno
+	 * @param uno
+	 * @return result
+	 */
+	public int insertReviewLike(Connection conn, int rno, int uno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertReviewLike");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			pstmt.setInt(2, uno);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * 리뷰 좋아요 삭제하는 DAO
+	 * @param conn
+	 * @param rno
+	 * @param uno
+	 * @return result
+	 */
+	public int deleteReviewLike(Connection conn, int rno, int uno) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		String query = prop.getProperty("deleteReviewLike");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			pstmt.setInt(2, uno);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }
