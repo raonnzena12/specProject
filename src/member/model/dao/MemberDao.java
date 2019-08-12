@@ -273,4 +273,55 @@ public class MemberDao {
 		
 		return member;
 	}
+
+	/**
+	 * 비밀번호 변경 용 dao
+	 * @param conn
+	 * @param userEmail
+	 * @param newPwd
+	 * @return
+	 */
+	public int updatePwd(Connection conn, String userEmail, String newPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, userEmail);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteMember(Connection conn, String userEmail) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userEmail);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

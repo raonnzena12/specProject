@@ -194,6 +194,15 @@
     }
 </style>
 <script>
+
+	var msg = "<%=request.getSession().getAttribute("msg")%>";
+	
+	if(msg != "null") { // msg 값이 있을 경우
+		alert(msg);
+		<% request.getSession().removeAttribute("msg"); %>
+		// 한번 출력 후 제거 (안하면 모든 페이지에서 계속 출력됨)
+	}
+	
     $(document).ready(function(){
         $("#account").click(function(){
             $("#login-menu").css("display","block");
@@ -258,7 +267,7 @@
         <div id="mypageMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account">
         	<ul>
         		<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
-        		<li><a href="views/member/inputPwdForm.jsp">정보수정</a></li>
+        		<li><a href="views/member/inputPwdForm.jsp?code=1">정보수정</a></li>
         		<li><a href="#">내글관리</a></li>
         		<li><a href="#">내리뷰관리</a></li>
         		<li><a href="#">내댓글관리</a></li>
