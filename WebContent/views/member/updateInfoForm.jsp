@@ -179,7 +179,7 @@
                 <div id="input1">
                     <table>
                         <tr><td><label>이메일</label><input type="email" name="userEmail" class="form-control" value="<%=loginUser.getUserEmail()%>" readonly></td></tr>
-                        <tr><td><label>닉네임</label><input type="text" name="userName" class="form-control" placeholder="닉네임"></td></tr>
+                        <tr><td><label>닉네임</label><input type="text" name="userName" class="form-control" placeholder="닉네임" value="<%=loginUser.getUserName()%>"></td></tr>
                         
                         <tr><td><input type="checkbox" name="optionInfo">&nbsp;선택정보 입력하기</td></tr>
                     </table>
@@ -213,7 +213,7 @@
                 <div id="submit">
                     <div class="center">
                         <!-- <button type="submit" class="btn btn-lg btn-block btn-info">JOIN</button> -->
-                        <button type="button" class="btn btn-secondary btn-lg">취소</button>
+                        <button type="button" class="btn btn-secondary btn-lg" onclick="location.href='<%=request.getContextPath()%>/mypage.me'">취소</button>
 			  			<button type="submit" class="btn btn-info btn-lg">확인</button>
                     </div>
                 </div>
@@ -273,7 +273,13 @@
         		
         		
         		$("#updateForm").submit(function(){
-        			if(!nCk){alert("이름 형식을 확인해주세요."); return false;}
+        			if($("#updateForm input[name=userName]").val().trim() == "<%=loginUser.getUserName()%>" || $("#updateForm input[name=userName]").val().trim() == "" ){
+        				nCk = true;
+        			}
+        			if(!nCk){
+        				alert("이름 형식을 확인해주세요."); 
+        				return false;
+        			}
         			
         		});
     	});

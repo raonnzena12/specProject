@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	Member member = (Member)request.getAttribute("member");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -114,11 +115,11 @@
 <script>
 	$(function() {
 		
-		var msg = "<%=(String)request.getAttribute("msg")%>";
+		var msg = "<%=(String)request.getSession().getAttribute("msg")%>";
 		
 		if(msg != "null") { // msg 값이 있을 경우
 			alert(msg);
-			<% session.removeAttribute("msg"); %>
+			<% request.getSession().removeAttribute("msg"); %>
 			// 한번 출력 후 제거 (안하면 모든 페이지에서 계속 출력됨)
 		}
 
@@ -198,7 +199,15 @@
 	
 	<script>
 		function updateUserInfo(){
-			location.href = "views/member/inputPwdForm.jsp";
+			location.href = "views/member/inputPwdForm.jsp?code=" + 1;
+		}
+		function updateUserPwd(){
+			location.href = "views/member/inputPwdForm.jsp?code=" + 2;
+		}
+		function deleteUser(){
+			
+			location.href = "<%=request.getContextPath()%>/deleteMemberForm.me";
+			
 		}
 		
 		

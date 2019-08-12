@@ -55,7 +55,7 @@ public class MemberInsertServlet extends HttpServlet {
 		
 		String page = "";
 		if(result > 0) {
-			 String host = "http://localhost:8080/SpecProject/";
+			 String host = "http://192.168.10.65:8080/SpecProject/";
 			 String from = "specprojectmanager@gmail.com";
 			 String to = member.getUserEmail();
 			 String subject = "SPEC 회원가입을 위한 이메일 확인 메일 입니다.";

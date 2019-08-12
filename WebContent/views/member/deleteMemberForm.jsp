@@ -58,7 +58,7 @@
     	font-size: 15px;
     }
 </style>
-<title>회원정보 메뉴바</title>
+<title>회원탈퇴</title>
 <script>
     $(function(){
 
@@ -69,12 +69,12 @@
         });
     });
 </script>
+	<%@ include file ="/views/common/menubar.jsp" %>
 </head>
 <body>
-	<%@ include file ="/views/common/menubar.jsp" %>
 	<nav id="mypageNav">
 		<ul>
-			<li><a href="#" id="info">회원정보</a></li>
+			<li><a href="<%=request.getContextPath()%>/mypage.me" id="info">회원정보</a></li>
 			<li><a href="#">작성글보기</a></li>
 			<li><a href="#">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
@@ -83,7 +83,7 @@
     
     
     <div id="pwdInputLayer">
-    	<form>
+    	<form id="checkPwdFormBeforeDelete" action="<%=request.getContextPath()%>/delete.me" method="POST">
 	    	<div id="pwdText">
 	    		<p style="font-size:40px; text-align: center;">회원 탈퇴</p>
 	            <p class="alert">※ 신청 전 아래 안내 사항을 반드시 확인하여 주십시오</p>
@@ -100,19 +100,19 @@
 	    		</ul>
 	    	</div>
 	    	<div class="form-group form-check">
-			    <input type="checkbox" class="form-check-input" id="infoCheck">
+			    <input type="checkbox" class="form-check-input" id="infoCheck" name="infoCheck">
 			    <label class="form-check-label" for="infoCheck">모든 안내 사항을 숙지하고 탈퇴를 신청합니다.</label>
 		  	</div>
 			  <div class="form-group">
 			    <label for="email">Email address</label>
-			    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" readonly value="test@test.kr">
+			    <input type="email" class="form-control" id="email" name="userEmail" aria-describedby="emailHelp" readonly value="<%=loginUser.getUserEmail()%>">
 			  </div>
 			  <div class="form-group" style="font-size: 15px">
 			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+			    <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Password">
 			  </div>
 			  <div class="form-group center">
-			    <button type="button" class="btn btn-secondary btn-lg">취소</button>
+			    <button type="button" class="btn btn-secondary btn-lg" onclick="location.href='<%=request.getContextPath()%>/mypage.me'">취소</button>
 			  	<button type="submit" class="btn btn-info btn-lg">확인</button>
 			  </div>
 			  
@@ -120,5 +120,33 @@
     		
     	
     </div>
+    <script>
+    	
+    	$("#infoCheck").on("input", function(){
+    		console.log($("#infoCheck").is(":checked"));
+    		console.log(!$("#infoCheck").is(":checked"));
+    	});
+    	$("#checkPwdFormBeforeDelete").submit(function(){
+    		
+    		if(!$("#infoCheck").is(":checked")){
+    			Swal.fire({
+    				  type: 'error',
+    				  title: 'Oops...',
+    				  text: '안내사항을 확인하고 체크해주세요!',
+    				  /* footer: '<a href>Why do I have this issue?</a>' */
+    				});
+    			return false;
+    		}
+    		if($("#checkPwdFormBeforeDelete input[name=pwd]").val().trim() == ""){
+    			Swal.fire({
+  				  type: 'error',
+  				  title: 'Oops...',
+  				  text: '비밀번호를 확인해주세요!',
+  				  /* footer: '<a href>Why do I have this issue?</a>' */
+  				});
+    			return false;
+    		}
+    	});
+    </script>
 </body>
 </html>
