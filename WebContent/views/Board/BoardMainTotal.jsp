@@ -14,8 +14,8 @@
 	int limit = bpi.getLimit();
 	int pagingBarSize = bpi.getPageingBarSize();
 	
-	request.setAttribute("tlist", tlist);
-	request.setAttribute("bpi", bpi);
+	/* request.setAttribute("tlist", tlist);
+	request.setAttribute("bpi", bpi); */
 %>
 <!DOCTYPE html>
 <html>

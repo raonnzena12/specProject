@@ -61,6 +61,25 @@ public class BoardService {
 		
 		return board;
 	}
+	
+	/**
+	 * 게시글 작성용 Service
+	 * @param board
+	 * @return result
+	 */
+	public int writeBoard(Board board) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().writeBoard(conn, board);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
 
 	
 

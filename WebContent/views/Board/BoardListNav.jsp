@@ -45,9 +45,9 @@
 		<article id="menu">
 	    	<div id="total" onclick="goBoard(0);">전체 게시판</div>
 	    	
-	        <div id="samsung" onclick="goBoard(1);">삼성게시판</div>
+	        <div id="samsung" onclick="goBoard(1);">LG게시판</div>
 	       
-	        <div id="lg" onclick="goBoard(2);">LG게시판</div>
+	        <div id="lg" onclick="goBoard(2);">삼성게시판</div>
 	        
 	        <div id="apple" onclick="goBoard(3);">Apple게시판</div>
 	      
@@ -61,13 +61,13 @@
     	function goBoard(num){
     		location.href="<%=request.getContextPath()%>/maintotal.bo?bno="+num;
     		
-    	$(function(){
+    	/* $(function(){
     		$("#menu div").click(function(){
     			$(this).css({"background-color": "#00264B", "color" : "white"});
     		}).mouseout(function(){
     			$(this).css({"background-color": "#00264B", "color" : "white"});
     		});
-    	});
+    	}); */
     			
     		
     	}

@@ -152,6 +152,35 @@ public class BoardDao {
 		
 		return board;
 	}
+	
+	/**
+	 * 게시글 작성용 Dao
+	 * @param conn 
+	 * @param board
+	 * @return result
+	 */
+	public int writeBoard(Connection conn, Board board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("writeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, board.getbTitle());
+			pstmt.setString(2, board.getbContent());
+			pstmt.setInt(3, board.getbCode());
+			pstmt.setInt(4, board.getbWriter());
+			pstmt.setInt(5, board.getbCategory());
+			
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 
 	
 

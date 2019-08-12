@@ -136,13 +136,14 @@
     	<select name="brand" id="brand">
      		<option value="1">LG게시판</option>
      		<option value="2">삼성게시판</option>
-     		<option value="3">애플게시판</option>
-     		<option value="4" selected>자유게시판</option>
+     	 	<option value="3">애플게시판</option>
+     		<option value="4">타브랜드게시판</option>
+     		<option value="5" selected>자유게시판</option>
      	</select>
             
      	<select name="category" id="category">
-    		<option value="issue">이슈</option>
-   			<option value="talk">잡담</option>
+    		<option value="1">이슈</option>
+   			<option value="2">잡담</option>
    			<option value="category" selected>카테고리</option>
   		</select>
   		<input type="text" name="title-1" id="title-1" placeholder="제목을 입력하세요.">    

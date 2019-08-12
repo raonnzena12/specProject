@@ -22,7 +22,7 @@
         text-decoration: none;
         user-select: none;
     }
-    body {
+    #tttt {
         font-family: 'Noto Sans KR', sans-serif;
         font-size: 14px !important;
         /* min-width: 1200px !important; */
@@ -197,7 +197,7 @@
 	});
 </script>
 </head>
-<body>
+<body id="tttt">
 	<header class="navbar sticky-top navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
         <section id="logo" onclick="location.href='<%=request.getContextPath()%>'">SPEC</section>
         <div id="menubarNav" class="navbar-nav-scroll">
@@ -205,7 +205,7 @@
                 <li class="nav-item"><a href="#">MOBILE</a></li>
                 <li class="nav-item"><a href="#" id="compareOpen">COMPARE</a></li>
                 <li class="nav-item"><a href="#">CALENDAR</a></li>
-                <li class="nav-item"><a href="#">COMMUNITY</a></li>
+                <li class="nav-item"><a href="<%=request.getContextPath()%>/maintotal.bo?bno=0">COMMUNITY</a></li>
             </ul>
         </div>
         <!-- <section id="blank"></section> -->
