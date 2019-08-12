@@ -30,19 +30,25 @@ public class UpdatePwdServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		String email = request.getParameter("email");
 		String newPwd = request.getParameter("newPwd");
 		
 		MemberService mService = new MemberService();
-		Member member = mService.selectMember2(loginUser.getUserEmail());
-		
+		Member member = null;
+		if(loginUser != null) {
+			email = loginUser.getUserEmail();
+		} 
+			
+		member= mService.selectMember2(email);
 		
 		int result = 0;
 		if(member != null) {
-			result = mService.updatePwd(loginUser.getUserEmail(), newPwd);
+			result = mService.updatePwd(email, newPwd);
 			System.out.println("비밀번호 변경 결과 : "+result);
 			if(result > 0) {
-				request.getSession().setAttribute("msg", "비밀번호가 변경되었습니다.");
-				response.sendRedirect("mypage.me");
+				request.setAttribute("msg", "비밀번호가 변경되었습니다. 다시 로그인 해주세요");
+				request.getSession().invalidate();
+				request.getRequestDispatcher("views/member/checkEmailVerify.jsp").forward(request, response);
 			} else {
 				request.setAttribute("msg", "비밀번호 변경 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

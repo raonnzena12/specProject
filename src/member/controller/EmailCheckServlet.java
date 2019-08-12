@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import member.model.service.MemberService;
 
 
+/**
+ * 이메일 중복 검사용 서블릿
+ * @author user1
+ *
+ */
 @WebServlet("/emailCheck.me")
 public class EmailCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
