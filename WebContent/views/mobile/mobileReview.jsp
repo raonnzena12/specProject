@@ -96,6 +96,10 @@
     $(function() {
         // 리뷰 좋아요 체크하는 함수
         $(document).on("click",".like-cnt", function(){
+            <% if ( loginUser == null ) { %>
+                Swal.fire( '로그인이 필요합니다!', '좋아요를 누르기 전 로그인을 해주세요!', 'warning' );
+                return false;
+            <% } %>
             var icheck = $(this).children().eq(0).text();
             var rno = $(this).parent().parent().attr("id");
             if ( icheck == 'favorite_border') {
@@ -123,7 +127,6 @@
                 console.log(e);
             },
             success: function(rList){
-                console.log("mobileReview F.loadReivew : " + rList);
                 printReview(rList);
             }
         });
@@ -144,7 +147,6 @@
                 console.log(e);
             },
             success: function(result) {
-                console.log(result);
                 if ( result > 0 && num > 0 ) {
                     $("#" + rno + " span.likes").text(($("#" + rno + " span.likes").text()*1)+1);
                 } else if ( result > 0 && num == 0 ) {
@@ -154,6 +156,35 @@
             }
         });
         
+    }
+    // 리뷰 삭제 함수
+    function delReview(rno){
+
+        $.ajax({
+            url: "updateReview.mo",
+            data: { rno : rno },
+            type: "GET",
+            error: function(e){
+                console.log(e);
+            },
+            success: function(result){
+                if ( result > 0 ) {
+                    loadReivew();
+                    Swal.fire( 'Deleted!', 'Your review has been deleted.', 'success' );
+                } else {
+                    Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    footer: '<a href>Why do I have this issue?</a>'
+                    });
+                }
+            }
+        });
+    }
+    // 리뷰 수정 함수
+    function updateReview(rno){
+        window.open("modifyReview.mo?rno="+rno, "updateReview", "width=800px, height=300px, resizable = no, scrollbars = no");
     }
     // 리뷰 프린트용
     function printReview(rList){
@@ -181,9 +212,9 @@
                 if ( <%=loginUser == null%> || rList[i].rStatus == 2 || rList[i].rStatus == 3 ) {
                     // 로그인 유저가 아니거나 / 신고/삭제된 리뷰일 경우 아이콘을 출력하지 않는다.
                 } else if ( rList[i].rWriterNo == userNo ) { // 내 리뷰일 경우 수정/삭제 출력
-                    $modify.html("<i class='material-icons'>create</i><i class='material-icons'>clear</i>");
+                    $modify.html("<i class='material-icons editReview'>create</i><i class='material-icons delReview'>clear</i>");
                 } else { // 내 리뷰가 아닐 경우 신고 출력
-                    $modify.html('<i class="material-icons">error</i>');
+                    $modify.html('<i class="material-icons reportReview">error</i>');
                 }
                 var $reviewTitle = $("<div>").addClass("reviewTitle");
                 var $userName = $("<div>").addClass("userName").text(rList[i].rWriterName);
@@ -247,5 +278,37 @@
         <button type="button" class="border btn btn-light" id="wirteReview"> 리뷰 작성하기</button>
     </div>
     </section>
+<script>
+    $(function(){
+        $("#wirteReview").click(function() {
+            <% if ( loginUser == null ) { %>
+                Swal.fire( '로그인이 필요합니다!', '리뷰를 작성하시기 전 로그인을 해주세요!', 'warning' );
+                return false;
+            <% } %>
+            location.href='<%=request.getContextPath()%>/writeReview.mo?mno=<%=mo.getmNo()%>';
+        });
+        $(document).on("click", ".delReview", function(){
+            var rno = $(this).parent().parent().attr("id");
+            Swal.fire({
+                title: '삭제 하시겠습니까?',
+                text: "등록된 리뷰가 삭제됩니다!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: '취소',
+                confirmButtonText: '삭제'
+                }).then((result) => {
+                if (result.value) {
+                    delReview(rno);
+                }
+            });
+        });
+        $(document).on("click", ".editReview", function(){
+            var rno = $(this).parent().parent().attr("id");
+            updateReview(rno);
+        });
+    });
+</script>
 </body>
 </html>
