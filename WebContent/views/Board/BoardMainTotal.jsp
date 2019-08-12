@@ -208,8 +208,11 @@
 				<option value="content">내용</option>
 				<option value="head">말머리</option>
 			</select>
-			
+			<%if(loginUser != null){ %>
 				<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : right; margin: 0 10px 0 5px;" onclick="location.href='<%=request.getContextPath()%>/writeform.bo'">글쓰기</button>
+			<% }else{ %>
+			
+			<%} %>
 	    </section>
 	    
 	    <!-- 페이징바 -->
@@ -277,8 +280,12 @@
     		$("#boardlisttable td").click(function(){
     			
     			var bno = $(this).parent().children().eq(0).text();
-    				
-    			location.href="<%= request.getContextPath() %>/content.bo?bno="+bno;
+    			<%if(loginUser !=null){%>	
+    				location.href="<%= request.getContextPath() %>/content.bo?bno="+bno;
+    			<% } else{ %>
+					alert("로그인해야만 상세보기가 가능합니다!");
+				<% } %>
+    			<%-- &bpi=<%=request.getAttribute("bpi")%>&tlist=<%=request.getAttribute("tlist")%> --%>
     		});
     	});
     </script>

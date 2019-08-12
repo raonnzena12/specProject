@@ -132,6 +132,7 @@
 	<section id="nametitle" class="sec">
            <h1 id="bname">글쓰기</h1>
     </section>
+     <form action="<%= request.getContextPath()%>/write.bo" method="post">
     <section id="title" class="sec"> 
     	<select name="brand" id="brand">
      		<option value="1">LG게시판</option>
@@ -169,7 +170,7 @@
 		<button type="submit" class="btn btn-secondary btn1" id="write">글쓰기</button>
 		<button type="reset" class="btn btn-secondary btn1" id="cancel" onclick="javascript:history.back();">취소</button>
 	</section>
-	
+	</form>
 	
 	
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
