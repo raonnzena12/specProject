@@ -257,8 +257,8 @@
         <% } else{ %>
         <div id="mypageMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account">
         	<ul>
-        		<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp">회원정보</a></li>
-        		<li><a href="#">정보수정</a></li>
+        		<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
+        		<li><a href="views/member/inputPwdForm.jsp">정보수정</a></li>
         		<li><a href="#">내글관리</a></li>
         		<li><a href="#">내리뷰관리</a></li>
         		<li><a href="#">내댓글관리</a></li>

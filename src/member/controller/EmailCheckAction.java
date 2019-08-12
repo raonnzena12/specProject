@@ -27,7 +27,7 @@ public class EmailCheckAction extends HttpServlet {
 		String email = request.getParameter("email");
 		MemberService mService = new MemberService();
 		
-		Member member = mService.selectMember(email);
+		Member member = mService.selectMember1(email);
 		
 		int result = 0;
 		String page = "";

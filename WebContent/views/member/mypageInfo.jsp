@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Member member = (Member)request.getAttribute("member");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,6 +113,14 @@
 	<%@ include file="/views/common/menubar.jsp" %>
 <script>
 	$(function() {
+		
+		var msg = "<%=(String)request.getAttribute("msg")%>";
+		
+		if(msg != "null") { // msg 값이 있을 경우
+			alert(msg);
+			<% session.removeAttribute("msg"); %>
+			// 한번 출력 후 제거 (안하면 모든 페이지에서 계속 출력됨)
+		}
 
 		$("a").mouseenter(function() {
 			$(this).css("color", "#00264B");
@@ -123,7 +134,7 @@
 <body>
 	<nav id="mypageNav">
 		<ul>
-			<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp" id="info">회원정보</a></li>
+			<li><a href="<%=request.getContextPath()%>/mypage.me" id="info">회원정보</a></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/myArticleList.jsp">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/myReviewList.jsp">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
@@ -146,32 +157,32 @@
 					<th>email</th>
 				</tr>
 				<tr>
-                	<td width="275px"><input type="text" name="userEmail" class="form-control" value="<%=loginUser.getUserEmail()%>" readonly></td>
+                	<td width="275px"><input type="text" name="userEmail" class="form-control" value="<%=member.getUserEmail()%>" readonly></td>
                 </tr>
                 <tr>
 					<th>name</th>
 				</tr>
                 <tr>
-                	<td><input type="text" name="userName" class="form-control" value="<%=loginUser.getUserName()%>" readonly></td>
+                	<td><input type="text" name="userName" class="form-control" value="<%=member.getUserName()%>" readonly></td>
                 </tr>
                 <tr>
 					<th>phone</th>
 				</tr>
                  <tr>
-                	<td><input type="text" name="phone" class="form-control" value="<%=loginUser.getPhone()%>" readonly></td>
+                	<td><input type="text" name="phone" class="form-control" value="<%=member.getPhone()%>" readonly></td>
                 </tr>
 				
 				<tr>
 					<th>가입일</th>
 				</tr>
 				<tr>
-                	<td><input type="text" name="enrollDate" class="form-control" value="<%=loginUser.getEnrollDate()%>" readonly></td>
+                	<td><input type="text" name="enrollDate" class="form-control" value="<%=member.getEnrollDate()%>" readonly></td>
                 </tr>
 				<tr>
 					<th>기종</th>
 				</tr>
 				<tr>
-                	<td><input type="text" name="device" class="form-control" value="<%=loginUser.getUserMno()%>" readonly></td>
+                	<td><input type="text" name="device" class="form-control" value="<%=member.getUserMno()%>" readonly></td>
                 </tr>
 				
 			</table>
@@ -187,7 +198,7 @@
 	
 	<script>
 		function updateUserInfo(){
-			location.href = "inputPwdForm.jsp";
+			location.href = "views/member/inputPwdForm.jsp";
 		}
 		
 		

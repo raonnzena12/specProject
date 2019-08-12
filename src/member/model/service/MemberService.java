@@ -52,10 +52,15 @@ public class MemberService {
 		return result;
 	}
 
-	public Member selectMember(String userEmail) {
+	/**
+	 * 이메일인증 체크용 서비스
+	 * @param userEmail
+	 * @return
+	 */
+	public Member selectMember1(String userEmail) {
 		Connection conn = getConnection();
 		
-		Member member = new MemberDao().selectMember(conn, userEmail);
+		Member member = new MemberDao().selectMember1(conn, userEmail);
 		
 		return member;
 	}
@@ -84,6 +89,14 @@ public class MemberService {
 			rollback(conn);
 		}
 		return result;
+	}
+
+	public Member selectMember2(String userEmail) {
+		Connection conn = getConnection();
+		
+		Member member = new MemberDao().selectMember2(conn, userEmail);
+		
+		return member;
 	}
 	
 	

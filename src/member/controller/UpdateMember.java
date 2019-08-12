@@ -41,6 +41,14 @@ public class UpdateMember extends HttpServlet {
 		}
 
 		int result = new MemberService().updateMember(member);
+		
+		if(result > 0) {
+			response.sendRedirect("mypage.me");
+			request.setAttribute("msg", "성공적으로 수정되었습니다.");
+		}else {
+			request.setAttribute("msg", "회원정보 수정 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp");
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
