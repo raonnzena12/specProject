@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Member member = (Member)request.getAttribute("member");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>비밀번호 확인</title>
 <style>
 	#infoLayer{
 		width:1500px;
@@ -50,17 +53,18 @@
 		height: 100%;
 	}
 	#listArea {
-		width:70%;
+		width:50%;
 		height:70%;
 		margin-left: 10%;
 		margin-top: 5%;
-		border:1px solid black;
-		text-align:center;
+		/* border:1px solid black; */
+		
 		border-collapse:collapse;
 	}
 	
-	#listArea td, th{
-		border-bottom: 1px solid black;
+	#listArea th{
+		/* border-bottom: 1px solid black; */
+		font-size: 18px;
 	}
 	
 	.nav{
@@ -106,8 +110,17 @@
 		border-bottom: 2px solid #00264B;    
     }
 </style>
+	<%@ include file="/views/common/menubar.jsp" %>
 <script>
 	$(function() {
+		
+		var msg = "<%=(String)request.getAttribute("msg")%>";
+		
+		if(msg != "null") { // msg 값이 있을 경우
+			alert(msg);
+			<% session.removeAttribute("msg"); %>
+			// 한번 출력 후 제거 (안하면 모든 페이지에서 계속 출력됨)
+		}
 
 		$("a").mouseenter(function() {
 			$(this).css("color", "#00264B");
@@ -119,10 +132,9 @@
 </script>
 </head>
 <body>
-	<%@ include file="/views/common/menubar.jsp" %>
 	<nav id="mypageNav">
 		<ul>
-			<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp" id="info">회원정보</a></li>
+			<li><a href="<%=request.getContextPath()%>/mypage.me" id="info">회원정보</a></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/myArticleList.jsp">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/myReviewList.jsp">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
@@ -142,25 +154,37 @@
 			<!-- 공지사항 목록 -->
 			<table align="center" id="listArea">
 				<tr>
-					<th>이메일</th>
-					<td>Testuser@user.co.kr</td>
+					<th>email</th>
 				</tr>
 				<tr>
-					<th>닉네임</th>
-					<td>TestUser</td>
+                	<td width="275px"><input type="text" name="userEmail" class="form-control" value="<%=member.getUserEmail()%>" readonly></td>
+                </tr>
+                <tr>
+					<th>name</th>
 				</tr>
-				<tr>
-					<th>연락처</th>
-					<td>01012341234</td>
+                <tr>
+                	<td><input type="text" name="userName" class="form-control" value="<%=member.getUserName()%>" readonly></td>
+                </tr>
+                <tr>
+					<th>phone</th>
 				</tr>
+                 <tr>
+                	<td><input type="text" name="phone" class="form-control" value="<%=member.getPhone()%>" readonly></td>
+                </tr>
+				
 				<tr>
 					<th>가입일</th>
-					<td>전화번호를 등록하지 않았습니다.</td>
 				</tr>
 				<tr>
-					<th>최근로그인</th>
-					<td></td>
+                	<td><input type="text" name="enrollDate" class="form-control" value="<%=member.getEnrollDate()%>" readonly></td>
+                </tr>
+				<tr>
+					<th>기종</th>
 				</tr>
+				<tr>
+                	<td><input type="text" name="device" class="form-control" value="<%=member.getUserMno()%>" readonly></td>
+                </tr>
+				
 			</table>
 			
 			
@@ -174,7 +198,7 @@
 	
 	<script>
 		function updateUserInfo(){
-			location.href = "inputPwdForm.jsp";
+			location.href = "views/member/inputPwdForm.jsp";
 		}
 		
 		

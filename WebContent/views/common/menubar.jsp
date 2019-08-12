@@ -8,13 +8,27 @@
 <head>
 <meta charset="UTF-8">
 <title>MENUBAR</title>
+<!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<!-- Google WebIcon -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- Google WebFont -->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<!-- Bootstrap 4.3.1 -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- Bootstrap select -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<style> 
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<style>
+
     * {
         box-sizing: border-box;
         margin: 0px;
@@ -22,8 +36,9 @@
         text-decoration: none;
         user-select: none;
     }
-    #tttt {
-        font-family: 'Noto Sans KR', sans-serif;
+
+    body {
+        /* font-family: 'Noto Sans KR', sans-serif; */
         font-size: 14px !important;
         /* min-width: 1200px !important; */
         width:100%;
@@ -32,6 +47,7 @@
     }
     header {
         background-color: #00264B;
+        width: 100%;
         z-index: 2;
     }
     #logo{
@@ -202,17 +218,17 @@
         <section id="logo" onclick="location.href='<%=request.getContextPath()%>'">SPEC</section>
         <div id="menubarNav" class="navbar-nav-scroll">
             <ul class="navbar-nav bd-navbar-nav flex-row" >
-                <li class="nav-item"><a href="#">MOBILE</a></li>
+                <li class="nav-item"><a href="<%=request.getContextPath()%>/devicelist.mo">MOBILE</a></li>
                 <li class="nav-item"><a href="#" id="compareOpen">COMPARE</a></li>
-                <li class="nav-item"><a href="#">CALENDAR</a></li>
+                <li class="nav-item"><a href="<%=request.getContextPath()%>/calendar.do">CALENDAR</a></li>
                 <li class="nav-item"><a href="<%=request.getContextPath()%>/maintotal.bo?bno=0">COMMUNITY</a></li>
             </ul>
         </div>
         <!-- <section id="blank"></section> -->
         <ul id="login" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-            <% if( loginUser != null && loginUser.getUserStatus() == 0) {%>
+             <% if( loginUser != null && loginUser.getUserStatus() == 0) {%>
             <li><i class="material-icons">settings</i></li>
-            	<% } %>
+            	<% } %> 
             <li class=" nav-item dropdown">
             
             	<i class="material-icons" id="account">account_circle</i>
@@ -233,7 +249,7 @@
 	                    <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="#" class="gray">비밀번호</a> 찾기</td>
 	                </tr>
 	                <tr>
-	                    <td><br>회원이 아니신가요?<br> <a href="<%=request.getContextPath()%>/joinInputForm.me"><p class="emp blue">가입하기</p></a>
+	                    <td><br>회원이 아니신가요?<br> <a href="views/member/joinForm.jsp"><p class="emp blue">가입하기</p></a>
 	                    </td> 
 	                </tr>
             	</table>
@@ -242,8 +258,8 @@
         <% } else{ %>
         <div id="mypageMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account">
         	<ul>
-        		<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp">회원정보</a></li>
-        		<li><a href="#">정보수정</a></li>
+        		<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
+        		<li><a href="views/member/inputPwdForm.jsp">정보수정</a></li>
         		<li><a href="#">내글관리</a></li>
         		<li><a href="#">내리뷰관리</a></li>
         		<li><a href="#">내댓글관리</a></li>

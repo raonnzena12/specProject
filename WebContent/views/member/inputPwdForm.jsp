@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file ="/views/common/menubar.jsp" %>
 <meta charset="UTF-8">
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <style>
@@ -48,7 +50,17 @@
     }
 </style>
 <title>회원정보 메뉴바</title>
+	
 <script>
+
+	
+	var msg = "<%=(String)request.getAttribute("msg")%>";
+	
+	if(msg != "null") { // msg 값이 있을 경우
+		alert(msg);
+		<% session.removeAttribute("msg"); %>
+		// 한번 출력 후 제거 (안하면 모든 페이지에서 계속 출력됨)
+	}
     $(function(){
 
         $("a").mouseenter(function(){
@@ -60,7 +72,6 @@
 </script>
 </head>
 <body>
-	<%@ include file ="/views/common/menubar.jsp" %>
 	<nav id="mypageNav">
 		<ul>
 			<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp" id="info">회원정보</a></li>
@@ -72,28 +83,29 @@
     
     
     <div id="pwdInputLayer">
-    	<form>
+    	<form id="checkPwdForm" action="<%=request.getContextPath()%>/checkPwd.me" method="POST">
 	    	<div id="pwdText">
 	    		<p style="font-size:40px; text-align: center;">비밀번호 입력</p>
 	            <p style="text-align: center">회원 정보를 안전하게 보호하기 위하여 비밀번호를 한번 더 입력해주세요.</p>
 	    	</div>
+			  
 			  <div class="form-group">
-			    <label for="exampleInputEmail1">Email address</label>
-			    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-			    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-			  </div>
-			  <div class="form-group">
-			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+			    <label for="checkPwd">Password</label>
+			    <input type="password" name="checkPwd" class="form-control" id="checkPwd" placeholder="Password">
 			  </div>
 			  <div class="form-group center">
-			    <button type="button" class="btn btn-secondary btn-lg">취소</button>
-			  	<button type="submit" class="btn btn-info btn-lg">확인</button>
+			    <button type="button" class="btn btn-secondary btn-lg" onclick="javascript:history.back();">취소</button>
+			  	<button type="submit" class="btn btn-info btn-lg" id="1124">확인</button>
 			  </div>
 			  
 		</form>
     		
     	
     </div>
+    
+    <script>
+    	
+    </script>
+   
 </body>
 </html>

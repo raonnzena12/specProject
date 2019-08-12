@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<%@ include file ="/views/common/menubar.jsp" %>
 <style>
     body *{
         /* border: 1px solid black; */
@@ -124,17 +125,7 @@
 		float:right;
 	}
 </style>
-<script>
-	$(function() {
 
-		$("a").mouseenter(function() {
-			$(this).css("color", "#00264B");
-		}).mouseleave(function() {
-			$(this).css("color", "gray");
-		})
-		
-	});
-</script>
 <title>회원정보 수정</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -144,12 +135,34 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script>
+	$(function(){
+		
+		clicks = true;
+		$("input[name=optionInfo]").click(function(){
+			
+			if(clicks){
+				$("#optionInfo *").removeAttr("disabled");
+			}else{
+				$("#optionInfo *").attr("disabled","disabled");
+			}
+			clicks = !clicks;
+		});
+		
+		$("a").mouseenter(function() {
+			$(this).css("color", "#00264B");
+		}).mouseleave(function() {
+			$(this).css("color", "gray");
+		});
+		
+	});
+</script>
 </head>
 <body>
-	<%@ include file ="/views/common/menubar.jsp" %>
+	
 	<nav id="mypageNav">
 		<ul>
-			<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp" id="info">회원정보</a></li>
+			<li><a href="<%=request.getContextPath()%>/mypage.me" id="info">회원정보</a></li>
 			<li><a href="#">작성글보기</a></li>
 			<li><a href="#">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
@@ -162,29 +175,38 @@
         </div>
 		
 		<div id="mid">
-            <form action="#">
+            <form action="update.me" id="updateForm" method="POST">
                 <div id="input1">
                     <table>
-                        <tr><td><label>아이디</label><input type="email" name="email" class="form-control" placeholder="이메일 주소"></td></tr>
-                        <tr><td><label>닉네임</label><input type="text" name="name" class="form-control" placeholder="닉네임"></td></tr>
+                        <tr><td><label>이메일</label><input type="email" name="userEmail" class="form-control" value="<%=loginUser.getUserEmail()%>" readonly></td></tr>
+                        <tr><td><label>닉네임</label><input type="text" name="userName" class="form-control" placeholder="닉네임"></td></tr>
                         
                         <tr><td><input type="checkbox" name="optionInfo">&nbsp;선택정보 입력하기</td></tr>
                     </table>
                 </div>
                 <div id="optionInfo" class="form-group">
-                    <table>
+                     <table>
                         <tr>
-                            <td><input class="form-control" type="tel" name="phone"
-                                placeholder="핸드폰번호(01012341234)"></td>
-                            <td><button type="button" class="btn btn-info">문자발송</button></td>
+                            <td colspan="2"><input class="form-control" type="tel" name="phone"
+                                placeholder="핸드폰번호(01012341234)" disabled></td>
                         </tr>
                         <tr>
-                            <td><input class="form-control" type="text" name="auth" placeholder="인증번호 입력"></td>
-                            <td><button type="button" class="btn btn-info">인증확인</button></td>
+                        	<td colspan="2">
+                        		<select class="selectpicker" data-live-search="true" id="deviceSelect" >
+									<option data-tokens="ketchup mustard">Hot Dog, Fries
+										and a Soda</option>
+									<option data-tokens="mustard">Burger, Shake and a
+										Smile</option>
+									<option data-tokens="frosting">Sugar, Spice and all
+									
+									<option value="salt">abc소금</option>
+								</select>
+
+							</td>
                         </tr>
                         <tr>
-                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기"></td>
-                            <td><button type="button" class="btn btn-info">기종찾기</button></td>
+                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled readonly></td>
+                            <td><button type="button" class="btn btn-info" disabled>기종찾기</button></td>
                         </tr>
                     </table>
                 </div>
@@ -199,6 +221,62 @@
         </div>
     </div>
        
-        
+    <script>
+    
+    	$(function(){
+    		
+        	var nCk;
+        	
+        		
+        		$("#updateForm input[name=userName]").on("input", function(){
+        			var userName = $("#updateForm input[name=userName]").val().trim();
+        			
+        			var regExp = /^[a-z][a-zA-Z0-9]{4,}$/;
+        			console.log(userName);
+        			if(regExp.test(userName)){
+        				
+        				$.ajax({
+        					url: "<%=request.getContextPath()%>/nameCheck.me",
+        					type: "POST",
+        					data : {name : userName},
+        					success : function(result){
+    		    				if(result > 0){
+        							console.log(result);
+    			    				$("#updateForm input[name=userName]").removeClass('is-valid');
+    			    				$("#updateForm input[name=userName]").addClass('is-invalid');
+    			    				nCk = false;
+    		    				} else{
+    		    					console.log(result);
+    		    					$("#updateForm input[name=userName]").removeClass('is-invalid');
+    			    				$("#updateForm input[name=userName]").addClass('is-valid');
+    		    					nCk = true;
+    		    				}
+        					},
+        					
+        					error: function(){
+        						console.log("Ajax 통신 실패")
+        					}
+        				});
+        				
+        			} else{
+        				console.log("이름 형식 충족 실패")
+        				$("#updateForm input[name=userName]").removeClass('is-valid');
+    			    	$("#updateForm input[name=userName]").addClass('is-invalid');
+     					nCk = false;
+        			}
+        			
+        			if($("#updateForm input[name=userName]").val().trim() == ""){
+        				nCk = false;
+        			}
+        			
+        		});
+        		
+        		
+        		$("#updateForm").submit(function(){
+        			if(!nCk){alert("이름 형식을 확인해주세요."); return false;}
+        			
+        		});
+    	});
+    </script>  
 </body>
 </html>

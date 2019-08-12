@@ -1,34 +1,34 @@
-package member.controller;
+package mobile.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 
-@WebServlet("/mypageInfo.me")
-public class MypageInfoFormServlet extends HttpServlet {
+import mobile.model.service.MobileService;
+import mobile.model.vo.MobileComment;
+
+@WebServlet("/commentLoad.mo")
+public class MobileCommentLoadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
-    public MypageInfoFormServlet() {
+    public MobileCommentLoadServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("mypageInfo.jsp");
-		view.forward(request, response);
+		int mno = Integer.parseInt(request.getParameter("mno"));
+		ArrayList<MobileComment> mcList = new MobileService().selectCommList(mno);
+		new Gson().toJson(mcList, response.getWriter());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
