@@ -60,6 +60,7 @@
         display: grid;
         grid-template-columns: 52% 48%;
         grid-template-rows: 50% 50%;
+        cursor: pointer;
     }
     #mobileList .item1 {
         grid-row-start: 1;
@@ -363,7 +364,7 @@
                 </div>
             <% randomAd = 0; i--; } else { %>
                 <div>
-                    <div class="deviceCon">
+                    <div class="deviceCon" id="<%= list.get(i).getmNo() %>">
                         <div class="item1">
                             <img src="<%=request.getContextPath()%>/image/testImgV50.png">
                         </div>
@@ -384,6 +385,12 @@
         <%-- 리스트 갱신 함수
          처음 접속했을때는 모든 리스트를 받아오고
          필터링 했을때는 필터링한 리스트를 받아옴(그렇게 동작했으면 좋겠다) --%>
+         //
+         //
+         // 미 완 성  완성할것!
+         //
+         //
+
         function listLoading() {
             currentPage += 1;
             var check = document.location.href.split("?");

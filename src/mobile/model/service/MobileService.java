@@ -11,6 +11,7 @@ import mobile.model.vo.Mobile;
 import mobile.model.vo.MobileComment;
 import mobile.model.vo.MobileInsert1;
 import mobile.model.vo.MobileInsert2;
+import mobile.model.vo.Review;
 
 public class MobileService {
 	
@@ -189,6 +190,46 @@ public class MobileService {
 	public int updateComment(MobileComment mc) {
 		Connection conn = getConnection();
 		int result = new MobileDao().updateComment(conn, mc);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 모바일 디바이스별 리뷰 리스트를 받아오는 Service
+	 * @param mno
+	 * @param uno 
+	 * @return rList
+	 */
+	public ArrayList<Review> selectReviewList(int mno, int uno) {
+		Connection conn = getConnection();
+		ArrayList<Review> rList = new MobileDao().selectReviewList(conn, mno, uno);
+		return rList;
+	}
+
+	/**
+	 * 리뷰 좋아요 찍는 Service
+	 * @param rno
+	 * @param uno
+	 * @return result
+	 */
+	public int insertReviewLike(int rno, int uno) {
+		Connection conn = getConnection();
+		int result = new MobileDao().insertReviewLike(conn, rno, uno);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 리뷰 좋아요 삭제하는 Service
+	 * @param rno
+	 * @param uno
+	 * @return result
+	 */
+	public int deleteReviewLike(int rno, int uno) {
+		Connection conn = getConnection();
+		int result = new MobileDao().deleteReviewLike(conn, rno, uno);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;

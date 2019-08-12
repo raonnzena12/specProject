@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% 
-    double starScore = 0.5;
-    boolean myReview = true;
-    int size = 10;
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +12,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 <style>
+    #deviceReview {
+        width: 900px;
+        margin: auto;
+    }
     .reviewCon {
         width: 900px;
         min-height: 200px;
@@ -80,33 +79,161 @@
     .like-cnt {
         text-align: right;
     }
-</style>
-<script>
-    $(function() {
-        $(".like-cnt").click(function(){
-            var icheck = $(this).children().text();
-            if ( icheck == 'favorite_border') {
-                $(this).children().text('favorite');
+    #deviceReview .wirteReview {
+        text-align: right;
+        padding: 20px 20px 50px 0;
 
+    }
+</style>
+<%@ include file ="/views/common/menubar.jsp" %>
+<script>
+    // url에 있는 파라메터 받아오기
+    $.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    return results[1] || 0;
+    }   
+	loadReivew();
+    $(function() {
+        // 리뷰 좋아요 체크하는 함수
+        $(document).on("click",".like-cnt", function(){
+            var icheck = $(this).children().eq(0).text();
+            var rno = $(this).parent().parent().attr("id");
+            if ( icheck == 'favorite_border') {
+                $(this).children().eq(0).text('favorite');
+                likeCount(rno, 1);
             } else {
-                $(this).children().text('favorite_border');
+                $(this).children().eq(0).text('favorite_border');
+                likeCount(rno, 0);
             }
         });
     });
+    // 리뷰 로드해오는 함수
+    function loadReivew(){
+        var mno = $.urlParam("mno");
+        var uno = 0 ;
+        <% if( loginUser != null ) { %> userNo = <%=loginUser.getUserNo()%>;<% } %>
+
+        $.ajax({
+            url: "loadReview.mo",
+            type: "POST",
+            data: { mno : mno,
+                    uno : uno},
+            dataType: "json",
+            error: function(e){
+                console.log(e);
+            },
+            success: function(rList){
+                console.log("mobileReview F.loadReivew : " + rList);
+                printReview(rList);
+            }
+        });
+    }
+    // 좋아요 증감 함수
+    function likeCount(rno, num){
+        var userNo = 0;
+
+        <% if( loginUser != null ) { %> userNo = <%=loginUser.getUserNo()%>;<% } %>
+
+        $.ajax({
+            url: "reviewLike.mo",
+            type: "POST",
+            data: { rno : rno,
+                    uno : userNo,
+                    num : num },
+            error: function(e){
+                console.log(e);
+            },
+            success: function(result) {
+                console.log(result);
+                if ( result > 0 && num > 0 ) {
+                    $("#" + rno + " span.likes").text(($("#" + rno + " span.likes").text()*1)+1);
+                } else if ( result > 0 && num == 0 ) {
+                    $("#" + rno + " span.likes").text(($("#" + rno + " span.likes").text()*1)-1);
+                    // String을 number로 변환하기 위해 임시방편으로 1곱해줬음... 야매...
+                }
+            }
+        });
+        
+    }
+    // 리뷰 프린트용
+    function printReview(rList){
+        var userNo = 0;
+        <% if( loginUser != null ) { %> userNo = <%=loginUser.getUserNo()%>;<% } %>
+        var listLength = Object.keys(rList).length;
+        var $reviewPrint = $(".reviewPrint");
+        $reviewPrint.html("");
+        if ( listLength == 0 ) { // 넘어온 리스트의 사이즈가 0일 때 ( 리뷰가 없을때 출력 )
+            var $reviewCon = $("<div>").addClass("border rounded reviewCon");
+            var $noneP = $("<p>").addClass("noneP").html("등록된 리뷰가 없습니다.<br>이 핸드폰의 첫 리뷰어가 되어보세요!");
+            $reviewCon.append($noneP);
+            $reviewPrint.append($reviewCon);
+        } else {
+            $.each(rList, function(i){
+                if ( listLength < 3 && i == 1 ) {
+                    $longAd = $("<div>").addClass("long-Ad");
+                    $reviewPrint.append($longAd);
+                } else if ( listLength > 3 && i%3 == 0 ) {
+                    $longAd = $("<div>").addClass("long-Ad");
+                    $reviewPrint.append($longAd);
+                }
+                var $reviewCon = $("<div>").addClass("border rounded reviewCon").attr("id",rList[i].rNo);
+                var $modify = $("<div>").addClass("modify");
+                if ( <%=loginUser == null%> || rList[i].rStatus == 2 || rList[i].rStatus == 3 ) {
+                    // 로그인 유저가 아니거나 / 신고/삭제된 리뷰일 경우 아이콘을 출력하지 않는다.
+                } else if ( rList[i].rWriterNo == userNo ) { // 내 리뷰일 경우 수정/삭제 출력
+                    $modify.html("<i class='material-icons'>create</i><i class='material-icons'>clear</i>");
+                } else { // 내 리뷰가 아닐 경우 신고 출력
+                    $modify.html('<i class="material-icons">error</i>');
+                }
+                var $reviewTitle = $("<div>").addClass("reviewTitle");
+                var $userName = $("<div>").addClass("userName").text(rList[i].rWriterName);
+                if ( <%= loginUser != null %> && rList[i].rWriterNo == userNo ) { // 내 리뷰일 경우 클래스 추가 (이름 색 변경용)
+                    $userName.addClass("myReivew");
+                }
+                var $date = $("<div>").addClass("date").text(rList[i].rModiDate);
+                var $star = $("<div>").addClass("star");
+                var $starIcon = $("<div>").addClass("starIcon");
+                for ( var j = 0 ; j < Math.floor(rList[i].rStar) ; j++ ) { // 1개짜리 별 출력하는 부분
+                    $starIcon.append("<i class='material-icons'>star</i>");
+                }
+                if ( rList[i].rStar%1 > 0 ) { // 반개짜리 별 출력하는 부분
+                    $starIcon.append("<i class='material-icons'>star_half</i>");
+                }
+                $starScore = $("<div>").addClass("starScore").text(rList[i].rStar);
+                $star.append($starIcon, $starScore);
+                $reviewTitle.append($userName, $date, $star);
+                var $likeCon = $("<div>").addClass("like-container");
+                var $likeCnt = $("<div>").addClass("like-cnt unchecked");
+                if ( rList[i].rIlike == 0 ) { // 내가 하트찍은 내역이 없으면 빈 하트♡
+                    $likeCnt.append("<i class='like-btn material-icons'>favorite_border</i>");
+                } else {    // 내가 하트찍은 내역이 있으면 하트♥
+                    $likeCnt.append("<i class='like-btn material-icons'>favorite</i>");
+                }
+                var $likes = $("<span>").addClass("likes").text(rList[i].rLike);
+                $likeCnt.append($likes);
+                $likeCon.append($likeCnt);
+                var $reviewText = $("<div>").addClass("reviewText").text(rList[i].rContent);
+                $reviewCon.append($modify, $reviewTitle, $likeCon, $reviewText);
+                $reviewPrint.append($reviewCon);
+            });
+        }
+    }
 </script>
 </head>
 <body>
-    <%@ include file ="/views/common/menubar.jsp" %>
     <%@ include file = "mobileSpecTop.jsp"%>
-    <% for ( int i = 0 ; i < size ; i++ ) { %>
-    <div class="border rounded reviewCon">
+    <section id="deviceReview">
+    <div class="reviewPrint">
+    <!-- <%-- <% for ( int i = 0 ; i < size ; i++ ) { %> --%>
+    <%-- <div class="border rounded reviewCon">
         <div class="modify"><% if( myReview ) { %><i class="material-icons">create</i><i class="material-icons">clear</i><% } else { %><i class="material-icons">error</i><% } %></div>
         <div class="reviewTitle">
             <div class="userName">유저<%=i+1%></div><div class="date">2019.07.28</div><div class="star"><div class="starIcon"><% for ( int j = 0 ; j < (int)(starScore*i) ; j++ ) { %><i class="material-icons">star</i><% } %><% if ( (starScore*i)%1 > 0 ) { %><i class="material-icons">star_half</i><% } %></div><div class="starScore"><%=starScore*i%></div></div> 
         </div>
         <div class="like-container">
-            <div class="like-cnt unchecked" id="like-cnt">
+            <div class="like-cnt unchecked">
                 <i class="like-btn material-icons">favorite_border</i>
+                <span class="likes"></span>
             </div>
         </div>
         <div class="reviewText">
@@ -114,9 +241,11 @@
         </div>
     </div>
     <% if( i%3==0 ) { %><div class="long-Ad">광고영역<%=i/3+1%></div><% } %>
-    <% } %>
-    <% if ( myReview ) { %>
-    <div class="wirteReview"></div>
-    <% }%>
+    <% } %> --%> -->    
+    </div>
+    <div class="wirteReview">
+        <button type="button" class="border btn btn-light" id="wirteReview"> 리뷰 작성하기</button>
+    </div>
+    </section>
 </body>
 </html>
