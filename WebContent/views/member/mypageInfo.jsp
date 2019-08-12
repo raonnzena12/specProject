@@ -115,13 +115,7 @@
 <script>
 	$(function() {
 		
-		var msg = "<%=(String)request.getSession().getAttribute("msg")%>";
 		
-		if(msg != "null") { // msg 값이 있을 경우
-			alert(msg);
-			<% request.getSession().removeAttribute("msg"); %>
-			// 한번 출력 후 제거 (안하면 모든 페이지에서 계속 출력됨)
-		}
 
 		$("a").mouseenter(function() {
 			$(this).css("color", "#00264B");

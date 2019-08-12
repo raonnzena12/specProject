@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	int userNo = 0;
-	try{
-		userNo = Integer.parseInt(request.getParameter("userNo"));
-	}catch(Exception e){
-		e.printStackTrace();
-	}
+	String email = (String)request.getParameter("email");
 %>
 <!DOCTYPE html>
 <html>
@@ -77,6 +72,7 @@
 	<%@ include file ="/views/common/menubar.jsp" %>
 </head>
 <body>
+	<% if(loginUser != null){ %>
 	<nav id="mypageNav">
 		<ul>
 			<li><a href="<%=request.getContextPath()%>/mypage.me" id="info">회원정보</a></li>
@@ -86,7 +82,7 @@
 		</ul>
     </nav>
     
-    
+    <% } %>
     <div id="pwdInputLayer">
     	<form id="updatePwdForm" action="<%=request.getContextPath()%>/updatePwd.me" method="POST">
 	    	<div id="pwdText">
@@ -95,7 +91,7 @@
 			  
 			  <div class="form-group">
 			    <label for="pwd2">New Password</label>
-			    <input type="hidden" name="userNo" value="<%=userNo%>">
+			    <input type="hidden" name="email" value="<%=email%>">
 			    <input type="password" class="form-control" name="newPwd" id="newPwd" placeholder="새로운 비밀번호">
 			  </div>
 			  <div class="form-group" id="checkPwd">

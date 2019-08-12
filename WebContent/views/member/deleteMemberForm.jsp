@@ -113,7 +113,7 @@
 			  </div>
 			  <div class="form-group center">
 			    <button type="button" class="btn btn-secondary btn-lg" onclick="location.href='<%=request.getContextPath()%>/mypage.me'">취소</button>
-			  	<button type="submit" class="btn btn-info btn-lg">확인</button>
+			  	<button type="button" class="btn btn-info btn-lg" id="check" >확인</button>
 			  </div>
 			  
 		</form>
@@ -126,7 +126,7 @@
     		console.log($("#infoCheck").is(":checked"));
     		console.log(!$("#infoCheck").is(":checked"));
     	});
-    	$("#checkPwdFormBeforeDelete").submit(function(){
+    	$("#check").click(function(){
     		
     		if(!$("#infoCheck").is(":checked")){
     			Swal.fire({
@@ -135,7 +135,7 @@
     				  text: '안내사항을 확인하고 체크해주세요!',
     				  /* footer: '<a href>Why do I have this issue?</a>' */
     				});
-    			return false;
+    			
     		}
     		if($("#checkPwdFormBeforeDelete input[name=pwd]").val().trim() == ""){
     			Swal.fire({
@@ -144,8 +144,36 @@
   				  text: '비밀번호를 확인해주세요!',
   				  /* footer: '<a href>Why do I have this issue?</a>' */
   				});
-    			return false;
+    			
     		}
+    		
+    		Swal.fire({
+    			  title: '정말 탈퇴하시겠습니까?',
+    			  text: "확인을 누르면 탈퇴처리로 넘어갑니다!",
+    			  type: 'warning',
+    			  showCancelButton: true,
+    			  confirmButtonColor: '#3085d6',
+    			  cancelButtonColor: '#d33',
+    			  confirmButtonText: '예, 삭제합니다!'
+    			}).then((result) => {
+    			  if (result.value) {
+    				  Swal.fire({
+    					  title: 'Auto close alert!',
+    					  html: '탈퇴합니다~',
+    					  timer: 2000,
+    					  onBeforeOpen: () => {
+    					    Swal.showLoading()
+    					    timerInterval = setInterval(() => {
+    					    }, 100)
+    					  },
+    					  onClose: () => {
+    					    clearInterval(timerInterval)
+    			    		$("#checkPwdFormBeforeDelete").submit();
+    					  }
+    					})
+    			  } else {
+    			  }
+    			})
     	});
     </script>
 </body>

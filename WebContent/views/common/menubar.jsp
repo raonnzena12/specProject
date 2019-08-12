@@ -195,13 +195,6 @@
 </style>
 <script>
 
-	var msg = "<%=request.getSession().getAttribute("msg")%>";
-	
-	if(msg != "null") { // msg 값이 있을 경우
-		alert(msg);
-		<% request.getSession().removeAttribute("msg"); %>
-		// 한번 출력 후 제거 (안하면 모든 페이지에서 계속 출력됨)
-	}
 	
     $(document).ready(function(){
         $("#account").click(function(){
@@ -254,7 +247,7 @@
 	                    <td><button type="submit">L O G I N</button></td>
 	                </tr>
 	                <tr>
-	                    <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="#" class="gray">비밀번호</a> 찾기</td>
+	                    <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="views/member/inputEmailForm.jsp" class="gray">비밀번호</a> 찾기</td>
 	                </tr>
 	                <tr>
 	                    <td><br>회원이 아니신가요?<br> <a href="views/member/joinForm.jsp"><p class="emp blue">가입하기</p></a>
