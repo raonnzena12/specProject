@@ -525,4 +525,62 @@ public class MobileDao {
 		return result;
 	}
 
+	public int insertReview(Connection conn, Review review) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, review.getrTitle());
+			pstmt.setString(2, review.getrContent());
+			pstmt.setDouble(3, review.getrStar());
+			pstmt.setInt(4, review.getrWriterNo());
+			pstmt.setInt(5, review.getrRefMno());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * 리뷰 삭제하는 DAO 
+	 * @param conn
+	 * @param rno
+	 * @return result
+	 */
+	public int deleteReview(Connection conn, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * 수정할 리뷰 하나 불러오는 
+	 * @param conn
+	 * @param rno
+	 * @return review
+	 */
+	public Review selectReview(Connection conn, int rno) {
+		return null;
+	}
+
 }

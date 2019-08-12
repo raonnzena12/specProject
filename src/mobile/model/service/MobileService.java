@@ -234,5 +234,42 @@ public class MobileService {
 		else rollback(conn);
 		return result;
 	}
+
+	/**
+	 * 리뷰 등록하는 Service
+	 * @param review
+	 * @return result 
+	 */
+	public int insertReview(Review review) {
+		Connection conn = getConnection();
+		int result = new MobileDao().insertReview(conn, review);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 리뷰 삭제하는 Service
+	 * @param rno
+	 * @return result
+	 */
+	public int deleteReview(int rno) {
+		Connection conn = getConnection();
+		int result = new MobileDao().deleteReview(conn, rno);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 수정할 리뷰 한 개 가져오는 Service
+	 * @param rno
+	 * @return review
+	 */
+	public Review selectReview(int rno) {
+		Connection conn = getConnection();
+		Review review = new MobileDao().selectReview(conn, rno);
+		return review;
+	}
 	
 }
