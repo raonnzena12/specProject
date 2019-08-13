@@ -184,7 +184,7 @@
     }
     // 리뷰 수정 함수
     function updateReview(rno){
-        window.open("modifyReview.mo?rno="+rno, "updateReview", "width=800px, height=300px, resizable = no, scrollbars = no");
+        window.open("modifyReview.mo?rno="+rno, "updateReviewForm", "width=1200px, height=500px, resizable = no, scrollbars = no");
     }
     // 리뷰 프린트용
     function printReview(rList){
@@ -243,7 +243,7 @@
                 var $likes = $("<span>").addClass("likes").text(rList[i].rLike);
                 $likeCnt.append($likes);
                 $likeCon.append($likeCnt);
-                var $reviewText = $("<div>").addClass("reviewText").text(rList[i].rContent);
+                var $reviewText = $("<div>").addClass("reviewText").html(rList[i].rContent);
                 $reviewCon.append($modify, $reviewTitle, $likeCon, $reviewText);
                 $reviewPrint.append($reviewCon);
             });

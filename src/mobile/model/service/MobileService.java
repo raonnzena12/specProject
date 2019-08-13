@@ -271,5 +271,13 @@ public class MobileService {
 		Review review = new MobileDao().selectReview(conn, rno);
 		return review;
 	}
+
+	public int updateReview(Review modiR) {
+		Connection conn = getConnection();
+		int result = new MobileDao().updateReview(conn, modiR);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
 	
 }

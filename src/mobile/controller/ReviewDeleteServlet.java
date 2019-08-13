@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import mobile.model.service.MobileService;
 
 @WebServlet("/updateReview.mo")
-public class ReviewUpdateServlet extends HttpServlet {
+public class ReviewDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ReviewUpdateServlet() {
+    public ReviewDeleteServlet() {
         super();
     }
 

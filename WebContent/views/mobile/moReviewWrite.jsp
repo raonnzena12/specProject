@@ -103,7 +103,8 @@ pageEncoding="UTF-8"%>
 				<span class="star star_left"></span>
 				<span class="star star_right"></span>
 			</div><br>
-            <textarea name="reviewText" id="reviewText" class="form-control" rows="3" placeholder="리뷰 내용을 입력해주세요(1000자 이내)"></textarea><br>
+			<textarea name="reviewText" id="reviewText" class="form-control" rows="3" placeholder="리뷰 내용을 입력해주세요(1000자 이내)"></textarea><br>
+			<input type="hidden" name="rContent">
 			<div class="btnArea">
 				<button type="button" class="btn btn-light border" id="insertCancel">취소</button><button type="button" class="btn btn-primary" id="insertReview">리뷰 등록</button>
 			</div>
@@ -114,18 +115,21 @@ pageEncoding="UTF-8"%>
 		$(function(){
 			$("#insertReview").on("click",function(){
 				var rTitle = $("#reviewTitle").val().trim();
-				var rContent = $("#reviewText").val().trim();
+				var text = $("#reviewText").val();
+				var rContent = text.replace(/(\n|\r\n)/g, '<br>');
+				console.log(rContent);
 				if ( rTitle == 0 ) {
 					$("#reviewTitle").focus();
 					Swal.fire( 'Oops...!', '제목을 입력해주세요!', 'warning' );
 					return false;
-				} else if ( rContent == 0 ) {
+				} else if ( rContent.trim() == 0 ) {
 					$("#reviewText").focus();
 					Swal.fire( 'Oops...!', '리뷰 내용을 입력해주세요!', 'warning' );
 					return false;
 				} 
 				$("input[name=star]").val($(".on").length);
 				$("input[name=rWriter]").val(<%=loginUser.getUserNo()%>);
+				$("input[name=rContent]").val(rContent);
 				$("#reviewWriteForm").submit();
 			});
 			$("#insertCancel").on("click", function(){

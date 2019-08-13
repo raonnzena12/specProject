@@ -28,8 +28,9 @@ public class ReviewEditServlet extends HttpServlet {
 		
 		String page = "";
 		if ( review != null ) {
-			request.setAttribute("mc", review);
-			page = "views/mobile/mobileReviewUpdate.jsp";
+			
+			request.setAttribute("review", review);
+			page = "/views/mobile/mobileReviewUpdate.jsp";
 		} else {
 			request.setAttribute("msg", "리뷰 수정창 로드 실패");
 			page = "views/common/errorPage.jsp";
@@ -38,7 +39,19 @@ public class ReviewEditServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		// 리뷰 수정창에서 POST방식으로 넘어올때
+		// 수정 로직 실행
+		int rNo = Integer.parseInt(request.getParameter("rno"));
+		String rTitle = request.getParameter("rTitle");
+		String rContent = request.getParameter("rContent");
+		int star = Integer.parseInt(request.getParameter("star"));
+		double rStar = star * 0.5 ;
+		
+		Review modiR = new Review(rNo, rTitle, rContent, rStar);
+		int result = new MobileService().updateReview(modiR);
+		
+		response.getWriter().print(result);
+		
 	}
 
 }
