@@ -147,10 +147,10 @@
                 </div>
                 <div id="optionInfo" class="form-group">
                     <table>
-                        <!-- <tr>
+                        <tr>
                             <td colspan="2"><input class="form-control" type="tel" name="phone"
                                 placeholder="핸드폰번호(01012341234)" disabled></td>
-                        </tr> -->
+                        </tr>
                         <tr>
                         	<td colspan="2">
                         		<select class="selectpicker" data-live-search="true" id="deviceSelect" >
@@ -177,8 +177,9 @@
                     </div>
                 </div>
                 <p>
-			                    가입하면 SPEC의 약관, 데이터 정책 및<br>
-			                    쿠키 정책에 동의하게 됩니다.
+			                    - 가입하면 SPEC의 약관, 데이터 정책 및
+			                    쿠키 정책에 동의하게 됩니다.<br>
+			                    - 선택정보 (전화번호)는 아이디 비밀번호 찾기 시 본인 확인 인증수단으로 이용됩니다.  
                 </p>
             </form>
         </div>

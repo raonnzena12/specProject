@@ -207,10 +207,10 @@
 	
 	<script>
 		function updateUserInfo(){
-			location.href = "views/member/inputPwdForm.jsp?code=" + 1;
+			location.href = "inputPwdForm.me?code=" + 1;
 		}
 		function updateUserPwd(){
-			location.href = "views/member/inputPwdForm.jsp?code=" + 2;
+			location.href = "inputPwdForm.me?code=" + 2;
 		}
 		function deleteUser(){
 			

@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * 회원정보 수정 입력폼 서블릿
+ * 비밀번호 입력폼 서블릿
  * @author user
  *
  */
-@WebServlet("/updateInfoForm.me")
-public class UpdateInfoFormServlet extends HttpServlet {
+@WebServlet("/inputPwdForm.me")
+public class InputPwdFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public UpdateInfoFormServlet() {
+    public InputPwdFormServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("views/member/updateInfoForm.jsp").forward(request, response);
+		String code = request.getParameter("code");
+		request.setAttribute("code", code);
+		request.getRequestDispatcher("views/member/inputPwdForm.jsp").forward(request, response);
 	
 	}
 

@@ -248,10 +248,10 @@
 	                    <td><button type="submit">L O G I N</button></td>
 	                </tr>
 	                <tr>
-	                    <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="views/member/inputEmailForm.jsp" class="gray">비밀번호</a> 찾기</td>
+	                    <td class="taright gray"><a href="inputNameForm.me" class="gray">아이디</a> / <a href="inputEmailForm.me" class="gray">비밀번호</a> 찾기</td>
 	                </tr>
 	                <tr>
-	                    <td><br>회원이 아니신가요?<br> <a href="views/member/joinForm.jsp"><p class="emp blue">가입하기</p></a>
+	                    <td><br>회원이 아니신가요?<br> <a href="joinForm.me"><p class="emp blue">가입하기</p></a>
 	                    </td> 
 	                </tr>
             	</table>
@@ -261,7 +261,7 @@
         <div id="mypageMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account">
         	<ul>
         		<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
-        		<li><a href="views/member/inputPwdForm.jsp?code=1">정보수정</a></li>
+        		<li><a href="inputPwdForm.me?code=1">정보수정</a></li>
         		<li><a href="#">내글관리</a></li>
         		<li><a href="#">내리뷰관리</a></li>
         		<li><a href="#">내댓글관리</a></li>
