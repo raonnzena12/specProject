@@ -230,9 +230,6 @@
     function printList(dList){
         var $listArea = $("#listArea");
         var $addiv = $("<div>");
-        var $adCon = $("<div>").addClass("deviceCon").text("AD");
-        $addiv.append($adCon);
-        $listArea.append($addiv);
         $.each(dList, function(i){
             var $div = $("<div>");
             var $deviceCon = $("<div>").addClass("deviceCon").attr("id",dList[i].mNo);
@@ -244,6 +241,11 @@
                 $deviceCon.append($item1, $item2, $item3);
             $div.append($deviceCon);
             $listArea.append($div);
+            if ( i == 4 ) {
+                var $adCon = $("<div>").addClass("deviceCon").text("AD");
+                $addiv.append($adCon);
+                $listArea.append($addiv);
+            }
         });
     }
     // 검색결과 값 출력용 함수
@@ -456,7 +458,7 @@
                     <button class="btn btn-primary float-right">등록</button>
                 </div>
                     <% } %>
-                <h3 id="countBanner" class="font-weight-bolder">Search Results</h3>
+                <h4 id="countBanner" class="font-weight-bolder">Search Results</h4>
                 <span id="countNum"><%=pInf.getListCount()%></span>
             </div>
             <div class="listArea" id="listArea">
@@ -503,52 +505,34 @@
         <%-- 리스트 갱신 함수
          처음 접속했을때는 모든 리스트를 받아오고
          필터링 했을때는 필터링한 리스트를 받아옴(그렇게 동작했으면 좋겠다) --%>
-         //
-         //
-         // 미 완 성  완성할것!
-         //
-         //
-
         function listLoading() {
+            var address = document.location.href.split("?");
+            var qString = "";
+            if ( address.length != 1 ) qString = address[1];
             currentPage += 1;
-            var check = document.location.href.split("?");
-            if ( check.length == 1 ) {
+            console.log(currentPage);
+            
             $.ajax({
                 url: "listUpdate.mo",
-                type: "POST",
-                data: { currentPage: currentPage,
-                    limit: limit },
+                type: "GET",
+                data: { qString : qString,
+                        currentPage: currentPage,
+                        limit: limit },
                 dataType: "json",
+                error: function(e){
+                    console.log(e);
+                },
                 success: function(dList){
+                    // console.log(dList);
+                    // console.log(dList.return)
+                    // console.log(Object.keys(dList).length);
                     printList(dList);
                     if ( currentPage == maxPage ) {
                         $("#loadBtn").attr("disabled","disabled");
                     }
-                },
-                error: function(e){
-                	console.log(e);
                 }
             });
-            } else {
-                $.ajax({
-                    url: "listUpdate.mo",
-                    type: "GET",
-                    data: { currentPage: currentPage,
-                            limit: limit,
-                            input: 1,
-                            qString: check[1] },
-                    dataType: "json",
-                    success: function(dList){
-                        printList(dList);
-                        if ( currentPage == maxPage ) {
-                            $("#loadBtn").attr("disabled","disabled");
-                        }
-                    },
-                    error: function(e){
-                        console.log(e);
-                    }
-                });
-            }
+            
         }
     </script>
 </body>

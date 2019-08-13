@@ -79,6 +79,7 @@ public class MobileService {
 				switch ( strArr[0] ) {
 				case "brand" : query += cq.createBrandq(strArr); break;
 				case "battery" : query += cq.createBatteryq(strArr); break;
+				case "screen" : query += cq.createInchq(strArr); break;
 				}
 			}
 		}
@@ -115,6 +116,7 @@ public class MobileService {
 				switch ( strArr[0] ) {
 				case "brand" : query += cq.createBrandq(strArr); break;
 				case "battery" : query += cq.createBatteryq(strArr); break;
+				case "screen" : query += cq.createInchq(strArr); break;
 				}
 			}
 		}
