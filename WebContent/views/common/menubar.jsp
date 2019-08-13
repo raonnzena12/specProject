@@ -153,12 +153,13 @@
     	font-size:20px;
     }
     #compareMenu {
-        z-index: 1;
         width: 100%;
-        height: 650px;
+        height: 600px;
         background-color: rgba(0,38,75,0.8);
         text-align: center;
         display: none; 
+        float: left;
+        z-index: 1000;
     }
     #compareMenu * {
         /* border: 1px solid white; */
@@ -217,7 +218,8 @@
         	$(".loginmenu").toggle();
         });
         $("#compareOpen").click(function(){
-            $(".compareMenu").slideToggle(500);
+            // $(".compareMenu").slideToggle(500);
+            $(".compareMenu").css("display", "block");
         });
 	});
 </script>
@@ -282,13 +284,13 @@
     </header>
     <div class="compareMenu" id="compareMenu">
         <form>
-            <div class="comWrapper">
-                <div class="comDevice1"><i class="material-icons">add_circle</i></div>
-                <div class="comStart">VS</div>
-                <div class="comDevice2"><i class="material-icons">add_circle</i></div>
-            </div>
+           <div class="comWrapper">
+               <div class="comDevice1"><i class="material-icons">add_circle</i></div>
+               <div class="comStart">VS</div>
+               <div class="comDevice2"><i class="material-icons">add_circle</i></div>
+           </div>
 
         </form>
-    </div>
+    </div>	
 </body>
 </html>
