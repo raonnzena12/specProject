@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	ArrayList<Board> tlist = (ArrayList<Board>)request.getAttribute("tlist");
+	ArrayList<Board> mList = (ArrayList<Board>)request.getAttribute("mList");
 	
 	BoardPageInfo bpi = (BoardPageInfo)request.getAttribute("bpi");
 	
@@ -86,11 +86,30 @@
             padding: 0;
             padding-left: 450px;
         }
+        
+        
+    .pagingBtn{
+		text-decoration: none;
+		color : white;
+		display : inline-block;
+		width : 25px;
+		height : 25px;
+	}
+	
+	
+	.pagingArea span{
+		position: absolute;
+		margin: auto;
+		top: 10px;
+		left: 15%;
+	}
 </style>
 <title>작성글 보기</title>
+<%@ include file="/views/common/menubar.jsp" %>
 <script>
 	$(function() {
 
+		console.log(<%= mList.isEmpty()%>)
 		$("a").mouseenter(function() {
 			$(this).css("color", "#00264B");
 		}).mouseleave(function() {
@@ -101,12 +120,12 @@
 </script>
 </head>
 <body>
-	<%@ include file="/views/common/menubar.jsp" %>
+	
 	
 	<nav id="mypageNav">
 		<ul>
 			<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
-			<li><a href="<%=request.getContextPath()%>/views/member/myArticleList.jsp" id="now">작성글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myBoardList.me" id="now">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/myReviewList.jsp">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
 		</ul>
@@ -114,7 +133,7 @@
     <div id="articleLayer">
 	    <div id="articleText">
 	    	<p class="font">작성글 보기</p>
-	    	<p class="total">Total : 2</p>
+	    	<p class="total"><%=mList.size()%></p>
 	    </div>
     	<table id="articleTable" class="table table-hover">
 		  <thead>
@@ -134,17 +153,17 @@
 		      <td>@mdo</td>
 		      <td>@mdo</td>
 		    </tr>
-		    <% if(tlist.isEmpty()){ %>
+		    <% if(mList.isEmpty()){ %>
             	<tr> 
             		<td colspan="5"> 등록된 게시글이 없습니다.</td>
             	</tr>
             	<% }else{ %>
-            		<%for(Board b2 : tlist){ %>
+            		<%for(Board b2 : mList){ %>
             		<tr>
             			<td><%= b2.getbNo()%></td>
             			<td><%= b2.getCgCategory()%></td>
             			<td><%= b2.getbTitle()%></td>
-            			<td><%= b2.getbRegdate()%></td>
+            			<td><%= b2.getbRegdate2()%></td>
             			<td><%= b2.getbCount()%></td>
             		</tr>
             		<% } %>
@@ -153,46 +172,40 @@
 		</table>
     </div>
     <!-- 페이징바 -->
-    <section id="page">
-		<div>
-	         <ul class="pagination pagination-sm">
-	   			<!-- 맨 처음(<<) -->
-	   			<li class="page-item disabled">
-	   				<a class="page-link" href="<%= request.getContextPath()%>/maintotal.bo?currentPage=1&bno=<%=request.getAttribute("bno")%>">&laquo;</a>
-	   			</li>
-	   			
-	   			<!-- 페이지 목록 넘기기 -->
-	   			
-	   			<% for(int p = startPage; p <= endPage; p++){ %>
-		   				<%if(p == currentPage){ %>
-				   			<li class="page-item">
-			   					<a class="page-link"><%= p %></a>
-			   				</li>
-			   			<% } else { %>
-				   			<li class="page-item">
-				   				<a class="page-link" href="<%= request.getContextPath()%>/maintotal.bo?currentPage=<%= p%>&bno=<%=request.getAttribute("bno")%>"><%= p %></a>
-				   			</li>
-			   			<% } %>
-		   			<% } %>
-	            <!-- <li class="page-item">
-	                 <a class="page-link" href="#">2</a>
-	      		</li>
-	     		<li class="page-item">
-	    			<a class="page-link" href="#">3</a>
-	   			</li>
-	   			<li class="page-item">
-	    			<a class="page-link" href="#">4</a>
-	    		</li>
-	    		<li class="page-item">
-	     			<a class="page-link" href="#">5</a>
-	     		</li> -->
-	     		
-	     		<!-- 맨끝으로(>>) -->
-	    		 <li class="page-item">
-	     			<a class="page-link" href="<%=request.getContextPath()%>/maintotal.bo?currentPage=<%= maxPage %>&bno=<%=request.getAttribute("bno")%>">&raquo;</a>
-	     		</li>
-   			</ul>
-   		</div> 
-  	</section>
+    <!-- 페이징 처리 시작! -->
+		<div class="pagingArea" align="center">
+			<!-- 맨 처음으로(<<) -->
+			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=1'">&lt;&lt;</span>
+		
+			<!-- 이전 페이지로(<) -->
+			<% if(currentPage <= 1) { %>
+				<span class="pagingBtn">&lt;</span>
+			<% } else{ %>
+				<span class="pagingBtn clickBtn" 
+					onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= currentPage-1 %>'">&lt;</span>
+			<% } %>
+			
+			<!-- 페이지 목록 -->
+			<% for(int p = startPage; p <= endPage; p++){ %>
+				<% if(p == currentPage) { %>
+					<span class="pagingBtn selectBtn"><%= p %></span>
+				<% } else{ %>
+					<span class="pagingBtn clickBtn" 
+						onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= p %>'"><%=p%></span>
+				<% } %>
+			<%} %>
+			
+			<!-- 다음 페이지로(>) -->
+			<% if(currentPage >= maxPage){ %>
+				<span class="pagingBtn"> &gt; </span>
+			<% } else{ %>
+				<span class="pagingBtn clickBtn" 
+					onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= currentPage+1 %>'">&gt;</span>
+			<% } %>
+			
+			<!-- 맨 끝으로(>>) -->
+			<span class="pagingBtn clickBtn"
+				onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= maxPage %>'">&gt;&gt;</span>
+		</div>
 </body>
 </html>

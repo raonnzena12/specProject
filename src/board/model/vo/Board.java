@@ -17,6 +17,9 @@ public class Board {
 	private int bCategory;
 	private String cgCategory;
 	
+	// 임시 등록일 필드
+	private String bRegdate2;
+	private String bModidate2;
 	
 	public Board() {
 		// 기본 생성자
@@ -52,6 +55,46 @@ public class Board {
 	}
 
 
+	
+
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, Date bModidate, int bCode,
+			String bType, int bWriter, int bCategory, String cgCategory) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.bRegdate = bRegdate;
+		this.bModidate = bModidate;
+		this.bCode = bCode;
+		this.bType = bType;
+		this.bWriter = bWriter;
+		this.bCategory = bCategory;
+		this.cgCategory = cgCategory;
+	}
+
+
+	
+	
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, Date bModidate, int bCode,
+			String bType, int bWriter, int bStatus, int bCategory) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.bRegdate = bRegdate;
+		this.bModidate = bModidate;
+		this.bCode = bCode;
+		this.bType = bType;
+		this.bWriter = bWriter;
+		this.bStatus = bStatus;
+		this.bCategory = bCategory;
+	}
+
+
+	
+
 
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, Date bModidate, int bCode,
 			String bType, int bWriter, int bStatus, int bCategory, String cgCategory) {
@@ -70,8 +113,52 @@ public class Board {
 		this.cgCategory = cgCategory;
 	}
 
+	
+	
+	
+	
+	
+	////////임시 생성자
 
 
+	public Board(int bNo, String bTitle, String bContent, int bCount, int bCode,  int bWriter, int bStatus,
+			int bCategory, String bRegdate2, String bModidate2) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.bCode = bCode;
+		this.bWriter = bWriter;
+		this.bStatus = bStatus;
+		this.bCategory = bCategory;
+		this.bRegdate2 = bRegdate2;
+		this.bModidate2 = bModidate2;
+	}
+
+	public String getbRegdate2() {
+		return bRegdate2;
+	}
+
+
+	public void setbRegdate2(String bRegdate2) {
+		this.bRegdate2 = bRegdate2;
+	}
+
+
+	public String getbModidate2() {
+		return bModidate2;
+	}
+
+
+	public void setbModidate2(String bModidate2) {
+		this.bModidate2 = bModidate2;
+	}
+
+
+	//////////////////////////////////////////////////
+	
+	
 	public int getbNo() {
 		return bNo;
 	}
@@ -215,6 +302,14 @@ public class Board {
 	}
 
 
+	
+	
+	
+	
+	// temp 임시 게터세터
+	
+	
+	
 
 	@Override
 	public String toString() {

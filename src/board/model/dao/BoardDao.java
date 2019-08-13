@@ -153,6 +153,65 @@ public class BoardDao {
 		return board;
 	}
 
+
+
+	/**
+	 * 내가 쓴 글 목록 조회용 dao
+	 * @param conn
+	 * @param currentPage
+	 * @param limit
+	 * @param uNo
+	 * @return
+	 */
+	public ArrayList<Board> selectMyBoard(Connection conn, int currentPage, int limit, int uNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> mList = null;
+		
+		String query = prop.getProperty("selectMyBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			 
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
+			pstmt.setInt(1, uNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			mList = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board b = new Board(
+						rset.getInt("BNO"),
+						rset.getString("BTITLE"),
+						rset.getString("BCONTENT"),
+						rset.getInt("BCOUNT"),
+						rset.getInt("BCODE"),
+						rset.getInt("BWRITER"),
+						rset.getInt("BSTATUS"),
+						rset.getInt("BCATEGORY"),
+						rset.getString("BREGDATE"),
+						rset.getString("BMODIDATE")
+						);
+				mList.add(b);
+			}
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return mList;
+	}
+
 	
 
 }

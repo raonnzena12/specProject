@@ -23,7 +23,6 @@ public class BoardService {
 	}
 	
 	
-	
 	/**
 	 * 게시글 목록 조회용 service
 	 * @param bNo
@@ -64,4 +63,31 @@ public class BoardService {
 
 	
 
+	/**
+	 * 내가 쓴 글 개수 조회용 service
+	 * @param uNo
+	 * @return
+	 */
+	public int getMyBoardCount(int uNo) {
+		Connection conn = getConnection();
+		
+		int myBoardCount = new BoardDao().getBoardCount(conn, uNo);
+		
+		return myBoardCount;
+	}
+	/**
+	 * 내가 쓴 글 목록 조회용 service
+	 * @param currentPage
+	 * @param limit
+	 * @param uNo
+	 * @return
+	 */
+	public ArrayList<Board> selectMyBoard(int currentPage, int limit, int uNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> mlist = new BoardDao().selectMyBoard(conn, currentPage, limit, uNo);
+		
+		return mlist;
+	}
 }
+
