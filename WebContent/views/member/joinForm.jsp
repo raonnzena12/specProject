@@ -88,16 +88,34 @@
     	font-size:18px !important;
     }
 </style>
+<%@ include file ="/views/common/menubar.jsp" %> 
 <title>회원가입</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-<!-- 부가적인 테마 -->
+부가적인 테마
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
+ -->
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+
+
+
+<!-- Stylesheet -->
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ajax-bootstrap-select/1.4.5/css/ajax-bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ajax-bootstrap-select/1.4.5/js/ajax-bootstrap-select.min.js"></script>
+
+
 <script>
 	$(function(){
 		
@@ -114,7 +132,6 @@
 		
 	});
 </script>
-<%@ include file ="/views/common/menubar.jsp" %>
 </head>
 <body id="joinFormBody">
 	
@@ -153,15 +170,18 @@
                         </tr>
                         <tr>
                         	<td colspan="2">
-                        		<select class="selectpicker" data-live-search="true" id="deviceSelect" >
-									<option data-tokens="ketchup mustard">Hot Dog, Fries
+                        		<select class="selectpicker" data-live-search="true" id="ajax-select">
+									<!-- <option data-tokens="ketchup mustard">Hot Dog, Fries
 										and a Soda</option>
 									<option data-tokens="mustard">Burger, Shake and a
 										Smile</option>
 									<option data-tokens="frosting">Sugar, Spice and all
 									
-									<option value="salt">abc소금</option>
+									<option value="salt">abc소금</option> -->
 								</select>
+								
+								
+								
 
 							</td>
                         </tr>
@@ -186,20 +206,11 @@
     </div>
     
     <script>
-    	/* $("#deviceSelect").change(function(){
-    		console.log($(this).val());
-    		console.log($("#optionInfo > table > tbody > tr:nth-child(1) > td > div > div > div > input").val());
-    	});
-     */
     	
-    	// 모바일 기종 리스트 조회용 function
-    	/* function selectMlist(){
-    		$.ajax({
-    			url: "select"
-    		})
-    		
-    	}
-     */
+     
+     
+     
+     
     	var eCk;
     	var nCk;
     	var pCk;

@@ -1,5 +1,22 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="board.model.vo.BoardPageInfo,board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	ArrayList<Board> tlist = (ArrayList<Board>)request.getAttribute("tlist");
+	
+	BoardPageInfo bpi = (BoardPageInfo)request.getAttribute("bpi");
+	
+	int boardCount = 1;
+	int currentPage = 2;
+	int maxPage = 3;
+	int startPage = 4;
+	int endPage = 5;
+	int limit = 6;
+	int pagingBarSize = 7;
+
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,6 +79,13 @@
     #articleTable{
     	text-align:center;
     }
+    #page{
+            width: 1080px;
+            height: 100px;
+            margin: auto;
+            padding: 0;
+            padding-left: 450px;
+        }
 </style>
 <title>작성글 보기</title>
 <script>
@@ -81,7 +105,7 @@
 	
 	<nav id="mypageNav">
 		<ul>
-			<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp" id="info">회원정보</a></li>
+			<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/myArticleList.jsp" id="now">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/myReviewList.jsp">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
@@ -110,23 +134,65 @@
 		      <td>@mdo</td>
 		      <td>@mdo</td>
 		    </tr>
-		    <tr>
-		      <th scope="row">2</th>
-		      <td>Jacob</td>
-		      <td>Thornton</td>
-		      <td>@fat</td>
-		      <td>@fat</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">3</th>
-		      <td>Larry the Bird</td>
-		      <td>@twitter</td>
-		      <td>@twitter</td>
-		      <td>@twitter</td>
-		    </tr>
+		    <% if(tlist.isEmpty()){ %>
+            	<tr> 
+            		<td colspan="5"> 등록된 게시글이 없습니다.</td>
+            	</tr>
+            	<% }else{ %>
+            		<%for(Board b2 : tlist){ %>
+            		<tr>
+            			<td><%= b2.getbNo()%></td>
+            			<td><%= b2.getCgCategory()%></td>
+            			<td><%= b2.getbTitle()%></td>
+            			<td><%= b2.getbRegdate()%></td>
+            			<td><%= b2.getbCount()%></td>
+            		</tr>
+            		<% } %>
+            	<% } %>
 		  </tbody>
 		</table>
     </div>
-    
+    <!-- 페이징바 -->
+    <section id="page">
+		<div>
+	         <ul class="pagination pagination-sm">
+	   			<!-- 맨 처음(<<) -->
+	   			<li class="page-item disabled">
+	   				<a class="page-link" href="<%= request.getContextPath()%>/maintotal.bo?currentPage=1&bno=<%=request.getAttribute("bno")%>">&laquo;</a>
+	   			</li>
+	   			
+	   			<!-- 페이지 목록 넘기기 -->
+	   			
+	   			<% for(int p = startPage; p <= endPage; p++){ %>
+		   				<%if(p == currentPage){ %>
+				   			<li class="page-item">
+			   					<a class="page-link"><%= p %></a>
+			   				</li>
+			   			<% } else { %>
+				   			<li class="page-item">
+				   				<a class="page-link" href="<%= request.getContextPath()%>/maintotal.bo?currentPage=<%= p%>&bno=<%=request.getAttribute("bno")%>"><%= p %></a>
+				   			</li>
+			   			<% } %>
+		   			<% } %>
+	            <!-- <li class="page-item">
+	                 <a class="page-link" href="#">2</a>
+	      		</li>
+	     		<li class="page-item">
+	    			<a class="page-link" href="#">3</a>
+	   			</li>
+	   			<li class="page-item">
+	    			<a class="page-link" href="#">4</a>
+	    		</li>
+	    		<li class="page-item">
+	     			<a class="page-link" href="#">5</a>
+	     		</li> -->
+	     		
+	     		<!-- 맨끝으로(>>) -->
+	    		 <li class="page-item">
+	     			<a class="page-link" href="<%=request.getContextPath()%>/maintotal.bo?currentPage=<%= maxPage %>&bno=<%=request.getAttribute("bno")%>">&raquo;</a>
+	     		</li>
+   			</ul>
+   		</div> 
+  	</section>
 </body>
 </html>
