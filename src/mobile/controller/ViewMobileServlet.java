@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import mobile.model.service.MobileService;
 import mobile.model.vo.*;
 
@@ -40,7 +42,11 @@ public class ViewMobileServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+//		doGet(request, response);
+		int mno = Integer.parseInt(request.getParameter("mno"));
+		Mobile device = new MobileService().selectMobile(mno);
+		
+		new Gson().toJson(device, response.getWriter());
 	}
 
 }

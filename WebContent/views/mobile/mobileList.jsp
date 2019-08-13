@@ -92,11 +92,62 @@
         display: inline-block;
         margin-right: 10px;
     }
+    .item2 {
+        background-color: blueviolet;
+    }
+    .compare-drawer-con {
+        position: fixed;
+        bottom: -200px;
+        right: 60px;
+        z-index: 90;
+        width: 250px;
+        min-height: 200px;
+        background-color: #fff;
+        z-index: 200;
+        transition: 400ms;
+        padding: 20px;
+    }
+    .open {
+        transform: translateY(-200px);
+        /* bottom: 100px; */
+    }
+    .comTitle {
+        align-items: baseline;
+        position: relative;
+        text-align: center;
+        padding: 5px;
+    }
+    .comTitle h3 {
+        display: inline-block;
+        /* margin: 0; */
+    }
+    .comTitle i {
+        font-size: 20px;
+        color: #666;
+        /* margin: 10px auto; */
+        padding: 0px 0;
+        top: 11px;
+        right: 5px;
+        position: absolute;
+    }
+    .comPhone {
+        position: relative;
+    }
+    .comPhone i {
+        position: absolute;
+        font-size: 15px;
+        /* line-height: 20px; */
+        margin-top: 3px;
+        right: 5px;
+    }
+    #mySidenav button{
+        line-height: 20px;
+        margin: 20px 0 0 0;
+    }
 </style>
 <script>
     // 시작시 함수 한번 호출 (주소창 값으로 필터링 하기 위해)
-    filtering(); 
-
+    filtering();
     // 주소창 변경용 기본함수
     function ChangeUrl(page, url) {
         if (typeof (history.pushState) != "undefined") {
@@ -283,10 +334,65 @@
         $( "#ScreenAmount" ).val( $( "#slider-screen" ).slider( "values", 0 ) +
         " Inch - " + $( "#slider-screen" ).slider( "values", 1 ) + " Inch" );
         // 리스트 상세 조회용 함수!
-        $(document).on("click",".deviceCon",function(){
-            var mno = $(this).attr("id");
+        $(document).on("click",".item1",function(){
+            var mno = $(this).parent().attr("id");
             console.log(mno);
             location.href="<%=request.getContextPath()%>/spec.mo?currentPage="+currentPage+"&mno="+mno+"&page="+1;
+        });
+        $(document).on("click",".item3",function(){
+            var mno = $(this).parent().attr("id");
+            console.log(mno);
+            location.href="<%=request.getContextPath()%>/spec.mo?currentPage="+currentPage+"&mno="+mno+"&page="+1;
+        });
+        // 비교 서랍메뉴 출력용
+        $(document).on("click",".item2", function(){
+            var $this = $(this);
+            if ( $this.hasClass("comPP") ) return false;
+            if ( $(".comP").length == 2 ) return false;
+            var mno = $(this).parent().attr("id");
+            $.ajax({
+                url: "spec.mo",
+                type: "POST",
+                data: {mno : mno},
+                dataType: "json",
+                error: function(e){
+                    console.log(e);
+                },
+                success: function(device){
+                    var $comPhone = $(".comPhone");
+                    var $comP = $("<div>").attr("comp",device.mNo).addClass("comP");
+                    var $devieceN = $("<span>").text(device.mName);
+                    var $clear = $("<span>").html('<i class="material-icons removeDevice">clear</i>');
+                    $comP.append($devieceN, $clear);
+                    $comPhone.append($comP);
+                    if ( $(".comP").length == 2 ) { // comP 갯수 세어서 버튼 사용가능하게 하기
+                        $("#specCompare").removeAttr("disabled");
+                    }
+                }
+            });
+            // 리스트 추가에 성공할 경우 해당 핸드폰에 comPP 라는 클래스를 덧붙인다
+            $(this).addClass("comPP");
+            $("#mySidenav").addClass("open");
+        });
+        // 비교 서랍메뉴 비우고 서랍메뉴 닫기
+        $("#flushDevice").on("click", function(){
+            $(".item2").each( function(){ // item2 클래스를 가진 요소에 개별 접근하여
+            // 임의로 붙여둔 comPP를 지워준다~
+                if ( $(this).hasClass("comPP") ) $(this).removeClass("comPP");
+            });
+            $("#mySidenav").removeClass("open");
+            $("#specCompare").attr("disabled", "disabled");
+            $(".comPhone").html("");
+        });
+        // X 표시 클릭시 해당 내용만 지우기
+        $(document).on("click", ".removeDevice", function(){
+            if ( $(".comP").length == 1 ) {
+                $("#mySidenav").removeClass("open");
+            }
+            var id = $(this).parent().parent().attr("comp");
+            $(this).parent().parent().remove();
+            $("#"+id).children().eq(1).removeClass("comPP");
+            $("#specCompare").attr("disabled", "disabled");
         });
     });
 </script>
@@ -377,6 +483,18 @@
             <button type="button" onclick="listLoading()" id="loadBtn">로딩</button>
         </section>
     </section>
+    <div class="compare-drawer-con border rounded" id="mySidenav">
+            <div class="comTitle">
+                <h3>COMPARE</h3>
+                <i class="material-icons" id="flushDevice">delete</i>
+            </div>
+            <div class="comPhone">
+                <!-- <div class="comP">
+                    <span>휴대폰 1</span> <span><i class="material-icons removeDevice">clear</i></span>
+                </div> -->
+            </div>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="specCompare" disabled>SPEC<br>COMPARE</button>
+        </div>
     <script>
         var currentPage = 1;
         var limit = <%=pInf.getLimit()%>;
