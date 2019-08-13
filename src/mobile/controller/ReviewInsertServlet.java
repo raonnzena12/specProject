@@ -20,14 +20,15 @@ public class ReviewInsertServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String rTitle = request.getParameter("reviewTitle");
-		String rContent = request.getParameter("reviewText");
-		rContent = rContent.replaceAll("\n", "<br>");
+		String rContent = request.getParameter("rContent");
+//		rContent = rContent.replaceAll("\n", "<br>");
 		int star = Integer.parseInt(request.getParameter("star"));
 		double rStar = star * 0.5 ;
 		int rWriterNo = Integer.parseInt(request.getParameter("rWriter"));
 		int rRefMno = Integer.parseInt(request.getParameter("mno"));
 		
 		Review review = new Review(rTitle, rContent, rStar, rWriterNo, rRefMno);
+//		int result = 1;
 		int result = new MobileService().insertReview(review);
 		
 		String page = "";

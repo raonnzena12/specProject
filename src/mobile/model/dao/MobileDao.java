@@ -574,13 +574,55 @@ public class MobileDao {
 	}
 
 	/**
-	 * 수정할 리뷰 하나 불러오는 
+	 * 수정할 리뷰 하나 불러오는 DAO
 	 * @param conn
 	 * @param rno
 	 * @return review
 	 */
 	public Review selectReview(Connection conn, int rno) {
-		return null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Review review = null;
+		
+		String query = prop.getProperty("selectReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			if ( rset.next() ) {
+				review = new Review(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getDouble(4), rset.getDate(5), rset.getDate(6), rset.getInt(7), rset.getInt(8), rset.getInt(9), rset.getInt(10));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return review;
+	}
+
+	public int updateReview(Connection conn, Review modiR) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, modiR.getrTitle());
+			pstmt.setString(2, modiR.getrContent());
+			pstmt.setDouble(3, modiR.getrStar());
+			pstmt.setInt(4, modiR.getrNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

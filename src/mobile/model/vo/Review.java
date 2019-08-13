@@ -18,6 +18,14 @@ public class Review {
 	
 	public Review() {}
 	
+	public Review(int rNo, String rTitle, String rContent, Double rStar) {
+		super();
+		this.rNo = rNo;
+		this.rTitle = rTitle;
+		this.rContent = rContent;
+		this.rStar = rStar;
+	}
+
 	public Review(String rTitle, String rContent, Double rStar, int rWriterNo, int rRefMno) {
 		super();
 		this.rTitle = rTitle;
@@ -26,9 +34,9 @@ public class Review {
 		this.rWriterNo = rWriterNo;
 		this.rRefMno = rRefMno;
 	}
-
-	public Review(int rNo, String rTitle, String rContent, Double rStar, Date rRegDate, Date rModiDate, int rIlike,
-			int rLike, int rWriterNo, String rWriterName, int rRefMno, int rStatus) {
+	
+	public Review(int rNo, String rTitle, String rContent, Double rStar, Date rRegDate, Date rModiDate, int rLike,
+			int rWriterNo, int rRefMno, int rStatus) {
 		super();
 		this.rNo = rNo;
 		this.rTitle = rTitle;
@@ -36,12 +44,22 @@ public class Review {
 		this.rStar = rStar;
 		this.rRegDate = rRegDate;
 		this.rModiDate = rModiDate;
-		this.rIlike = rIlike;
 		this.rLike = rLike;
 		this.rWriterNo = rWriterNo;
-		this.rWriterName = rWriterName;
 		this.rRefMno = rRefMno;
 		this.rStatus = rStatus;
+	}
+
+	public Review(int rNo, String rTitle, String rContent, Double rStar, Date rRegDate, Date rModiDate, int rLike,
+			int rWriterNo, String rWriterName, int rRefMno, int rStatus) {
+		this(rNo, rTitle, rContent, rStar, rRegDate, rModiDate, rLike, rWriterNo, rRefMno, rStatus);
+		this.rWriterName = rWriterName;
+	}
+
+	public Review(int rNo, String rTitle, String rContent, Double rStar, Date rRegDate, Date rModiDate, int rIlike,
+			int rLike, int rWriterNo, String rWriterName, int rRefMno, int rStatus) {
+		this(rNo, rTitle, rContent, rStar, rRegDate, rModiDate, rLike, rWriterNo, rWriterName, rRefMno, rStatus);
+		this.rIlike = rIlike;
 	}
 
 	public int getrIlike() {

@@ -22,7 +22,7 @@ public class MobileCommentInsertServlet extends HttpServlet {
 		int refMoNo = Integer.parseInt(request.getParameter("mno"));
 		int mcoWriter = Integer.parseInt(request.getParameter("writer"));
 		String mcoContent = request.getParameter("commCon");
-		mcoContent = mcoContent.replaceAll("\n", "<br>");
+//		mcoContent = mcoContent.replaceAll("\n", "<br>");
 		
 		MobileComment mc = new MobileComment(mcoContent, refMoNo, mcoWriter);
 		int result = new MobileService().insertComment(mc);
