@@ -193,22 +193,29 @@
         width: 90px;
         height: 100%;
     }
+    .loginmenu {
+        z-index: 10;
+    }
+    #veil {
+        display: none;
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
 </style>
 <script>
 
 	
     $(document).ready(function(){
         $("#account").click(function(){
-            $("#login-menu").css("display","block");
-            $("#mypageMenu").css("display","block");
+        	$(".loginmenu").toggle();
         });
-		$("#login-menu").mouseenter(function() {
-			$("#login-menu").css("display", "block");
-			$("#mypageMenu").css("display" , "block");
-		}).mouseleave(function() {
-			$("#login-menu").css("display", "none");
-			$("#mypageMenu").css("display", "none")
-		});
+        $("#veil").on("click", function(){
+        	$(".loginmenu").toggle();
+        });
         $("#compareOpen").click(function(){
             $(".compareMenu").slideToggle(500);
         });
@@ -233,9 +240,10 @@
             	<% } %> 
             <li class=" nav-item dropdown">
             
-            	<i class="material-icons" id="account">account_circle</i>
+                <i class="material-icons" id="account">account_circle</i>
+                <div class="loginmenu" id="veil"></div>
             	<% if(loginUser == null){ %>
-        <div id="login-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div id="login-menu" class="dropdown-menu dropdown-menu-right loginmenu" aria-labelledby="account" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <form action="<%=request.getContextPath()%>/login.me">
             	<table id="login-table">
 	                <tr>
@@ -258,7 +266,7 @@
             </form>
         </div>
         <% } else{ %>
-        <div id="mypageMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account">
+        <div id="mypageMenu" class="dropdown-menu dropdown-menu-right loginmenu" aria-labelledby="account">
         	<ul>
         		<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
         		<li><a href="inputPwdForm.me?code=1">정보수정</a></li>
