@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import mobile.model.service.MobileService;
 
 @WebServlet("/count.mo")
@@ -33,6 +35,8 @@ public class ListCountServlet extends HttpServlet {
 		} else {
 			listCount = new MobileService().getListCount(); 
 		}
+			
+		response.getWriter().print(listCount);;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
