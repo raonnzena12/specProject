@@ -791,4 +791,10 @@ INSERT INTO USER_TABLE  VALUES ( SEQ_UNO.NEXTVAL, 'test01@test.co.kr', '1ARVn2Au
 INSERT INTO REVIEW VALUES (SEQ_REV.NEXTVAL, ?, ?, ?, SYSDATE, SYSDATE, 0, ?, ?, 1);
 
 -------------------------------- 리뷰 테이블 삭제 update문 예제
-UPDATE REVIEW SET RE_STATUS = '2' WHERE 
+UPDATE REVIEW SET RE_STATUS = '2' WHERE ;
+
+------------------------------------ 리뷰 select 문 예제
+SELECT * FROM REVIEW WHERE RE_STATUS = 1 AND RE_NO = 3;
+
+--- ------------- 리뷰UPDATE문 예제
+UPDATE REVIEW SET RE_TITLE = 'AAA', RE_CONTENT = 'AAA', RE_STAR = 6 WHERE RE_NO = 3 AND RE_STATUS = 1;
