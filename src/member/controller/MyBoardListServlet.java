@@ -8,46 +8,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.service.MemberService;
 import member.model.vo.Member;
 
-@WebServlet("/mypage.me")
-public class MypageServlet extends HttpServlet {
+
+@WebServlet("/myBoardList.me")
+public class MyBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MypageServlet() {
+    
+    public MyBoardListServlet() {
         super();
+       
     }
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
 		String page = "";
 		if(loginUser != null) {
-			String userEmail = loginUser.getUserEmail();
-			
-			Member member = new MemberService().selectMember2(userEmail);
-			
-			if(member != null) {
-				request.setAttribute("member", member);
-				page = "views/member/mypageInfo.jsp";
-			} else {
-				request.setAttribute("msg", "회원 정보 조회 실패");
-				page = "views/common/errorPage.jsp";
-			}
-			
+			System.out.println(loginUser.getUserNo());
 		} else {
-			request.setAttribute("msg", "로그인을 해주세요!");
+			request.setAttribute("msg", "로그인해주세요!");
 			page = "views/common/errorPage.jsp";
 		}
+		
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 
