@@ -124,6 +124,22 @@ public class MemberService {
 		}
 		return result;
 	}
+
+	public int phoneCheck(String phone) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().phoneCheck(conn, phone);
+		
+		return result;
+	}
+
+	public String findEmail(String userName, String phone) {
+		Connection conn = getConnection();
+		
+		String userEmail = new MemberDao().findEmail(conn, userName, phone);
+		
+		return userEmail;
+	}
 	
 	
 }

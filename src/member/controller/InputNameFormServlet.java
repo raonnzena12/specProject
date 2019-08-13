@@ -7,24 +7,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-/**
- * 회원정보 수정 입력폼 서블릿
- * @author user
- *
- */
-@WebServlet("/updateInfoForm.me")
-public class UpdateInfoFormServlet extends HttpServlet {
+@WebServlet("/inputNameForm.me")
+public class InputNameFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public UpdateInfoFormServlet() {
+    public InputNameFormServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("views/member/updateInfoForm.jsp").forward(request, response);
-	
+		request.getRequestDispatcher("views/member/inputNameForm.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
