@@ -603,6 +603,12 @@ public class MobileDao {
 		return review;
 	}
 
+	/**
+	 * 리뷰 수정하는 DAO
+	 * @param conn
+	 * @param modiR
+	 * @return result
+	 */
 	public int updateReview(Connection conn, Review modiR) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -616,6 +622,88 @@ public class MobileDao {
 			pstmt.setDouble(3, modiR.getrStar());
 			pstmt.setInt(4, modiR.getrNo());
 			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * COMPARE 테이블에 비교 튜플 있는지 확인하는 DAO
+	 * @param conn
+	 * @param com1
+	 * @param com2
+	 * @return result
+	 */
+	public int checkCompareTable(Connection conn, int com1, int com2) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("checkCompareTable");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, com1);
+			pstmt.setInt(2, com2);
+			rset = pstmt.executeQuery();
+			if ( rset.next() ) {
+				result = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * COMPARE 테이블 조회횟수 증가시키는 Service
+	 * @param conn
+	 * @param com1
+	 * @param com2
+	 * @return result
+	 */
+	public int updateCompareCount(Connection conn, int com1, int com2) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCompareCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, com1);
+			pstmt.setInt(2, com2);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * COMPARE 테이블 인서트하는 DAO
+	 * @param conn
+	 * @param com1
+	 * @param com2
+	 * @return result
+	 */
+	public int insertCompareTable(Connection conn, int com1, int com2) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertCompareTable");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, com1);
+			pstmt.setInt(2, com2);
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

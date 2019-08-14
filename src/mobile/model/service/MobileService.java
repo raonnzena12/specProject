@@ -274,9 +274,54 @@ public class MobileService {
 		return review;
 	}
 
+	/**
+	 * 리뷰 수정하는 Service
+	 * @param modiR
+	 * @return result
+	 */
 	public int updateReview(Review modiR) {
 		Connection conn = getConnection();
 		int result = new MobileDao().updateReview(conn, modiR);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * COMPARE 테이블에 비교 튜플 있는지 확인하는 Service
+	 * @param com1
+	 * @param com2
+	 * @return result
+	 */
+	public int checkCompareTable(int com1, int com2) {
+		Connection conn = getConnection();
+		int result = new MobileDao().checkCompareTable(conn, com1, com2);
+		return result;
+	}
+
+	/**
+	 * COMPARE 테이블 조회횟수 증가시키는 Service
+	 * @param com1
+	 * @param com2
+	 * @return result
+	 */
+	public int updateCompareCount(int com1, int com2) {
+		Connection conn = getConnection();
+		int result = new MobileDao().updateCompareCount(conn, com1, com2);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * COMPARE 테이블 인서트하는 Service
+	 * @param com1
+	 * @param com2
+	 * @return result
+	 */
+	public int insertCompareTable(int com1, int com2) {
+		Connection conn = getConnection();
+		int result = new MobileDao().insertCompareTable(conn, com1, com2);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;

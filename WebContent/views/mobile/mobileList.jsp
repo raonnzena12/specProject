@@ -396,6 +396,18 @@
             $("#"+id).children().eq(1).removeClass("comPP");
             $("#specCompare").attr("disabled", "disabled");
         });
+        // 비교 서랍에 핸드폰을 2개 담고 버튼을 누르면 비교화면으로 이동
+        $(document).on("click", "#specCompare", function(){
+            if ( $(".comP").length < 2 ) return false;
+            // 그럴일은 없겠지만 핸드폰이 2개 이하인 상태에서 버튼을 누르면 동작 안함
+            var com1 = $(".comP").eq(0).attr("comp");
+            var com2 = $(".comP").eq(1).attr("comp");
+            // 비교 서랍에 담겨있는 id값 2개 받아오기
+            if ( com1 == com2 ) return false; 
+            // 그럴일은 없겠지만 같은 핸드폰이 2번 담겼을 경우 동작 안함
+
+            location.href='<%=request.getContextPath()%>/compareSpec.mo?com1='+com1+'&com2='+com2;
+        }); 
     });
 </script>
 </head>
