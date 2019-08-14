@@ -197,7 +197,7 @@
 	       	</table>
 	   	</section>
 	    <section id="boardbtn">
-	       	<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : left; margin: 0 10px 0 5px;" onclick="location.href='<%=request.getContextPath()%>/maintotal.bo'">목록</button>
+	       	<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : left; margin: 0 10px 0 5px;" onclick="<%=request.getContextPath()%>/maintotal.bo?bno=<%=request.getAttribute("bno")%>">목록</button>
 	        <form class="form-inline my-2 my-lg-0">
 		        <input class="form-control mr-sm-2" type="text" placeholder="Search">
 		        <button type="button" class="btn btn-secondary"style="background-color : white; color : black; font-weight:bold; margin:0;">검색</button>
@@ -209,7 +209,7 @@
 				<option value="head">말머리</option>
 			</select>
 			<%if(loginUser != null){ %>
-				<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : right; margin: 0 10px 0 5px;" onclick="location.href='<%=request.getContextPath()%>/writeform.bo'">글쓰기</button>
+				<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : right; margin: 0 10px 0 5px;" onclick="<%=request.getContextPath()%>/writeform.bo">글쓰기</button>
 			<% }else{ %>
 			
 			<%} %>
@@ -282,6 +282,7 @@
     			var bno = $(this).parent().children().eq(0).text();
     			<%if(loginUser !=null){%>	
     				location.href="<%= request.getContextPath() %>/content.bo?bno="+bno;
+    				<%-- location.href="<%= request.getContextPath()%>/replyCount.bo?bno="+bno; --%>
     			<% } else{ %>
 					alert("로그인해야만 상세보기가 가능합니다!");
 				<% } %>

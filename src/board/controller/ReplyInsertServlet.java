@@ -9,42 +9,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
-import board.model.vo.Board;
+import board.model.vo.Reply;
 
 
-@WebServlet("/content.bo")
-public class BoardContentServlet extends HttpServlet {
+@WebServlet("/writeReply.bo")
+public class ReplyInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
    
-    public BoardContentServlet() {
+    public ReplyInsertServlet() {
         super();
         
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bNo = Integer.parseInt(request.getParameter("bno"));
-		
-		Board board = new BoardService().contentBoard(bNo);
-		int replycount = new BoardService().getReplyCount(bNo);
-		
-		String page = "";
-		if(board != null ) {
-			page = "views/Board/BoardContent.jsp";
-			request.setAttribute("board", board);
-			request.setAttribute("replycount", replycount);
-		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시글 상세조회 에러");
-		}
-		request.getRequestDispatcher(page).forward(request, response);
-		
-		
+		  request.setCharacterEncoding("UTF-8");
+		  
+		  int writer = Integer.parseInt(request.getParameter("writer"));
+		  String content = request.getParameter("content");
+		  int bno = Integer.parseInt(request.getParameter("bno"));
+		  
+		  content = content.replace("\n", "<br>");
+		  
+		  Reply r = new Reply(content, writer, bno);
+		  
+		  int result = new BoardService().writeReply(r);
+		  
+		  response.getWriter().print(result);
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 
