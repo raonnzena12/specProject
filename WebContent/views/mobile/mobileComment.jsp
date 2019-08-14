@@ -78,11 +78,9 @@
     // 코멘트 등록 함수
     function writeComment(){
         var mno = <%=mo.getmNo()%>;
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //////// 회원번호 지금은 없으니 임시 변수 넣어둠...!! 수정필요!!!!!!!!!!!!!!!!!!!!!!!!!!1///////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         <%if ( loginUser != null ) {%>var writer = <%=loginUser.getUserNo()%>;<%}%>
-        var commCon = $("#commCon").val();
+        var commCon = $("#commCon").val().replace(/(\n|\r\n)/g, '<br>');
+        console.log(commCon);
         if ( commCon.trim().length == 0 ) {
             Swal.fire({ type: 'warning',
                 title: '등록 오류',
@@ -232,8 +230,8 @@
                 <% } 
              } %> -->
         </div>
-        <div class="reloadBtn">
-            <button type="button" class="btn btn-light border text-center" onclick="loadComment();">새로운 댓글 확인</button>
+        <div class="reloadBtn text-center">
+            <button type="button" class="btn btn-light border" onclick="loadComment();">새로운 댓글 확인</button>
         </div>
         <div class="commWriteA input-group mb-3" id="commWriteA">
             <textarea name="commCon" id="commCon" rows="3" class="form-control" aria-describedby="button-addon2"placeholder="댓글을 입력해주세요"></textarea>

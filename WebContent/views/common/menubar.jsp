@@ -36,6 +36,7 @@
         text-decoration: none;
         user-select: none;
     }
+
     body {
         /* font-family: 'Noto Sans KR', sans-serif; */
         font-size: 14px !important;
@@ -152,12 +153,13 @@
     	font-size:20px;
     }
     #compareMenu {
-        z-index: 1;
         width: 100%;
-        height: 650px;
+        height: 600px;
         background-color: rgba(0,38,75,0.8);
         text-align: center;
         display: none; 
+        float: left;
+        z-index: 1000;
     }
     #compareMenu * {
         /* border: 1px solid white; */
@@ -192,29 +194,37 @@
         width: 90px;
         height: 100%;
     }
+    .loginmenu {
+        z-index: 10;
+    }
+    #veil {
+        display: none;
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
 </style>
 <script>
 
 	
     $(document).ready(function(){
         $("#account").click(function(){
-            $("#login-menu").css("display","block");
-            $("#mypageMenu").css("display","block");
+        	$(".loginmenu").toggle();
         });
-		$("#login-menu").mouseenter(function() {
-			$("#login-menu").css("display", "block");
-			$("#mypageMenu").css("display" , "block");
-		}).mouseleave(function() {
-			$("#login-menu").css("display", "none");
-			$("#mypageMenu").css("display", "none")
-		});
+        $("#veil").on("click", function(){
+        	$(".loginmenu").toggle();
+        });
         $("#compareOpen").click(function(){
-            $(".compareMenu").slideToggle(500);
+            // $(".compareMenu").slideToggle(500);
+            $(".compareMenu").css("display", "block");
         });
 	});
 </script>
 </head>
-<body>
+<body id="tttt">
 	<header class="navbar sticky-top navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
         <section id="logo" onclick="location.href='<%=request.getContextPath()%>'">SPEC</section>
         <div id="menubarNav" class="navbar-nav-scroll">
@@ -222,7 +232,7 @@
                 <li class="nav-item"><a href="<%=request.getContextPath()%>/devicelist.mo">MOBILE</a></li>
                 <li class="nav-item"><a href="#" id="compareOpen">COMPARE</a></li>
                 <li class="nav-item"><a href="<%=request.getContextPath()%>/calendar.do">CALENDAR</a></li>
-                <li class="nav-item"><a href="#">COMMUNITY</a></li>
+                <li class="nav-item"><a href="<%=request.getContextPath()%>/maintotal.bo?bno=0">COMMUNITY</a></li>
             </ul>
         </div>
         <!-- <section id="blank"></section> -->
@@ -232,9 +242,10 @@
             	<% } %> 
             <li class=" nav-item dropdown">
             
-            	<i class="material-icons" id="account">account_circle</i>
+                <i class="material-icons" id="account">account_circle</i>
+                <div class="loginmenu" id="veil"></div>
             	<% if(loginUser == null){ %>
-        <div id="login-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div id="login-menu" class="dropdown-menu dropdown-menu-right loginmenu" aria-labelledby="account" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <form action="<%=request.getContextPath()%>/login.me">
             	<table id="login-table">
 	                <tr>
@@ -257,7 +268,7 @@
             </form>
         </div>
         <% } else{ %>
-        <div id="mypageMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account">
+        <div id="mypageMenu" class="dropdown-menu dropdown-menu-right loginmenu" aria-labelledby="account">
         	<ul>
         		<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
         		<li><a href="inputPwdForm.me?code=1">정보수정</a></li>
@@ -273,13 +284,13 @@
     </header>
     <div class="compareMenu" id="compareMenu">
         <form>
-            <div class="comWrapper">
-                <div class="comDevice1"><i class="material-icons">add_circle</i></div>
-                <div class="comStart">VS</div>
-                <div class="comDevice2"><i class="material-icons">add_circle</i></div>
-            </div>
+           <div class="comWrapper">
+               <div class="comDevice1"><i class="material-icons">add_circle</i></div>
+               <div class="comStart">VS</div>
+               <div class="comDevice2"><i class="material-icons">add_circle</i></div>
+           </div>
 
         </form>
-    </div>
+    </div>	
 </body>
 </html>

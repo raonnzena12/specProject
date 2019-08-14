@@ -9,42 +9,45 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
-import board.model.vo.Board;
+import board.model.vo.Reply;
 
 
-@WebServlet("/content.bo")
-public class BoardContentServlet extends HttpServlet {
+
+
+@WebServlet("/replyUpdateForm.bo")
+public class ReplyUpdateFromServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
-    public BoardContentServlet() {
+    
+    public ReplyUpdateFromServlet() {
         super();
-        
+       
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bNo = Integer.parseInt(request.getParameter("bno"));
+		int cno = Integer.parseInt(request.getParameter("cno"));
 		
-		Board board = new BoardService().contentBoard(bNo);
-		int replycount = new BoardService().getReplyCount(bNo);
+		String content = new BoardService().replyContent(cno);
 		
-		String page = "";
-		if(board != null ) {
-			page = "views/Board/BoardContent.jsp";
-			request.setAttribute("board", board);
-			request.setAttribute("replycount", replycount);
+		String page= "";
+		
+		if(content != null) {
+			page = "views/Board/replyUpdateForm.jsp";
+			request.setAttribute("content", content);
+			request.setAttribute("cno", cno); 
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시글 상세조회 에러");
+			request.setAttribute("msg", "댓글 내용 불러오기 실패");
 		}
-		request.getRequestDispatcher(page).forward(request, response);
 		
+		request.getRequestDispatcher(page).forward(request, response);
 		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 

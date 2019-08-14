@@ -1,45 +1,34 @@
 package mobile.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
 import mobile.model.service.MobileService;
 
-@WebServlet("/count.mo")
-public class ListCountServlet extends HttpServlet {
+@WebServlet("/updateReview.mo")
+public class ReviewDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ListCountServlet() {
+    public ReviewDeleteServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String qString = request.getParameter("qString");
-		int listCount = 0;
+		// get 방식으로 접근했을때 ( 리뷰 삭제할 때 )
+		int rno = Integer.parseInt(request.getParameter("rno"));
 		
-		if ( qString != null && qString.trim().length() != 0 ) {
-			String[] queryArr = qString.split(","); 
-			ArrayList<String[]> queryList = new ArrayList<String[]>();
-			for ( int i = 0 ; i < queryArr.length ; i++ ) {
-				queryList.add(queryArr[i].split(":"));
-			}
-			listCount = new MobileService().getListCount(queryList);
-		} else {
-			listCount = new MobileService().getListCount(); 
-		}
-			
-		response.getWriter().print(listCount);;
+		int result = new MobileService().deleteReview(rno);
+		
+		response.getWriter().print(result);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// post 방식으로 접근했을때 ( 리뷰 수정할 때 )
+		// . . .. . . . 힝
 		doGet(request, response);
 	}
 

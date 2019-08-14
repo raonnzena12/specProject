@@ -26,7 +26,7 @@ public class ListMobileServlet extends HttpServlet {
 		// 서비스 객체 생성
 		MobileService mService = new MobileService();
 		String qString = request.getParameter("qString");
-		if ( qString != null ) System.out.println(qString.trim().length());
+//		if ( qString != null ) System.out.println(qString.trim().length()); 
 		 
 		// === === === 페이징 처리  === === ===
 		// 전체 게시글 수 구하기

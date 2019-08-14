@@ -28,6 +28,28 @@ public class Board {
 	}
 	
 
+	
+
+
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, int bCode, String bType,
+			int bWriter, int bCategory, String cgCategory) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.bRegdate = bRegdate;
+		this.bCode = bCode;
+		this.bType = bType;
+		this.bWriter = bWriter;
+		this.bCategory = bCategory;
+		this.cgCategory = cgCategory;
+	}
+
+
+
+
+
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, int bCode, int bCategory,
 			String cgCategory) {
 		super();
@@ -61,22 +83,22 @@ public class Board {
 
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, Date bModidate, int bCode,
 			String bType, int bWriter, int bCategory, String cgCategory) {
+
 		super();
 		this.bNo = bNo;
 		this.bTitle = bTitle;
 		this.bContent = bContent;
 		this.bCount = bCount;
 		this.bRegdate = bRegdate;
+
 		this.bModidate = bModidate;
 		this.bCode = bCode;
 		this.bType = bType;
+ master
 		this.bWriter = bWriter;
 		this.bCategory = bCategory;
 		this.cgCategory = cgCategory;
 	}
-
-
-	
 	
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, Date bModidate, int bCode,
 			String bType, int bWriter, int bStatus, int bCategory) {
@@ -94,11 +116,7 @@ public class Board {
 		this.bCategory = bCategory;
 	}
 
-
-	
-
-
-	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, Date bModidate, int bCode,
+  public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, Date bModidate, int bCode,
 			String bType, int bWriter, int bStatus, int bCategory, String cgCategory) {
 		super();
 		this.bNo = bNo;

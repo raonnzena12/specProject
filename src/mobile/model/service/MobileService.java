@@ -11,6 +11,7 @@ import mobile.model.vo.Mobile;
 import mobile.model.vo.MobileComment;
 import mobile.model.vo.MobileInsert1;
 import mobile.model.vo.MobileInsert2;
+import mobile.model.vo.Review;
 
 public class MobileService {
 	
@@ -78,6 +79,7 @@ public class MobileService {
 				switch ( strArr[0] ) {
 				case "brand" : query += cq.createBrandq(strArr); break;
 				case "battery" : query += cq.createBatteryq(strArr); break;
+				case "screen" : query += cq.createInchq(strArr); break;
 				}
 			}
 		}
@@ -114,6 +116,7 @@ public class MobileService {
 				switch ( strArr[0] ) {
 				case "brand" : query += cq.createBrandq(strArr); break;
 				case "battery" : query += cq.createBatteryq(strArr); break;
+				case "screen" : query += cq.createInchq(strArr); break;
 				}
 			}
 		}
@@ -189,6 +192,91 @@ public class MobileService {
 	public int updateComment(MobileComment mc) {
 		Connection conn = getConnection();
 		int result = new MobileDao().updateComment(conn, mc);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 모바일 디바이스별 리뷰 리스트를 받아오는 Service
+	 * @param mno
+	 * @param uno 
+	 * @return rList
+	 */
+	public ArrayList<Review> selectReviewList(int mno, int uno) {
+		Connection conn = getConnection();
+		ArrayList<Review> rList = new MobileDao().selectReviewList(conn, mno, uno);
+		return rList;
+	}
+
+	/**
+	 * 리뷰 좋아요 찍는 Service
+	 * @param rno
+	 * @param uno
+	 * @return result
+	 */
+	public int insertReviewLike(int rno, int uno) {
+		Connection conn = getConnection();
+		int result = new MobileDao().insertReviewLike(conn, rno, uno);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 리뷰 좋아요 삭제하는 Service
+	 * @param rno
+	 * @param uno
+	 * @return result
+	 */
+	public int deleteReviewLike(int rno, int uno) {
+		Connection conn = getConnection();
+		int result = new MobileDao().deleteReviewLike(conn, rno, uno);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 리뷰 등록하는 Service
+	 * @param review
+	 * @return result 
+	 */
+	public int insertReview(Review review) {
+		Connection conn = getConnection();
+		int result = new MobileDao().insertReview(conn, review);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 리뷰 삭제하는 Service
+	 * @param rno
+	 * @return result
+	 */
+	public int deleteReview(int rno) {
+		Connection conn = getConnection();
+		int result = new MobileDao().deleteReview(conn, rno);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 수정할 리뷰 한 개 가져오는 Service
+	 * @param rno
+	 * @return review
+	 */
+	public Review selectReview(int rno) {
+		Connection conn = getConnection();
+		Review review = new MobileDao().selectReview(conn, rno);
+		return review;
+	}
+
+	public int updateReview(Review modiR) {
+		Connection conn = getConnection();
+		int result = new MobileDao().updateReview(conn, modiR);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;
