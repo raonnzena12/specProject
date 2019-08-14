@@ -408,6 +408,9 @@
 
             location.href='<%=request.getContextPath()%>/compareSpec.mo?com1='+com1+'&com2='+com2;
         }); 
+        $("#insertDevice").on("click", function(){
+            location.href = "<%=request.getContextPath()%>/insertForm.mo";
+        });
     });
 </script>
 </head>
@@ -467,7 +470,7 @@
             <div class="resultsCont">
                 <% if ( loginUser != null && loginUser.getUserName().equals("admin") ) { %>
                 <div>
-                    <button class="btn btn-primary float-right">등록</button>
+                    <button class="btn btn-primary float-right" id="insertDevice">등록</button>
                 </div>
                     <% } %>
                 <h4 id="countBanner" class="font-weight-bolder">Search Results</h4>

@@ -24,7 +24,8 @@ public class MobileCommentLoadServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mno = Integer.parseInt(request.getParameter("mno"));
-		ArrayList<MobileComment> mcList = new MobileService().selectCommList(mno);
+		int type = Integer.parseInt(request.getParameter("type"));
+		ArrayList<MobileComment> mcList = new MobileService().selectCommList(mno, type);
 		new Gson().toJson(mcList, response.getWriter());
 	}
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<% 
+    pageEncoding="UTF-8" import="mobile.model.vo.CompareT"%>
+<%
+	    CompareT compare = (CompareT)request.getAttribute("compare");
 %>
 <!DOCTYPE html>
 <html>
@@ -59,12 +60,13 @@
     loadComment();
     // 코멘트 로딩 함수
     function loadComment(){
-        var mno = <%=mo.getmNo()%>;
+        var mno = <%=compare.getComNo()%>;
 
         $.ajax({
             url: "commentLoad.mo",
             type: "POST",
-            data: { mno : mno },
+            data: { mno : mno, 
+            		type : 2 },
             dataType: "json",
             error: function(e){
                 console.log(e);
@@ -76,7 +78,7 @@
     }
     // 코멘트 등록 함수
     function writeComment(){
-        var mno = <%=mo.getmNo()%>;
+    	var mno = <%=compare.getComNo()%>;
         <%if ( loginUser != null ) {%>var writer = <%=loginUser.getUserNo()%>;<%}%>
         var commCon = $("#commCon").val().replace(/(\n|\r\n)/g, '<br>');
         console.log(commCon);
@@ -97,7 +99,8 @@
             url: "commentInsert.mo",
             data: { mno: mno,
                     writer: writer,
-                    commCon: commCon },
+                    commCon: commCon,
+                    type: 2},
             type: "POST",
             error: function(e){
                 console.log(e);
@@ -123,7 +126,8 @@
         $.ajax({
             url: "commentDelete.mo",
             type: "POST",
-            data: { mcNo: id},
+            data: { mcNo: id,
+            		type: 2},
             error: function(e){
                 console.log(e);
             },
@@ -149,8 +153,8 @@
     }
     // 코멘트 수정창 호출 함수
     function updateComment(id) {
-        window.open("modifyComment.mo?mcNo="+id, "updateForm", "width=800px, height=300px, resizable = no, scrollbars = no");
-    }
+        window.open("modifyComment.mo?mcNo="+id+"&type=2", "updateForm", "width=800px, height=300px, resizable = no, scrollbars = no");
+    } 
     // 코멘트 프린트 함수
     function printComment(cList){
         var userNo = 0;
@@ -192,6 +196,7 @@
                     $control.append($report);
                 }
                 var $commCon = $("<div>").addClass("commCon");
+                console.log(cList[i].mcoStatus);
                 if ( cList[i].mcoStatus == 2 ) {
                     // 유저에 의하여 삭제된 댓글일 경우 출력글
                     $commCon.text("유저에 의하여 삭제된 댓글입니다.");
@@ -217,7 +222,7 @@
             <span class="count"> Comments</span>
         </div>
         <div class="commentArea">
-            <!-- <% if (true) { %>
+<%--            <% if (true) { %>
                 <% for ( int i = 0 ; i < size ; i++ ) { %>
                     <div class="commEA">
                         <div class="userInfo">
@@ -227,7 +232,7 @@
                         <hr>
                     </div>
                 <% } 
-             } %> -->
+             } %> --%>
         </div>
         <div class="reloadBtn text-center">
             <button type="button" class="btn btn-light border" onclick="loadComment();">새로운 댓글 확인</button>

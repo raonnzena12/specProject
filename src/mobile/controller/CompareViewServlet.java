@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mobile.model.service.MobileService;
+import mobile.model.vo.CompareT;
 import mobile.model.vo.Mobile;
 
 @WebServlet("/compareSpec.mo")
@@ -28,13 +29,14 @@ public class CompareViewServlet extends HttpServlet {
 			com2 = tmp;
 		}
 		
-		int result = ms.checkCompareTable(com1, com2);
+		CompareT compare = ms.checkCompareTable(com1, com2);
 		int resultU = 0;
 		// 해당 조합의 비교가 테이블에 있는지 확인
-		if ( result > 0 ) { // 있다면 조회수를 1 상승시킴
+		if ( compare != null ) { // 있다면 조회수를 1 상승시킴
 			resultU = ms.updateCompareCount(com1, com2);
 		} else { // 없다면 테이블에 비교조합을 추가함
 			resultU = ms.insertCompareTable(com1, com2);
+			compare = ms.checkCompareTable(com1, com2);
 		}
 		
 		String page = "views/common/errorPage.jsp";
@@ -49,6 +51,7 @@ public class CompareViewServlet extends HttpServlet {
 		
 		request.setAttribute("device1", device1);
 		request.setAttribute("device2", device2);
+		request.setAttribute("compare", compare);
 		
 		if ( device1 != null && device2 != null ) {
 			page = "views/mobile/mobileCompareResult.jsp";

@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="mobile.model.vo.Mobile"%>
+    pageEncoding="UTF-8" import="mobile.model.vo.*"%>
 <%
     Mobile device1 = (Mobile)request.getAttribute("device1");
     Mobile device2 = (Mobile)request.getAttribute("device2");
+
 %>
 <!DOCTYPE html>
 <html>

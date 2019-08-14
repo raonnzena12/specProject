@@ -46,7 +46,7 @@
             type: "POST",
             data: { text: text,
                     mcNo: mcNo,
-                    type: 1},
+                    type: 2},
             error: function(e){
                 console.log(e);
             },
