@@ -717,4 +717,37 @@ public class MobileDao {
 		return result;
 	}
 
+	public ArrayList<Mobile> joinFormSelectMobile(Connection conn, int brandNo, String device) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Mobile> sList = null;
+		
+		String query = prop.getProperty("joinFormSelectMobile");
+		try {
+			device = "%" + device + "%";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, brandNo);
+			pstmt.setString(2, device);
+			
+			rset = pstmt.executeQuery();
+			
+			System.out.println(device);
+			
+			sList = new ArrayList<Mobile>();
+			while(rset.next()) {
+				sList.add(new Mobile(rset.getInt("MO_NO"), rset.getString("MO_NAME"), rset.getString("MO_NAME_EN")));
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return sList;
+	}
+
 }

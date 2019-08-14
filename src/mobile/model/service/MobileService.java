@@ -332,5 +332,13 @@ public class MobileService {
 		else rollback(conn);
 		return result;
 	}
+
+	public ArrayList<Mobile> joinFormSelectMobile(int brandNo, String device) {
+		Connection conn = getConnection();
+		
+		ArrayList<Mobile> sList = new MobileDao().joinFormSelectMobile(conn, brandNo, device);
+		
+		return sList;
+	}
 	
 }
