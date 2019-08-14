@@ -170,7 +170,7 @@ JavaScript
                         </tr>
                         <tr>
                         	<td colspan="2">
-                        		<select id="mobileSelect">
+                        		<select id="mobileSelect" disabled>
 									<!-- <option data-tokens="ketchup mustard">Hot Dog, Fries
 										and a Soda</option>
 									<option data-tokens="mustard">Burger, Shake and a
@@ -182,15 +182,16 @@ JavaScript
 									<option value="2">LG</option>
 									<option value="3">APPLE</option>
 								</select>
-								
-								
-								
 
 							</td>
                         </tr>
                         <tr>
                             <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled></td>
-                            <td><button type="button" class="btn btn-info" disabled>기종찾기</button></td>
+                            <td><button type="button" class="btn btn-info" disabled>기종선택</button></td>
+                        </tr>
+                        <tr>
+                            <td><input class="form-control" type="text" id="selectedDevice" disabled></td>
+                            <td><button type="button" class="btn btn-info" disabled>기종선택</button></td>
                         </tr>
                     </table>
                 </div>
@@ -337,10 +338,12 @@ JavaScript
 			});
     		
     		
+    		var deviceArr = [];
+    		var mobile;
     		$("#joinForm input[name=device]").on("input",function(){
     			var brandNo = $("#mobileSelect").val();
     			var device = $(this).val();
-    			console.log(selectedBrand);
+    			console.log(brandNo);
     			
     			$.ajax({
     				url: "mobileSearch.me",
@@ -351,9 +354,39 @@ JavaScript
     					console.log(e);
     				},
     				success: function(sList){
-    					console.log(sList);
+    					console.log(sList.length);
+    					
+    					$.each(sList, function(i){
+    						//console.log(sList[i].mNameEn);
+    						var k = sList[i].mNameEn;
+    						var v = sList[i].mNo;
+    						//console.log(k + " / " + v);
+    						
+    						var mb = {};
+    						
+    						mb[k] = v;
+    						
+    						//mb.sList[i].mNameEn =v;
+    						//mb.sList[i].mNameEn = sList[i].mNo;
+    						//mb.name = sList[i].mNameEn;
+    						//mb.mNo = sList[i].mNo;
+    						//console.log(mb);
+    						deviceArr.push(mb);
+    						//deviceArr.push(mb.mNo);
+    						
+							
+						});
+						mobile = sList;
+						console.log(deviceArr);
+						//console.log("mobile: "+mobile);
+						//console.log(Object.keys(deviceArr));
     				}
     			});
+    			
+    			// 회원 이름 검색 시 자동완성
+				$("#joinForm input[name=device]").autocomplete({
+					source : Object.keys(deviceArr)
+				});
     		});
     		
     		

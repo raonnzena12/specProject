@@ -117,10 +117,25 @@ public class Mobile {
 		this.mEtc = mEtc;
 		this.mStatus = mStatus;
 	}
+	
+	
+	//=============================회원가입용 생성자=================
+	
+	
+	public Mobile(int mNo, String mName, String mNameEn) {
+		super();
+		this.mNo = mNo;
+		this.mName = mName;
+		this.mNameEn = mNameEn;
+	}
+	
+	
+	//====================================================
 
 	public int getmNo() {
 		return mNo;
 	}
+
 
 	public void setmNo(int mNo) {
 		this.mNo = mNo;
