@@ -123,22 +123,23 @@
        		float:right;
        		display:block;
        		/* border: 1px solid black; */
-       		width:50px;
+       		width:auto;
+       		
        	}
        	.num > p{
-       		margin:5px 0 5px 0;
+       		margin:5px 5px 5px 0;
        	}
        	#subdiv{
        		background-color: #dee2e6;
        		width: 100%;
        		height: 20px;
        	}
-       	}
+       	
        	#subdanger, #subupdate, #subdelete{
        		width: auto;
        		height:30px;
        		float: right;
-       		font-size: 10px;
+       		font-size: 5px;
        	}
        	/* {
        		width: auto;
@@ -313,7 +314,7 @@
   					}
   					
   					var $buttonTd = $("<td>").attr("id", rList[i].cNo).css("width","15%");
-  					var $button1 = $("<button>").text("신고").css({"color":"red", "font-weight":"bold"}).addClass("btn btn-link").attr({"id":"subdanger" , "type":"button"});
+  					var $button1 = $("<button>").addClass("btn btn-link").attr({"id":"subdanger" , "type":"button",}).text("신고").css({"color":"red", "font-weight":"bold"});
   					var $button2 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subupdate","onclick":"updateReply();"}).text("수정").css({"color":"black", "font-weight":"bold"});
 	  				var $button3 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subdelete","onclick":"deleteReply();"}).text("삭제").css({"color":"black", "font-weight":"bold"});
 	  				var $dateTd = $("<td>").text(rList[i].cRegdate).css("width","10%");
@@ -343,7 +344,7 @@
   		selectRlist();
   	}, 3000);
   	
-  	// 댓글 수정 삭제
+  	// 댓글 삭제
   	
   	<%-- function replyupdate(){
   		var cno = $("#subupdate").parent().attr("id");
@@ -377,6 +378,7 @@
 		});
 	}
 	
+	// 댓글 수정
 	$(document).on("click", "#subupdate", function(){
 		var cno = $("#subupdate").parent().attr("id");
 		updateReply(cno);
@@ -387,10 +389,9 @@
 		
 		var con = $("#contentTd").val(); */
 		console.log(cno);
-		window.open("replyUpdateForm.bo?cno="+cno, "updateReply","width=800, height=300");
+		window.open("replyUpdateForm.bo?cno="+cno, "updateReply","width=805, height=260, resizable = no, scrollbars = no");
 		<%-- location.href='<%= request.getContextPath()%>/replyUpdateForm.bo?cno='+cno; --%>
-		/* var cno = $("#subupdate").parent().attr("id");
-		
+		/*
 		$.ajax({
 			url: "replyupdate.bo",
 			type:"post",
@@ -404,6 +405,11 @@
 			}
 		}); */
 	}
+	
+	//댓글 신고
+	
+	
+	
   	
   </script>
 </body>
