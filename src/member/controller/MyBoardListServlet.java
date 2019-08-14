@@ -1,7 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,40 +8,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.service.MemberService;
+import member.model.vo.Member;
 
 
-/**
- * 이메일 중복 검사용 서블릿
- * @author user1
- *
- */
-@WebServlet("/emailCheck.me")
-public class EmailCheckServlet extends HttpServlet {
+@WebServlet("/myBoardList.me")
+public class MyBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public EmailCheckServlet() {
+    
+    public MyBoardListServlet() {
         super();
+       
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		int result = new MemberService().checkEmail(email);
+		String page = "";
+		if(loginUser != null) {
+			System.out.println(loginUser.getUserNo());
+		} else {
+			request.setAttribute("msg", "로그인해주세요!");
+			page = "views/common/errorPage.jsp";
+		}
 		
-		System.out.println(result);
-		
-		PrintWriter out = response.getWriter();
-		
-		out.print(result);
-		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 

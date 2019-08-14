@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	Member member = (Member)request.getAttribute("member");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -114,13 +115,7 @@
 <script>
 	$(function() {
 		
-		var msg = "<%=(String)request.getAttribute("msg")%>";
 		
-		if(msg != "null") { // msg 값이 있을 경우
-			alert(msg);
-			<% session.removeAttribute("msg"); %>
-			// 한번 출력 후 제거 (안하면 모든 페이지에서 계속 출력됨)
-		}
 
 		$("a").mouseenter(function() {
 			$(this).css("color", "#00264B");
@@ -144,11 +139,16 @@
 	<div id="infoLayer">
 		<div id="mobile" class="fl">
 			<div id="mobileImg">
+				<% if(member.getPhone() != null){ %>
 				<img class="max-small" alt="" src="https://image-us.samsung.com/us/smartphones/galaxy-s10/gallery/s10e/prism-blue/001_Gallery_G970_Blue_1600x1200.jpg?$product-details-jpg$">
+				<% } %>
 			</div>
-			<div class="fts">SAMSUNG GALAXY s10e</div>
+			<div class="fts">
+				<%if( member.getPhone() == null){%>
+				기기 정보가 없습니다.
+				<%} %>
+			</div>
 		</div>
-		
 		<div class="tableArea fl">
 		
 			<!-- 공지사항 목록 -->
@@ -165,26 +165,35 @@
                 <tr>
                 	<td><input type="text" name="userName" class="form-control" value="<%=member.getUserName()%>" readonly></td>
                 </tr>
-                <tr>
-					<th>phone</th>
-				</tr>
-                 <tr>
-                	<td><input type="text" name="phone" class="form-control" value="<%=member.getPhone()%>" readonly></td>
-                </tr>
-				
 				<tr>
 					<th>가입일</th>
 				</tr>
 				<tr>
                 	<td><input type="text" name="enrollDate" class="form-control" value="<%=member.getEnrollDate()%>" readonly></td>
                 </tr>
+                <tr>
+					<th>phone</th>
+				</tr>
+                 <tr>
+                	<td> <%if( member.getPhone() != null){ %>
+                		<input type="text" name="phone" class="form-control" value="<%=member.getPhone()%>" readonly>
+                		<% } else{ %>
+                		<input type="text" name="phone" class="form-control" value="휴대폰 번호 정보가 없습니다." readonly>
+                		<%} %>
+                	</td>
+                </tr>
+				
 				<tr>
 					<th>기종</th>
 				</tr>
 				<tr>
-                	<td><input type="text" name="device" class="form-control" value="<%=member.getUserMno()%>" readonly></td>
+                	<td> <%if( member.getPhone() != null){ %>
+                		<input type="text" name="device" class="form-control" value="<%=member.getUserMno()%>" readonly>
+                		<% } else{ %>
+                		<input type="text" name="device" class="form-control" value="휴대폰 기기 정보가 없습니다." readonly>
+						<% } %>
+                	</td>
                 </tr>
-				
 			</table>
 			
 			
@@ -198,7 +207,15 @@
 	
 	<script>
 		function updateUserInfo(){
-			location.href = "views/member/inputPwdForm.jsp";
+			location.href = "inputPwdForm.me?code=" + 1;
+		}
+		function updateUserPwd(){
+			location.href = "inputPwdForm.me?code=" + 2;
+		}
+		function deleteUser(){
+			
+			location.href = "<%=request.getContextPath()%>/deleteMemberForm.me";
+			
 		}
 		
 		

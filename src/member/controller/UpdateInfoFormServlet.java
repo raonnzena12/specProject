@@ -22,6 +22,7 @@ public class UpdateInfoFormServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.getRequestDispatcher("views/member/updateInfoForm.jsp").forward(request, response);
 	
 	}

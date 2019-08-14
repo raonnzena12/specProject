@@ -22,19 +22,24 @@ public class MypageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		String userEmail = loginUser.getUserEmail();
-		
-		Member member = new MemberService().selectMember2(userEmail);
-		
 		String page = "";
-		if(member != null) {
-			request.setAttribute("member", member);
-			page = "views/member/mypageInfo.jsp";
+		if(loginUser != null) {
+			String userEmail = loginUser.getUserEmail();
+			
+			Member member = new MemberService().selectMember2(userEmail);
+			
+			if(member != null) {
+				request.setAttribute("member", member);
+				page = "views/member/mypageInfo.jsp";
+			} else {
+				request.setAttribute("msg", "회원 정보 조회 실패");
+				page = "views/common/errorPage.jsp";
+			}
+			
 		} else {
-			request.setAttribute("msg", "회원 정보 조회 실패");
+			request.setAttribute("msg", "로그인을 해주세요!");
 			page = "views/common/errorPage.jsp";
 		}
-		
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 

@@ -27,8 +27,8 @@ public class MobileDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, mi1.getMoCode());
 			pstmt.setString(2, mi1.getMoName());
-			pstmt.setInt(3, mi1.getMoBrandCode());
-			pstmt.setString(4, mi1.getMoNameEn());
+			pstmt.setString(3, mi1.getMoNameEn());
+			pstmt.setInt(4, mi1.getMoBrandCode());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,20 +76,20 @@ public class MobileDao {
 			pstmt.setString(30, mi2.getCamera());
 			pstmt.setInt(31, mi2.getBattery());
 			pstmt.setString(32, mi2.getBatteryType());
-			pstmt.setString(33, mi2.getWirelessCharging());
-			pstmt.setString(34, mi2.getStandBy());
-			pstmt.setString(35, mi2.getProtocol());
-			pstmt.setString(36, mi2.getWifi());
-			pstmt.setString(37, mi2.getBluetooth());
-			pstmt.setString(38, mi2.getUsb());
-			pstmt.setString(39, mi2.getBio());
-			pstmt.setString(40, mi2.getPayment());
-			pstmt.setString(41, mi2.getVerify());
-			pstmt.setString(42, mi2.getEtc());
-			pstmt.setString(43, "Y");
-			pstmt.setInt(44, mi2.getOsCode());
-			pstmt.setString(45, mi2.getFastCharging());
-			pstmt.setString(46, mi2.getRemovableBattery());
+			pstmt.setString(33, mi2.getFastCharging());
+			pstmt.setString(34, mi2.getRemovableBattery());
+			pstmt.setString(35, mi2.getWirelessCharging());
+			pstmt.setString(36, mi2.getStandBy());
+			pstmt.setString(37, mi2.getProtocol());
+			pstmt.setString(38, mi2.getWifi());
+			pstmt.setString(39, mi2.getBluetooth());
+			pstmt.setString(40, mi2.getUsb());
+			pstmt.setString(41, mi2.getBio());
+			pstmt.setString(42, mi2.getPayment());
+			pstmt.setString(43, mi2.getVerify());
+			pstmt.setString(44, mi2.getEtc());
+			pstmt.setString(45, "Y");
+			pstmt.setInt(46, mi2.getOsCode());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,7 +124,7 @@ public class MobileDao {
 						rset.getString(32), rset.getString(33), rset.getString(34), rset.getString(35),
 						rset.getString(36), rset.getInt(37), rset.getString(38), rset.getString(39), 
 						rset.getString(40), rset.getString(41), rset.getString(42), rset.getString(43),
-						rset.getString(44), rset.getString(45), rset.getString(46), rset.getString(47), 
+						rset.getString(44), rset.getString(42), rset.getString(46), rset.getString(47), 
 						rset.getString(48), rset.getString(49), rset.getString(50), rset.getString(51));
 			}
 		} catch (Exception e) {
@@ -436,6 +436,192 @@ public class MobileDao {
 			close(pstmt);
 		}
 				
+		return result;
+	}
+
+	/**
+	 * 모바일 디바이스별 리뷰 리스트를 받아오는 DAO
+	 * @param conn
+	 * @param mno
+	 * @param uno 
+	 * @return rList
+	 */
+	public ArrayList<Review> selectReviewList(Connection conn, int mno, int uno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> rList = new ArrayList<Review>();
+		
+		String query = prop.getProperty("selectReviewList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, mno);
+			
+			rset = pstmt.executeQuery();
+			while ( rset.next() ) {
+				rList.add(new Review(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getDouble(4), rset.getDate(5), rset.getDate(6), rset.getInt(7), rset.getInt(8), rset.getInt(9), rset.getString(10), rset.getInt(11), rset.getInt(12)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rList;
+	}
+
+	/**
+	 * 리뷰 좋아요 찍는 DAO
+	 * @param conn
+	 * @param rno
+	 * @param uno
+	 * @return result
+	 */
+	public int insertReviewLike(Connection conn, int rno, int uno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertReviewLike");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			pstmt.setInt(2, uno);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * 리뷰 좋아요 삭제하는 DAO
+	 * @param conn
+	 * @param rno
+	 * @param uno
+	 * @return result
+	 */
+	public int deleteReviewLike(Connection conn, int rno, int uno) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		String query = prop.getProperty("deleteReviewLike");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			pstmt.setInt(2, uno);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertReview(Connection conn, Review review) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, review.getrTitle());
+			pstmt.setString(2, review.getrContent());
+			pstmt.setDouble(3, review.getrStar());
+			pstmt.setInt(4, review.getrWriterNo());
+			pstmt.setInt(5, review.getrRefMno());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * 리뷰 삭제하는 DAO 
+	 * @param conn
+	 * @param rno
+	 * @return result
+	 */
+	public int deleteReview(Connection conn, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * 수정할 리뷰 하나 불러오는 DAO
+	 * @param conn
+	 * @param rno
+	 * @return review
+	 */
+	public Review selectReview(Connection conn, int rno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Review review = null;
+		
+		String query = prop.getProperty("selectReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			if ( rset.next() ) {
+				review = new Review(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getDouble(4), rset.getDate(5), rset.getDate(6), rset.getInt(7), rset.getInt(8), rset.getInt(9), rset.getInt(10));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return review;
+	}
+
+	public int updateReview(Connection conn, Review modiR) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, modiR.getrTitle());
+			pstmt.setString(2, modiR.getrContent());
+			pstmt.setDouble(3, modiR.getrStar());
+			pstmt.setInt(4, modiR.getrNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		return result;
 	}
 

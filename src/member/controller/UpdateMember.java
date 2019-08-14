@@ -23,6 +23,7 @@ public class UpdateMember extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		String userEmail = request.getParameter("userEmail");
 		String userName = request.getParameter("userName");
 		
@@ -30,21 +31,32 @@ public class UpdateMember extends HttpServlet {
 		int device = 0;
 		
 		Member member = null;
-		if(request.getParameter("device") != null) {
+		if(request.getParameter("device") == null && (userName.equals("") || userName.equals(loginUser.getUserName()))) {
+			
+			member = new Member(userEmail, loginUser.getUserName(), 'N');
+			
+		}else if(request.getParameter("device") != null && (userName.equals("") || userName.equals(loginUser.getUserName()))) {
+			
+			device = Integer.parseInt(request.getParameter("device"));
+			phone = request.getParameter("phone");
+			member = new Member(userEmail, loginUser.getUserName(), phone, 'Y', device);
+			
+		} else if(request.getParameter("device") != null && (!userName.equals("") || !userName.equals(loginUser.getUserName()))) {
+			
 			device = Integer.parseInt(request.getParameter("device"));
 			phone = request.getParameter("phone");
 			member = new Member(userEmail, userName, phone, 'Y', device);
-			System.out.println(member.toString());
-		} else {
+			
+		}else {
+			
 			member = new Member(userEmail, userName, 'N');
-			System.out.println(member.toString());
 		}
 
 		int result = new MemberService().updateMember(member);
 		
 		if(result > 0) {
+			request.getSession().setAttribute("msg", "성공적으로 수정되었습니다!");
 			response.sendRedirect("mypage.me");
-			request.setAttribute("msg", "성공적으로 수정되었습니다.");
 		}else {
 			request.setAttribute("msg", "회원정보 수정 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp");

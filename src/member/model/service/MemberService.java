@@ -98,6 +98,48 @@ public class MemberService {
 		
 		return member;
 	}
+
+	public int updatePwd(String userEmail, String newPwd) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updatePwd(conn,userEmail,newPwd);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int deleteMember(String userEmail) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().deleteMember(conn, userEmail);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int phoneCheck(String phone) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().phoneCheck(conn, phone);
+		
+		return result;
+	}
+
+	public String findEmail(String userName, String phone) {
+		Connection conn = getConnection();
+		
+		String userEmail = new MemberDao().findEmail(conn, userName, phone);
+		
+		return userEmail;
+	}
 	
 	
 }

@@ -1,48 +1,28 @@
 package member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.service.MemberService;
-
-
-/**
- * 이메일 중복 검사용 서블릿
- * @author user1
- *
- */
-@WebServlet("/emailCheck.me")
-public class EmailCheckServlet extends HttpServlet {
+@WebServlet("/updatePwdForm.me")
+public class UpdatePwdFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public EmailCheckServlet() {
+    public UpdatePwdFormServlet() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
-		
-		int result = new MemberService().checkEmail(email);
-		
-		System.out.println(result);
-		
-		PrintWriter out = response.getWriter();
-		
-		out.print(result);
-		
+		request.setAttribute("email", email);
+		request.getRequestDispatcher("views/member/updatePwdForm.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

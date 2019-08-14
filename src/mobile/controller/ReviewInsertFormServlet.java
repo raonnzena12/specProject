@@ -7,27 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mobile.model.service.MobileService;
-import mobile.model.vo.MobileComment;
-
-@WebServlet("/commentInsert.mo")
-public class MobileCommentInsertServlet extends HttpServlet {
+@WebServlet("/writeReview.mo")
+public class ReviewInsertFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MobileCommentInsertServlet() {
+    public ReviewInsertFormServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int refMoNo = Integer.parseInt(request.getParameter("mno"));
-		int mcoWriter = Integer.parseInt(request.getParameter("writer"));
-		String mcoContent = request.getParameter("commCon");
-//		mcoContent = mcoContent.replaceAll("\n", "<br>");
 		
-		MobileComment mc = new MobileComment(mcoContent, refMoNo, mcoWriter);
-		int result = new MobileService().insertComment(mc);
-		
-		response.getWriter().print(result);
+		request.getRequestDispatcher("views/mobile/moReviewWrite.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -11,28 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
 
-
 /**
- * 이메일 중복 검사용 서블릿
+ *  핸드폰 번호 존재 여부 검사 서블릿
  * @author user1
  *
  */
-@WebServlet("/emailCheck.me")
-public class EmailCheckServlet extends HttpServlet {
+@WebServlet("/phoneCheck.me")
+public class PhoneCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public EmailCheckServlet() {
+    public PhoneCheckServlet() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
 		
-		int result = new MemberService().checkEmail(email);
-		
+		int result = new MemberService().phoneCheck(phone);
 		System.out.println(result);
 		
 		PrintWriter out = response.getWriter();

@@ -29,4 +29,9 @@ public class CreateQuery {
 		String query = " AND \"배터리\" > " + strArr[1] +" AND \"배터리\" < " + strArr[2];
 		return query;
 	}
+	
+	public String createInchq(String[] strArr) {
+		String query = " AND \"액정크기\" > " + strArr[1] + " AND \"액정크기\" < " + strArr[2];
+		return query;
+	}
 }

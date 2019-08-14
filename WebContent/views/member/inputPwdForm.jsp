@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%
+	String code = request.getParameter("code");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +59,9 @@
 	var msg = "<%=(String)request.getAttribute("msg")%>";
 	
 	if(msg != "null") { // msg 값이 있을 경우
+		
 		alert(msg);
+		
 		<% session.removeAttribute("msg"); %>
 		// 한번 출력 후 제거 (안하면 모든 페이지에서 계속 출력됨)
 	}
@@ -74,7 +78,7 @@
 <body>
 	<nav id="mypageNav">
 		<ul>
-			<li><a href="<%=request.getContextPath()%>/views/member/mypageInfo.jsp" id="info">회원정보</a></li>
+			<li><a href="<%=request.getContextPath()%>/mypage.me" id="info">회원정보</a></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/myArticleList.jsp">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/myReviewList.jsp">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
@@ -91,6 +95,7 @@
 			  
 			  <div class="form-group">
 			    <label for="checkPwd">Password</label>
+			    <input type = "hidden" name = "code" value = "<%=code%>">
 			    <input type="password" name="checkPwd" class="form-control" id="checkPwd" placeholder="Password">
 			  </div>
 			  <div class="form-group center">

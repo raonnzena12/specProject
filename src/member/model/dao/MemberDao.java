@@ -83,6 +83,12 @@ public class MemberDao {
 		return result;
 	}
 	
+	/**
+	 * 이름 중복 검사 dao
+	 * @param conn
+	 * @param name
+	 * @return
+	 */
 	public int checkName(Connection conn, String name) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -183,6 +189,12 @@ public class MemberDao {
 		return member;
 	}
 
+	/**
+	 * 이메일 인증 dao
+	 * @param conn
+	 * @param email
+	 * @return
+	 */
 	public int updateVerify(Connection conn, String email) {
 		PreparedStatement pstmt = null;
 		
@@ -272,5 +284,111 @@ public class MemberDao {
 		}
 		
 		return member;
+	}
+
+	/**
+	 * 비밀번호 변경 용 dao
+	 * @param conn
+	 * @param userEmail
+	 * @param newPwd
+	 * @return
+	 */
+	public int updatePwd(Connection conn, String userEmail, String newPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, userEmail);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteMember(Connection conn, String userEmail) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userEmail);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int phoneCheck(Connection conn, String phone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("phoneCheck");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, phone);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String findEmail(Connection conn, String userName, String phone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String userEmail = "";
+		
+		String query = prop.getProperty("findEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,userName);
+			pstmt.setString(2, phone);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				userEmail = rset.getString(1);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return userEmail;
 	}
 }

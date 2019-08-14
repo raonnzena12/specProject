@@ -22,11 +22,11 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script>
     $(function(){
-        var text = "<%=mc.getMcoContent()%>";
+        var text = "<%=mc.getMcoContent()%>".replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
         $("#commCon").val(text).focus();
     })
     function updateComment(){
-        var text = $("#commCon").val();
+        var text = $("#commCon").val().replace(/(\n|\r\n)/g, '<br>');
         var mcNo = <%=mc.getMcoNo()%>;
         if ( text.trim().length == 0 ) {
             Swal.fire({ type: 'warning',

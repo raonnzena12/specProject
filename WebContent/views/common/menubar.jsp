@@ -20,8 +20,8 @@
 <!-- Bootstrap 4.3.1 -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Bootstrap select -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script> -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -153,12 +153,13 @@
     	font-size:20px;
     }
     #compareMenu {
-        z-index: 1;
         width: 100%;
-        height: 650px;
+        height: 600px;
         background-color: rgba(0,38,75,0.8);
         text-align: center;
         display: none; 
+        float: left;
+        z-index: 1000;
     }
     #compareMenu * {
         /* border: 1px solid white; */
@@ -193,22 +194,32 @@
         width: 90px;
         height: 100%;
     }
+    .loginmenu {
+        z-index: 10;
+    }
+    #veil {
+        display: none;
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
 </style>
 <script>
+
+	
     $(document).ready(function(){
         $("#account").click(function(){
-            $("#login-menu").css("display","block");
-            $("#mypageMenu").css("display","block");
+        	$(".loginmenu").toggle();
         });
-		$("#login-menu").mouseenter(function() {
-			$("#login-menu").css("display", "block");
-			$("#mypageMenu").css("display" , "block");
-		}).mouseleave(function() {
-			$("#login-menu").css("display", "none");
-			$("#mypageMenu").css("display", "none")
-		});
+        $("#veil").on("click", function(){
+        	$(".loginmenu").toggle();
+        });
         $("#compareOpen").click(function(){
-            $(".compareMenu").slideToggle(500);
+            // $(".compareMenu").slideToggle(500);
+            $(".compareMenu").css("display", "block");
         });
 	});
 </script>
@@ -231,9 +242,10 @@
             	<% } %> 
             <li class=" nav-item dropdown">
             
-            	<i class="material-icons" id="account">account_circle</i>
+                <i class="material-icons" id="account">account_circle</i>
+                <div class="loginmenu" id="veil"></div>
             	<% if(loginUser == null){ %>
-        <div id="login-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div id="login-menu" class="dropdown-menu dropdown-menu-right loginmenu" aria-labelledby="account" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <form action="<%=request.getContextPath()%>/login.me">
             	<table id="login-table">
 	                <tr>
@@ -246,21 +258,21 @@
 	                    <td><button type="submit">L O G I N</button></td>
 	                </tr>
 	                <tr>
-	                    <td class="taright gray"><a href="#" class="gray">아이디</a> / <a href="#" class="gray">비밀번호</a> 찾기</td>
+	                    <td class="taright gray"><a href="inputNameForm.me" class="gray">아이디</a> / <a href="inputEmailForm.me" class="gray">비밀번호</a> 찾기</td>
 	                </tr>
 	                <tr>
-	                    <td><br>회원이 아니신가요?<br> <a href="views/member/joinForm.jsp"><p class="emp blue">가입하기</p></a>
+	                    <td><br>회원이 아니신가요?<br> <a href="joinForm.me"><p class="emp blue">가입하기</p></a>
 	                    </td> 
 	                </tr>
             	</table>
             </form>
         </div>
         <% } else{ %>
-        <div id="mypageMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="account">
+        <div id="mypageMenu" class="dropdown-menu dropdown-menu-right loginmenu" aria-labelledby="account">
         	<ul>
         		<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
-        		<li><a href="views/member/inputPwdForm.jsp">정보수정</a></li>
-        		<li><a href="#">내글관리</a></li>
+        		<li><a href="inputPwdForm.me?code=1">정보수정</a></li>
+        		<li><a href="myBoardList.me">내글관리</a></li>
         		<li><a href="#">내리뷰관리</a></li>
         		<li><a href="#">내댓글관리</a></li>
         		<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
@@ -272,13 +284,13 @@
     </header>
     <div class="compareMenu" id="compareMenu">
         <form>
-            <div class="comWrapper">
-                <div class="comDevice1"><i class="material-icons">add_circle</i></div>
-                <div class="comStart">VS</div>
-                <div class="comDevice2"><i class="material-icons">add_circle</i></div>
-            </div>
+           <div class="comWrapper">
+               <div class="comDevice1"><i class="material-icons">add_circle</i></div>
+               <div class="comStart">VS</div>
+               <div class="comDevice2"><i class="material-icons">add_circle</i></div>
+           </div>
 
         </form>
-    </div>
+    </div>	
 </body>
 </html>

@@ -1,7 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,33 +10,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
 
-
-/**
- * 이메일 중복 검사용 서블릿
- * @author user1
- *
- */
-@WebServlet("/emailCheck.me")
-public class EmailCheckServlet extends HttpServlet {
+@WebServlet("/findEmail.me")
+public class FindEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public EmailCheckServlet() {
+    public FindEmailServlet() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
+		String userName = request.getParameter("userName");
+		String phone = request.getParameter("phone");
 		
-		int result = new MemberService().checkEmail(email);
+		String userEmail = new MemberService().findEmail(userName,phone);
 		
-		System.out.println(result);
+		if(userEmail == "") {
+			request.setAttribute("msg", "이메일을 찾을 수 없습니다.");
+		} else {
+			request.setAttribute("msg", "가입된 이메일은 " + userEmail + " 입니다." );
+		}
 		
-		PrintWriter out = response.getWriter();
-		
-		out.print(result);
+		request.getRequestDispatcher("views/member/checkEmailVerify.jsp").forward(request, response);
 		
 	}
 
