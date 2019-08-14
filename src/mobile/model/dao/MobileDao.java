@@ -309,14 +309,15 @@ public class MobileDao {
 	 * 모바일 디바이스별 댓글 리스트를 받아오는 Service
 	 * @param conn
 	 * @param mno
+	 * @param type 
 	 * @return mcList
 	 */
-	public ArrayList<MobileComment> selectCommList(Connection conn, int mno) {
+	public ArrayList<MobileComment> selectCommList(Connection conn, int mno, int type) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<MobileComment> mcList = new ArrayList<MobileComment>();
 		
-		String query = prop.getProperty("selectCommList");
+		String query = prop.getProperty("selectCommList"+type);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mno);
@@ -340,13 +341,14 @@ public class MobileDao {
 	 * 모바일 디바이스 페이지 댓글을 입력하는 Service
 	 * @param conn
 	 * @param mc
+	 * @param type 
 	 * @return result
 	 */
-	public int insertComment(Connection conn, MobileComment mc) {
+	public int insertComment(Connection conn, MobileComment mc, int type) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertComment");
+		String query = prop.getProperty("insertComment"+type);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -367,13 +369,14 @@ public class MobileDao {
 	 * 모바일 디바이스 페이지 댓글을 삭제하는 DAO
 	 * @param conn
 	 * @param mcNo
+	 * @param type 
 	 * @return result
 	 */
-	public int deleteComment(Connection conn, int mcNo) {
+	public int deleteComment(Connection conn, int mcNo, int type) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("deleteComment");
+		String query = prop.getProperty("deleteComment"+type);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -391,14 +394,15 @@ public class MobileDao {
 	 * 모바일 댓글을 수정하기위해 댓글 하나를 불러오는 DAO
 	 * @param conn
 	 * @param mcNo
+	 * @param type 
 	 * @return mc
 	 */
-	public MobileComment selectComment(Connection conn, int mcNo) {
+	public MobileComment selectComment(Connection conn, int mcNo, int type) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		MobileComment mc = null;
 		
-		String query = prop.getProperty("selectComment");
+		String query = prop.getProperty("selectComment"+type);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -418,11 +422,11 @@ public class MobileDao {
 		return mc;
 	}
 
-	public int updateComment(Connection conn, MobileComment mc) {
+	public int updateComment(Connection conn, MobileComment mc, int type) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("updateComment");
+		String query = prop.getProperty("updateComment"+type);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -638,10 +642,10 @@ public class MobileDao {
 	 * @param com2
 	 * @return result
 	 */
-	public int checkCompareTable(Connection conn, int com1, int com2) {
+	public CompareT checkCompareTable(Connection conn, int com1, int com2) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		int result = 0;
+		CompareT compare = null;
 		
 		String query = prop.getProperty("checkCompareTable");
 		
@@ -651,7 +655,7 @@ public class MobileDao {
 			pstmt.setInt(2, com2);
 			rset = pstmt.executeQuery();
 			if ( rset.next() ) {
-				result = rset.getInt(1);
+				compare = new CompareT(rset.getInt(1), rset.getInt(2), rset.getInt(3), rset.getInt(4));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -659,7 +663,7 @@ public class MobileDao {
 			close(rset);
 			close(pstmt);
 		}
-		return result;
+		return compare;
 	}
 
 	/**

@@ -65,7 +65,8 @@
         $.ajax({
             url: "commentLoad.mo",
             type: "POST",
-            data: { mno : mno },
+            data: { mno : mno, 
+            		type : 1 },
             dataType: "json",
             error: function(e){
                 console.log(e);
@@ -98,7 +99,8 @@
             url: "commentInsert.mo",
             data: { mno: mno,
                     writer: writer,
-                    commCon: commCon },
+                    commCon: commCon,
+                    type : 1 },
             type: "POST",
             error: function(e){
                 console.log(e);
@@ -124,7 +126,8 @@
         $.ajax({
             url: "commentDelete.mo",
             type: "POST",
-            data: { mcNo: id},
+            data: { mcNo: id,
+            		type: 1},
             error: function(e){
                 console.log(e);
             },
@@ -150,7 +153,7 @@
     }
     // 코멘트 수정창 호출 함수
     function updateComment(id) {
-        window.open("modifyComment.mo?mcNo="+id, "updateForm", "width=800px, height=300px, resizable = no, scrollbars = no");
+        window.open("modifyComment.mo?mcNo="+id+"&type=1", "updateForm", "width=800px, height=300px, resizable = no, scrollbars = no");
     }
     // 코멘트 프린트 함수
     function printComment(cList){
@@ -253,9 +256,7 @@
                     });
                 }
             });
-            // $.fn.insertComment = function(){
 
-            // }
             $(document).on("click",".deleteComm", function(){
                 var id = $(this).parent().attr("id");
                 const swalWithBootstrapButtons = Swal.mixin({
