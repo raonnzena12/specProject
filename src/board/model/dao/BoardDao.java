@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -186,7 +187,7 @@ public class BoardDao {
 			
 			while(rset.next()) {
 				Board b = new Board(
-						rset.getInt("BNO"),
+						rset.getInt("RNUM"),
 						rset.getString("BTITLE"),
 						rset.getString("BCONTENT"),
 						rset.getInt("BCOUNT"),
@@ -195,7 +196,8 @@ public class BoardDao {
 						rset.getInt("BSTATUS"),
 						rset.getInt("BCATEGORY"),
 						rset.getString("BREGDATE"),
-						rset.getString("BMODIDATE")
+						rset.getString("BMODIDATE"),
+						rset.getInt("COMM_COUNT")
 						);
 				mList.add(b);
 			}
@@ -210,6 +212,42 @@ public class BoardDao {
 		
 		
 		return mList;
+	}
+
+
+
+	
+	/**
+	 * 내 글 개수 조회용 Dao
+	 * @param conn
+	 * @param uNo
+	 * @return
+	 */
+	public int getMyBoardCount(Connection conn, int uNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("myBoardCount");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
 	}
 
 	

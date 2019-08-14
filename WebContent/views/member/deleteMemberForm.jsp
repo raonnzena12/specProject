@@ -122,30 +122,11 @@
     </div>
     <script>
     	
-    	$("#infoCheck").on("input", function(){
+    	/* $("#infoCheck").on("input", function(){
     		console.log($("#infoCheck").is(":checked"));
     		console.log(!$("#infoCheck").is(":checked"));
-    	});
+    	}); */
     	$("#check").click(function(){
-    		
-    		if(!$("#infoCheck").is(":checked")){
-    			Swal.fire({
-    				  type: 'error',
-    				  title: 'Oops...',
-    				  text: '안내사항을 확인하고 체크해주세요!',
-    				  /* footer: '<a href>Why do I have this issue?</a>' */
-    				});
-    			
-    		}
-    		if($("#checkPwdFormBeforeDelete input[name=pwd]").val().trim() == ""){
-    			Swal.fire({
-  				  type: 'error',
-  				  title: 'Oops...',
-  				  text: '비밀번호를 확인해주세요!',
-  				  /* footer: '<a href>Why do I have this issue?</a>' */
-  				});
-    			
-    		}
     		
     		Swal.fire({
     			  title: '정말 탈퇴하시겠습니까?',
@@ -168,7 +149,28 @@
     					  },
     					  onClose: () => {
     					    clearInterval(timerInterval)
-    			    		$("#checkPwdFormBeforeDelete").submit();
+    					    if(!$("#infoCheck").is(":checked")){
+    			    			Swal.fire({
+    			    				  type: 'error',
+    			    				  title: 'Oops...',
+    			    				  text: '안내사항을 확인하고 체크해주세요!',
+    			    				  /* footer: '<a href>Why do I have this issue?</a>' */
+    			    				});
+    			    			
+    			    			return false;
+    			    			
+    			    		} else if($("#checkPwdFormBeforeDelete input[name=pwd]").val().trim() == ""){
+    			    			Swal.fire({
+    			    				  type: 'error',
+    			    				  title: 'Oops...',
+    			    				  text: '비밀번호를 확인해주세요!',
+    			    				  /* footer: '<a href>Why do I have this issue?</a>' */
+    			    				});
+    			    			return false;
+    			    		} else{
+    			    			
+    			    			$("#checkPwdFormBeforeDelete").submit();
+    			    		}
     					  }
     					})
     			  } else {

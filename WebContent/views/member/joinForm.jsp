@@ -103,10 +103,10 @@
 
 
 <!-- Stylesheet -->
-<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 
-<!-- JavaScript -->
+JavaScript
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
@@ -114,7 +114,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ajax-bootstrap-select/1.4.5/css/ajax-bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ajax-bootstrap-select/1.4.5/js/ajax-bootstrap-select.min.js"></script>
-
+ -->
 
 <script>
 	$(function(){
@@ -170,7 +170,7 @@
                         </tr>
                         <tr>
                         	<td colspan="2">
-                        		<select class="selectpicker" data-live-search="true" id="ajax-select">
+                        		<select id="mobileSelect">
 									<!-- <option data-tokens="ketchup mustard">Hot Dog, Fries
 										and a Soda</option>
 									<option data-tokens="mustard">Burger, Shake and a
@@ -178,6 +178,9 @@
 									<option data-tokens="frosting">Sugar, Spice and all
 									
 									<option value="salt">abc소금</option> -->
+									<option value="1">SAMSUNG</option>
+									<option value="2">LG</option>
+									<option value="3">APPLE</option>
 								</select>
 								
 								
@@ -186,7 +189,7 @@
 							</td>
                         </tr>
                         <tr>
-                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled readonly></td>
+                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled></td>
                             <td><button type="button" class="btn btn-info" disabled>기종찾기</button></td>
                         </tr>
                     </table>
@@ -332,6 +335,27 @@
 					pCk2=false;
 				}
 			});
+    		
+    		
+    		$("#joinForm input[name=device]").on("input",function(){
+    			var brandNo = $("#mobileSelect").val();
+    			var device = $(this).val();
+    			console.log(selectedBrand);
+    			
+    			$.ajax({
+    				url: "mobileSearch.me",
+    				data: {brandNo : brandNo, device : device},
+    				type: "GET",
+    				dataType: "json",
+    				error: function(e){
+    					console.log(e);
+    				},
+    				success: function(sList){
+    					console.log(sList);
+    				}
+    			});
+    		});
+    		
     		
     		
     		

@@ -67,7 +67,7 @@ public class MyBoardListServlet extends HttpServlet {
 	    	// 위 결과를 올림 처리 함. (ex. 101 / 10 -> 10.1 이면 11 페이지로 계산
 	    	maxPage = 	(int)Math.ceil((double)myBoardCount / limit) ;
 	    	
-	    	
+	    	System.out.println("max p : " + maxPage);
 	    	// startPage - 페이징 바 시작 페이지 번호
 	    	// 페이징 바에 숫자가 10개 씩 표시되는 경우
 	    	// 1, 11, 21, 31, ...
@@ -81,15 +81,15 @@ public class MyBoardListServlet extends HttpServlet {
 	    	if(maxPage <= endPage) {
 	    		endPage = maxPage;
 	    	}
-	    	
-	    	BoardPageInfo pInf = new BoardPageInfo(myBoardCount, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
+	    	System.out.println("start" +startPage);
+	    	System.out.println("end" + endPage);
+	    	BoardPageInfo bpi = new BoardPageInfo(myBoardCount, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
 	    	
 	    	// --------------------------- 페이징 바 처리 끝 -----------------------------------
 	    	
 	    	// -------------- 게시글 목록 조회 시작 ------------------
 	    	// 전체 목록을 가져오는게 아니라 해당페이지의 게시글 목록을 가져옴
 	    	ArrayList<Board> mList = bService.selectMyBoard(currentPage, limit, loginUser.getUserNo()); 
-	    	
 	    	
 	    	// ----------- 섬네일 목록 조회 --------------
 	    	//ArrayList<Attachment> fList = bService.selectFlist(currentPage, limit);
@@ -99,7 +99,8 @@ public class MyBoardListServlet extends HttpServlet {
 	    	if(mList != null) {
 	    		page = "views/member/myBoardListView.jsp";
 	    		request.setAttribute("mList", mList);
-	    		request.setAttribute("pInf", pInf);
+	    		request.setAttribute("bpi", bpi);
+	    		System.out.println(mList.size());
 	    		//request.setAttribute("fList", fList);
 	    	} else {
 	    		page = "views/common/errorPage.jsp";

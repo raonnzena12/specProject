@@ -71,7 +71,7 @@ public class BoardService {
 	public int getMyBoardCount(int uNo) {
 		Connection conn = getConnection();
 		
-		int myBoardCount = new BoardDao().getBoardCount(conn, uNo);
+		int myBoardCount = new BoardDao().getMyBoardCount(conn, uNo);
 		
 		return myBoardCount;
 	}

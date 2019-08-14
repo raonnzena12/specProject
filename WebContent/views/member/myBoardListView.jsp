@@ -7,13 +7,13 @@
 	
 	BoardPageInfo bpi = (BoardPageInfo)request.getAttribute("bpi");
 	
-	int boardCount = 1;
-	int currentPage = 2;
-	int maxPage = 3;
-	int startPage = 4;
-	int endPage = 5;
-	int limit = 6;
-	int pagingBarSize = 7;
+	int boardCount = bpi.getBoardCount();
+	int currentPage = bpi.getCurrentPage();
+	int maxPage = bpi.getMaxPage();
+	int startPage = bpi.getStartPage();
+	int endPage = bpi.getEndPage();
+	int limit = bpi.getLimit();
+	int pagingBarSize = bpi.getPageingBarSize();
 
 
 %>
@@ -46,7 +46,8 @@
     
     #articleLayer{
     	width: 1000px;
-    	height: 500px;
+    	min-height: 500px;
+    	height: auto;
     	margin:auto;
     }
     
@@ -95,13 +96,18 @@
 		width : 25px;
 		height : 25px;
 	}
-	
+	.pagingArea{
+		CLEAR:both;
+		height: 50px;
+		position: relative;
+	}
 	
 	.pagingArea span{
-		position: absolute;
+/* 		position: absolute;
 		margin: auto;
 		top: 10px;
-		left: 15%;
+		left: 15%; */
+		color: black;
 	}
 </style>
 <title>작성글 보기</title>
@@ -133,26 +139,20 @@
     <div id="articleLayer">
 	    <div id="articleText">
 	    	<p class="font">작성글 보기</p>
-	    	<p class="total"><%=mList.size()%></p>
+	    	<p class="total"><%=bpi.getBoardCount()%></p>
 	    </div>
     	<table id="articleTable" class="table table-hover">
 		  <thead>
 		    <tr>
 		      <th scope="col" width="80px">번호</th>
 		      <th scope="col" width="400px">제목</th>
-		      <th scope="col" width="150px">날짜</th>
-		      <th scope="col">조회수</th>
-		      <th scope="col" width="100px">댓글수</th>
+		      <th scope="col" width="200px">날짜</th>
+		      <th scope="col" width="80px">조회수</th>
+		      <th scope="col" width="80px">댓글수</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr>
-		      <th scope="row">1</th>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		    </tr>
+		    
 		    <% if(mList.isEmpty()){ %>
             	<tr> 
             		<td colspan="5"> 등록된 게시글이 없습니다.</td>
@@ -161,10 +161,10 @@
             		<%for(Board b2 : mList){ %>
             		<tr>
             			<td><%= b2.getbNo()%></td>
-            			<td><%= b2.getCgCategory()%></td>
             			<td><%= b2.getbTitle()%></td>
             			<td><%= b2.getbRegdate2()%></td>
             			<td><%= b2.getbCount()%></td>
+            			<td><%= b2.getbCommCount()%></td>
             		</tr>
             		<% } %>
             	<% } %>
@@ -175,14 +175,14 @@
     <!-- 페이징 처리 시작! -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로(<<) -->
-			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=1'">&lt;&lt;</span>
+			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/myBoardList.me?currentPage=1'">&lt;&lt;</span>
 		
 			<!-- 이전 페이지로(<) -->
 			<% if(currentPage <= 1) { %>
 				<span class="pagingBtn">&lt;</span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= currentPage-1 %>'">&lt;</span>
+					onclick="location.href='<%= request.getContextPath() %>/myBoardList.me?currentPage=<%= currentPage-1 %>'">&lt;</span>
 			<% } %>
 			
 			<!-- 페이지 목록 -->
@@ -191,7 +191,7 @@
 					<span class="pagingBtn selectBtn"><%= p %></span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= p %>'"><%=p%></span>
+						onclick="location.href='<%= request.getContextPath() %>/myBoardList.me?currentPage=<%= p %>'"><%=p%></span>
 				<% } %>
 			<%} %>
 			
@@ -200,12 +200,35 @@
 				<span class="pagingBtn"> &gt; </span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= currentPage+1 %>'">&gt;</span>
+					onclick="location.href='<%= request.getContextPath() %>/myBoardList.me?currentPage=<%= currentPage+1 %>'">&gt;</span>
 			<% } %>
 			
 			<!-- 맨 끝으로(>>) -->
 			<span class="pagingBtn clickBtn"
-				onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= maxPage %>'">&gt;&gt;</span>
+				onclick="location.href='<%= request.getContextPath() %>/myBoardList.me?currentPage=<%= maxPage %>'">&gt;&gt;</span>
 		</div>
+		
+		<script>
+		// 게시판 상세보기
+		$("#articleTable td").mouseenter(function(){
+			$(this).parent().css("cursor","pointer");
+		}).click(function(){
+			var bid = $(this).parent().children().eq(0).text();
+			
+			// 로그인 한 사람만 게시글 상세보기 가능
+			<% if(loginUser != null){ %>
+				location.href="<%= request.getContextPath() %>/detail.bo?bid="+bid;
+			<% } else{ %>
+				alert("로그인해야만 상세보기가 가능합니다!");
+			<% } %>
+		});
+		
+		// 페이징바 마우스오버 이벤트
+		$(".clickBtn").mouseenter(function(){
+			$(this).css("cursor","pointer");
+		}).click(function(){
+			$(this).css("font-weight","bold");
+		});
+		</script>
 </body>
 </html>

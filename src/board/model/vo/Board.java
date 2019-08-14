@@ -20,6 +20,8 @@ public class Board {
 	// 임시 등록일 필드
 	private String bRegdate2;
 	private String bModidate2;
+	// 게시글 별 댓글 수
+	private int bCommCount;
 	
 	public Board() {
 		// 기본 생성자
@@ -122,7 +124,7 @@ public class Board {
 
 
 	public Board(int bNo, String bTitle, String bContent, int bCount, int bCode,  int bWriter, int bStatus,
-			int bCategory, String bRegdate2, String bModidate2) {
+			int bCategory, String bRegdate2, String bModidate2, int bCommCount) {
 		super();
 		this.bNo = bNo;
 		this.bTitle = bTitle;
@@ -134,6 +136,7 @@ public class Board {
 		this.bCategory = bCategory;
 		this.bRegdate2 = bRegdate2;
 		this.bModidate2 = bModidate2;
+		this.bCommCount = bCommCount;
 	}
 
 	public String getbRegdate2() {
@@ -155,10 +158,22 @@ public class Board {
 		this.bModidate2 = bModidate2;
 	}
 
+	public int getbCommCount() {
+		return bCommCount;
+	}
+	
+	
+	public void setbCommCount(int bCommCount) {
+		this.bCommCount = bCommCount;
+	}
+	
+	
 
 	//////////////////////////////////////////////////
 	
 	
+
+
 	public int getbNo() {
 		return bNo;
 	}
