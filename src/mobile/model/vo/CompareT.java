@@ -1,12 +1,12 @@
 package mobile.model.vo;
 
 public class CompareT {
-	int comNo;
-	int comCount;
-	int comDevice1;
-	String comDevice1Name;
-	int comDevice2;
-	String comDevice2Name;
+	private int comNo;
+	private int comCount;
+	private int comDevice1;
+	private String comDevice1Name;
+	private int comDevice2;
+	private String comDevice2Name;
 	
 	public CompareT() {}
 
