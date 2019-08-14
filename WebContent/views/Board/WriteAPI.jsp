@@ -35,13 +35,14 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
    			
    			
-   			<script>
+   			<!-- <script>
 	             $(document).ready(function() {
 	                  $('#summernote').summernote();
 	                  
-	             }); 
+	             });
+	             var markupStr = $('#summernote').summernote('code');
 	             
-            </script>
+            </script> -->
 	    
 			<div id="summernote" style="height: 550px;"><p></p></div>
 </body>

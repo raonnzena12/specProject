@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.model.vo.Board"%>
+    pageEncoding="UTF-8" import="board.model.vo.Board" import="board.model.vo.Reply" import="java.util.ArrayList"%>
 <%
 	Board b = (Board)request.getAttribute("board");
+	int replycount = (int)request.getAttribute("replycount");
+	
+	ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList");
+	
+	
+
 %>
 
 <!DOCTYPE html>
@@ -44,7 +50,7 @@
         	height: 60px;
         }
         #sub{
-        	height: 400px;
+        	height: auto;
         }
         #subwrite{
         	height : 130px;
@@ -157,9 +163,6 @@
       	.updown{
       		color: black;
       	}
-      
-        
-        
 	</style>
 </head>
 <body id="boardcontent">
@@ -186,7 +189,7 @@
 				<p>조회<%= b.getbCount()%></p>
 			</div>
 			<div class="num">
-				<p>댓글</p>
+				<p>댓글<%= replycount %></p>
 			</div>
 		</article>
 		
@@ -194,8 +197,11 @@
    	</section>
    	
    	<section id="conbtn">
-   		<button type="button" class="btn btn-secondary" id="deletebtn" >삭제</button>
-   		<button type="button" class="btn btn-secondary" id="motifybtn" >수정</button>
+   	
+   	<% if(loginUser.getUserNo() == b.getbWriter()){ System.out.println("loginUser" + loginUser.getUserNo()); System.out.println("bWriter" + b.getbWriter());%>
+   		<button type="button" class="btn btn-secondary" id="deletebtn" onclick="deleteBoard();">삭제</button>
+   		<button type="button" class="btn btn-secondary" id="motifybtn" onclick="updateBoard();">수정</button>
+   	<% } %>
    	</section>
 
 	<section id="sub">
@@ -203,9 +209,9 @@
 			<div id="subdiv"></div>
 		</article>
 		<table class="table" id="subtable">
-			<tr>
-               <th scope="row" width="10%">작성자</th>
-               <td widht="75%">
+			<%-- <tr>
+               <th scope="row" width="10%"><%=b.getbWriter() %></th>
+               <td width="75%">
                		<pre>댓글댓글</pre>
                </td>
                <td width="15%">
@@ -213,31 +219,7 @@
                		<button type="button" class="btn btn-link " id="subupdate" style="color: black; font-weight:bold;">수정</button>
                		<button type="button" class="btn btn-link" id="subdelete" style="color: black; font-weight:bold;">삭제</button>
                </td>
-            </tr>	
-			<tr>
-               <th scope="row">작성자2</th>
-               <td>
-               		<pre>   
-               		댓글댓글2
-               		ㅁ  
-               		ㅁ
-               		ㅁ
-               		ㅁ	
-               		</pre>
-               </td>
-               <td>
-               	<button type="button" class="btn btn-link subdanger" style="color: red; font-weight:bold;">신고</button>	
-               </td>
-            </tr>	
-            <tr>
-               <th scope="row">작성자3</th>
-               <td>
-               		<pre>댓글댓글3</pre>
-               </td>
-               <td>
-               	<button type="button" class="btn btn-link subdanger" style="color: red; font-weight:bold;">신고</button>
-               </td>
-            </tr>
+            </tr> --%>	
 		</table>
 	</section>   	
 	<br>
@@ -263,5 +245,166 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   
   <footer id="footer"></footer>
+  
+  <script>
+  
+  	
+  	function deleteBoard(){
+  		if(confirm('정말 삭제하시겠습니까?')){
+  			location.href='<%= request.getContextPath()%>/delete.bo?bno=<%= b.getbNo()%>&bcode=<%= b.getbCode()%>';
+  		}
+  		
+  	}
+  
+  // 댓글 등록
+  	$("#subwritebtn").click(function(){
+  		var writer = <%=loginUser.getUserNo()%>;
+  		var bno = <%= b.getbNo()%>;
+  		var content = $("#text").val();
+  		
+  		if(content.trim() == ""){
+  			alert("빈 댓글을 입력할수 없습니다. 댓글을 입력해주세요.");
+  			return false;
+  		}
+  		
+  		$.ajax({
+  			url : "writeReply.bo",
+  			type : "post",
+  			data : {writer:writer, bno:bno, content:content},
+  			success : function(result){
+  				if(result > 0){
+  					$("#text").val("");
+  					selectRlist();
+  				}else{
+  					console.log("댓글 등록 에러 발생");
+  				}
+  			}
+  			
+  		});
+  		
+  	});
+  	
+  	// 댓글 출력용 함수
+  	function selectRlist(){
+  		var bno = <%=b.getbNo()%>;
+  		
+  		$.ajax({
+  			url : "selectReply.bo",
+  			tpe : "post",
+  			dataType : "json",
+  			data : {bno : bno},
+  			success : function(rList){
+  				console.log(rList);
+  				var $replyTable = $("#subtable");
+  				
+  				$replyTable.html("");
+  				
+  				$.each(rList, function(i){
+  					
+  					var $tr = $("<tr>");
+  					var $writerTh = $("<th>").text(rList[i].bcWriter).css("width","10%").attr("scope", "row");
+  					var $contentTd = $("<td>").attr("id","contentTd").css("width","60%");
+  					if(rList[i].cStatus == 2){
+  						$contentTd.text("유저에 의해 삭제된 글입니다.");
+  					}else if(rList[i].cStatus == 3){
+  						$contentTd.text("신고 누적으로 운영자에 의하여 삭제된 댓글입니다.");
+  					}else{
+  						$contentTd.html(rList[i].cContent);
+  					}
+  					
+  					var $buttonTd = $("<td>").attr("id", rList[i].cNo).css("width","15%");
+  					var $button1 = $("<button>").text("신고").css({"color":"red", "font-weight":"bold"}).addClass("btn btn-link").attr({"id":"subdanger" , "type":"button"});
+  					var $button2 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subupdate","onclick":"updateReply();"}).text("수정").css({"color":"black", "font-weight":"bold"});
+	  				var $button3 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subdelete","onclick":"deleteReply();"}).text("삭제").css({"color":"black", "font-weight":"bold"});
+	  				var $dateTd = $("<td>").text(rList[i].cRegdate).css("width","10%");
+	  				
+	  				if(rList[i].cStatus != 3){
+	  					if( <%=loginUser.getUserNo()%> == rList[i].cWriter ){
+	  						$buttonTd.append($button2);
+	  	  					$buttonTd.append($button3);
+	  					}else{
+	  						$buttonTd.append($button1);
+	  					}
+	  				}
+  					
+  					$tr.append($writerTh);
+  					$tr.append($contentTd);
+  					$tr.append($buttonTd);
+  					$tr.append($dateTd);
+  					$replyTable.append($tr);
+  				});
+  			}
+  		});
+  	}
+  	
+  	selectRlist();
+  	
+  	setInterval(function(){
+  		selectRlist();
+  	}, 3000);
+  	
+  	// 댓글 수정 삭제
+  	
+  	<%-- function replyupdate(){
+  		var cno = $("#subupdate").parent().attr("id");
+	  	location.href="<%=request.getContextPath()%>/replyupdate.bo?cno=" + cno;
+	}
+	function replydelete(){
+		var cno = $("#subdelete").parent().attr("id");
+		
+	  	if(confirm("정말 삭제하시겠습니까?")){
+	  		location.href="<%=request.getContextPath()%>/replydelete.bo?cno="+cno;
+	  		&bno=<%=b.getbNo()%>
+  		}
+	} --%>
+	
+	function deleteReply(){
+		
+		var cno = $("#subdelete").parent().attr("id");
+		
+		$.ajax({
+			url: "replydelete.bo",
+			type:"post",
+			data:{cno:cno},
+			success : function(result){
+				if(result > 0){
+					selectRlist();
+				}else{
+					result = "댓글 삭제 실패";
+				}
+			}
+			
+		});
+	}
+	
+	$(document).on("click", "#subupdate", function(){
+		var cno = $("#subupdate").parent().attr("id");
+		updateReply(cno);
+	});
+	
+	function updateReply(cno){
+		/* var cno = $("#subupdate").parent().attr("id");
+		
+		var con = $("#contentTd").val(); */
+		console.log(cno);
+		window.open("replyUpdateForm.bo?cno="+cno, "updateReply","width=800, height=300");
+		<%-- location.href='<%= request.getContextPath()%>/replyUpdateForm.bo?cno='+cno; --%>
+		/* var cno = $("#subupdate").parent().attr("id");
+		
+		$.ajax({
+			url: "replyupdate.bo",
+			type:"post",
+			data:{cno, cno},
+			success : function(result){
+				if(result > 0){
+					selectRlist();
+				}else{
+					result = "댓글 수정 실패";
+				}
+			}
+		}); */
+	}
+  	
+  </script>
 </body>
 </html>

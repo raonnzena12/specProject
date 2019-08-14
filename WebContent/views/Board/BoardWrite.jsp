@@ -164,12 +164,26 @@
 	              });
             </script> -->
             <%@ include file="/views/Board/WriteAPI.jsp" %>
+            <script>
+	        $(document).ready(function() {
+	              $('#summernote').summernote();
+	                  
+	        });
+	        $("#write").click(function(){
+	        	var markupStr = $('#summernote').summernote('code');
+	        });
+	        
+	             
+    </script>
+            
  	</section>
 	<section id="btn" class="sec">
 		<button type="button" class="btn btn-secondary btn1" id="preveal">미리보기</button>
 		<button type="submit" class="btn btn-secondary btn1" id="write">글쓰기</button>
 		<button type="reset" class="btn btn-secondary btn1" id="cancel" onclick="javascript:history.back();">취소</button>
 	</section>
+	
+	
 	</form>
 	
 	

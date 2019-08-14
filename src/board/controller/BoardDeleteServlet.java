@@ -9,42 +9,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
-import board.model.vo.Board;
 
 
-@WebServlet("/content.bo")
-public class BoardContentServlet extends HttpServlet {
+@WebServlet("/delete.bo")
+public class BoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
-    public BoardContentServlet() {
+    
+    public BoardDeleteServlet() {
         super();
-        
+       
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bNo = Integer.parseInt(request.getParameter("bno"));
+		request.setCharacterEncoding("UTF-8");
 		
-		Board board = new BoardService().contentBoard(bNo);
-		int replycount = new BoardService().getReplyCount(bNo);
+		int bno = Integer.parseInt(request.getParameter("bno"));
+		int bcode = Integer.parseInt(request.getParameter("bcode"));
 		
-		String page = "";
-		if(board != null ) {
-			page = "views/Board/BoardContent.jsp";
-			request.setAttribute("board", board);
-			request.setAttribute("replycount", replycount);
+		int result = new BoardService().deleteBoard(bno);
+		
+		if(result > 0) {
+			response.sendRedirect(request.getContextPath() + "/maintotal.bo?bno="+bcode);
 		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시글 상세조회 에러");
+			request.setAttribute("msg", "게시글 삭제 에러");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
 		}
-		request.getRequestDispatcher(page).forward(request, response);
-		
-		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 
