@@ -8,6 +8,11 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+
+import common.SpecFileRenamePolicy;
 import mobile.model.service.MobileService;
 import mobile.model.vo.*;
 
@@ -123,7 +128,25 @@ public class InsertMobileServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		if ( ServletFileUpload.isMultipartContent(request) ) {
+			
+			// 전송 파일 용량 제한 : 10MB
+			int maxSiz = 1024*1024*10;
+			// 웹 서버 컨테이너 경로 추출
+			// --> 프로젝트 경로 추출과장 ( WebContent 까지의 절대경로 )
+			String root = request.getSession().getServletContext().getRealPath("/");
+			// 파일 저장 경로 지정
+			String savePath = root+"image/mobileImages/";
+			// 파일명 변환 및 저장 작업
+			
+			// 5. MultipartRequest 선언
+			MultipartRequest multiRequest  = new MultipartRequest(request, savePath, maxSiz, "UTF-8", new SpecFileRenamePolicy());
+			// MultipartRequest 객체 생성 시 파일이 저장됨
+			
+			
+			//////////////////// 여기여기
+		}
+		
 	}
 
 }

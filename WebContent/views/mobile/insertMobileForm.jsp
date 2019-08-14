@@ -45,10 +45,14 @@
 <body>
 	<%@ include file ="../common/menubar.jsp" %>
 	<section class="Mobilecontainer">
-        <form action="<%=request.getContextPath()%>/insertForm.mo" method="POST">
+        <form action="<%=request.getContextPath()%>/insertForm.mo" method="POST" enctype="multipart/form-data">
         <div class="insertMobileTop">
-            <div></div>
-            <div></div>
+            <div>
+                <input type="file" name="frontImg" id="frontImg">
+            </div>
+            <div>
+                <input type="file" name="backImg" id="backImg">
+            </div>
             <div class="nameInsert">
                 <label>브랜드<select name="brand" id="brand"  class="form-control">
                     <option selected>-----</option>
