@@ -155,6 +155,10 @@
     function updateComment(id) {
         window.open("modifyComment.mo?mcNo="+id+"&type=2", "updateForm", "width=800px, height=300px, resizable = no, scrollbars = no");
     } 
+    // 코멘트 신고창 호출 함수
+    function reportComment(id) {
+    window.open("reportComment.mo?mcNo="+id+"&type=2&num=<%=loginUser.getUserNo()%>", "reportForm", "width=680px, height=700px, resizable = no, scrollbars = no")
+    }
     // 코멘트 프린트 함수
     function printComment(cList){
         var userNo = 0;
@@ -297,6 +301,10 @@
             $(document).on("click",".modifyComm", function(){
                 var id = $(this).parent().attr("id");
                 updateComment(id);
+            });
+            $(document).on("click", ".reportComm", function(){
+                var id = $(this).parent().attr("id");
+                reportComment(id);
             });
         });
     </script>

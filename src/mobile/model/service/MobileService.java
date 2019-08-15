@@ -13,6 +13,7 @@ import mobile.model.vo.Mobile;
 import mobile.model.vo.MobileComment;
 import mobile.model.vo.MobileInsert1;
 import mobile.model.vo.MobileInsert2;
+import mobile.model.vo.Report;
 import mobile.model.vo.Review;
 
 public class MobileService {
@@ -365,6 +366,19 @@ public class MobileService {
 	public int insertMobileImage(int index, MoImage mo) {
 		Connection conn = getConnection();
 		int result = new MobileDao().insertMobileImage(conn, index, mo);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 댓글 신고하는 Service
+	 * @param report
+	 * @return result 
+	 */
+	public int insertReport(Report report) {
+		Connection conn = getConnection();
+		int result = new MobileDao().insertReport(conn, report);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;
