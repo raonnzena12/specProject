@@ -471,11 +471,12 @@ public class MobileDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, uno);
-			pstmt.setInt(2, mno);
+			pstmt.setInt(2, uno);
+			pstmt.setInt(3, mno);
 			
 			rset = pstmt.executeQuery();
 			while ( rset.next() ) {
-				rList.add(new Review(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getDouble(4), rset.getDate(5), rset.getDate(6), rset.getInt(7), rset.getInt(8), rset.getInt(9), rset.getString(10), rset.getInt(11), rset.getInt(12)));
+				rList.add(new Review(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getDouble(4), rset.getDate(5), rset.getDate(6), rset.getInt(7), rset.getInt(8), rset.getInt(9), rset.getString(10), rset.getInt(11), rset.getInt(12), rset.getInt(13)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -815,6 +816,36 @@ public class MobileDao {
 			close(pstmt);
 		}
 				
+		return result;
+	}
+
+	/**
+	 * 댓글 신고하는 DAO
+	 * @param conn
+	 * @param report
+	 * @return result
+	 */
+	public int insertReport(Connection conn, Report report) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertReport");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, report.getrContent());
+			pstmt.setInt(2, report.getrRefNo());
+			pstmt.setInt(3, report.getrWritter());
+			pstmt.setInt(4, report.getrUser());
+			pstmt.setInt(5, report.getrTableNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		return result;
 	}
 	
