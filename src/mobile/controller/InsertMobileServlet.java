@@ -256,7 +256,7 @@ public class InsertMobileServlet extends HttpServlet {
 				// t세터로 저장할 객체 세팅하기
 				mo.setMiPath(savePath);
 				if ( saveFiles.size() > 1 ) mo.setMiBackImage(saveFiles.get(1));
-				mo.setMiFrontImage(saveFiles.get(0));
+				if ( saveFiles.size() > 0 ) mo.setMiFrontImage(saveFiles.get(0));
 				
 				//at.set
 					

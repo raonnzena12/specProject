@@ -142,7 +142,7 @@ public class MobileService {
 	}
 
 	/**
-	 * 모바일 디바이스별 댓글 리스트를 받아오는 Service
+	 * 모바일 디바이스별 댓글 리스트를 받아오는 Service(비회원용)
 	 * @param mno
 	 * @param type 
 	 * @return mcList
@@ -150,6 +150,20 @@ public class MobileService {
 	public ArrayList<MobileComment> selectCommList(int mno, int type) {
 		Connection conn = getConnection();
 		ArrayList<MobileComment> mcList = new MobileDao().selectCommList(conn, mno, type);
+		return mcList;
+	}
+	
+
+	/**
+	 * 모바일 디바이스별 댓글 리스트를 받아오는 Service(회원용)
+	 * @param uno
+	 * @param mno 
+	 * @param type 
+	 * @return mcList
+	 */
+	public ArrayList<MobileComment> selectCommListUser(int uno, int mno, int type) {
+		Connection conn = getConnection();
+		ArrayList<MobileComment> mcList = new MobileDao().selectCommListUser(conn, uno, mno, type);
 		return mcList;
 	}
 
@@ -206,16 +220,28 @@ public class MobileService {
 		else rollback(conn);
 		return result;
 	}
-
+	
 	/**
-	 * 모바일 디바이스별 리뷰 리스트를 받아오는 Service
+	 * 모바일 디바이스별 리뷰 리스트를 받아오는 Service(비회원용)
 	 * @param mno
 	 * @param uno 
 	 * @return rList
 	 */
-	public ArrayList<Review> selectReviewList(int mno, int uno) {
+	public ArrayList<Review> selectReviewList(int mno) {
 		Connection conn = getConnection();
-		ArrayList<Review> rList = new MobileDao().selectReviewList(conn, mno, uno);
+		ArrayList<Review> rList = new MobileDao().selectReviewList(conn, mno);
+		return rList;
+	}
+
+	/**
+	 * 모바일 디바이스별 리뷰 리스트를 받아오는 Service(회원용)
+	 * @param mno
+	 * @param uno 
+	 * @return rList
+	 */
+	public ArrayList<Review> selectReviewListUser(int mno, int uno) {
+		Connection conn = getConnection();
+		ArrayList<Review> rList = new MobileDao().selectReviewListUser(conn, mno, uno);
 		return rList;
 	}
 
