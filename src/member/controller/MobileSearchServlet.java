@@ -29,10 +29,9 @@ public class MobileSearchServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int brandNo = Integer.parseInt(request.getParameter("brandNo"));
 		String device = request.getParameter("device");
 		
-		ArrayList<Mobile> sList = new MobileService().joinFormSelectMobile(brandNo, device);
+		ArrayList<Mobile> sList = new MobileService().joinFormSelectMobile(device);
 		
 		new Gson().toJson(sList, response.getWriter());
 	

@@ -452,7 +452,7 @@ public class BoardDao {
 
 
 	/**
-	 * 내가 쓴 글 목록 조회용 dao
+	 * 내가 쓴 글 해당 목록 조회용 dao
 	 * @param conn
 	 * @param currentPage
 	 * @param limit

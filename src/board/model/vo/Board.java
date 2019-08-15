@@ -94,7 +94,7 @@ public class Board {
 		this.bModidate = bModidate;
 		this.bCode = bCode;
 		this.bType = bType;
- master
+ 
 		this.bWriter = bWriter;
 		this.bCategory = bCategory;
 		this.cgCategory = cgCategory;
@@ -156,6 +156,15 @@ public class Board {
 		this.bModidate2 = bModidate2;
 		this.bCommCount = bCommCount;
 	}
+
+	public Board(int int1, String string, String string2, int int2, Date date, int int3, int int4, int int5,
+			String string3) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
 
 	public String getbRegdate2() {
 		return bRegdate2;
