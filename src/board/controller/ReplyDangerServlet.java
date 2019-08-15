@@ -1,26 +1,33 @@
 package board.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.service.BoardService;
 
-@WebServlet("/writeform.bo")
-public class BoardWriteFormServlet extends HttpServlet {
+
+@WebServlet("/replyDangerServlet.bo")
+public class ReplyDangerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public BoardWriteFormServlet() {
+    public ReplyDangerServlet() {
         super();
-      
+       
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/Board/BoardWrite.jsp").forward(request, response);
+		int cno = Integer.parseInt(request.getParameter("cno"));
+		
+		int result = new BoardService().dangerReply(cno);
+		
+		response.getWriter().print(result);
 	}
 
 	

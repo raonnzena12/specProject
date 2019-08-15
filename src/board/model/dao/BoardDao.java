@@ -445,6 +445,111 @@ public class BoardDao {
 
 
 
+	/**
+	 * 댓글 신고용 Dao
+	 * @param conn
+	 * @param cno
+	 * @return result
+	 */
+	public int dangerReply(Connection conn, int cno) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("dangerReply");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, cno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+	/**
+	 * 게시판 검색용 Dao
+	 * @param conn
+	 * @param currentPage
+	 * @param limit
+	 * @param bno
+	 * @param search
+	 * @param text
+	 * @return tlist
+	 */
+	public ArrayList<Board> searchBoard(Connection conn, int currentPage, int limit, int bno, String search,
+			String text) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> tlist = null;
+		
+		String query = prop.getProperty("searchList"+ search);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			 
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
+			if(search != "titleContent") {
+				pstmt.setInt(1, bno);
+				pstmt.setString(2, text);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+			}else {
+				pstmt.setInt(1, bno);
+				pstmt.setString(2, text);
+				pstmt.setString(3, text);
+				pstmt.setInt(4, startRow);
+				pstmt.setInt(5, endRow);
+			}
+			
+			System.out.println(query);
+			
+			rset = pstmt.executeQuery();
+			
+			tlist = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board b = new Board(
+						rset.getInt("BNO"),
+						rset.getString("BTITLE"),
+						rset.getString("BCONTENT"),
+						rset.getInt("BCOUNT"),
+						rset.getDate("BREGDATE"),
+						rset.getInt("BCODE"),
+						rset.getString("BTYPE"),
+						rset.getInt("BWRITER"),
+						rset.getInt("BCATEGORY"),
+						rset.getString("CGCATEGORY")
+						);
+				tlist.add(b);
+			}
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println(tlist.size());
+		return tlist;
+		
+	}
+
+
+
 	
 
 
