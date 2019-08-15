@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import mobile.model.dao.MobileDao;
 import mobile.model.util.CreateQuery;
 import mobile.model.vo.CompareT;
+import mobile.model.vo.MoImage;
 import mobile.model.vo.Mobile;
 import mobile.model.vo.MobileComment;
 import mobile.model.vo.MobileInsert1;
@@ -20,12 +21,13 @@ public class MobileService {
 
 	/**
 	 * 모바일 정보(간략개요) insert Service
+	 * @param index 
 	 * @param mi1
 	 * @return result
 	 */
-	public int insertMobileSummary(MobileInsert1 mi1) {
+	public int insertMobileSummary(int index, MobileInsert1 mi1) {
 		Connection conn = getConnection();
-		int result = new MobileDao().insertMobileSummary(conn, mi1);
+		int result = new MobileDao().insertMobileSummary(conn, index, mi1);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;
@@ -33,12 +35,13 @@ public class MobileService {
 
 	/**
 	 * 모바일 정보 (상세) insert Service
+	 * @param index 
 	 * @param mi2
 	 * @return result
 	 */
-	public int insertMobile(MobileInsert2 mi2) {
+	public int insertMobile(int index, MobileInsert2 mi2) {
 		Connection conn = getConnection();
-		int result = new MobileDao().insertMobile(conn, mi2);
+		int result = new MobileDao().insertMobile(conn, index, mi2);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;
@@ -339,6 +342,32 @@ public class MobileService {
 		ArrayList<Mobile> sList = new MobileDao().joinFormSelectMobile(conn, brandNo, device);
 		
 		return sList;
+	}
+
+	/**
+	 * 인서트할 모바일의 인덱스를 받아오는 Service
+	 * @return index
+	 */
+	public int getIndex() {
+		Connection conn = getConnection();
+		int index = new MobileDao().getIndex(conn);
+		if ( index > 0 ) commit(conn);
+		else rollback(conn);
+		return index;
+	}
+
+	/**
+	 * 모바일 디바이스 파일 저장하는 Service
+	 * @param index
+	 * @param mo
+	 * @return result
+	 */
+	public int insertMobileImage(int index, MoImage mo) {
+		Connection conn = getConnection();
+		int result = new MobileDao().insertMobileImage(conn, index, mo);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
 	}
 	
 }
