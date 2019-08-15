@@ -84,6 +84,9 @@
         padding: 20px 20px 50px 0;
 
     }
+    .reported {
+        color: #aaa;
+    }
 </style>
 <%@ include file ="/views/common/menubar.jsp" %>
 <script>
@@ -115,8 +118,7 @@
     function loadReivew(){
         var mno = $.urlParam("mno");
         var uno = 0 ;
-        <% if( loginUser != null ) { %> userNo = <%=loginUser.getUserNo()%>;<% } %>
-
+        <% if( loginUser != null ) { %> uno = <%=loginUser.getUserNo()%>;<% } %>
         $.ajax({
             url: "loadReview.mo",
             type: "POST",
@@ -186,6 +188,10 @@
     function updateReview(rno){
         window.open("modifyReview.mo?rno="+rno, "updateReviewForm", "width=1200px, height=500px, resizable = no, scrollbars = no");
     }
+    // 리뷰 신고창 호출 함수
+    function reportComment(id) {
+        window.open("reportComment.mo?mcNo="+id+"&type=3&num=<%=loginUser.getUserNo()%>", "reportForm", "width=680px, height=700px, resizable = no, scrollbars = no")
+    }
     // 리뷰 프린트용
     function printReview(rList){
         var userNo = 0;
@@ -214,7 +220,11 @@
                 } else if ( rList[i].rWriterNo == userNo ) { // 내 리뷰일 경우 수정/삭제 출력
                     $modify.html("<i class='material-icons editReview'>create</i><i class='material-icons delReview'>clear</i>");
                 } else { // 내 리뷰가 아닐 경우 신고 출력
+                console.log(rList[i].rIreport);
                     $modify.html('<i class="material-icons reportReview">error</i>');
+                    if ( rList[i].rIreport == 1 ) {
+                        $modify.addClass("reported");
+                    }
                 }
                 var $reviewTitle = $("<div>").addClass("reviewTitle");
                 var $userName = $("<div>").addClass("userName").text(rList[i].rWriterName);
@@ -235,7 +245,7 @@
                 $reviewTitle.append($userName, $date, $star);
                 var $likeCon = $("<div>").addClass("like-container");
                 var $likeCnt = $("<div>").addClass("like-cnt unchecked");
-                if ( rList[i].rIlike == 0 ) { // 내가 하트찍은 내역이 없으면 빈 하트♡
+                if ( rList[i].rIlike == 0) { // 내가 하트찍은 내역이 없으면 빈 하트♡
                     $likeCnt.append("<i class='like-btn material-icons'>favorite_border</i>");
                 } else {    // 내가 하트찍은 내역이 있으면 하트♥
                     $likeCnt.append("<i class='like-btn material-icons'>favorite</i>");
@@ -307,6 +317,15 @@
         $(document).on("click", ".editReview", function(){
             var rno = $(this).parent().parent().attr("id");
             updateReview(rno);
+        });
+        // 댓글 신고 눌렀을때의 동작
+        $(document).on("click", ".reportReview", function(){
+            if ( $(this).parent().hasClass("reported") ) {
+                Swal.fire( '신고 불가!', '이미 신고한 리뷰입니다!', 'warning' );
+                return false;
+            }
+            var id = $(this).parent().parent().attr("id");
+            reportComment(id);
         });
     });
 </script>

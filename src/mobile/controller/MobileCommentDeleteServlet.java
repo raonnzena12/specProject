@@ -19,8 +19,9 @@ public class MobileCommentDeleteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mcNo = Integer.parseInt(request.getParameter("mcNo"));
+		int type = Integer.parseInt(request.getParameter("type"));
 		
-		int result = new MobileService().deleteComment(mcNo);
+		int result = new MobileService().deleteComment(mcNo, type);
 		
 		response.getWriter().print(result);
 	}

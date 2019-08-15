@@ -15,6 +15,7 @@ public class Review {
 	private String rWriterName;
 	private int rRefMno;
 	private int rStatus;
+	private int rIreport;
 	
 	
 	private int rnum;
@@ -85,6 +86,13 @@ public class Review {
 			int rLike, int rWriterNo, String rWriterName, int rRefMno, int rStatus) {
 		this(rNo, rTitle, rContent, rStar, rRegDate, rModiDate, rLike, rWriterNo, rWriterName, rRefMno, rStatus);
 		this.rIlike = rIlike;
+	}
+	
+	public Review(int rNo, String rTitle, String rContent, Double rStar, Date rRegDate, Date rModiDate, int rIlike,
+			int rLike, int rWriterNo, String rWriterName, int rRefMno, int rStatus, int rIreport) {
+		this(rNo, rTitle, rContent, rStar, rRegDate, rModiDate, rLike, rWriterNo, rWriterName, rRefMno, rStatus);
+		this.rIlike = rIlike;
+		this.rIreport = rIreport;
 	}
 
 	public int getrIlike() {

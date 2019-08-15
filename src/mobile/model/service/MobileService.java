@@ -7,10 +7,13 @@ import java.util.ArrayList;
 
 import mobile.model.dao.MobileDao;
 import mobile.model.util.CreateQuery;
+import mobile.model.vo.CompareT;
+import mobile.model.vo.MoImage;
 import mobile.model.vo.Mobile;
 import mobile.model.vo.MobileComment;
 import mobile.model.vo.MobileInsert1;
 import mobile.model.vo.MobileInsert2;
+import mobile.model.vo.Report;
 import mobile.model.vo.Review;
 
 public class MobileService {
@@ -19,12 +22,13 @@ public class MobileService {
 
 	/**
 	 * 모바일 정보(간략개요) insert Service
+	 * @param index 
 	 * @param mi1
 	 * @return result
 	 */
-	public int insertMobileSummary(MobileInsert1 mi1) {
+	public int insertMobileSummary(int index, MobileInsert1 mi1) {
 		Connection conn = getConnection();
-		int result = new MobileDao().insertMobileSummary(conn, mi1);
+		int result = new MobileDao().insertMobileSummary(conn, index, mi1);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;
@@ -32,12 +36,13 @@ public class MobileService {
 
 	/**
 	 * 모바일 정보 (상세) insert Service
+	 * @param index 
 	 * @param mi2
 	 * @return result
 	 */
-	public int insertMobile(MobileInsert2 mi2) {
+	public int insertMobile(int index, MobileInsert2 mi2) {
 		Connection conn = getConnection();
-		int result = new MobileDao().insertMobile(conn, mi2);
+		int result = new MobileDao().insertMobile(conn, index, mi2);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;
@@ -139,22 +144,24 @@ public class MobileService {
 	/**
 	 * 모바일 디바이스별 댓글 리스트를 받아오는 Service
 	 * @param mno
+	 * @param type 
 	 * @return mcList
 	 */
-	public ArrayList<MobileComment> selectCommList(int mno) {
+	public ArrayList<MobileComment> selectCommList(int mno, int type) {
 		Connection conn = getConnection();
-		ArrayList<MobileComment> mcList = new MobileDao().selectCommList(conn, mno);
+		ArrayList<MobileComment> mcList = new MobileDao().selectCommList(conn, mno, type);
 		return mcList;
 	}
 
 	/**
 	 * 모바일 디바이스 페이지 댓글을 입력하는 Service
 	 * @param mc
+	 * @param type 
 	 * @return result
 	 */
-	public int insertComment(MobileComment mc) {
+	public int insertComment(MobileComment mc, int type) {
 		Connection conn = getConnection();
-		int result = new MobileDao().insertComment(conn, mc);
+		int result = new MobileDao().insertComment(conn, mc, type);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;
@@ -163,11 +170,12 @@ public class MobileService {
 	/**
 	 * 모바일 디바이스 페이지 댓글을 삭제하는 Service
 	 * @param mcNo
+	 * @param type 
 	 * @return result
 	 */
-	public int deleteComment(int mcNo) {
+	public int deleteComment(int mcNo, int type) {
 		Connection conn = getConnection();
-		int result = new MobileDao().deleteComment(conn, mcNo);
+		int result = new MobileDao().deleteComment(conn, mcNo, type);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;
@@ -176,22 +184,24 @@ public class MobileService {
 	/**
 	 * 모바일 댓글을 수정하기위해 댓글 하나를 불러오는 Service
 	 * @param mcNo
+	 * @param type 
 	 * @return mc
 	 */
-	public MobileComment selectComment(int mcNo) {
+	public MobileComment selectComment(int mcNo, int type) {
 		Connection conn = getConnection();
-		MobileComment mc = new MobileDao().selectComment(conn, mcNo);
+		MobileComment mc = new MobileDao().selectComment(conn, mcNo, type);
 		return mc;
 	}
 
 	/**
 	 * 모바일 댓글을 수정하는 Service
 	 * @param mc
+	 * @param type 
 	 * @return result
 	 */
-	public int updateComment(MobileComment mc) {
+	public int updateComment(MobileComment mc, int type) {
 		Connection conn = getConnection();
-		int result = new MobileDao().updateComment(conn, mc);
+		int result = new MobileDao().updateComment(conn, mc, type);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;
@@ -293,10 +303,10 @@ public class MobileService {
 	 * @param com2
 	 * @return result
 	 */
-	public int checkCompareTable(int com1, int com2) {
+	public CompareT checkCompareTable(int com1, int com2) {
 		Connection conn = getConnection();
-		int result = new MobileDao().checkCompareTable(conn, com1, com2);
-		return result;
+		CompareT compare = new MobileDao().checkCompareTable(conn, com1, com2);
+		return compare;
 	}
 
 	/**
@@ -342,6 +352,7 @@ public class MobileService {
 	}
 
 	/**
+
 	 * 내가 쓴 리뷰 개수 구하는 서블릿
 	 * @param userNo
 	 * @return
@@ -367,6 +378,46 @@ public class MobileService {
 		ArrayList<Review> rList = new MobileDao().selectMyReview(conn, currentPage, limit, userNo);
 		
 		return rList;
+  }
+  
+  	/**
+	 * 인서트할 모바일의 인덱스를 받아오는 Service
+	 * @return index
+	 */
+	public int getIndex() {
+		Connection conn = getConnection();
+		int index = new MobileDao().getIndex(conn);
+		if ( index > 0 ) commit(conn);
+		else rollback(conn);
+		return index;
+	}
+
+	/**
+	 * 모바일 디바이스 파일 저장하는 Service
+	 * @param index
+	 * @param mo
+	 * @return result
+	 */
+	public int insertMobileImage(int index, MoImage mo) {
+		Connection conn = getConnection();
+		int result = new MobileDao().insertMobileImage(conn, index, mo);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 댓글 신고하는 Service
+	 * @param report
+	 * @return result 
+	 */
+	public int insertReport(Report report) {
+		Connection conn = getConnection();
+		int result = new MobileDao().insertReport(conn, report);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+
 	}
 	
 }

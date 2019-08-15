@@ -3,14 +3,14 @@ package mobile.model.vo;
 import java.sql.Timestamp;
 
 public class MobileComment {
-	int mcoNo;
-	String mcoContent;
-	Timestamp mcoRegDate;
-	Timestamp mcoModiDate;
-	int refMoNo;
-	int mcoWriter;
-	String mcoWName;
-	int mcoStatus;
+	private int mcoNo;
+	private String mcoContent;
+	private Timestamp mcoRegDate;
+	private Timestamp mcoModiDate;
+	private int refMoNo;
+	private int mcoWriter;
+	private String mcoWName;
+	private int mcoStatus;
 	
 	public MobileComment() {}
 	

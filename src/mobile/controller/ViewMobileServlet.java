@@ -26,6 +26,7 @@ public class ViewMobileServlet extends HttpServlet {
 		// 스펙/리뷰/비교중 한 페이지로 연결해주기 위해 파라미터의 page를 받는다
 		
 		Mobile device = new MobileService().selectMobile(mId);
+		
 		String page = "";
 		if ( device != null && specPage == 1 ) {
 			request.setAttribute("device", device);
