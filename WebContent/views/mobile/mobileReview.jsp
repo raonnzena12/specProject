@@ -196,7 +196,7 @@
     <% } %>
     // 리뷰 프린트용
     function printReview(rList){
-        var userNo = 0;
+        var userNo = -1;
         <% if( loginUser != null ) { %> userNo = <%=loginUser.getUserNo()%>;<% } %>
         var listLength = Object.keys(rList).length;
         var $reviewPrint = $(".reviewPrint");
