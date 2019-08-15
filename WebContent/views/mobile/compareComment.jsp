@@ -61,11 +61,14 @@
     // 코멘트 로딩 함수
     function loadComment(){
         var mno = <%=compare.getComNo()%>;
+        var uno = -1;
+        <% if (loginUser != null){ %>uno = <%=loginUser.getUserNo()%><% } %>
 
         $.ajax({
             url: "commentLoad.mo",
             type: "POST",
-            data: { mno : mno, 
+            data: { mno : mno,
+                    uno : uno, 
             		type : 2 },
             dataType: "json",
             error: function(e){
@@ -79,7 +82,8 @@
     // 코멘트 등록 함수
     function writeComment(){
     	var mno = <%=compare.getComNo()%>;
-        <%if ( loginUser != null ) {%>var writer = <%=loginUser.getUserNo()%>;<%}%>
+        var writer = -1;
+        <%if ( loginUser != null ) {%>writer = <%=loginUser.getUserNo()%>;<%}%>
         var commCon = $("#commCon").val().replace(/(\n|\r\n)/g, '<br>');
         console.log(commCon);
         if ( commCon.trim().length == 0 ) {
@@ -156,9 +160,11 @@
         window.open("modifyComment.mo?mcNo="+id+"&type=2", "updateForm", "width=800px, height=300px, resizable = no, scrollbars = no");
     } 
     // 코멘트 신고창 호출 함수
+    <% if( loginUser != null ) {%>
     function reportComment(id) {
     window.open("reportComment.mo?mcNo="+id+"&type=2&num=<%=loginUser.getUserNo()%>", "reportForm", "width=680px, height=700px, resizable = no, scrollbars = no")
     }
+    <% } %>
     // 코멘트 프린트 함수
     function printComment(cList){
         var userNo = 0;
@@ -197,6 +203,9 @@
                 else if ( cList[i].mcoWriter == userNo ) { // 내 댓글일 경우 수정 / 삭제 출력
                     $control.append($modify, $delete);
                 } else { // 내 댓글이 아닐 경우 신고 출력
+                    if ( cList[i].mcoIreport == 1 ) {
+                        $report.addClass("reported");
+                    }
                     $control.append($report);
                 }
                 var $commCon = $("<div>").addClass("commCon");
@@ -206,7 +215,10 @@
                     $commCon.text("유저에 의하여 삭제된 댓글입니다.");
                 } else if ( cList[i].mcoStatus == 3 ) {
                     // 신고 누적으로 제재당한 댓글일 경우 출력글
-                    $commCon.text("신고 누적으로 운영자에 의하여 삭제된 댓글입니다.");
+                    $commCon.text("운영자에 의하여 삭제된 댓글입니다.");
+                } else if ( cList[i].mcoStatus != 3 && cList[i].mcoReportCount > 10 ) { 
+                    // 제재당하진 않았지만 누적 신고수가 정해진 건수 이상일 때
+                    $commCon.text("신고 누적으로 인하여 일시적으로 노출이 중지된 댓글입니다");
                 } else {
                     // 일반 상태일 경우 댓글내용을 출력
                     $commCon.html(cList[i].mcoContent);
