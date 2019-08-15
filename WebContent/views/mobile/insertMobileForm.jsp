@@ -48,10 +48,10 @@
         <form action="<%=request.getContextPath()%>/insertForm.mo" method="POST" enctype="multipart/form-data">
         <div class="insertMobileTop">
             <div>
-                <input type="file" name="frontImg" id="frontImg">
+                <input type="file" name="frontImg" multiple="multiple" id="frontImg">
             </div>
             <div>
-                <input type="file" name="backImg" id="backImg">
+                <input type="file" name="backImg" multiple="multiple" id="backImg">
             </div>
             <div class="nameInsert">
                 <label>브랜드<select name="brand" id="brand"  class="form-control">
@@ -84,7 +84,7 @@
                             <div class="col-auto my-1">
                             <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
                             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="osCode">
-                                <option>OS선택</option>
+                                <option value="0">OS선택</option>
                                 <option value="1">안드로이드</option>
                                 <option value="2">iOS</option>
                                 <option value="3">etc</option>

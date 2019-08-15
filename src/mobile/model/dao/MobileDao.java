@@ -19,16 +19,17 @@ public class MobileDao {
 		}
 	}
 
-	public int insertMobileSummary(Connection conn, MobileInsert1 mi1) {
+	public int insertMobileSummary(Connection conn, int index, MobileInsert1 mi1) {
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("insertMobileSummary");
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, mi1.getMoCode());
-			pstmt.setString(2, mi1.getMoName());
-			pstmt.setString(3, mi1.getMoNameEn());
-			pstmt.setInt(4, mi1.getMoBrandCode());
+			pstmt.setInt(1, index);
+			pstmt.setString(2, mi1.getMoCode());
+			pstmt.setString(3, mi1.getMoName());
+			pstmt.setString(4, mi1.getMoNameEn());
+			pstmt.setInt(5, mi1.getMoBrandCode());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,58 +39,59 @@ public class MobileDao {
 		return result;
 	}
 
-	public int insertMobile(Connection conn, MobileInsert2 mi2) {
+	public int insertMobile(Connection conn, int index, MobileInsert2 mi2) {
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("insertMobile");
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setDate(1, mi2.getReleaseDate());
-			pstmt.setString(2, mi2.getOsVersion());
-			pstmt.setString(3, mi2.getMaterial());
-			pstmt.setString(4, mi2.getSize());
-			pstmt.setString(5, mi2.getWeight());
-			pstmt.setString(6, mi2.getLink());
-			pstmt.setDouble(7, mi2.getInch());
-			pstmt.setString(8, mi2.getResolution());
-			pstmt.setString(9, mi2.getPixelInch());
-			pstmt.setString(10, mi2.getDisplayType());
-			pstmt.setString(11, mi2.getDisWidth());
-			pstmt.setString(12, mi2.getDisHeight());
-			pstmt.setString(13, mi2.getAp());
-			pstmt.setString(14, mi2.getCpu());
-			pstmt.setString(15, mi2.getCpuCore());
-			pstmt.setString(16, mi2.getCpuClock());
-			pstmt.setString(17, mi2.getGpu());
-			pstmt.setString(18, mi2.getRam());
-			pstmt.setString(19, mi2.getInnerMemory());
-			pstmt.setString(20, mi2.getOuterMemory());
-			pstmt.setString(21, mi2.getCameraSensor());
-			pstmt.setString(22, mi2.getIris());
-			pstmt.setString(23, mi2.getFlash());
-			pstmt.setString(24, mi2.getPicResolution());
-			pstmt.setString(25, mi2.getVidResolution());
-			pstmt.setString(26, mi2.getVidFrame());
-			pstmt.setString(27, mi2.getFrontResolution());
-			pstmt.setString(28, mi2.getFrontVidResolution());
-			pstmt.setString(29, mi2.getFrontVidFrame());
-			pstmt.setString(30, mi2.getCamera());
-			pstmt.setInt(31, mi2.getBattery());
-			pstmt.setString(32, mi2.getBatteryType());
-			pstmt.setString(33, mi2.getFastCharging());
-			pstmt.setString(34, mi2.getRemovableBattery());
-			pstmt.setString(35, mi2.getWirelessCharging());
-			pstmt.setString(36, mi2.getStandBy());
-			pstmt.setString(37, mi2.getProtocol());
-			pstmt.setString(38, mi2.getWifi());
-			pstmt.setString(39, mi2.getBluetooth());
-			pstmt.setString(40, mi2.getUsb());
-			pstmt.setString(41, mi2.getBio());
-			pstmt.setString(42, mi2.getPayment());
-			pstmt.setString(43, mi2.getVerify());
-			pstmt.setString(44, mi2.getEtc());
-			pstmt.setString(45, "Y");
-			pstmt.setInt(46, mi2.getOsCode());
+			pstmt.setInt(1, index);
+			pstmt.setDate(2, mi2.getReleaseDate());
+			pstmt.setString(3, mi2.getOsVersion());
+			pstmt.setString(4, mi2.getMaterial());
+			pstmt.setString(5, mi2.getSize());
+			pstmt.setString(6, mi2.getWeight());
+			pstmt.setString(7, mi2.getLink());
+			pstmt.setDouble(8, mi2.getInch());
+			pstmt.setString(9, mi2.getResolution());
+			pstmt.setString(10, mi2.getPixelInch());
+			pstmt.setString(11, mi2.getDisplayType());
+			pstmt.setString(12, mi2.getDisWidth());
+			pstmt.setString(13, mi2.getDisHeight());
+			pstmt.setString(14, mi2.getAp());
+			pstmt.setString(15, mi2.getCpu());
+			pstmt.setString(16, mi2.getCpuCore());
+			pstmt.setString(17, mi2.getCpuClock());
+			pstmt.setString(18, mi2.getGpu());
+			pstmt.setString(19, mi2.getRam());
+			pstmt.setString(20, mi2.getInnerMemory());
+			pstmt.setString(21, mi2.getOuterMemory());
+			pstmt.setString(22, mi2.getCameraSensor());
+			pstmt.setString(23, mi2.getIris());
+			pstmt.setString(24, mi2.getFlash());
+			pstmt.setString(25, mi2.getPicResolution());
+			pstmt.setString(26, mi2.getVidResolution());
+			pstmt.setString(27, mi2.getVidFrame());
+			pstmt.setString(28, mi2.getFrontResolution());
+			pstmt.setString(29, mi2.getFrontVidResolution());
+			pstmt.setString(30, mi2.getFrontVidFrame());
+			pstmt.setString(31, mi2.getCamera());
+			pstmt.setInt(32, mi2.getBattery());
+			pstmt.setString(33, mi2.getBatteryType());
+			pstmt.setString(34, mi2.getFastCharging());
+			pstmt.setString(35, mi2.getRemovableBattery());
+			pstmt.setString(36, mi2.getWirelessCharging());
+			pstmt.setString(37, mi2.getStandBy());
+			pstmt.setString(38, mi2.getProtocol());
+			pstmt.setString(39, mi2.getWifi());
+			pstmt.setString(40, mi2.getBluetooth());
+			pstmt.setString(41, mi2.getUsb());
+			pstmt.setString(42, mi2.getBio());
+			pstmt.setString(43, mi2.getPayment());
+			pstmt.setString(44, mi2.getVerify());
+			pstmt.setString(45, mi2.getEtc());
+			pstmt.setString(46, "Y");
+			pstmt.setInt(47, mi2.getOsCode());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,6 +101,12 @@ public class MobileDao {
 		return result;
 	}
 
+	/**
+	 * 선택한 디바이스 하나의 정보를 불러오는 DAO
+	 * @param conn
+	 * @param mId
+	 * @return device
+	 */
 	public Mobile selectMobile(Connection conn, int mId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -125,7 +133,8 @@ public class MobileDao {
 						rset.getString(36), rset.getInt(37), rset.getString(38), rset.getString(39), 
 						rset.getString(40), rset.getString(41), rset.getString(42), rset.getString(43),
 						rset.getString(44), rset.getString(42), rset.getString(46), rset.getString(47), 
-						rset.getString(48), rset.getString(49), rset.getString(50), rset.getString(51));
+						rset.getString(48), rset.getString(49), rset.getString(50), rset.getString(51),
+						rset.getString(52), rset.getString(53), rset.getString(54));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -216,7 +225,8 @@ public class MobileDao {
 						rset.getString(37), rset.getInt(38), rset.getString(39), rset.getString(40), 
 						rset.getString(41), rset.getString(42), rset.getString(43), rset.getString(44),
 						rset.getString(45), rset.getString(46), rset.getString(47), rset.getString(48), 
-						rset.getString(49), rset.getString(50), rset.getString(51), rset.getString(52)));
+						rset.getString(49), rset.getString(50), rset.getString(51), rset.getString(52),
+						rset.getString(53), rset.getString(54), rset.getString(55)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -264,7 +274,8 @@ public class MobileDao {
 						rset.getString(37), rset.getInt(38), rset.getString(39), rset.getString(40), 
 						rset.getString(41), rset.getString(42), rset.getString(43), rset.getString(44),
 						rset.getString(45), rset.getString(46), rset.getString(47), rset.getString(48), 
-						rset.getString(49), rset.getString(50), rset.getString(51), rset.getString(52)));
+						rset.getString(49), rset.getString(50), rset.getString(51), rset.getString(52),
+						rset.getString(53), rset.getString(54), rset.getString(55)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -740,7 +751,6 @@ public class MobileDao {
 			}
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -750,4 +760,73 @@ public class MobileDao {
 		return sList;
 	}
 
+	/**
+	 * 인서트할 인덱스를 받아오는 DAO
+	 * @param conn 
+	 * @return index
+	 */
+	public int getIndex(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int index = 0;
+		
+		String query = prop.getProperty("getIndex");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			if ( rset.next() ) {
+				index = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return index;
+	}
+
+	/**
+	 * 모바일 디바이스 파일 저장하는 DAO
+	 * @param conn
+	 * @param index
+	 * @param mo
+	 * @return result
+	 */
+	public int insertMobileImage(Connection conn, int index, MoImage mo) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		String query = prop.getProperty("insertMobileImage");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, index);
+			pstmt.setString(2, mo.getMiFrontImage());
+			pstmt.setString(3, mo.getMiBackImage());
+			pstmt.setString(4, mo.getMiPath());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
+	
+/* 	
+ * for ( int i = 0 ; i < fileList.size(); i ++ ) {
+		Attachment at = fileList.get(i);
+		
+		pstmt= conn. prepareStatement(query);
+		pstmt 세팅하고
+		//쿼리 리절트에
+		 * 
+		 *  result += pstmt.executeUpdate();
+		*/
+	
 }

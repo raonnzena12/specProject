@@ -3,7 +3,6 @@ package mobile.model.vo;
 import java.sql.Date;
 
 public class MoImage {
-	private int miNo;
 	private int refMno;
 	private String miFrontImage;
 	private String miBackImage;
@@ -12,22 +11,13 @@ public class MoImage {
 	
 	public MoImage() {}
 
-	public MoImage(int miNo, int refMno, String miFrontImage, String miBackImage, String miPath, Date miUploadDate) {
+	public MoImage(int refMno, String miFrontImage, String miBackImage, String miPath, Date miUploadDate) {
 		super();
-		this.miNo = miNo;
 		this.refMno = refMno;
 		this.miFrontImage = miFrontImage;
 		this.miBackImage = miBackImage;
 		this.miPath = miPath;
 		this.miUploadDate = miUploadDate;
-	}
-
-	public int getMiNo() {
-		return miNo;
-	}
-
-	public void setMiNo(int miNo) {
-		this.miNo = miNo;
 	}
 
 	public int getRefMno() {
@@ -72,7 +62,7 @@ public class MoImage {
 
 	@Override
 	public String toString() {
-		return miNo + " / " + refMno + " / " + miFrontImage + " / " + miBackImage + " / " + miPath + " / "
+		return refMno + " / " + miFrontImage + " / " + miBackImage + " / " + miPath + " / "
 				+ miUploadDate;
 	}
 }
