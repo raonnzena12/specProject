@@ -117,7 +117,7 @@
     // 리뷰 로드해오는 함수
     function loadReivew(){
         var mno = $.urlParam("mno");
-        var uno = 0 ;
+        var uno = -1;
         <% if( loginUser != null ) { %> uno = <%=loginUser.getUserNo()%>;<% } %>
         $.ajax({
             url: "loadReview.mo",
@@ -189,9 +189,11 @@
         window.open("modifyReview.mo?rno="+rno, "updateReviewForm", "width=1200px, height=500px, resizable = no, scrollbars = no");
     }
     // 리뷰 신고창 호출 함수
+    <%if ( loginUser != null ) { %>
     function reportComment(id) {
         window.open("reportComment.mo?mcNo="+id+"&type=3&num=<%=loginUser.getUserNo()%>", "reportForm", "width=680px, height=700px, resizable = no, scrollbars = no")
     }
+    <% } %>
     // 리뷰 프린트용
     function printReview(rList){
         var userNo = 0;

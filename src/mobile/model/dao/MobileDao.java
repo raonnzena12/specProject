@@ -317,7 +317,7 @@ public class MobileDao {
 	}
 
 	/**
-	 * 모바일 디바이스별 댓글 리스트를 받아오는 Service
+	 * 모바일 디바이스별 댓글 리스트를 받아오는 Service(비회원용)
 	 * @param conn
 	 * @param mno
 	 * @param type 
@@ -347,6 +347,41 @@ public class MobileDao {
 		System.out.println(mcList.size());
 		return mcList;
 	}
+	
+	/**
+	 * 모바일 디바이스별 댓글 리스트를 받아오는 Service(회원용)
+	 * @param conn
+	 * @param uno
+	 * @param mno 
+	 * @param type 
+	 * @return mcList
+	 */
+	public ArrayList<MobileComment> selectCommListUser(Connection conn, int uno, int mno, int type) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MobileComment> mcList = new ArrayList<MobileComment>();
+		
+		String query = prop.getProperty("selectCommListUser"+type);
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, mno);
+			rset = pstmt.executeQuery();
+			
+			while ( rset.next() ) {
+				mcList.add(new MobileComment(rset.getInt(1), rset.getString(2), rset.getTimestamp(3), rset.getTimestamp(4), rset.getInt(5), rset.getInt(6), rset.getString(7), rset.getInt(8), rset.getInt(9), rset.getInt(10)));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println(mcList.size());
+		return mcList;
+	}
+	
 
 	/**
 	 * 모바일 디바이스 페이지 댓글을 입력하는 Service
@@ -453,20 +488,51 @@ public class MobileDao {
 				
 		return result;
 	}
-
+	
 	/**
-	 * 모바일 디바이스별 리뷰 리스트를 받아오는 DAO
+	 * 모바일 디바이스별 리뷰 리스트를 받아오는 DAO(비회원용)
 	 * @param conn
 	 * @param mno
 	 * @param uno 
 	 * @return rList
 	 */
-	public ArrayList<Review> selectReviewList(Connection conn, int mno, int uno) {
+	public ArrayList<Review> selectReviewList(Connection conn, int mno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> rList = new ArrayList<Review>();
 		
 		String query = prop.getProperty("selectReviewList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			while ( rset.next() ) {
+				rList.add(new Review(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getDouble(4), rset.getDate(5), rset.getDate(6), rset.getInt(7), rset.getInt(8), rset.getInt(9), rset.getString(10), rset.getInt(11), rset.getInt(12), rset.getInt(13)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rList;
+	}
+
+	/**
+	 * 모바일 디바이스별 리뷰 리스트를 받아오는 DAO(회원용)
+	 * @param conn
+	 * @param mno
+	 * @param uno 
+	 * @return rList
+	 */
+	public ArrayList<Review> selectReviewListUser(Connection conn, int mno, int uno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> rList = new ArrayList<Review>();
+		
+		String query = prop.getProperty("selectReviewListUser");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -767,7 +833,6 @@ public class MobileDao {
 	}
 
 	/**
-
 	 * 내가 쓴 리뷰 개수 구하는 dao
 	 * @param userNo
 	 * @return
@@ -791,7 +856,6 @@ public class MobileDao {
 			}
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(rset);
@@ -844,7 +908,7 @@ public class MobileDao {
 		return rList;
 	}
 
-
+	/**
 	 * 인서트할 인덱스를 받아오는 DAO
 	 * @param conn 
 	 * @return index
@@ -931,7 +995,8 @@ public class MobileDao {
 		}
 		return result;
 	}
-	
+
+
 /* 	
  * for ( int i = 0 ; i < fileList.size(); i ++ ) {
 		Attachment at = fileList.get(i);
