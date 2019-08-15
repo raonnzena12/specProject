@@ -168,30 +168,14 @@ JavaScript
                             <td colspan="2"><input class="form-control" type="tel" name="phone"
                                 placeholder="핸드폰번호(01012341234)" disabled></td>
                         </tr>
-                        <tr>
-                        	<td colspan="2">
-                        		<select id="mobileSelect" disabled>
-									<!-- <option data-tokens="ketchup mustard">Hot Dog, Fries
-										and a Soda</option>
-									<option data-tokens="mustard">Burger, Shake and a
-										Smile</option>
-									<option data-tokens="frosting">Sugar, Spice and all
-									
-									<option value="salt">abc소금</option> -->
-									<option value="1">SAMSUNG</option>
-									<option value="2">LG</option>
-									<option value="3">APPLE</option>
-								</select>
-
-							</td>
-                        </tr>
+                       
                         <tr>
                             <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled></td>
                             <td><button type="button" class="btn btn-info" disabled>기종선택</button></td>
                         </tr>
                         <tr>
                             <td><input class="form-control" type="text" id="selectedDevice" disabled></td>
-                            <td><button type="button" class="btn btn-info" disabled>기종선택</button></td>
+                            <td></td>
                         </tr>
                     </table>
                 </div>
@@ -340,14 +324,14 @@ JavaScript
     		
     		var deviceArr = [];
     		var mobile;
+			var $mb = {};
     		$("#joinForm input[name=device]").on("input",function(){
-    			var brandNo = $("#mobileSelect").val();
-    			var device = $(this).val();
-    			console.log(brandNo);
+    			var device = $(this).val().replace(/(\s*)/g,"");
     			
+    			//$mb = {};
     			$.ajax({
     				url: "mobileSearch.me",
-    				data: {brandNo : brandNo, device : device},
+    				data: {device : device},
     				type: "GET",
     				dataType: "json",
     				error: function(e){
@@ -362,30 +346,36 @@ JavaScript
     						var v = sList[i].mNo;
     						//console.log(k + " / " + v);
     						
-    						var mb = {};
     						
-    						mb[k] = v;
+    						$mb[k] = v;
+    						
+    						//console.log("name: " + name + "/ no : " + no);
     						
     						//mb.sList[i].mNameEn =v;
     						//mb.sList[i].mNameEn = sList[i].mNo;
     						//mb.name = sList[i].mNameEn;
     						//mb.mNo = sList[i].mNo;
     						//console.log(mb);
-    						deviceArr.push(mb);
+    						//deviceArr.push(mb);
     						//deviceArr.push(mb.mNo);
     						
+	    					console.log("each success : "+Object.keys($mb));
 							
 						});
-						mobile = sList;
-						console.log(deviceArr);
+						//mobile = sList;
+						//console.log(deviceArr);
 						//console.log("mobile: "+mobile);
-						//console.log(Object.keys(deviceArr));
+						//console.log("deviceArr.key: "+Object.keys(deviceArr));
+						
+						//console.log("mobile:"+ mobile);
+	    				console.log("after each success : "+$mb);
     				}
     			});
+	    		console.log("after ajax : "+$mb);
     			
     			// 회원 이름 검색 시 자동완성
 				$("#joinForm input[name=device]").autocomplete({
-					source : Object.keys(deviceArr)
+					source : Object.keys($mb)
 				});
     		});
     		

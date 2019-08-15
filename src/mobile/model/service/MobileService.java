@@ -327,12 +327,46 @@ public class MobileService {
 		return result;
 	}
 
-	public ArrayList<Mobile> joinFormSelectMobile(int brandNo, String device) {
+	/**
+	 * 
+	 * @param brandNo
+	 * @param device
+	 * @return
+	 */
+	public ArrayList<Mobile> joinFormSelectMobile(String device) {
 		Connection conn = getConnection();
 		
-		ArrayList<Mobile> sList = new MobileDao().joinFormSelectMobile(conn, brandNo, device);
+		ArrayList<Mobile> sList = new MobileDao().joinFormSelectMobile(conn,device);
 		
 		return sList;
+	}
+
+	/**
+	 * 내가 쓴 리뷰 개수 구하는 서블릿
+	 * @param userNo
+	 * @return
+	 */
+	public int getMyReviewCount(int userNo) {
+		Connection conn = getConnection();
+		
+		int myReviewCount = new MobileDao().myReviewCount(conn, userNo);
+		
+		return myReviewCount;
+	}
+
+	/**
+	 * 내가 쓴 리뷰의 현재 목록 가져오는 service
+	 * @param currentPage
+	 * @param limit
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<Review> selectMyReview(int currentPage, int limit, int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> rList = new MobileDao().selectMyReview(conn, currentPage, limit, userNo);
+		
+		return rList;
 	}
 	
 }

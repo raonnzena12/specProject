@@ -713,7 +713,13 @@ public class MobileDao {
 		return result;
 	}
 
-	public ArrayList<Mobile> joinFormSelectMobile(Connection conn, int brandNo, String device) {
+	/**
+	 * 회원가입용 휴대폰 기종 검색용 dao
+	 * @param conn
+	 * @param device
+	 * @return
+	 */
+	public ArrayList<Mobile> joinFormSelectMobile(Connection conn,String device) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -723,8 +729,7 @@ public class MobileDao {
 		try {
 			device = "%" + device + "%";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, brandNo);
-			pstmt.setString(2, device);
+			pstmt.setString(1, device);
 			
 			rset = pstmt.executeQuery();
 			
@@ -744,6 +749,83 @@ public class MobileDao {
 		}
 		
 		return sList;
+	}
+
+	/**
+	 * 내가 쓴 리뷰 개수 구하는 dao
+	 * @param userNo
+	 * @return
+	 */
+	public int myReviewCount(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int myReviewCount = 0;
+		
+		String query = prop.getProperty("myReviewCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				myReviewCount = rset.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return myReviewCount;
+	}
+
+	/**
+	 * 내가 쓴 리뷰의 해당 페이지 목록 dao
+	 * @param conn
+	 * @param currentPage
+	 * @param limit
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<Review> selectMyReview(Connection conn, int currentPage, int limit, int userNo) {
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		
+		ArrayList<Review> rList = null;
+		
+		String query = prop.getProperty("selectMyReview");
+		
+		try {
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			System.out.println(query);
+			rList = new ArrayList<Review>();
+			while(rset.next()) {
+				rList.add(new Review(rset.getInt("RE_NO"), rset.getString("RE_TITLE"), rset.getDouble("RE_STAR"), rset.getInt("RE_LIKE"), rset.getInt("RE_WRITER"), rset.getInt("RE_MNO"), rset.getInt("RNUM"), rset.getString("MO_NAME"), rset.getString("RE_REGDATE"), rset.getString("RE_MODIDATE")));
+			}
+			System.out.println(rList.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rList;
 	}
 
 }
