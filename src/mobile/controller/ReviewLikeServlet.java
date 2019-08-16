@@ -13,7 +13,7 @@ import mobile.model.service.MobileService;
 public class ReviewLikeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ReviewLikeServlet() {
+    public ReviewLikeServlet() { 
         super();
     }
 

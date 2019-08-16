@@ -52,6 +52,9 @@ public class Mobile {
 	private String mVerify;
 	private String mEtc;
 	private String mStatus;
+	private String mFrontImage;
+	private String mBackImage;
+	private String mImagePath;
 	
 	public Mobile() {}
 
@@ -117,10 +120,91 @@ public class Mobile {
 		this.mEtc = mEtc;
 		this.mStatus = mStatus;
 	}
+	
+	public Mobile(int mNo, String mCode, String mName, String mNameEn, String mBrandName, String mReleaseDate,
+			String mOsName, String mOsVersion, String mMaterial, String mSize, String mWeight, String mLink,
+			double mInch, String mResolution, String mPixel, String mDisplayType, String mDisWidth, String mDisHeight,
+			String mAp, String mCpu, String mCpuCore, String mCpuClock, String mGpu, String mRam, String mInnerMemory,
+			String mOuterMemory, String mSensor, String mIris, String mFlash, String mPicResolution,
+			String mVidResolution, String mVidFrame, String mFrontResolution, String mFrontVidResolution,
+			String mFrontVidFrame, String mCamera, int mBattery, String mBatteryType, String mFastCharsing,
+			String mRemovableBat, String mWireless, String mStandBy, String mProtocol, String mWifi, String mBluetooth,
+			String mUsb, String mBio, String mPayment, String mVerify, String mEtc, String mStatus, String mFrontImage,
+			String mBackImage, String mImagePath) {
+		super();
+		this.mNo = mNo;
+		this.mCode = mCode;
+		this.mName = mName;
+		this.mNameEn = mNameEn;
+		this.mBrandName = mBrandName;
+		this.mReleaseDate = mReleaseDate;
+		this.mOsName = mOsName;
+		this.mOsVersion = mOsVersion;
+		this.mMaterial = mMaterial;
+		this.mSize = mSize;
+		this.mWeight = mWeight;
+		this.mLink = mLink;
+		this.mInch = mInch;
+		this.mResolution = mResolution;
+		this.mPixel = mPixel;
+		this.mDisplayType = mDisplayType;
+		this.mDisWidth = mDisWidth;
+		this.mDisHeight = mDisHeight;
+		this.mAp = mAp;
+		this.mCpu = mCpu;
+		this.mCpuCore = mCpuCore;
+		this.mCpuClock = mCpuClock;
+		this.mGpu = mGpu;
+		this.mRam = mRam;
+		this.mInnerMemory = mInnerMemory;
+		this.mOuterMemory = mOuterMemory;
+		this.mSensor = mSensor;
+		this.mIris = mIris;
+		this.mFlash = mFlash;
+		this.mPicResolution = mPicResolution;
+		this.mVidResolution = mVidResolution;
+		this.mVidFrame = mVidFrame;
+		this.mFrontResolution = mFrontResolution;
+		this.mFrontVidResolution = mFrontVidResolution;
+		this.mFrontVidFrame = mFrontVidFrame;
+		this.mCamera = mCamera;
+		this.mBattery = mBattery;
+		this.mBatteryType = mBatteryType;
+		this.mFastCharsing = mFastCharsing;
+		this.mRemovableBat = mRemovableBat;
+		this.mWireless = mWireless;
+		this.mStandBy = mStandBy;
+		this.mProtocol = mProtocol;
+		this.mWifi = mWifi;
+		this.mBluetooth = mBluetooth;
+		this.mUsb = mUsb;
+		this.mBio = mBio;
+		this.mPayment = mPayment;
+		this.mVerify = mVerify;
+		this.mEtc = mEtc;
+		this.mStatus = mStatus;
+		this.mFrontImage = mFrontImage;
+		this.mBackImage = mBackImage;
+		this.mImagePath = mImagePath;
+	}
+
+	//=============================회원가입용 생성자=================
+	
+	
+	public Mobile(int mNo, String mName, String mNameEn) {
+		super();
+		this.mNo = mNo;
+		this.mName = mName;
+		this.mNameEn = mNameEn;
+	}
+	
+	
+	//====================================================
 
 	public int getmNo() {
 		return mNo;
 	}
+
 
 	public void setmNo(int mNo) {
 		this.mNo = mNo;
@@ -524,6 +608,30 @@ public class Mobile {
 
 	public void setmStatus(String mStatus) {
 		this.mStatus = mStatus;
+	}
+	
+	public String getmFrontImage() {
+		return mFrontImage;
+	}
+
+	public void setmFrontImage(String mFrontImage) {
+		this.mFrontImage = mFrontImage;
+	}
+
+	public String getmBackImage() {
+		return mBackImage;
+	}
+
+	public void setmBackImage(String mBackImage) {
+		this.mBackImage = mBackImage;
+	}
+
+	public String getmImagePath() {
+		return mImagePath;
+	}
+
+	public void setmImagePath(String mImagePath) {
+		this.mImagePath = mImagePath;
 	}
 
 	@Override

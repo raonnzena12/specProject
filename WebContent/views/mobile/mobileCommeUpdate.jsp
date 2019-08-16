@@ -45,7 +45,8 @@
             url:"modifyComment.mo",
             type: "POST",
             data: { text: text,
-                    mcNo: mcNo },
+                    mcNo: mcNo,
+                    type: 1},
             error: function(e){
                 console.log(e);
             },

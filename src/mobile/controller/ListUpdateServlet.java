@@ -18,7 +18,7 @@ import mobile.model.vo.Mobile;
 public class ListUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ListUpdateServlet() {
+    public ListUpdateServlet() { 
         super();
     }
 
