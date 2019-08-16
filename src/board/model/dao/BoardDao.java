@@ -492,26 +492,46 @@ public class BoardDao {
 		ResultSet rset = null;
 		ArrayList<Board> tlist = null;
 		
-		String query = prop.getProperty("searchList"+ search);
+		String query;
+		
+		if(bno == 0){
+			query = prop.getProperty("searchList"+ search + 0);
+		}else {
+			query = prop.getProperty("searchList"+ search);
+		}
+		
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			 
 			int startRow = (currentPage - 1) * limit + 1;
 			int endRow = startRow + limit - 1;
-			
-			if(search != "titleContent") {
-				pstmt.setInt(1, bno);
-				pstmt.setString(2, text);
-				pstmt.setInt(3, startRow);
-				pstmt.setInt(4, endRow);
+			if(bno == 0) {
+				if(!search.equals("titleContent")) {
+					pstmt.setString(1, text);
+					pstmt.setInt(2, startRow);
+					pstmt.setInt(3, endRow);
+				}else {
+					pstmt.setString(1, text);
+					pstmt.setString(2, text);
+					pstmt.setInt(3, startRow);
+					pstmt.setInt(4, endRow);
+				}
 			}else {
-				pstmt.setInt(1, bno);
-				pstmt.setString(2, text);
-				pstmt.setString(3, text);
-				pstmt.setInt(4, startRow);
-				pstmt.setInt(5, endRow);
+				if(!search.equals("titleContent")) {
+					pstmt.setInt(1, bno);
+					pstmt.setString(2, text);
+					pstmt.setInt(3, startRow);
+					pstmt.setInt(4, endRow);
+				}else {
+					pstmt.setInt(1, bno);
+					pstmt.setString(2, text);
+					pstmt.setString(3, text);
+					pstmt.setInt(4, startRow);
+					pstmt.setInt(5, endRow);
+				}
 			}
+			
 			
 			System.out.println(query);
 			
@@ -543,7 +563,7 @@ public class BoardDao {
 			close(pstmt);
 		}
 		
-		System.out.println(tlist.size());
+		
 		return tlist;
 		
 	}
