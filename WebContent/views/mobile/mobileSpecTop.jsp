@@ -21,10 +21,6 @@
         height: 500px;
         float: left;
     }
-    #deviceFront{
-        height: 400px;
-        width: auto;        
-    }
     #mobileName {
         float: right;
         height: 180px;
@@ -108,11 +104,6 @@
 	<%-- <%@ include file ="/views/common/menubar.jsp" %> --%>
     <div class="mobileTop">
         <div id="mobileView">
-            <% if ( mo.getmFrontImage() == null ) { %>
-            <img src="<%=request.getContextPath()%>/image/smartphoneG.png" id="deviceFront">
-            <% } else { %>
-            <img src="<%=request.getContextPath()%>/image/mobileImages/<%=mo.getmFrontImage()%>" id="deviceFront">
-            <% } %>
         </div>
         <div id="mobileName">
             <label><%= mo.getmBrandName() %></label>

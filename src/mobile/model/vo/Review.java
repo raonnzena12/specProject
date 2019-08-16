@@ -15,14 +15,6 @@ public class Review {
 	private String rWriterName;
 	private int rRefMno;
 	private int rStatus;
-	private int rIreport;
-	
-	
-	private int rnum;
-	private String rDeviceName;
-	
-	private String rRegDate2;
-	private String rModidate2;
 	
 	public Review() {}
 	
@@ -57,24 +49,6 @@ public class Review {
 		this.rRefMno = rRefMno;
 		this.rStatus = rStatus;
 	}
-	
-	
-	
-	// 내가 쓴 리뷰 목록 불러올 생성자
-	public Review(int rNo, String rTitle, Double rStar, int rLike, int rWriterNo, int rRefMno,
-			int rnum, String rDeviceName, String rRegDate2, String rModidate2) {
-		super();
-		this.rNo = rNo;
-		this.rTitle = rTitle;
-		this.rStar = rStar;
-		this.rLike = rLike;
-		this.rWriterNo = rWriterNo;
-		this.rRefMno = rRefMno;
-		this.rnum = rnum;
-		this.rDeviceName = rDeviceName;
-		this.rRegDate2 = rRegDate2;
-		this.rModidate2 = rModidate2;
-	}
 
 	public Review(int rNo, String rTitle, String rContent, Double rStar, Date rRegDate, Date rModiDate, int rLike,
 			int rWriterNo, String rWriterName, int rRefMno, int rStatus) {
@@ -86,13 +60,6 @@ public class Review {
 			int rLike, int rWriterNo, String rWriterName, int rRefMno, int rStatus) {
 		this(rNo, rTitle, rContent, rStar, rRegDate, rModiDate, rLike, rWriterNo, rWriterName, rRefMno, rStatus);
 		this.rIlike = rIlike;
-	}
-	
-	public Review(int rNo, String rTitle, String rContent, Double rStar, Date rRegDate, Date rModiDate, int rIlike,
-			int rLike, int rWriterNo, String rWriterName, int rRefMno, int rStatus, int rIreport) {
-		this(rNo, rTitle, rContent, rStar, rRegDate, rModiDate, rLike, rWriterNo, rWriterName, rRefMno, rStatus);
-		this.rIlike = rIlike;
-		this.rIreport = rIreport;
 	}
 
 	public int getrIlike() {
@@ -189,41 +156,6 @@ public class Review {
 
 	public void setrStatus(int rStatus) {
 		this.rStatus = rStatus;
-	}
-	
-	// 출력용 날짜
-	public String getrDeviceName() {
-		return rDeviceName;
-	}
-
-	public void setrDeviceName(String rDeviceName) {
-		this.rDeviceName = rDeviceName;
-	}
-	
-	
-
-	public String getrRegDate2() {
-		return rRegDate2;
-	}
-
-	public void setrRegDate2(String rRegDate2) {
-		this.rRegDate2 = rRegDate2;
-	}
-
-	public String getrModidate2() {
-		return rModidate2;
-	}
-
-	public void setrModidate2(String rModidate2) {
-		this.rModidate2 = rModidate2;
-	}
-	
-	public int getRnum() {
-		return rnum;
-	}
-
-	public void setRnum(int rnum) {
-		this.rnum = rnum;
 	}
 
 	@Override

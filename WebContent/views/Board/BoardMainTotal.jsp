@@ -3,7 +3,7 @@
     
 <%
 	ArrayList<Board> tlist = (ArrayList<Board>)request.getAttribute("tlist");
-
+	
 	BoardPageInfo bpi = (BoardPageInfo)request.getAttribute("bpi");
 	
 	int boardCount = bpi.getBoardCount();
@@ -196,20 +196,24 @@
 	            </tbody>   
 	       	</table>
 	   	</section>
+	    
 	    <section id="boardbtn">
-	       	<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : left; margin: 0 10px 0 5px;" onclick="<%=request.getContextPath()%>/maintotal.bo?bno=<%=request.getAttribute("bno")%>">목록</button>
-	        <form class="form-inline my-2 my-lg-0">
-		        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-		        <button type="button" class="btn btn-secondary"style="background-color : white; color : black; font-weight:bold; margin:0;">검색</button>
+	       	<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : left; margin: 0 10px 0 5px;" onclick="location.href='<%=request.getContextPath()%>/maintotal.bo?bno=<%=request.getAttribute("bno")%>'">목록</button>
+	        
+	        <form class="form-inline my-2 my-lg-0" action="<%=request.getContextPath() %>/boardSearch.bo" method="GET">
+		        <input class="form-control mr-sm-2" type="text" name="text" placeholder="Search">
+		        <input type="hidden" name="bno" value="<%=request.getAttribute("bno")%>">
+		        <button type="submit" class="btn btn-secondary"style="background-color : white; color : black; font-weight:bold; margin:0;">검색</button>
+		      	<select name="search" id="searchselect">
+					<option value="title" selected>제목</option>
+					<option value="titleContent">제목 + 내용</option>
+					<option value="content">내용</option>
+				<!-- 	<option value="head">말머리</option> -->
+				</select>
 	        </form>
-			<select id="searchselect">
-				<option value="title" selected>제목</option>
-				<option value="titlecontent">제목 + 내용</option>
-				<option value="content">내용</option>
-				<option value="head">말머리</option>
-			</select>
+			
 			<%if(loginUser != null){ %>
-				<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : right; margin: 0 10px 0 5px;" onclick="<%=request.getContextPath()%>/writeform.bo">글쓰기</button>
+				<button type="button" class="btn btn-secondary"style="background-color : white; color : black; display : block; font-weight:bold; float : right; margin: 0 10px 0 5px;" onclick="location.href='<%=request.getContextPath()%>/writeform.bo'">글쓰기</button>
 			<% }else{ %>
 			
 			<%} %>

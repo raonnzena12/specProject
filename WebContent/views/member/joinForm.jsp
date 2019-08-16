@@ -103,10 +103,10 @@
 
 
 <!-- Stylesheet -->
-<!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 
-JavaScript
+<!-- JavaScript -->
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
@@ -114,7 +114,7 @@ JavaScript
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ajax-bootstrap-select/1.4.5/css/ajax-bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ajax-bootstrap-select/1.4.5/js/ajax-bootstrap-select.min.js"></script>
- -->
+
 
 <script>
 	$(function(){
@@ -168,14 +168,26 @@ JavaScript
                             <td colspan="2"><input class="form-control" type="tel" name="phone"
                                 placeholder="핸드폰번호(01012341234)" disabled></td>
                         </tr>
-                       
                         <tr>
-                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled></td>
-                            <td><button type="button" class="btn btn-info" disabled>기종선택</button></td>
+                        	<td colspan="2">
+                        		<select class="selectpicker" data-live-search="true" id="ajax-select">
+									<!-- <option data-tokens="ketchup mustard">Hot Dog, Fries
+										and a Soda</option>
+									<option data-tokens="mustard">Burger, Shake and a
+										Smile</option>
+									<option data-tokens="frosting">Sugar, Spice and all
+									
+									<option value="salt">abc소금</option> -->
+								</select>
+								
+								
+								
+
+							</td>
                         </tr>
                         <tr>
-                            <td><input class="form-control" type="text" id="selectedDevice" disabled></td>
-                            <td></td>
+                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled readonly></td>
+                            <td><button type="button" class="btn btn-info" disabled>기종찾기</button></td>
                         </tr>
                     </table>
                 </div>
@@ -320,65 +332,6 @@ JavaScript
 					pCk2=false;
 				}
 			});
-    		
-    		
-    		var deviceArr = [];
-    		var mobile;
-			var $mb = {};
-    		$("#joinForm input[name=device]").on("input",function(){
-    			var device = $(this).val().replace(/(\s*)/g,"");
-    			
-    			//$mb = {};
-    			$.ajax({
-    				url: "mobileSearch.me",
-    				data: {device : device},
-    				type: "GET",
-    				dataType: "json",
-    				error: function(e){
-    					console.log(e);
-    				},
-    				success: function(sList){
-    					console.log(sList.length);
-    					
-    					$.each(sList, function(i){
-    						//console.log(sList[i].mNameEn);
-    						var k = sList[i].mNameEn;
-    						var v = sList[i].mNo;
-    						//console.log(k + " / " + v);
-    						
-    						
-    						$mb[k] = v;
-    						
-    						//console.log("name: " + name + "/ no : " + no);
-    						
-    						//mb.sList[i].mNameEn =v;
-    						//mb.sList[i].mNameEn = sList[i].mNo;
-    						//mb.name = sList[i].mNameEn;
-    						//mb.mNo = sList[i].mNo;
-    						//console.log(mb);
-    						//deviceArr.push(mb);
-    						//deviceArr.push(mb.mNo);
-    						
-	    					console.log("each success : "+Object.keys($mb));
-							
-						});
-						//mobile = sList;
-						//console.log(deviceArr);
-						//console.log("mobile: "+mobile);
-						//console.log("deviceArr.key: "+Object.keys(deviceArr));
-						
-						//console.log("mobile:"+ mobile);
-	    				console.log("after each success : "+$mb);
-    				}
-    			});
-	    		console.log("after ajax : "+$mb);
-    			
-    			// 회원 이름 검색 시 자동완성
-				$("#joinForm input[name=device]").autocomplete({
-					source : Object.keys($mb)
-				});
-    		});
-    		
     		
     		
     		

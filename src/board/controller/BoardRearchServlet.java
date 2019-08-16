@@ -13,20 +13,22 @@ import board.model.service.BoardService;
 import board.model.vo.Board;
 import board.model.vo.BoardPageInfo;
 
-@WebServlet("/maintotal.bo")
-public class BoardMainTotalServlet extends HttpServlet {
+
+@WebServlet("/boardSearch.bo")
+public class BoardRearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
-    public BoardMainTotalServlet() {
+   
+    public BoardRearchServlet() {
         super();
        
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int bno = Integer.parseInt(request.getParameter("bno"));
+		String search = request.getParameter("search");
+		String text = request.getParameter("text");
 		
 		BoardService bService = new BoardService();
 		
@@ -63,7 +65,7 @@ public class BoardMainTotalServlet extends HttpServlet {
 		//------------------------------------------------------
 		/* int bNo = Integer.parseInt(request.getParameter("bNo")); */
 	
-		ArrayList<Board> tlist = bService.selectTBoard(currentPage, limit, bno);
+		ArrayList<Board> tlist = bService.searchBoard(currentPage, limit, bno, search, text);
 		
 			
 		String page = "";
@@ -77,6 +79,10 @@ public class BoardMainTotalServlet extends HttpServlet {
 			request.setAttribute("msg", "게시판 목록조회 실패");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
+		
+		
+		
+		
 	}
 
 	
