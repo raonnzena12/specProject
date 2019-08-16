@@ -107,6 +107,11 @@
 <body>
 	<%-- <%@ include file ="/views/common/menubar.jsp" %> --%>
     <div class="mobileTop">
+        <% if ( loginUser != null && loginUser.getUserName().equals("admin") ) { %>
+        <div>
+            <button class="btn btn-primary float-right" id="mofidyDevice">수정</button>
+        </div>
+        <% } %>
         <div id="mobileView">
             <% if ( mo.getmFrontImage() == null ) { %>
             <img src="<%=request.getContextPath()%>/image/smartphoneG.png" id="deviceFront">
@@ -134,6 +139,11 @@
             var mno = $.urlParam("mno");
             $(document).on("click", ".tab", function(){
                 location.href = "<%=request.getContextPath()%>/spec.mo?currentPage="+currentPage+"&mno="+mno+"&page="+$(this).attr("id");
+            });
+            $("#mofidyDevice").on("click", function(){
+                <% if ( loginUser != null && loginUser.getUserName().equals("admin")) { %>
+                location.href="<%=request.getContextPath()%>/updateForm.mo?mno=<%=mo.getmNo()%>";
+                <% } %>
             });
         });
     </script>
