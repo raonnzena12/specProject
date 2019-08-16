@@ -28,7 +28,7 @@ public class ReplyUpdateFromServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cno = Integer.parseInt(request.getParameter("cno"));
 		
-		String content = new BoardService().replyContent(cno);
+		Reply content = new BoardService().replyContent(cno);
 		
 		String page= "";
 		

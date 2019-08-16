@@ -46,9 +46,19 @@ public class Board {
 		this.cgCategory = cgCategory;
 	}
 
-
-
-
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, int bCode, int bWriter,
+			int bCategory, String cgCategory) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.bRegdate = bRegdate;
+		this.bCode = bCode;
+		this.bWriter = bWriter;
+		this.bCategory = bCategory;
+		this.cgCategory = cgCategory;
+	}
 
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, int bCode, int bCategory,
 			String cgCategory) {
@@ -156,15 +166,6 @@ public class Board {
 		this.bModidate2 = bModidate2;
 		this.bCommCount = bCommCount;
 	}
-
-	public Board(int int1, String string, String string2, int int2, Date date, int int3, int int4, int int5,
-			String string3) {
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-
 
 	public String getbRegdate2() {
 		return bRegdate2;

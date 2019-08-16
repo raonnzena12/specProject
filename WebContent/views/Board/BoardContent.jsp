@@ -355,7 +355,7 @@
 	
 	function deleteReply(){
 		
-		var cno = $("#subdelete").parent().attr("id");
+		var cno = $(this).parent().attr("id");
 		
 		$.ajax({
 			url: "replydelete.bo",
@@ -374,28 +374,28 @@
 	
 	// 댓글 수정
 	$(document).on("click", "#subupdate", function(){
-		var cno = $("#subupdate").parent().attr("id");
+		var cno = $(this).parent().attr("id");
 		updateReply(cno);
+		console.log("cno=" + cno);
 	});
 	
 	function updateReply(cno){
-	
-		console.log(cno);
 		window.open("replyUpdateForm.bo?cno="+cno, "updateReply","width=805, height=260, resizable = no, scrollbars = no");
 		<%-- location.href='<%= request.getContextPath()%>/replyUpdateForm.bo?cno='+cno; --%>
+		console.log("cno=" + cno);
 		
 	}
 	
 	//댓글 신고
 	
 	$(document).on("click", "#subdanger", function(){
-		var cno = $("#subdanger").parent().attr("id");
+		var cno = $(this).parent().attr("id");
 		dangerReply(cno);
+		console.log("cno=" + cno);
 	});
 	
 	function dangerReply(cno){
-		console.log(cno);
-		window.open("replyDangerForm.bo?cno="+cno, "dangerReply", "width=800, height=500, resizable = no , scrollbars =no");
+		window.open("replyDangerForm.bo?cno="+ cno + "&dwriter=<%=loginUser.getUserNo()%>", "dangerReply", "width=800, height=550, resizable = no , scrollbars =no");
 		
 	}
 	
