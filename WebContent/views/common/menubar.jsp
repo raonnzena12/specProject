@@ -221,6 +221,9 @@
             // $(".compareMenu").slideToggle(500);
             $(".compareMenu").css("display", "block");
         });
+        $("#adminPage").click(function(){
+        	location.href="<%=request.getContextPath()%>/loadAdminMain.do";
+        });
 	});
 </script>
 </head>
@@ -238,7 +241,7 @@
         <!-- <section id="blank"></section> -->
         <ul id="login" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
              <% if( loginUser != null && loginUser.getUserStatus() == 0) {%>
-            <li><i class="material-icons">settings</i></li>
+            <li><i id="adminPage" class="material-icons">settings</i></li>
             	<% } %> 
             <li class=" nav-item dropdown">
             
@@ -272,8 +275,8 @@
         	<ul>
         		<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
         		<li><a href="inputPwdForm.me?code=1">정보수정</a></li>
-        		<li><a href="<%=request.getContextPath()%>/myBoardList.me">내글관리</a></li>
-        		<li><a href="<%=request.getContextPath()%>/myReviewList.me">내리뷰관리</a></li>
+        		<li><a href="myBoardList.me">내글관리</a></li>
+        		<li><a href="#">내리뷰관리</a></li>
         		<li><a href="#">내댓글관리</a></li>
         		<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
         	</ul>

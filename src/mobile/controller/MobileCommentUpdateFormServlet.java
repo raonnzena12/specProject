@@ -22,17 +22,13 @@ public class MobileCommentUpdateFormServlet extends HttpServlet {
 		// 댓글 수정창 처음 열었을떄
 		// 댓글 수정창 화면 보여줌
 		int mcNo = Integer.parseInt(request.getParameter("mcNo"));
-		int type = Integer.parseInt(request.getParameter("type"));
 		
-		MobileComment mc = new MobileService().selectComment(mcNo, type);
+		MobileComment mc = new MobileService().selectComment(mcNo);
 		
 		String page = "";
-		if ( mc != null && type == 1) {
+		if ( mc != null ) {
 			request.setAttribute("mc", mc);
 			page = "views/mobile/mobileCommeUpdate.jsp";
-		} else if ( mc != null && type == 2 ) {
-			request.setAttribute("mc", mc);
-			page = "views/mobile/compareCommeUpdate.jsp";
 		} else {
 			request.setAttribute("msg", "댓글 수정창 로드 실패");
 			page = "views/common/errorPage.jsp";
@@ -46,11 +42,10 @@ public class MobileCommentUpdateFormServlet extends HttpServlet {
 		// 실제 수정과정 실행함
 		int mcNo = Integer.parseInt(request.getParameter("mcNo"));
 		String text = request.getParameter("text");
-		int type = Integer.parseInt(request.getParameter("type"));
 		text = text.replaceAll("\n", "<br>");
 		
 		MobileComment mc = new MobileComment(mcNo, text);
-		int result = new MobileService().updateComment(mc, type);
+		int result = new MobileService().updateComment(mc);
 		
 		response.getWriter().print(result);
 	}

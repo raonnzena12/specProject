@@ -21,12 +21,11 @@ public class MobileCommentInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int refMoNo = Integer.parseInt(request.getParameter("mno"));
 		int mcoWriter = Integer.parseInt(request.getParameter("writer"));
-		int type = Integer.parseInt(request.getParameter("type"));
 		String mcoContent = request.getParameter("commCon");
 //		mcoContent = mcoContent.replaceAll("\n", "<br>");
 		
 		MobileComment mc = new MobileComment(mcoContent, refMoNo, mcoWriter);
-		int result = new MobileService().insertComment(mc, type);
+		int result = new MobileService().insertComment(mc);
 		
 		response.getWriter().print(result);
 	}

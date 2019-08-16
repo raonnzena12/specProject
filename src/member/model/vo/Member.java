@@ -83,7 +83,6 @@ public class Member implements java.io.Serializable { /**
 		this.userEmailHash = userEmailHash;
 	}
 
-
 	public Member(String userEmail, String userPwd, String userName, String phone, char userEvent, int userMno,
 			String userEmailHash) {
 		super();

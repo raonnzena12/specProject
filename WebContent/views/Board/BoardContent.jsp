@@ -123,22 +123,23 @@
        		float:right;
        		display:block;
        		/* border: 1px solid black; */
-       		width:50px;
+       		width:auto;
+       		
        	}
        	.num > p{
-       		margin:5px 0 5px 0;
+       		margin:5px 5px 5px 0;
        	}
        	#subdiv{
        		background-color: #dee2e6;
        		width: 100%;
        		height: 20px;
        	}
-       	}
+       	
        	#subdanger, #subupdate, #subdelete{
        		width: auto;
        		height:30px;
        		float: right;
-       		font-size: 10px;
+       		font-size: 7px;
        	}
        	/* {
        		width: auto;
@@ -301,37 +302,44 @@
   				
   				$.each(rList, function(i){
   					
-  					var $tr = $("<tr>");
-  					var $writerTh = $("<th>").text(rList[i].bcWriter).css("width","10%").attr("scope", "row");
-  					var $contentTd = $("<td>").attr("id","contentTd").css("width","60%");
-  					if(rList[i].cStatus == 2){
-  						$contentTd.text("유저에 의해 삭제된 글입니다.");
-  					}else if(rList[i].cStatus == 3){
-  						$contentTd.text("신고 누적으로 운영자에 의하여 삭제된 댓글입니다.");
+  					if(Object.keys(rList).length == 0){
+  						var $p = $("<p>").text("등록된 댓글이 없습니다.").css("textalign","center");
   					}else{
-  						$contentTd.html(rList[i].cContent);
+	  					var $tr = $("<tr>");
+	  					var $writerTh = $("<th>").text(rList[i].bcWriter).css("width","10%").attr("scope", "row");
+	  					var $contentTd = $("<td>").attr("id","contentTd").css("width","60%");
+	  					
+	  						if(rList[i].cStatus == "2"){
+	  	  						$contentTd.text("유저에 의해 삭제된 글입니다.");
+	  	  					}else if(rList[i].cStatus == "3"){
+	  	  						$contentTd.text("신고 누적으로 운영자에 의하여 삭제된 댓글입니다.");
+	  	  					}else{
+	  	  						$contentTd.html(rList[i].cContent);
+	  	  					}
+  					
+  					
+  					
+	  					var $buttonTd = $("<td>").attr("id", rList[i].cNo).css("width","15%");
+	  					var $button1 = $("<button>").addClass("btn btn-link").attr({"id":"subdanger" , "type":"button","onclick":"dangerReply();"}).text("신고").css({"color":"red", "font-weight":"bold"});
+	  					var $button2 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subupdate","onclick":"updateReply();"}).text("수정").css({"color":"black", "font-weight":"bold"});
+		  				var $button3 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subdelete","onclick":"deleteReply();"}).text("삭제").css({"color":"black", "font-weight":"bold"});
+		  				var $dateTd = $("<td>").text(rList[i].cRegdate).css("width","10%");
+		  				
+		  				if(rList[i].cStatus != 3){
+		  					if( <%=loginUser.getUserNo()%> == rList[i].cWriter ){
+		  						$buttonTd.append($button2);
+		  	  					$buttonTd.append($button3);
+		  					}else{
+		  						$buttonTd.append($button1);
+		  					}
+		  				}
+	  					
+	  					$tr.append($writerTh);
+	  					$tr.append($contentTd);
+	  					$tr.append($buttonTd);
+	  					$tr.append($dateTd);
+	  					$replyTable.append($tr);
   					}
-  					
-  					var $buttonTd = $("<td>").attr("id", rList[i].cNo).css("width","15%");
-  					var $button1 = $("<button>").text("신고").css({"color":"red", "font-weight":"bold"}).addClass("btn btn-link").attr({"id":"subdanger" , "type":"button"});
-  					var $button2 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subupdate","onclick":"updateReply();"}).text("수정").css({"color":"black", "font-weight":"bold"});
-	  				var $button3 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subdelete","onclick":"deleteReply();"}).text("삭제").css({"color":"black", "font-weight":"bold"});
-	  				var $dateTd = $("<td>").text(rList[i].cRegdate).css("width","10%");
-	  				
-	  				if(rList[i].cStatus != 3){
-	  					if( <%=loginUser.getUserNo()%> == rList[i].cWriter ){
-	  						$buttonTd.append($button2);
-	  	  					$buttonTd.append($button3);
-	  					}else{
-	  						$buttonTd.append($button1);
-	  					}
-	  				}
-  					
-  					$tr.append($writerTh);
-  					$tr.append($contentTd);
-  					$tr.append($buttonTd);
-  					$tr.append($dateTd);
-  					$replyTable.append($tr);
   				});
   			}
   		});
@@ -343,7 +351,7 @@
   		selectRlist();
   	}, 3000);
   	
-  	// 댓글 수정 삭제
+  	// 댓글 삭제
   	
   	<%-- function replyupdate(){
   		var cno = $("#subupdate").parent().attr("id");
@@ -377,6 +385,7 @@
 		});
 	}
 	
+	// 댓글 수정
 	$(document).on("click", "#subupdate", function(){
 		var cno = $("#subupdate").parent().attr("id");
 		updateReply(cno);
@@ -387,10 +396,9 @@
 		
 		var con = $("#contentTd").val(); */
 		console.log(cno);
-		window.open("replyUpdateForm.bo?cno="+cno, "updateReply","width=800, height=300");
+		window.open("replyUpdateForm.bo?cno="+cno, "updateReply","width=805, height=260, resizable = no, scrollbars = no");
 		<%-- location.href='<%= request.getContextPath()%>/replyUpdateForm.bo?cno='+cno; --%>
-		/* var cno = $("#subupdate").parent().attr("id");
-		
+		/*
 		$.ajax({
 			url: "replyupdate.bo",
 			type:"post",
@@ -404,6 +412,28 @@
 			}
 		}); */
 	}
+	
+	//댓글 신고
+	
+	function dangerReply(){
+		var cno = $("#subdanger").parent().attr("id");
+		
+		$.ajax({
+			url : "replyDangerServlet.bo",
+			type : "post",
+			data : {cno:cno},
+			success : function(result){
+				if(result > 0){
+					alert("정말 신고 하시겠습니까?");
+					selectRlist();
+				}else{
+					result = "신고 실패";
+				}
+				
+			}
+		});
+	}
+	
   	
   </script>
 </body>
