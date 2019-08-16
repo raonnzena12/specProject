@@ -445,5 +445,47 @@ public class MobileService {
 		return result;
 
 	}
-	
+
+	/**
+	 * 모바일 정보 (간략개요) update Service
+	 * @param mno
+	 * @param mi1
+	 * @return result
+	 */
+	public int updateMobileSummary(int mno, MobileInsert1 mi1) {
+		Connection conn = getConnection();
+		int result = new MobileDao().updateMobileSummary(conn, mno, mi1);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 모바일 정보(상세) update Service
+	 * @param mno
+	 * @param mi2
+	 * @return result 
+	 */
+	public int updateMobile(int mno, MobileInsert2 mi2) {
+		Connection conn = getConnection();
+		int result = new MobileDao().updateMobile(conn, mno, mi2);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 모바일 이미지 update Service
+	 * @param mno
+	 * @param mo
+	 * @return result 
+	 */
+	public int updateMobileImage(int mno, MoImage mo) {
+		Connection conn = getConnection();
+		int result = new MobileDao().updateMobileImage(conn, mno, mo);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
 }
