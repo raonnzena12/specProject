@@ -27,6 +27,7 @@ public class BoardMainTotalServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int bno = Integer.parseInt(request.getParameter("bno"));
+		
 		BoardService bService = new BoardService();
 		
 		// 페이징 처리
@@ -61,10 +62,10 @@ public class BoardMainTotalServlet extends HttpServlet {
 		
 		//------------------------------------------------------
 		/* int bNo = Integer.parseInt(request.getParameter("bNo")); */
-		
+	
 		ArrayList<Board> tlist = bService.selectTBoard(currentPage, limit, bno);
 		
-		
+			
 		String page = "";
 		if(tlist != null) {
 				page="views/Board/BoardMainTotal.jsp";

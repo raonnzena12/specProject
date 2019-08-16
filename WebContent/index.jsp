@@ -5,9 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>SPEC</title>
-<%@ include file ="/views/common/menubar.jsp" %>
 </head>
 <body>
+	<%@ include file ="/views/common/menubar.jsp" %>
 	<%@ include file ="/views/common/file.jsp" %>
 </body>
 </html>

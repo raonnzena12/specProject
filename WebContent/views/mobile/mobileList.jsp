@@ -69,17 +69,6 @@
     #mobileList .item1 img {
         height: 100%;
     }
-    #mobileList .item2 {
-        position: relative;
-    }
-    .item2 img {
-        width: 30px;
-        height: 30px;
-        opacity: 0.3;
-    }
-    .item2.comPP img {
-        opacity: 1;
-    }
     #mobileList .item3 {
         padding-left: 10px;
         float: left;
@@ -102,6 +91,9 @@
     #countBanner {
         display: inline-block;
         margin-right: 10px;
+    }
+    .item2 {
+        background-color: blueviolet;
     }
     .compare-drawer-con {
         position: fixed;
@@ -152,20 +144,10 @@
         line-height: 20px;
         margin: 20px 0 0 0;
     }
-    .deviceFImage {
-        width: 150px;
-        height: auto;
-    }
-    .compareBtn {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        top : 10px;
-        right: 10px;
-    }
 </style>
 <script>
+    // 시작시 함수 한번 호출 (주소창 값으로 필터링 하기 위해)
+    filtering();
     // 주소창 변경용 기본함수
     function ChangeUrl(page, url) {
         if (typeof (history.pushState) != "undefined") {
@@ -252,17 +234,9 @@
             var $div = $("<div>");
             var $deviceCon = $("<div>").addClass("deviceCon").attr("id",dList[i].mNo);
             var $item1 = $("<div>").addClass("item1");
-            var $img = $("<img>").addClass("deviceFImage");
-            if ( dList[i].mFrontImage == null ) {
-                $img.attr("src","<%=request.getContextPath()%>/image/smartphoneG.png");
-            } else {
-                $img.attr("src","<%=request.getContextPath()%>/image/mobileImages/"+dList[i].mFrontImage);
-            }
+            var $img = $("<img>").attr("src","<%=request.getContextPath()%>/image/testImgV50.png");
             $item1.append($img);
             var $item2 = $("<div>").addClass("item2");
-            var $span = $("<span>").addClass("compareBtn");
-            var $compareImg = $("<img>").attr("src","<%=request.getContextPath()%>/image/compare.png");
-            $item2.append($span.append($compareImg));
             var $item3 = $("<div>").addClass("item3").text(dList[i].mNameEn);
                 $deviceCon.append($item1, $item2, $item3);
             $div.append($deviceCon);
@@ -373,11 +347,11 @@
             location.href="<%=request.getContextPath()%>/spec.mo?currentPage="+currentPage+"&mno="+mno+"&page="+1;
         });
         // 비교 서랍메뉴 출력용
-        $(document).on("click",".item2>span", function(){
-            var $this = $(this).parent();
+        $(document).on("click",".item2", function(){
+            var $this = $(this);
             if ( $this.hasClass("comPP") ) return false;
             if ( $(".comP").length == 2 ) return false;
-            var mno = $this.parent().attr("id");
+            var mno = $(this).parent().attr("id");
             $.ajax({
                 url: "spec.mo",
                 type: "POST",
@@ -399,7 +373,7 @@
                 }
             });
             // 리스트 추가에 성공할 경우 해당 핸드폰에 comPP 라는 클래스를 덧붙인다
-            $this.addClass("comPP");
+            $(this).addClass("comPP");
             $("#mySidenav").addClass("open");
         });
         // 비교 서랍메뉴 비우고 서랍메뉴 닫기
@@ -422,25 +396,7 @@
             $("#"+id).children().eq(1).removeClass("comPP");
             $("#specCompare").attr("disabled", "disabled");
         });
-        // 비교 서랍에 핸드폰을 2개 담고 버튼을 누르면 비교화면으로 이동
-        $(document).on("click", "#specCompare", function(){
-            if ( $(".comP").length < 2 ) return false;
-            // 그럴일은 없겠지만 핸드폰이 2개 이하인 상태에서 버튼을 누르면 동작 안함
-            var com1 = $(".comP").eq(0).attr("comp");
-            var com2 = $(".comP").eq(1).attr("comp");
-            // 비교 서랍에 담겨있는 id값 2개 받아오기
-            if ( com1 == com2 ) return false; 
-            // 그럴일은 없겠지만 같은 핸드폰이 2번 담겼을 경우 동작 안함
-
-            location.href='<%=request.getContextPath()%>/compareSpec.mo?com1='+com1+'&com2='+com2;
-        }); 
-        $("#insertDevice").on("click", function(){
-            location.href = "<%=request.getContextPath()%>/insertForm.mo";
-        });
     });
-
-    // 시작시 함수 한번 호출 (주소창 값으로 필터링 하기 위해)
-    filtering();
 </script>
 </head>
 <body>
@@ -499,7 +455,7 @@
             <div class="resultsCont">
                 <% if ( loginUser != null && loginUser.getUserName().equals("admin") ) { %>
                 <div>
-                    <button class="btn btn-primary float-right" id="insertDevice">등록</button>
+                    <button class="btn btn-primary float-right">등록</button>
                 </div>
                     <% } %>
                 <h4 id="countBanner" class="font-weight-bolder">Search Results</h4>
@@ -507,7 +463,11 @@
             </div>
             <div class="listArea" id="listArea">
             <% if ( list.isEmpty() ) { %>
+<<<<<<< HEAD
                 <p> 검색된 기기가 없습니다. </p>
+=======
+                <p> 등록된 기기가 없습니다. </p>
+>>>>>>> branch 'master' of https://github.com/raonnzena12/specProject.git
             <% } else { 
                 for ( int i = 0 ; i < list.size() ; i++ ) {
                 	if ( i == randomAd ) { %>
@@ -518,11 +478,7 @@
                 <div>
                     <div class="deviceCon" id="<%= list.get(i).getmNo() %>">
                         <div class="item1">
-                            <% if (list.get(i).getmFrontImage() == null ) { %>
-                            <img src="<%=request.getContextPath()%>/image/smartphoneG.png" class="deviceFImage">
-                            <% } else { %>
-                                <img src="<%=request.getContextPath()%>/image/mobileImages/<%=list.get(i).getmFrontImage()%>" class="deviceFImage">
-                            <% } %>
+                            <img src="<%=request.getContextPath()%>/image/testImgV50.png">
                         </div>
                         <div class="item2"></div>
                         <div class="item3" id="<%=list.get(i).getmNo()%>"><%= list.get(i).getmNameEn() %></div>

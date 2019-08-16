@@ -216,6 +216,45 @@ public class BoardService {
 		
 	}
 
+
+
+	/**
+	 * 댓글 신고용 Service
+	 * @param cno
+	 * @return result
+	 */
+	public int dangerReply(int cno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().dangerReply(conn, cno);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+
+
+	/**
+	 * 게시판 검색용 Service
+	 * @param currentPage
+	 * @param limit
+	 * @param bno
+	 * @param search
+	 * @param text
+	 * @return tlist
+	 */
+	public ArrayList<Board> searchBoard(int currentPage, int limit, int bno, String search, String text) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> tlist = new BoardDao().searchBoard(conn,currentPage, limit, bno, search, text);
+		
+		return tlist;
+	}
+
 	
 
 	/**
