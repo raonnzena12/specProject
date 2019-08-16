@@ -29,7 +29,7 @@ public class ViewMobileServlet extends HttpServlet {
 		String page = "";
 		if ( device != null && specPage == 1 ) {
 			request.setAttribute("device", device);
-			page = "/views/mobile/mobileSpec.jsp";
+			page = "/views/mobile/mobileSpec.jsp"; 
 		} else if ( device != null && specPage == 2 ) {
 			request.setAttribute("device", device);
 			page = "/views/mobile/mobileReview.jsp"; 
