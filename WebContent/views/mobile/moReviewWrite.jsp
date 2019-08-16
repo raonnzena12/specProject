@@ -3,7 +3,7 @@ pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8"> 
 		<title>Write Review</title>
 		<script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 		<%@ include file="/views/common/menubar.jsp"%>
@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
     .reviewWrite {
         width: 1080px;
         margin: 50px auto;
-    }
+    } 
     #reviewWCon {
         width: 1080px;
         min-height: 200px;

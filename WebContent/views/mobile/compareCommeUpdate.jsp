@@ -3,9 +3,9 @@
 <%
     MobileComment mc = (MobileComment)request.getAttribute("mc");
 %>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>댓글 수정</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

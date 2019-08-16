@@ -4,8 +4,8 @@
 	    CompareT compare = (CompareT)request.getAttribute("compare");
 %>
 <!DOCTYPE html>
-<html>
-<head>
+<html> 
+<head> 
 <style>
     .comment>.borderLine, .comment .commWriteA {
         border: 1px solid #aaa;

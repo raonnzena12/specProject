@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <title>Insert Mobile</title>
 <style>
     .Mobilecontainer {
         width: 1080px;
-        margin: 0 auto;
+        margin: 0 auto; 
     }
     /* .Mobilecontainer div {
         min-height: 100px;

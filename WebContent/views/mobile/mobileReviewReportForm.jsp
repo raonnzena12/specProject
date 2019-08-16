@@ -3,9 +3,9 @@
 <%
     Review review = (Review)request.getAttribute("review");
 %>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>신고</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

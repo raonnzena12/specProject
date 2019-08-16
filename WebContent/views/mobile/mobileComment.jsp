@@ -5,7 +5,7 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <style>
     .comment>.borderLine, .comment .commWriteA {
         border: 1px solid #aaa;
@@ -152,7 +152,7 @@
                     title: 'Oops...',
                     text: '댓글삭제에 실패했습니다!'
                     // footer: '<a href>Why do I have this issue?</a>'
-                    });
+                    }); 
                 }
             }
         });
