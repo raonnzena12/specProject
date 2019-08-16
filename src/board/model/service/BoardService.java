@@ -87,8 +87,45 @@ public class BoardService {
 		return result;
 	}
 
+	/**
+	 * 게시글 삭제
+	 * @param bno
+	 * @return result
+	 */
+	public int deleteBoard(int bno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteBoard(conn, bno);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
 
+	
+	/**
+	 * 게시판 검색용 Service
+	 * @param currentPage
+	 * @param limit
+	 * @param bno
+	 * @param search
+	 * @param text
+	 * @return tlist
+	 */
+	public ArrayList<Board> searchBoard(int currentPage, int limit, int bno, String search, String text) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> tlist = new BoardDao().searchBoard(conn,currentPage, limit, bno, search, text);
+		
+		return tlist;
+	}
 
+	//------------------댓글 Service---------------------------------
+	
 	/**
 	 * 댓글 작성용 Service
 	 * @param r
@@ -140,26 +177,7 @@ public class BoardService {
 
 
 
-	/**
-	 * 게시글 삭제
-	 * @param bno
-	 * @return result
-	 */
-	public int deleteBoard(int bno) {
-		Connection conn = getConnection();
-		
-		int result = new BoardDao().deleteBoard(conn, bno);
-		
-		if(result > 0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		
-		return result;
-	}
-
-
+	
 
 	/**
 	 * 댓글 삭제용 Service
@@ -186,10 +204,10 @@ public class BoardService {
 	 * @param cno
 	 * @return content
 	 */
-	public String replyContent(int cno) {
+	public Reply replyContent(int cno) {
 		Connection conn = getConnection();
 		
-		String content = new BoardDao().replyContent(conn, cno);
+		Reply content = new BoardDao().replyContent(conn, cno);
 		
 		return content;
 	}
@@ -223,37 +241,38 @@ public class BoardService {
 	 * @param cno
 	 * @return result
 	 */
-	public int dangerReply(int cno) {
+	/*
+	 * public int dangerReply(int cno) { Connection conn = getConnection();
+	 * 
+	 * int result = new BoardDao().dangerReply(conn, cno);
+	 * 
+	 * if(result > 0) { commit(conn); }else { rollback(conn); } return result; }
+	 */
+	/**
+	 * 댓글 신고용 Service
+	 * @param text
+	 * @param dwriter
+	 * @param user
+	 * @param cno
+	 * @return result
+	 */
+	public int dangerReply(String text, int dwriter, int user, int cno) {
 		Connection conn = getConnection();
-		
-		int result = new BoardDao().dangerReply(conn, cno);
-		
+				
+		int result = new BoardDao().dangerReply(conn, text, dwriter, user, cno);
+				
 		if(result > 0) {
-			commit(conn);
+			commit(conn); 
 		}else {
-			rollback(conn);
+			rollback(conn); 
 		}
+		
+		
 		return result;
 	}
 
 
-
-	/**
-	 * 게시판 검색용 Service
-	 * @param currentPage
-	 * @param limit
-	 * @param bno
-	 * @param search
-	 * @param text
-	 * @return tlist
-	 */
-	public ArrayList<Board> searchBoard(int currentPage, int limit, int bno, String search, String text) {
-		Connection conn = getConnection();
-		
-		ArrayList<Board> tlist = new BoardDao().searchBoard(conn,currentPage, limit, bno, search, text);
-		
-		return tlist;
-	}
+	//------------------------------------------------------------------------
 
 	
 
@@ -283,5 +302,10 @@ public class BoardService {
 		
 		return mlist;
 	}
+
+
+	
+
+
 }
 

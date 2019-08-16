@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="board.model.vo.Reply"%>
 <%
-	String content = (String)request.getAttribute("content");
+	Reply content = (Reply)request.getAttribute("content");
 	int cno = (int)request.getAttribute("cno");
 
 %>
@@ -37,19 +37,11 @@
 </style>
 </head>
 <body  style="overflow-x:hidden; overflow-y:hidden;">
-	<%-- <div class="card border-primary mb-3" id="card" style="max-width: 50rem;">
-	  <div class="card-header">댓글 수정</div>
-	  <div class="card-body">
-	    <textarea rol="3" col="2" id="text"><%=content %></textarea>
-	    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom" id="updateReply">수정</button>
-		<button type="button" class="btn btn-primary" onclick="javascript:history.back();">취소</button>
-	  </div>
-	</div> --%>
 	<div class="card border-light mb-3" id="card" style="max-width: 50rem;">
 	  <div class="card-header">댓글 수정</div>
 	  <div class="card-body">
-	    <textarea rol="3" col="2" id="text"><%=content %></textarea>
-	    <button type="button" class="btn btn-primary" id="commentbtn" onclick="javascript:history.back();">취소</button>
+	    <textarea rol="3" col="2" id="text"><%=content.getcContent() %></textarea>
+	    <button type="button" class="btn btn-primary" id="commentbtn" onclick="javascript:self.close();">취소</button>
 	    <button type="button" class="btn btn-secondary" id="commentbtn" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom" id="updateReply">수정</button>
 	  </div>
 	</div>

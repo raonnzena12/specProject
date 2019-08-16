@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import board.model.service.BoardService;
 
 
-@WebServlet("/replyDangerServlet.bo")
+@WebServlet("/replyDanger.bo")
 public class ReplyDangerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -23,9 +23,12 @@ public class ReplyDangerServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String text = request.getParameter("text");
+		int dwriter = Integer.parseInt(request.getParameter("dwriter"));
+		int user = Integer.parseInt(request.getParameter("user"));
 		int cno = Integer.parseInt(request.getParameter("cno"));
 		
-		int result = new BoardService().dangerReply(cno);
+		int result = new BoardService().dangerReply(text, dwriter, user, cno);
 		
 		response.getWriter().print(result);
 	}

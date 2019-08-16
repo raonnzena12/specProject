@@ -135,7 +135,15 @@ public class BoardDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				board = new Board(rset.getInt("BNO"), rset.getString("BTITLE"), rset.getString("BCONTENT"), rset.getInt("BCOUNT"), rset.getDate("BREGDATE"), rset.getInt("BCODE"), rset.getInt("BWRITER"), rset.getInt("BCATEGORY"), rset.getString("CGCATEGORY"));
+				board = new Board(rset.getInt("BNO"),
+									rset.getString("BTITLE"),
+									rset.getString("BCONTENT"),
+									rset.getInt("BCOUNT"),
+									rset.getDate("BREGDATE"),
+									rset.getInt("BCODE"),
+									rset.getInt("BWRITER"),
+									rset.getInt("BCATEGORY"),
+									rset.getString("CGCATEGORY"));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -143,6 +151,7 @@ public class BoardDao {
 			close(rset);
 			close(pstmt);
 		}
+		
 		
 		return board;
 	}
@@ -226,7 +235,102 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	/**
+	 * 게시판 검색용 Dao
+	 * @param conn
+	 * @param currentPage
+	 * @param limit
+	 * @param bno
+	 * @param search
+	 * @param text
+	 * @return tlist
+	 */
+	public ArrayList<Board> searchBoard(Connection conn, int currentPage, int limit, int bno, String search,
+			String text) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> tlist = null;
+		
+		String query;
+		
+		if(bno == 0){
+			query = prop.getProperty("searchList"+ search + 0);
+		}else {
+			query = prop.getProperty("searchList"+ search);
+		}
+		
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			 
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			if(bno == 0) {
+				if(!search.equals("titleContent")) {
+					pstmt.setString(1, text);
+					pstmt.setInt(2, startRow);
+					pstmt.setInt(3, endRow);
+				}else {
+					pstmt.setString(1, text);
+					pstmt.setString(2, text);
+					pstmt.setInt(3, startRow);
+					pstmt.setInt(4, endRow);
+				}
+			}else {
+				if(!search.equals("titleContent")) {
+					pstmt.setInt(1, bno);
+					pstmt.setString(2, text);
+					pstmt.setInt(3, startRow);
+					pstmt.setInt(4, endRow);
+				}else {
+					pstmt.setInt(1, bno);
+					pstmt.setString(2, text);
+					pstmt.setString(3, text);
+					pstmt.setInt(4, startRow);
+					pstmt.setInt(5, endRow);
+				}
+			}
+			
+			
+			System.out.println(query);
+			
+			rset = pstmt.executeQuery();
+			
+			tlist = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board b = new Board(
+						rset.getInt("BNO"),
+						rset.getString("BTITLE"),
+						rset.getString("BCONTENT"),
+						rset.getInt("BCOUNT"),
+						rset.getDate("BREGDATE"),
+						rset.getInt("BCODE"),
+						rset.getString("BTYPE"),
+						rset.getInt("BWRITER"),
+						rset.getInt("BCATEGORY"),
+						rset.getString("CGCATEGORY")
+						);
+				tlist.add(b);
+			}
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return tlist;
+		
+	}
 
+
+	//-------------------댓글 Dao--------------------------------------
 
 
 
@@ -384,10 +488,10 @@ public class BoardDao {
 	 * @param cno
 	 * @return result
 	 */
-	public String replyContent(Connection conn, int cno) {
+	public Reply replyContent(Connection conn, int cno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String content = null;
+		Reply content = null;
 		
 		String query  = prop.getProperty("replyContent");
 		
@@ -398,7 +502,13 @@ public class BoardDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				content = rset.getString("CCONTENT");
+				content = new Reply( rset.getInt("CNO"),
+						rset.getString("CCONTENT"),
+						rset.getTimestamp("CREGDATE"),
+						rset.getInt("CWRITER"),
+						rset.getString("USER_NAME"),
+						rset.getInt("CSTATUS"),
+						rset.getInt("BNO"));
 			}
 			
 			
@@ -449,10 +559,13 @@ public class BoardDao {
 	/**
 	 * 댓글 신고용 Dao
 	 * @param conn
+	 * @param text 
 	 * @param cno
+	 * @param cno2 
+	 * @param user 
 	 * @return result
 	 */
-	public int dangerReply(Connection conn, int cno) {
+	public int dangerReply(Connection conn, String text, int dwriter, int user, int cno) {
 		PreparedStatement pstmt = null;
 		
 		int result = 0;
@@ -461,7 +574,10 @@ public class BoardDao {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, cno);
+			pstmt.setString(1, text);
+			pstmt.setInt(2, cno);
+			pstmt.setInt(3, dwriter);
+			pstmt.setInt(4, user);
 			
 			result = pstmt.executeUpdate();
 			
@@ -476,102 +592,9 @@ public class BoardDao {
 
 
 
-	/**
-	 * 게시판 검색용 Dao
-	 * @param conn
-	 * @param currentPage
-	 * @param limit
-	 * @param bno
-	 * @param search
-	 * @param text
-	 * @return tlist
-	 */
-	public ArrayList<Board> searchBoard(Connection conn, int currentPage, int limit, int bno, String search,
-			String text) {
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Board> tlist = null;
-		
-		String query;
-		
-		if(bno == 0){
-			query = prop.getProperty("searchList"+ search + 0);
-		}else {
-			query = prop.getProperty("searchList"+ search);
-		}
-		
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			 
-			int startRow = (currentPage - 1) * limit + 1;
-			int endRow = startRow + limit - 1;
-			if(bno == 0) {
-				if(!search.equals("titleContent")) {
-					pstmt.setString(1, text);
-					pstmt.setInt(2, startRow);
-					pstmt.setInt(3, endRow);
-				}else {
-					pstmt.setString(1, text);
-					pstmt.setString(2, text);
-					pstmt.setInt(3, startRow);
-					pstmt.setInt(4, endRow);
-				}
-			}else {
-				if(!search.equals("titleContent")) {
-					pstmt.setInt(1, bno);
-					pstmt.setString(2, text);
-					pstmt.setInt(3, startRow);
-					pstmt.setInt(4, endRow);
-				}else {
-					pstmt.setInt(1, bno);
-					pstmt.setString(2, text);
-					pstmt.setString(3, text);
-					pstmt.setInt(4, startRow);
-					pstmt.setInt(5, endRow);
-				}
-			}
-			
-			
-			System.out.println(query);
-			
-			rset = pstmt.executeQuery();
-			
-			tlist = new ArrayList<Board>();
-			
-			while(rset.next()) {
-				Board b = new Board(
-						rset.getInt("BNO"),
-						rset.getString("BTITLE"),
-						rset.getString("BCONTENT"),
-						rset.getInt("BCOUNT"),
-						rset.getDate("BREGDATE"),
-						rset.getInt("BCODE"),
-						rset.getString("BTYPE"),
-						rset.getInt("BWRITER"),
-						rset.getInt("BCATEGORY"),
-						rset.getString("CGCATEGORY")
-						);
-				tlist.add(b);
-			}
-			
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		
-		return tlist;
-		
-	}
-
-
-
 	
+
+	//---------------------------------------------------------------
 
 
 
