@@ -57,9 +57,15 @@
                 <label>브랜드<select name="brand" id="brand"  class="form-control">
                     <option selected>-----</option>
                     <option value="1">삼성</option>
-                    <option value="2">apple</option>
-                    <option value="3">LG전자</option>
-                    <option value="4">샤오미</option>
+                    <option value="2">LG전자</option>
+                    <option value="3">apple</option>
+                    <option value="4">팬택</option>
+                    <option value="5">HTC</option>
+                    <option value="6">모토로라</option>
+                    <option value="7">KT Tech</option>
+                    <option value="8">SK 텔레시스</option>
+                    <option value="9">소니 모바일</option>
+                    <option value="10">노키아</option>
                 </select></label>
                 <br><br>
                 <label>모델번호<input type="text" name="moCode" id="moCode" class="form-control" placeholder="모델번호 입력"></label>
