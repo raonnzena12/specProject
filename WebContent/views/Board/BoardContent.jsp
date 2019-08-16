@@ -352,19 +352,6 @@
   	}, 3000);
   	
   	// 댓글 삭제
-  	
-  	<%-- function replyupdate(){
-  		var cno = $("#subupdate").parent().attr("id");
-	  	location.href="<%=request.getContextPath()%>/replyupdate.bo?cno=" + cno;
-	}
-	function replydelete(){
-		var cno = $("#subdelete").parent().attr("id");
-		
-	  	if(confirm("정말 삭제하시겠습니까?")){
-	  		location.href="<%=request.getContextPath()%>/replydelete.bo?cno="+cno;
-	  		&bno=<%=b.getbNo()%>
-  		}
-	} --%>
 	
 	function deleteReply(){
 		
@@ -392,33 +379,30 @@
 	});
 	
 	function updateReply(cno){
-		/* var cno = $("#subupdate").parent().attr("id");
-		
-		var con = $("#contentTd").val(); */
+	
 		console.log(cno);
 		window.open("replyUpdateForm.bo?cno="+cno, "updateReply","width=805, height=260, resizable = no, scrollbars = no");
 		<%-- location.href='<%= request.getContextPath()%>/replyUpdateForm.bo?cno='+cno; --%>
-		/*
-		$.ajax({
-			url: "replyupdate.bo",
-			type:"post",
-			data:{cno, cno},
-			success : function(result){
-				if(result > 0){
-					selectRlist();
-				}else{
-					result = "댓글 수정 실패";
-				}
-			}
-		}); */
+		
 	}
 	
 	//댓글 신고
 	
-	function dangerReply(){
+	$(document).on("click", "#subdanger", function(){
 		var cno = $("#subdanger").parent().attr("id");
+		dangerReply(cno);
+	});
+	
+	function dangerReply(cno){
+		console.log(cno);
+		window.open("replyDangerForm.bo?cno="+cno, "dangerReply", "width=800, height=500, resizable = no , scrollbars =no");
 		
-		$.ajax({
+	}
+	
+	
+	
+	
+		/* $.ajax({
 			url : "replyDangerServlet.bo",
 			type : "post",
 			data : {cno:cno},
@@ -431,8 +415,8 @@
 				}
 				
 			}
-		});
-	}
+		}); */
+	
 	
   	
   </script>

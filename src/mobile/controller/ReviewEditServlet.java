@@ -15,7 +15,7 @@ import mobile.model.vo.Review;
 public class ReviewEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ReviewEditServlet() {
+    public ReviewEditServlet() { 
         super();
     }
 

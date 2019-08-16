@@ -5,7 +5,7 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>SPEC TOP</title>
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
@@ -20,6 +20,10 @@
         width: 300px;
         height: 500px;
         float: left;
+    }
+    #deviceFront{
+        height: 400px;
+        width: auto;        
     }
     #mobileName {
         float: right;
@@ -109,6 +113,11 @@
         </div>
         <% } %>
         <div id="mobileView">
+            <% if ( mo.getmFrontImage() == null ) { %>
+            <img src="<%=request.getContextPath()%>/image/smartphoneG.png" id="deviceFront">
+            <% } else { %>
+            <img src="<%=request.getContextPath()%>/image/mobileImages/<%=mo.getmFrontImage()%>" id="deviceFront">
+            <% } %>
         </div>
         <div id="mobileName">
             <label><%= mo.getmBrandName() %></label>

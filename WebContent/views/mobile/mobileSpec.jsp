@@ -4,7 +4,7 @@
 	/* Mobile mo = (Mobile)request.getAttribute("device"); */
 %>
 <!DOCTYPE html>
-<html>
+<html>  
 <head>
 <meta charset="UTF-8">
 <title>mobileSpec</title>

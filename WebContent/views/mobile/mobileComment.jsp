@@ -5,7 +5,7 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <style>
     .comment>.borderLine, .comment .commWriteA {
         border: 1px solid #aaa;
@@ -54,6 +54,9 @@
     .swal2-confirm.btn.btn-primary { 
         margin-left: 10px;
     }
+    .reported {
+        color: #aaa;
+    }
 </style>
 <script>
     // 페이지 로딩시 코멘트 로딩 함수 한번 호출
@@ -61,11 +64,15 @@
     // 코멘트 로딩 함수
     function loadComment(){
         var mno = <%=mo.getmNo()%>;
+        var uno = -1;
+        <% if (loginUser != null){ %>uno = <%=loginUser.getUserNo()%>;<% } %>
 
         $.ajax({
             url: "commentLoad.mo",
             type: "POST",
-            data: { mno : mno },
+            data: { mno : mno,
+                    uno : uno, 
+            		type : 1 },
             dataType: "json",
             error: function(e){
                 console.log(e);
@@ -78,7 +85,8 @@
     // 코멘트 등록 함수
     function writeComment(){
         var mno = <%=mo.getmNo()%>;
-        <%if ( loginUser != null ) {%>var writer = <%=loginUser.getUserNo()%>;<%}%>
+        var writer = -1;
+        <%if ( loginUser != null ) {%>writer = <%=loginUser.getUserNo()%>;<%}%>
         var commCon = $("#commCon").val().replace(/(\n|\r\n)/g, '<br>');
         console.log(commCon);
         if ( commCon.trim().length == 0 ) {
@@ -98,7 +106,8 @@
             url: "commentInsert.mo",
             data: { mno: mno,
                     writer: writer,
-                    commCon: commCon },
+                    commCon: commCon,
+                    type : 1 },
             type: "POST",
             error: function(e){
                 console.log(e);
@@ -124,7 +133,8 @@
         $.ajax({
             url: "commentDelete.mo",
             type: "POST",
-            data: { mcNo: id},
+            data: { mcNo: id,
+            		type: 1},
             error: function(e){
                 console.log(e);
             },
@@ -142,7 +152,7 @@
                     title: 'Oops...',
                     text: '댓글삭제에 실패했습니다!'
                     // footer: '<a href>Why do I have this issue?</a>'
-                    });
+                    }); 
                 }
             }
         });
@@ -150,8 +160,14 @@
     }
     // 코멘트 수정창 호출 함수
     function updateComment(id) {
-        window.open("modifyComment.mo?mcNo="+id, "updateForm", "width=800px, height=300px, resizable = no, scrollbars = no");
+        window.open("modifyComment.mo?mcNo="+id+"&type=1", "updateForm", "width=800px, height=300px, resizable = no, scrollbars = no");
     }
+    // 코멘트 신고창 호출 함수
+    <% if( loginUser != null ) {%>
+    function reportComment(id) {
+        window.open("reportComment.mo?mcNo="+id+"&type=1&num=<%=loginUser.getUserNo()%>", "reportForm", "width=680px, height=700px, resizable = no, scrollbars = no")
+    }
+    <% } %>
     // 코멘트 프린트 함수
     function printComment(cList){
         var userNo = 0;
@@ -190,6 +206,9 @@
                 else if ( cList[i].mcoWriter == userNo ) { // 내 댓글일 경우 수정 / 삭제 출력
                     $control.append($modify, $delete);
                 } else { // 내 댓글이 아닐 경우 신고 출력
+                    if ( cList[i].mcoIreport == 1 ) {
+                        $report.addClass("reported");
+                    }
                     $control.append($report);
                 }
                 var $commCon = $("<div>").addClass("commCon");
@@ -198,7 +217,10 @@
                     $commCon.text("유저에 의하여 삭제된 댓글입니다.");
                 } else if ( cList[i].mcoStatus == 3 ) {
                     // 신고 누적으로 제재당한 댓글일 경우 출력글
-                    $commCon.text("신고 누적으로 운영자에 의하여 삭제된 댓글입니다.");
+                    $commCon.text("운영자에 의하여 삭제된 댓글입니다.");
+                } else if ( cList[i].mcoStatus != 3 && cList[i].mcoReportCount > 10 ) { 
+                    // 제재당하진 않았지만 누적 신고수가 정해진 건수 이상일 때
+                    $commCon.text("신고 누적으로 인하여 일시적으로 노출이 중지된 댓글입니다");
                 } else {
                     // 일반 상태일 경우 댓글내용을 출력
                     $commCon.html(cList[i].mcoContent);
@@ -253,9 +275,7 @@
                     });
                 }
             });
-            // $.fn.insertComment = function(){
-
-            // }
+            // 댓글 삭제 눌렀을시 동작
             $(document).on("click",".deleteComm", function(){
                 var id = $(this).parent().attr("id");
                 const swalWithBootstrapButtons = Swal.mixin({
@@ -290,9 +310,15 @@
                 // }
                 });
             });
+            // 댓글 수정 눌렀을때의 동작
             $(document).on("click",".modifyComm", function(){
                 var id = $(this).parent().attr("id");
                 updateComment(id);
+            });
+            // 댓글 신고 눌렀을때의 동작
+            $(document).on("click", ".reportComm", function(){
+                var id = $(this).parent().attr("id");
+                reportComment(id);
             });
         });
     </script>
