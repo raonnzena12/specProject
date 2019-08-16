@@ -25,8 +25,13 @@ public class ReviewLoadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mno = Integer.parseInt(request.getParameter("mno"));
 		int uno = Integer.parseInt(request.getParameter("uno"));
+		ArrayList<Review> rList = null;
 		
-		ArrayList<Review> rList = new MobileService().selectReviewList(mno, uno);
+		if ( uno < 0 ) {
+			rList = new MobileService().selectReviewList(mno);
+		} else {
+			rList = new MobileService().selectReviewListUser(mno, uno);
+		}
 		new Gson().toJson(rList, response.getWriter());
 	}
 

@@ -3,14 +3,16 @@ package mobile.model.vo;
 import java.sql.Timestamp;
 
 public class MobileComment {
-	int mcoNo;
-	String mcoContent;
-	Timestamp mcoRegDate;
-	Timestamp mcoModiDate;
-	int refMoNo;
-	int mcoWriter;
-	String mcoWName;
-	int mcoStatus;
+	private int mcoNo;
+	private String mcoContent;
+	private Timestamp mcoRegDate;
+	private Timestamp mcoModiDate;
+	private int refMoNo;
+	private int mcoWriter;
+	private String mcoWName;
+	private int mcoStatus;
+	private int mcoIreport;
+	private int mcoReportCount;
 	
 	public MobileComment() {}
 	
@@ -41,6 +43,13 @@ public class MobileComment {
 			int mcoWriter, String mcoWName, int mcoStatus) {
 		this(mcoNo, mcoContent, mcoRegDate, refMoNo, mcoWriter, mcoWName, mcoStatus);
 		this.mcoModiDate = mcoModiDate;
+	}
+	
+	public MobileComment(int mcoNo, String mcoContent, Timestamp mcoRegDate, Timestamp mcoModiDate, int refMoNo,
+			int mcoWriter, String mcoWName, int mcoStatus, int mcoIreport, int mcoReportCount) {
+		this(mcoNo, mcoContent, mcoRegDate, mcoModiDate, refMoNo, mcoWriter, mcoWName, mcoStatus);
+		this.mcoIreport = mcoIreport;
+		this.mcoReportCount = mcoReportCount;
 	}
 
 	public int getMcoNo() {
@@ -105,6 +114,22 @@ public class MobileComment {
 
 	public void setMcoStatus(int mcoStatus) {
 		this.mcoStatus = mcoStatus;
+	}
+	
+	public int getMcoIreport() {
+		return mcoIreport;
+	}
+
+	public void setMcoIreport(int mcoIreport) {
+		this.mcoIreport = mcoIreport;
+	}
+
+	public int getMcoReportCount() {
+		return mcoReportCount;
+	}
+
+	public void setMcoReportCount(int mcoReportCount) {
+		this.mcoReportCount = mcoReportCount;
 	}
 
 	@Override
