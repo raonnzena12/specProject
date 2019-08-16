@@ -5,7 +5,7 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>SPEC TOP</title>
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>

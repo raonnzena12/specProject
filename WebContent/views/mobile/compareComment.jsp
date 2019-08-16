@@ -4,7 +4,7 @@
 	    CompareT compare = (CompareT)request.getAttribute("compare");
 %>
 <!DOCTYPE html>
-<html>
+<html> 
 <head> 
 <style>
     .comment>.borderLine, .comment .commWriteA {

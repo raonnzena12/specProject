@@ -3,7 +3,7 @@
 <%
     MobileComment mc = (MobileComment)request.getAttribute("mc");
 %>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head> 
 <meta charset="UTF-8">

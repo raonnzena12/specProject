@@ -3,7 +3,7 @@
 <%
     Review review = (Review)request.getAttribute("review");
 %>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head> 
 <meta charset="UTF-8">

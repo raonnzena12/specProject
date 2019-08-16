@@ -4,7 +4,7 @@
     MobileComment mc = (MobileComment)request.getAttribute("mc");
 %>
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
 <meta charset="UTF-8"> 
 <title>신고</title>
