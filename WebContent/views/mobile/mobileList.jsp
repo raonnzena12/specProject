@@ -62,24 +62,35 @@
         flex-basis: 20%;
         padding: 10px;
     }
+    .conHover{
+        border: #999;
+        box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.1);
+    }
     #mobileList .deviceCon {
         width: 300px;
         height: 100%;
-        margin: 30px auto;
+        margin: 0px auto;
         display: grid;
-        grid-template-columns: 52% 48%;
-        grid-template-rows: 50% 50%;
+        grid-template-columns: 30% 70%;
+        grid-template-rows: 20% 40% 40%;
         cursor: pointer;
     }
     #mobileList .item1 {
         grid-row-start: 1;
         grid-row-end: 3;
+        position: relative;
     }
-    #mobileList .item1 img {
-        height: 100%;
+    #mobileList .item1>img {
+        width: 85%;
+        height: auto;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
     }
     #mobileList .item2 {
         position: relative;
+        grid-row-start: 1;
+        grid-row-end: 2;
     }
     .item2 img {
         width: 30px;
@@ -95,7 +106,18 @@
         text-align: left;
         font-weight: bolder;
         font-size: 35px;
-        line-height: 35px;
+        display: table;
+    }
+    .item3>div {
+        display: table-cell;
+        vertical-align: bottom;
+    }
+    #mobileList .item4{
+        grid-column-start: 1;
+        grid-column-end: 3;
+        margin: 10px;
+        border-radius: 5px;
+        background-color: #eee;
     }
     .brandName input {
         display: none;
@@ -171,6 +193,7 @@
         top: 11px;
         right: 5px;
         position: absolute;
+        cursor: pointer;
     }
     .comPhone {
         position: relative;
@@ -181,6 +204,7 @@
         /* line-height: 20px; */
         margin-top: 3px;
         right: 5px;
+        cursor: pointer;
     }
     #mySidenav button{
         line-height: 20px;
@@ -286,7 +310,7 @@
         var $listArea = $("#listArea");
         var $addiv = $("<div>");
         $.each(dList, function(i){
-            var $div = $("<div>");
+            var $div = $("<div>").addClass("deContainer");
             var $deviceCon = $("<div>").addClass("deviceCon").attr("id",dList[i].mNo);
             var $item1 = $("<div>").addClass("item1");
             var $img = $("<img>").addClass("deviceFImage");
@@ -300,8 +324,11 @@
             var $span = $("<span>").addClass("compareBtn");
             var $compareImg = $("<img>").attr("src","<%=request.getContextPath()%>/image/compare.png");
             $item2.append($span.append($compareImg));
-            var $item3 = $("<div>").addClass("item3").text(dList[i].mNameEn);
-                $deviceCon.append($item1, $item2, $item3);
+            var $item3 = $("<div>").addClass("item3");
+            var $item3P = $("<div>").text(dList[i].mNameEn);
+            $item3.append($item3P);
+            var $item4 = $("<div>").addClass("item4");
+                $deviceCon.append($item1, $item2, $item3, $item4);
             $div.append($deviceCon);
             $listArea.append($div);
             if ( i == 4 ) {
@@ -405,12 +432,7 @@
         $( "#ScreenAmount" ).val( $( "#slider-screen" ).slider( "values", 0 ) +
         " Inch - " + $( "#slider-screen" ).slider( "values", 1 ) + " Inch" );
         // 리스트 상세 조회용 함수!
-        $(document).on("click",".item1",function(){
-            var mno = $(this).parent().attr("id");
-            console.log(mno);
-            location.href="<%=request.getContextPath()%>/spec.mo?currentPage="+currentPage+"&mno="+mno+"&page="+1;
-        });
-        $(document).on("click",".item3",function(){
+        $(document).on("click",".item1, .item3, .item4",function(){
             var mno = $(this).parent().attr("id");
             console.log(mno);
             location.href="<%=request.getContextPath()%>/spec.mo?currentPage="+currentPage+"&mno="+mno+"&page="+1;
@@ -558,7 +580,7 @@
                 	<div class="deviceCon">AD</div>
                 </div>
             <% randomAd = 0; i--; } else { %>
-                <div>
+                <div class="deContainer">
                     <div class="deviceCon" id="<%= list.get(i).getmNo() %>">
                         <div class="item1">
                             <% if (list.get(i).getmFrontImage() == null ) { %>
@@ -567,8 +589,13 @@
                                 <img src="<%=request.getContextPath()%>/image/mobileImages/<%=list.get(i).getmFrontImage()%>" class="deviceFImage">
                             <% } %>
                         </div>
-                        <div class="item2"></div>
-                        <div class="item3" id="<%=list.get(i).getmNo()%>"><%= list.get(i).getmNameEn() %></div>
+                        <div class="item2">
+                            <span class="compareBtn">
+                                <img src="<%=request.getContextPath()%>/image/compare.png">
+                            </span>
+                        </div>
+                        <div class="item3" id="<%=list.get(i).getmNo()%>"><div><%= list.get(i).getmNameEn() %></div></div>
+                        <div class="item4"></div>
                     </div>
                 </div>
             <% } } } %> --%>
@@ -628,15 +655,20 @@
         }
         $(function(){
             $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-                console.log($(window).scrollTop());
-                console.log($(document).height());
-                console.log($(window).height());
-                console.log($(document).height() - $(window).height());
-                console.log($(window).scrollTop() >= ($(document).height() - $(window).height() - 1));
+                // console.log($(window).scrollTop());
+                // console.log($(document).height());
+                // console.log($(window).height());
+                // console.log($(document).height() - $(window).height());
+                // console.log($(window).scrollTop() >= ($(document).height() - $(window).height() - 1));
                 if($(window).scrollTop() >= ($(document).height() - $(window).height() - 0.5) ){
                     listLoading();
                 } 
             });
+        })
+        $(document).on("mouseenter", ".deContainer", function(){
+            $(this).addClass("conHover");
+        }).on("mouseleave",".deContainer", function(){
+            $(this).removeClass("conHover");
         })
     </script>
 </body>
