@@ -506,7 +506,7 @@
                 <span id="countNum"><%=pInf.getListCount()%></span>
             </div>
             <div class="listArea" id="listArea">
-            <%-- <% if ( list.isEmpty() ) { %>
+            <% if ( list.isEmpty() ) { %>
                 <p> 검색된 기기가 없습니다. </p>
             <% } else { 
                 for ( int i = 0 ; i < list.size() ; i++ ) {
@@ -549,11 +549,15 @@
         var currentPage = 1;
         var limit = <%=pInf.getLimit()%>;
         var maxPage = <%=pInf.getMaxPage()%>;
-
         <%-- 리스트 갱신 함수
          처음 접속했을때는 모든 리스트를 받아오고
          필터링 했을때는 필터링한 리스트를 받아옴(그렇게 동작했으면 좋겠다) --%>
         function listLoading() {
+            if ( currentPage == maxPage ) {
+                // $("#loadBtn").attr("disabled","disabled");
+                console.log(currentPage);
+                return false;
+            }
             var address = document.location.href.split("?");
             var qString = "";
             if ( address.length != 1 ) qString = address[1];
@@ -575,13 +579,22 @@
                     // console.log(dList.return)
                     // console.log(Object.keys(dList).length);
                     printList(dList);
-                    if ( currentPage == maxPage ) {
-                        $("#loadBtn").attr("disabled","disabled");
-                    }
                 }
             });
             
         }
+        $(function(){
+            $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+                console.log($(window).scrollTop());
+                console.log($(document).height());
+                console.log($(window).height());
+                console.log($(document).height() - $(window).height());
+                console.log($(window).scrollTop() >= ($(document).height() - $(window).height() - 1));
+                if($(window).scrollTop() >= ($(document).height() - $(window).height() - 0.1) ){
+                    listLoading();
+                } 
+            });
+        })
     </script>
 </body>
 </html>
