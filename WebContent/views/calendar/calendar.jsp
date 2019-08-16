@@ -17,7 +17,6 @@
 <script src='<%= request.getContextPath() %>/js/moment.min.js'></script>
 <script src='<%= request.getContextPath() %>/js/fullcalendar.min.js'></script>
 <script src='<%= request.getContextPath() %>/js/ko.js'></script>
-<title>Calendar</title>
 <script>
 
 	$(document).ready(function(){

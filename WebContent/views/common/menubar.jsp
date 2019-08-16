@@ -221,6 +221,9 @@
             // $(".compareMenu").slideToggle(500);
             $(".compareMenu").css("display", "block");
         });
+        $("#adminPage").click(function(){
+        	location.href="<%=request.getContextPath()%>/loadAdminMain.do";
+        });
 	});
 </script>
 </head>
@@ -238,7 +241,7 @@
         <!-- <section id="blank"></section> -->
         <ul id="login" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
              <% if( loginUser != null && loginUser.getUserStatus() == 0) {%>
-            <li><i class="material-icons">settings</i></li>
+            <li><i id="adminPage" class="material-icons">settings</i></li>
             	<% } %> 
             <li class=" nav-item dropdown">
             
