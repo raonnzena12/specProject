@@ -4,7 +4,7 @@
 	ArrayList<Mobile> list = (ArrayList<Mobile>)request.getAttribute("list");
 	PageInfo pInf = (PageInfo)request.getAttribute("pInf");
     int randomAd = (int)(Math.random()*(list.size()-1))+1;
-    
+     
     boolean admin = true;
 %>
 <!DOCTYPE html>

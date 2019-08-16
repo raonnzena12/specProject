@@ -4,7 +4,7 @@
     Mobile device1 = (Mobile)request.getAttribute("device1");
     Mobile device2 = (Mobile)request.getAttribute("device2");
 
-%>
+%> 
 <!DOCTYPE html>
 <html>
 <head>

@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
     .reviewWrite {
         width: 1080px;
         margin: 50px auto;
-    }
+    } 
     #reviewWCon {
         width: 1080px;
         min-height: 200px;

@@ -5,7 +5,7 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <style>
     .comment>.borderLine, .comment .commWriteA {
         border: 1px solid #aaa;
