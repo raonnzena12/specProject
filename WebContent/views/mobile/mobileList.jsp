@@ -436,13 +436,16 @@
         });
         // 배터리 기타 설정용
         $("input[name=batEtc]").on("change", function(){
-            var urlString = "batEtc";
-            $.each($("input[name=batEtc]:checked"), function(){
-                urlString += ":" + $(this).val();
-            })
-            console.log(urlString);
-            assembleUrl("batEtc", urlString);
-            filtering();
+            if ( $("input[name=batEtc]:checked").length == 0 ) {
+                deleteUrl("batEtc");
+            } else {
+                var urlString = "batEtc";
+                $.each($("input[name=batEtc]:checked"), function(){
+                    urlString += ":" + $(this).val();
+                })
+                assembleUrl("batEtc", urlString);
+                filtering();
+            }
         });
         // 슬라이더바 스크린 설정
         $( "#slider-screen" ).slider({
@@ -607,6 +610,10 @@
                     <div class="custom-control custom-checkbox my-1 mr-sm-2">
                         <input type="checkbox" name="batEtc" id="wireless" class="custom-control-input" value="wirelessC">
                         <label class="custom-control-label" for="wireless">무선충전 지원</label><br>
+                    </div>
+                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                        <input type="checkbox" name="batEtc" id="removable" class="custom-control-input" value="removable">
+                        <label class="custom-control-label" for="removable">착탈식 배터리</label><br>
                     </div>
                 </div>
             </ul>
