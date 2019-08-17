@@ -193,7 +193,6 @@
 				<p>댓글<%= replycount %></p>
 			</div>
 		</article>
-		
 		<textarea row="50" col="15" name="content" id="contentarea" style="resize:none;" readonly><%=b.getbContent() %></textarea>
    	</section>
    	
