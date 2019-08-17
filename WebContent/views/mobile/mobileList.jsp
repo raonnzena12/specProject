@@ -29,7 +29,7 @@
     }
     #mobileList .sidenav>ul>div {
         /* display: none; */
-        background-color: #ddd;
+        background-color: #eee;
         padding: 15px;
     }
     #mobileList .sidenav {
@@ -39,9 +39,10 @@
         z-index: 1; /* Stay on top */
         top: 0; /* Stay at the top */
         left: 0;
-        background-color: #eee; 
+        /* background-color: #eee;  */
         overflow-x: hidden; /* Disable horizontal scroll */
-        padding: 100px 10px 0 20px;
+        padding: 100px 20px 0 20px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
     }   
     #mobileList .main {
         margin-left: 250px; /* 사이드바 가로길이 변경 시 같이 바꿔줄 것 */
@@ -123,7 +124,7 @@
         display: none;
     }
     .brandName label {
-        background-color: rgb(167, 172, 170);
+        background-color: #ccc;
         border-radius: 15px;
         padding: 2px 7px;
         font-size: 13px;
@@ -222,6 +223,14 @@
         top : 10px;
         right: 10px;
     }
+    .loading {
+        text-align: center;
+    }
+    #loadingImg {
+        opacity: 0;
+        width: 30px;
+        height: auto;
+    }
 </style>
 <script>
     // 주소창 변경용 기본함수
@@ -282,6 +291,8 @@
     }
     // ajax 호출 -> 리스트 업데이트용! 
     function filtering(){
+        // 스크롤 최상단으로 위치시키기
+        $('html').animate({scrollTop : 0}, 300);
         var address = document.location.href.split("?");
         var qString = "";
         if ( address.length != 1 ) {
@@ -600,7 +611,10 @@
                 </div>
             <% } } } %> --%>
             </div>
-            <button type="button" onclick="listLoading()" id="loadBtn">로딩</button>
+            <div class="loading">
+                <img src="<%=request.getContextPath()%>/image/loading.gif" id="loadingImg">
+            </div>
+            <!-- <button type="button" onclick="listLoading()" id="loadBtn">로딩</button> -->
         </section>
     </section>
     <div class="compare-drawer-con border rounded" id="mySidenav">
@@ -661,7 +675,12 @@
                 // console.log($(document).height() - $(window).height());
                 // console.log($(window).scrollTop() >= ($(document).height() - $(window).height() - 1));
                 if($(window).scrollTop() >= ($(document).height() - $(window).height() - 0.5) ){
-                    listLoading();
+                    if ( currentPage == maxPage ) return false;
+                    $("#loadingImg").css("opacity","1");
+                    setTimeout(function(){
+                        listLoading();
+                        $("#loadingImg").css("opacity","0");
+                    },500);
                 } 
             });
         })

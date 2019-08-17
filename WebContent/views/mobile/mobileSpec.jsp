@@ -8,7 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>mobileSpec</title>
-<script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<%@ include file ="/views/common/menubar.jsp" %>
+<%@ include file = "mobileSpecTop.jsp"%>
+<!-- <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script> -->
+<!-- Google WebIcon -->
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
 <style>
     .Mobilecontainer {
         width: 1080px;
@@ -26,6 +30,7 @@
     .mobileMid {
     	clear: both;
     }
+    /* summary 부분 CSS */
     #specSummary {
         height: 310px;
         background-color: #eee;
@@ -46,6 +51,17 @@
     #brand {
         width: 200px;
         height: 200px;
+        position: relative;
+    }
+    #summaryLogo {
+        width: 180px;
+        height: auto;
+        margin: auto;
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;;
     }
     #size {
         width: 180px;
@@ -72,7 +88,24 @@
         clear: both;
         width: 200px;
         height: 80px;
+        font-weight: 600;
+        text-align: center;
+        line-height: 80px;
     }
+    #battery span {
+        background-color: #666;
+        display: inline-block;
+        /* color: white; */
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        /* transform: rotate(90deg); */
+    }
+    /* #battery i {
+        color: white;
+        font-size: 14px;
+        z-index: 200;
+    } */
     #display {
         width: 80px;
         height: 80px;
@@ -102,20 +135,40 @@
         width: 900px;
         margin: 0 auto;
     }
+
 </style>
+<script>
+    $(function(){
+        <% switch ( mo.getmBrandName() ) { 
+        case "삼성전자" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-samsung.png"); <% break; 
+        case "LG전자" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-lg.png");<% break; 
+        case "애플" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-apple.png");<% break; 
+        case "팬택" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-Pantech.png");<% break; 
+        case "HTC" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-htc.png");<% break; 
+        case "모토로라" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-motorola.png");<% break; 
+        case "KT Tech" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-KT_Tech.png");<% break; 
+        case "SK 텔레시스" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-sk telesys.png");<% break; 
+        case "소니 모바일" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-sony.png");<% break; 
+        case "노키아" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-nokia.png");<% break; 
+        } %>
+    });
+
+</script>
 </head>
 <body>
- 	<%@ include file ="/views/common/menubar.jsp" %>
-    <%@ include file = "mobileSpecTop.jsp"%>
 	<section class="Mobilecontainer">
         <div id="specSummary">
-            <div id="brand"><%= mo.getmBrandName() %></div>
+            <div id="brand">
+                <img id="summaryLogo">
+            </div>
             <div id="size"><%= mo.getmSize() %></div>
             <div id="weight"><%= mo.getmWeight() %></div>
             <div id="gb"><%= mo.getmInnerMemory() %></div>
             <div id="ap"><%= mo.getmAp() %></div>
             <div id="os"><%= mo.getmOsName() %></div>
-            <div id="battery"><%= mo.getmBattery() %></div>
+            <div id="battery">
+                <!-- <i class="material-icons">battery_90</i> -->
+                <%= mo.getmBattery() %> mAh</div>
             <div id="display"><%= mo.getmDisplayType() %></div>
             <div id="ram"><%= mo.getmRam() %></div>
             <div id="disSize"><%= mo.getmInch() %></div>
