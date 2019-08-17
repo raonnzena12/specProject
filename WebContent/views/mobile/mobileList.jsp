@@ -103,6 +103,7 @@
     }
     #mobileList .item3 {
         padding-left: 10px;
+        line-height: 34px;
         float: left;
         text-align: left;
         font-weight: bolder;
@@ -154,7 +155,7 @@
     #batAmount, #ScreenAmount {
   		border: 0px;
   		font-weight: bold;
-  		background-color: #ddd;
+  		background-color: rgba(255,255,255,0);
   	}
     #countBanner {
         display: inline-block;
@@ -230,6 +231,9 @@
         opacity: 0;
         width: 30px;
         height: auto;
+    }
+    #slider-battery {
+        margin: 0 0 15px 0;
     }
 </style>
 <script>
@@ -417,6 +421,19 @@
         });
         $( "#batAmount" ).val( $( "#slider-battery" ).slider( "values", 0 ) +
         " mAh - " + $( "#slider-battery" ).slider( "values", 1 ) + " mAh" );
+        // 배터리 타입 설정용
+        $("#batType").on("change", function(){
+            var batType = $(this).val();
+            console.log(batType);
+            var urlString = "batType:"
+            if ( batType == 0 ) {
+                deleteUrl("batType");
+            } else {
+                urlString += batType;
+                assembleUrl("batType",urlString);
+            }
+            filtering();
+        });
         // 슬라이더바 스크린 설정
         $( "#slider-screen" ).slider({
         range: true,
@@ -551,10 +568,10 @@
                     </p>
                     <div id="slider-screen"></div>
                 </div>
-                <li class="sideOpen">
+                <!-- <li class="sideOpen">
                     Color <span class="filteringOn"><i class="material-icons">done_outline</i></span>
                 </li>
-                <div>색상</div>
+                <div>색상</div> -->
                 <li class="sideOpen">
                     Battery <span class="batfilteringOn"><i class="material-icons">done_outline</i></span>
                 </li>
@@ -563,7 +580,21 @@
 					  <!-- <label for="batAmount">Price range:</label> -->
 					  <input type="text" id="batAmount" readonly style="border:0; font-weight:bold;">
 					</p>
-					<div id="slider-battery"></div>
+                    <div id="slider-battery"></div>
+                    <div>
+                        <select name="batType" id="batType" class="form-control form-control-sm">
+                            <option value="0">----</option>
+                            <option value="Lithium">Lithium</option>
+                            <option value="Li-Polymer">Li-Polymer</option>
+                            <option value="Li-Ion">Li-Ion</option>
+                            <option value="Li-Ion Polymer">Li-Ion Polymer</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label><input type="checkbox" name="fastChar" id="fastChar">고속충전 지원</label>
+                        <label><input type="checkbox" name="wireless" id="wireless">무선충전 지원</label>
+                        <label><input type="checkbox" name="fastChar" id="fastChar">고속충전 지원</label>
+                    </div>
                 </div>
             </ul>
         </div>
@@ -669,11 +700,6 @@
         }
         $(function(){
             $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-                // console.log($(window).scrollTop());
-                // console.log($(document).height());
-                // console.log($(window).height());
-                // console.log($(document).height() - $(window).height());
-                // console.log($(window).scrollTop() >= ($(document).height() - $(window).height() - 1));
                 if($(window).scrollTop() >= ($(document).height() - $(window).height() - 0.5) ){
                     if ( currentPage == maxPage ) return false;
                     $("#loadingImg").css("opacity","1");
