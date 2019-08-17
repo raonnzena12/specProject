@@ -132,7 +132,7 @@
 	<section id="nametitle" class="sec">
            <h1 id="bname">글쓰기</h1>
     </section>
-     <form action="<%= request.getContextPath()%>/write.bo" method="post">
+     <form action="<%= request.getContextPath()%>/write.bo" method="post" id="writeBoard">
     <section id="title" class="sec"> 
     	<select name="brand" id="brand">
      		<option value="1">LG게시판</option>
@@ -167,7 +167,16 @@
             <script>
 	        $(document).ready(function() {
 	              $('#summernote').summernote({
-	            	  lang:'ko-KR'
+	            	  lang:'ko-KR',
+	            	  toolbar: [
+	            		    // [groupName, [list of button]]
+	            		    ['style', ['bold', 'italic', 'underline', 'clear']],
+	            		    ['font', ['strikethrough', 'superscript', 'subscript']],
+	            		    ['fontsize', ['fontsize']],
+	            		    ['color', ['color']],
+	            		    ['para', ['ul', 'ol', 'paragraph']],
+	            		    ['height', ['height']]
+	            		    ]
 	              });
 	                  
 	        });
@@ -190,6 +199,17 @@
 	
 	
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+	<script>
+		$("#preveal").click(function(){
+			var writeBoard = document.getElementById("writeBoard");
+			writeBoard.target = "preview";
+			writeBoard.action = "<%=request.getContextPath()%>/preview.bo";
+			console.log(content);
+			window.open("","preview","width=900px, height=500px");
+			writeBoard.submit();
+			writeBoard.action = "<%= request.getContextPath()%>/write.bo";
+		});
+	</script>
 	
 </body>
 </html>
