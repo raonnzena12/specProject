@@ -82,10 +82,12 @@
     #deviceReview .wirteReview {
         text-align: right;
         padding: 20px 20px 50px 0;
-
     }
     .reported {
         color: #aaa;
+    }
+    .myReivew {
+        color: dodgerblue;
     }
 </style>
 <%@ include file ="/views/common/menubar.jsp" %>
