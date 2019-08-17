@@ -22,7 +22,7 @@ public class ViewMobileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mId = Integer.parseInt(request.getParameter("mno"));
 		int specPage = Integer.parseInt(request.getParameter("page"));
-		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+//		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		// 스펙/리뷰/비교중 한 페이지로 연결해주기 위해 파라미터의 page를 받는다
 		
 		Mobile device = new MobileService().selectMobile(mId);
