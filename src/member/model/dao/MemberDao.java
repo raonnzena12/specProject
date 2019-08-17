@@ -425,10 +425,19 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
-	    return 0;
+	    return result;
 	}
 }
