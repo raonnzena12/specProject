@@ -28,9 +28,12 @@ public class BoardWriteServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int category = Integer.parseInt(request.getParameter("category"));
-		String title = request.getParameter("title");
-		String content = request.getParameter("connent");
+		String title = request.getParameter("title-1");
+		String content = request.getParameter("summernote");
 		int brand = Integer.parseInt(request.getParameter("brand"));
+		System.out.println(title);
+		System.out.println(content);
+		System.out.println(category);
 		
 		int writer = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		

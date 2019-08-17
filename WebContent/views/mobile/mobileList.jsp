@@ -434,6 +434,16 @@
             }
             filtering();
         });
+        // 배터리 기타 설정용
+        $("input[name=batEtc]").on("change", function(){
+            var urlString = "batEtc";
+            $.each($("input[name=batEtc]:checked"), function(){
+                urlString += ":" + $(this).val();
+            })
+            console.log(urlString);
+            assembleUrl("batEtc", urlString);
+            filtering();
+        });
         // 슬라이더바 스크린 설정
         $( "#slider-screen" ).slider({
         range: true,
@@ -590,10 +600,13 @@
                             <option value="Li-Ion Polymer">Li-Ion Polymer</option>
                         </select>
                     </div>
-                    <div>
-                        <label><input type="checkbox" name="fastChar" id="fastChar">고속충전 지원</label>
-                        <label><input type="checkbox" name="wireless" id="wireless">무선충전 지원</label>
-                        <label><input type="checkbox" name="fastChar" id="fastChar">고속충전 지원</label>
+                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                        <input type="checkbox" name="batEtc" id="fastChar" class="custom-control-input" value="fastC">
+                        <label class="custom-control-label" for="fastChar">고속충전 지원</label><br>
+                    </div>
+                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                        <input type="checkbox" name="batEtc" id="wireless" class="custom-control-input" value="wirelessC">
+                        <label class="custom-control-label" for="wireless">무선충전 지원</label><br>
                     </div>
                 </div>
             </ul>
