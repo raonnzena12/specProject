@@ -27,13 +27,18 @@ public class MemberDao {
 		}
 	}
 	
+	/**
+	 * login dao
+	 * @param conn
+	 * @param member
+	 * @return
+	 */
 	public Member loginMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member loginUser = null;
 		
 		String query = prop.getProperty("loginMember");
-		System.out.println(query);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, member.getUserEmail());
@@ -55,6 +60,12 @@ public class MemberDao {
 		return loginUser;
 	}
 
+	/**
+	 * 이메일 중복 검사
+	 * @param conn
+	 * @param email
+	 * @return
+	 */
 	public int checkEmail(Connection conn, String email) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -117,6 +128,12 @@ public class MemberDao {
 		return result;
 	}
 
+	/**
+	 * 회원가입 dao
+	 * @param conn
+	 * @param member
+	 * @return
+	 */
 	public int insertMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -273,7 +290,7 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				member = new Member(rset.getInt("USER_NO"), rset.getString("USER_EMAIL"), rset.getString("USER_PWD"), rset.getString("USER_NAME"), rset.getString("USER_PHONE"), rset.getDate("USER_ENDATE"), rset.getDate("USER_MDDATE"), rset.getString("USER_EVENT").charAt(0), rset.getInt("USER_VERIFY"), rset.getInt("USER_STATUS"), rset.getString("USER_DEVICE"));
+				member = new Member(rset.getInt("USER_NO"), rset.getString("USER_EMAIL"), rset.getString("USER_PWD"), rset.getString("USER_NAME"), rset.getString("USER_PHONE"), rset.getDate("USER_ENDATE"), rset.getDate("USER_MDDATE"), rset.getString("USER_EVENT").charAt(0), rset.getInt("USER_VERIFY"), rset.getInt("USER_STATUS"), rset.getString("MO_NAME_EN"),rset.getString("MI_FRONTNAME"),rset.getString("MO_CODE"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -390,5 +407,28 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return userEmail;
+	}
+
+	/**
+	 * 내가 신고한 개수 구하는 dao
+	 * @param conn
+	 * @param userNo
+	 * @return
+	 */
+	public int getMyReportCount(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("getMyReportCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return 0;
 	}
 }
