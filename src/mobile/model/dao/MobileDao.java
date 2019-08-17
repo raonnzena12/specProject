@@ -253,6 +253,7 @@ public class MobileDao {
 		String makeQuery = prop.getProperty("filterList1");
 		makeQuery += query;
 		makeQuery += prop.getProperty("filterList2");
+		System.out.println(makeQuery);
 		try {
 			
 			pstmt = conn.prepareStatement(makeQuery);
