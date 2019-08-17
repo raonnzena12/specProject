@@ -166,7 +166,9 @@
             <%@ include file="/views/Board/WriteAPI.jsp" %>
             <script>
 	        $(document).ready(function() {
-	              $('#summernote').summernote();
+	              $('#summernote').summernote({
+	            	  lang:'ko-KR'
+	              });
 	                  
 	        });
 	        $("#write").click(function(){
