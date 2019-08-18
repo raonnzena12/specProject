@@ -1,11 +1,15 @@
 package member.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import member.model.dao.MemberDao;
 import member.model.vo.Member;
+import mobile.model.vo.Report;
 
 public class MemberService {
 	public MemberService() {
@@ -139,6 +143,30 @@ public class MemberService {
 		String userEmail = new MemberDao().findEmail(conn, userName, phone);
 		
 		return userEmail;
+	}
+
+	/**
+	 * 내가 신고한 개수 구하는 service
+	 * @param userNo
+	 * @return
+	 */
+	public int getMyReportCount(int userNo) {
+		Connection conn = getConnection();
+		
+		int myReportCount = new MemberDao().getMyReportCount(conn, userNo);
+		
+		return myReportCount;
+	}
+
+	/**
+	 * 내가 쓴 신고 불러오기 service
+	 * @param currentPage
+	 * @param limit
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<Report> selectMyReport(int currentPage, int limit, int userNo) {
+		return null;
 	}
 	
 	

@@ -1,19 +1,17 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="board.model.vo.BoardPageInfo,board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList,mobile.model.vo.PageInfo, mobile.model.vo.Report"%>
 <%
-	ArrayList<Board> mList = (ArrayList<Board>)request.getAttribute("mList");
+	ArrayList<Report> mList = (ArrayList<Report>)request.getAttribute("rpList");
 	
-	BoardPageInfo bpi = (BoardPageInfo)request.getAttribute("bpi");
+	PageInfo pIf = (PageInfo)request.getAttribute("pIf");
 	
-	int boardCount = bpi.getBoardCount();
-	int currentPage = bpi.getCurrentPage();
-	int maxPage = bpi.getMaxPage();
-	int startPage = bpi.getStartPage();
-	int endPage = bpi.getEndPage();
-	int limit = bpi.getLimit();
-	int pagingBarSize = bpi.getPageingBarSize();
+	int boardCount = pIf.getListCount();
+	int currentPage = pIf.getCurrentPage();
+	int maxPage = pIf.getMaxPage();
+	int startPage = pIf.getStartPage();
+	int endPage = pIf.getEndPage();
+	int limit = pIf.getLimit();
+	int pagingBarSize = pIf.getPagingBarSize();
 
 
 %>
@@ -131,16 +129,16 @@
 	<nav id="mypageNav">
 		<ul>
 			<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
-			<li><a href="<%=request.getContextPath()%>/myBoardList.me" id="now">작성글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myBoardList.me">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/myReviewList.me">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
-			<li><a href="#">신고내역보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReportList.me" id="now">신고내역보기</a></li>
 		</ul>
     </nav>
     <div id="articleLayer">
 	    <div id="articleText">
 	    	<p class="font">작성글 보기</p>
-	    	<p class="total"><%=bpi.getBoardCount()%></p>
+	    	<p class="total"><%=pIf.getBoardCount()%></p>
 	    </div>
     	<table id="articleTable" class="table table-hover">
 		  <thead>

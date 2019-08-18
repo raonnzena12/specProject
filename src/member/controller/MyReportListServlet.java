@@ -9,37 +9,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.xml.internal.ws.api.message.Attachment;
-
-import board.model.service.BoardService;
-import board.model.vo.Board;
-import board.model.vo.BoardPageInfo;
+import member.model.service.MemberService;
 import member.model.vo.Member;
+import mobile.model.vo.PageInfo;
+import mobile.model.vo.Report;
 
-
-@WebServlet("/myBoardList.me")
-public class MyBoardListServlet extends HttpServlet {
+@WebServlet("/myReportList.me")
+public class MyReportListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
-    public MyBoardListServlet() {
+    public MyReportListServlet() {
         super();
-       
     }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		
+	
 		String page = "";
 		if(loginUser != null) {
 			
-			
-			BoardService bService = new BoardService();
+			MemberService mService = new MemberService();
 	    	
 	    	// --------------------- 페이징 처리 -------------------------
 	    	// 전체 게시글 수 구하기
-	    	int myBoardCount = bService.getMyBoardCount(loginUser.getUserNo());
+	    	int myReportCount = mService.getMyReportCount(loginUser.getUserNo());
 	    	
 	    	// 페이징 처리용 변수 선언
 	    	int limit = 10;			// 한 페이지에 보여질 게시글 수        
@@ -64,9 +57,9 @@ public class MyBoardListServlet extends HttpServlet {
 	    	// 게시글의 개수가 101개 일 경우 필요 페이지 : 11페이지
 	    	// 전체 개시글 수 / 한 페이지에 보여질 수 있는 게시글 개수
 	    	// 위 결과를 올림 처리 함. (ex. 101 / 10 -> 10.1 이면 11 페이지로 계산
-	    	maxPage = 	(int)Math.ceil((double)myBoardCount / limit) ;
+	    	maxPage = 	(int)Math.ceil((double)myReportCount / limit) ;
 	    	
-	    	System.out.println("max p : " + maxPage);
+	    	//System.out.println("max p : " + maxPage);
 	    	// startPage - 페이징 바 시작 페이지 번호
 	    	// 페이징 바에 숫자가 10개 씩 표시되는 경우
 	    	// 1, 11, 21, 31, ...
@@ -80,33 +73,30 @@ public class MyBoardListServlet extends HttpServlet {
 	    	if(maxPage <= endPage) {
 	    		endPage = maxPage;
 	    	}
-	    	System.out.println("start" +startPage);
-	    	System.out.println("end" + endPage);
-	    	BoardPageInfo bpi = new BoardPageInfo(myBoardCount, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
-	    	
+	    	//System.out.println("start" +startPage);
+	    	//System.out.println("end" + endPage);
+	    	PageInfo pIf = new PageInfo(myReportCount, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
 	    	// --------------------------- 페이징 바 처리 끝 -----------------------------------
 	    	
 	    	// -------------- 게시글 목록 조회 시작 ------------------
 	    	// 전체 목록을 가져오는게 아니라 해당페이지의 게시글 목록을 가져옴
-	    	ArrayList<Board> mList = bService.selectMyBoard(currentPage, limit, loginUser.getUserNo()); 
+	    	ArrayList<Report> rList = mService.selectMyReport(currentPage, limit, loginUser.getUserNo()); 
 	    	
 	    	// ----------- 섬네일 목록 조회 --------------
 	    	//ArrayList<Attachment> fList = bService.selectFlist(currentPage, limit);
 	    	
 	    	// 게시글 목록 조회 결과에 따른 view 연결 처리
 	    	
-	    	if(mList != null) {
-	    		page = "views/member/myBoardListView.jsp";
-	    		request.setAttribute("mList", mList);
-	    		request.setAttribute("bpi", bpi);
-	    		System.out.println(mList.size());
+	    	if(rList != null) {
+	    		page = "views/member/myReportListView.jsp";
+	    		request.setAttribute("rList", rList);
+	    		request.setAttribute("pIf", pIf);
+	    		//System.out.println(rList.size());
 	    		//request.setAttribute("fList", fList);
 	    	} else {
 	    		page = "views/common/errorPage.jsp";
-	    		request.setAttribute("msg", "게시판 목록 조회 실패");
+	    		request.setAttribute("msg", "리뷰 목록 조회 실패");
 	    	}
-			
-			
 			
 		} else {
 			request.setAttribute("msg", "로그인해주세요!");
@@ -116,9 +106,8 @@ public class MyBoardListServlet extends HttpServlet {
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
