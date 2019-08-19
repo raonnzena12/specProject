@@ -85,7 +85,8 @@ public class SelectMemberServlet extends HttpServlet {
 			
 			maxPage = (int)Math.ceil((double)count / limit);
 			
-			startPage = ((currentPage - 1) / limit) * pagingBarSize + 1;
+			startPage = ((currentPage - 1) / pagingBarSize) * pagingBarSize + 1;
+			System.out.println("startPage 계산  후: " + startPage);
 			endPage = startPage + pagingBarSize - 1;
 			
 			if(maxPage <= endPage) {
@@ -112,7 +113,11 @@ public class SelectMemberServlet extends HttpServlet {
 				request.setAttribute("isSort", isSort);
 				request.setAttribute("sort", sort);
 				request.setAttribute("sortNum", sortNum);
-				System.out.println("list가 null이 아닐 때 setAttribute");
+				
+				if(sort.contains("status")) {
+					request.setAttribute("status", sort);
+				}
+
 			}else {
 				page = "views/common/errorPage.jsp";
 				request.setAttribute("msg", "게시판 목록 조회 실패");

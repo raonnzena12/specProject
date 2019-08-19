@@ -186,6 +186,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 				url : "../../adminSelectMember.do",
 				type : "post",
 				dataType : "json",
+				data : {sort : sort, sortNum : sortNum},
 				success : function(map) {
 					if(map != null) {
 						var $memberTable = $("#memberTable");
