@@ -235,7 +235,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		<div class="menu-outer">
 			<ul class="menu-ul">
 				<li><a href="#">회원관리</a></li>
-				<li><a href="#">글 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/adminBoard.do">글 관리</a></li>
 				<li><a href="#">댓글 관리</a></li>
 				<li><a href="#">리뷰 관리</a></li>
 				<li><a href="#">신고 관리</a></li>
