@@ -27,11 +27,32 @@ public class CreateQuery {
 
 	public String createBatteryq(String[] strArr) {
 		String query = " AND \"배터리\" > " + strArr[1] +" AND \"배터리\" < " + strArr[2];
+		query += " ";
 		return query;
 	}
 	
 	public String createInchq(String[] strArr) {
 		String query = " AND \"액정크기\" > " + strArr[1] + " AND \"액정크기\" < " + strArr[2];
+		query += " ";
+		return query;
+	}
+
+	public String createBatTypeq(String[] strArr) {
+		String query = " AND \"배터리타입\" = \'" + strArr[1] +"\' ";
+		query += " ";
+		return query;
+	}
+
+	public String createBatEtcq(String[] strArr) {
+		String query = "";
+		for ( int i = 0 ; i < strArr.length ; i++ ) {
+			switch( strArr[i] ) {
+			case "fastC" : query += " AND \"고속충전\" = \'급속충전\'"; break;
+			case "wirelessC" : query += " AND \"무선충전\" = \'무선충전 지원\'"; break;
+			case "removable" : query += " AND \"탈착여부\" = \'분리형\'"; break; 
+			}
+		}
+		query += " ";
 		return query;
 	}
 }
