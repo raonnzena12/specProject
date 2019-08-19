@@ -59,5 +59,25 @@ public class AdminService {
 	}
 	
 	
+	//--------------------------------------- sortMember ------------------------------------------------
+	
+	
+	public int getMemberCount() {
+		Connection conn = getConnection();
+		int count = new AdminDao().getMemberCount(conn);
+		
+		return count;
+	}
+	
+
+	public ArrayList<AdminMember> selectMemberSort(String sort, boolean isSort, int sortNum, int currentPage) {
+		Connection conn = getConnection();
+		
+		ArrayList<AdminMember> mList = new AdminDao().selectMemberSort(conn, sort, isSort, sortNum, currentPage);
+		
+		return mList;
+	}
+	
+	
 
 }
