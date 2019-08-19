@@ -8,11 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>mobileSpec</title>
-<%@ include file ="/views/common/menubar.jsp" %>
-<%@ include file = "mobileSpecTop.jsp"%>
-<!-- <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script> -->
-<!-- Google WebIcon -->
-<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+<script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <style>
     .Mobilecontainer {
         width: 1080px;
@@ -30,7 +26,6 @@
     .mobileMid {
     	clear: both;
     }
-    /* summary 부분 CSS */
     #specSummary {
         height: 310px;
         background-color: #eee;
@@ -51,17 +46,6 @@
     #brand {
         width: 200px;
         height: 200px;
-        position: relative;
-    }
-    #summaryLogo {
-        width: 180px;
-        height: auto;
-        margin: auto;
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        left: 0px;
-        right: 0px;;
     }
     #size {
         width: 180px;
@@ -112,11 +96,6 @@
         margin: 10px 0 0 0;
         /* transform: rotate(90deg); */
     }
-    /* #battery i {
-        color: white;
-        font-size: 14px;
-        z-index: 200;
-    } */
     #display {
         width: 80px;
         height: 80px;
@@ -149,7 +128,6 @@
         width: 900px;
         margin: 0 auto;
     }
-
 </style>
 <script>
     $(function(){
@@ -175,6 +153,8 @@
 </script>
 </head>
 <body>
+ 	<%@ include file ="/views/common/menubar.jsp" %>
+    <%@ include file = "mobileSpecTop.jsp"%>
 	<section class="Mobilecontainer">
         <div id="specSummary">
             <div id="brand">

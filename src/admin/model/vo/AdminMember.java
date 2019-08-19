@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class AdminMember {
 	
-	private int rNum;
 	private int userNo;
 	private String userEmail;
 	private String userName;
@@ -23,26 +22,6 @@ public class AdminMember {
 		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
 		this.userStatusType = userStatusType;
-	}
-	
-	public AdminMember(int rNum, int userNo, String userEmail, String userName, Date enrollDate, Date modifyDate,
-			String userStatusType) {
-		super();
-		this.rNum = rNum;
-		this.userNo = userNo;
-		this.userEmail = userEmail;
-		this.userName = userName;
-		this.enrollDate = enrollDate;
-		this.modifyDate = modifyDate;
-		this.userStatusType = userStatusType;
-	}
-	
-	public int getrNum() {
-		return rNum;
-	}
-
-	public void setrNum(int rNum) {
-		this.rNum = rNum;
 	}
 
 	public int getUserNo() {
@@ -95,10 +74,10 @@ public class AdminMember {
 
 	@Override
 	public String toString() {
-		return "AdminMember [rNum=" + rNum + ", userNo=" + userNo + ", userEmail=" + userEmail + ", userName="
-				+ userName + ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", userStatusType="
-				+ userStatusType + "]";
+		return "AdminMember [userNo=" + userNo + ", userEmail=" + userEmail + ", userName=" + userName + ", enrollDate="
+				+ enrollDate + ", modifyDate=" + modifyDate + ", userStatusType=" + userStatusType + "]";
 	}
-
+	
+	
 
 }

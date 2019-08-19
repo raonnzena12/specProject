@@ -46,7 +46,7 @@ public class MobileDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, index);
-			pstmt.setString(2, mi2.getReleaseDate());
+			pstmt.setDate(2, mi2.getReleaseDate());
 			pstmt.setString(3, mi2.getOsVersion());
 			pstmt.setString(4, mi2.getMaterial());
 			pstmt.setString(5, mi2.getSize());
@@ -253,7 +253,6 @@ public class MobileDao {
 		String makeQuery = prop.getProperty("filterList1");
 		makeQuery += query;
 		makeQuery += prop.getProperty("filterList2");
-		System.out.println(makeQuery);
 		try {
 			
 			pstmt = conn.prepareStatement(makeQuery);
@@ -1155,7 +1154,6 @@ public class MobileDao {
 		}
 		return check;
 	}
-
 
 /* 	
  * for ( int i = 0 ; i < fileList.size(); i ++ ) {

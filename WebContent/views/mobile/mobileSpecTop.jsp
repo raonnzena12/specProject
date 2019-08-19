@@ -149,7 +149,7 @@
             });
             $("#mofidyDevice").on("click", function(){
                 <% if ( loginUser != null && loginUser.getUserName().equals("admin")) { %>
-                location.href="<%=request.getContextPath()%>/updateForm.mo?mno="+$.urlParam("mno");
+                location.href="<%=request.getContextPath()%>/updateForm.mo?mno=<%=mo.getmNo()%>";
                 <% } %>
             });
         });

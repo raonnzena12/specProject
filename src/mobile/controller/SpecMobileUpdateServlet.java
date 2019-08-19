@@ -1,26 +1,14 @@
 package mobile.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Enumeration;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-import com.oreilly.servlet.MultipartRequest;
-
-import common.SpecFileRenamePolicy;
 import mobile.model.service.MobileService;
-import mobile.model.vo.MoImage;
 import mobile.model.vo.Mobile;
-import mobile.model.vo.MobileInsert1;
-import mobile.model.vo.MobileInsert2;
 
 @WebServlet("/updateForm.mo")
 public class SpecMobileUpdateServlet extends HttpServlet {
@@ -34,7 +22,7 @@ public class SpecMobileUpdateServlet extends HttpServlet {
 		int mno = Integer.parseInt(request.getParameter("mno"));
 		
 		Mobile mo = new MobileService().selectMobile(mno);
-		request.setAttribute("mo", mo);
+		
 		request.getRequestDispatcher("views/mobile/updateMobileForm.jsp").forward(request, response);
 	}
 

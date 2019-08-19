@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class MobileInsert2 {
 	private int moNo;
-	private String releaseDate;
+	private Date releaseDate;
 	private int osCode;
 	private String osVersion;
 	private String material;
@@ -53,7 +53,7 @@ public class MobileInsert2 {
 	
 	public MobileInsert2() {}
 
-	public MobileInsert2(String releaseDate, int osCode, String osVersion, String material, String size, String weight,
+	public MobileInsert2(Date releaseDate, int osCode, String osVersion, String material, String size, String weight,
 			String link, double inch, String resolution, String pixelInch, String displayType, String disWidth,
 			String disHeight, String ap, String cpu, String cpuCore, String cpuClock, String gpu, String ram,
 			String innerMemory, String outerMemory, String cameraSensor, String iris, String flash,
@@ -109,7 +109,7 @@ public class MobileInsert2 {
 		this.etc = etc;
 	}
 
-	public MobileInsert2(int moNo, String releaseDate, int osCode, String osVersion, String material, String size,
+	public MobileInsert2(int moNo, Date releaseDate, int osCode, String osVersion, String material, String size,
 			String weight, String link, double inch, String resolution, String pixelInch, String displayType,
 			String disWidth, String disHeight, String ap, String cpu, String cpuCore, String cpuClock, String gpu,
 			String ram, String innerMemory, String outerMemory, String cameraSensor, String iris, String flash,
@@ -131,11 +131,11 @@ public class MobileInsert2 {
 		this.moNo = moNo;
 	}
 
-	public String getReleaseDate() {
+	public Date getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(String releaseDate) {
+	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 

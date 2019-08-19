@@ -33,6 +33,7 @@ public class MyBoardListServlet extends HttpServlet {
 		
 		String page = "";
 		if(loginUser != null) {
+			System.out.println("로그인 유저 번호 : " + loginUser.getUserNo());
 			
 			
 			BoardService bService = new BoardService();

@@ -85,8 +85,6 @@ public class MobileService {
 				case "brand" : query += cq.createBrandq(strArr); break;
 				case "battery" : query += cq.createBatteryq(strArr); break;
 				case "screen" : query += cq.createInchq(strArr); break;
-				case "batType" : query+= cq.createBatTypeq(strArr); break;
-				case "batEtc" : query += cq.createBatEtcq(strArr); break;
 				}
 			}
 		}
@@ -124,8 +122,6 @@ public class MobileService {
 				case "brand" : query += cq.createBrandq(strArr); break;
 				case "battery" : query += cq.createBatteryq(strArr); break;
 				case "screen" : query += cq.createInchq(strArr); break;
-				case "batType" : query+= cq.createBatTypeq(strArr); break;
-				case "batEtc" : query += cq.createBatEtcq(strArr); break;
 				}
 			}
 		}
@@ -502,5 +498,4 @@ public class MobileService {
 		int check = new MobileDao().checkMobileImage(conn, mno);
 		return check;
 	}
-
 }
