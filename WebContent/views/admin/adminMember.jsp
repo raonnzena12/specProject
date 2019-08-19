@@ -17,6 +17,21 @@
 		isSort = true;
 	}
 	
+	String status = "";
+	if(request.getAttribute("status") != null) {
+		status = (String)request.getAttribute("status");
+	}
+	
+	if(status.contains("0")) {
+		status = "관리자";
+	}else if(status.contains("1")) {
+		status = "일반";
+	}else if(status.contains("2")) {
+		status = "정지";
+	}else if(status.contains("3")) {
+		status = "탈퇴";
+	}
+	
 	String sort = "no";
 	if(request.getAttribute("sort") != null) {
 		sort = (String)request.getAttribute("sort");
@@ -150,6 +165,34 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     	float: left;
     }
     
+    .content-2-1 {
+    	width: 55%;
+    	height: 70%;
+    	float: left;
+    }
+    
+    .content-2-2 {
+    	width: 45%;
+    	height: 70%;
+    	float: left;
+    }
+    
+    .content-2-3 {
+    	width: 90%;
+    	height: 30%;
+    	float: left;
+    }
+    
+    .content-2-4 {
+    	width: 10%;
+    	height: 30%;
+    	float: left;
+    }
+    
+    .content-2-4-form, #sortNum {
+    	height: 100%;
+    }
+    
     .pagingBar {
     	width: 100%;
     	height: 40px;
@@ -217,7 +260,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 					</tr>
 					<% if(list.isEmpty()) { %>
 					<tr>
-						<td colspan="7">등록된 게시글이 없습니다</td>
+						<td colspan="7">조회되는 멤버가 없습니다</td>
 					</tr>
 					<% }else { 
 						int i = 1;%>
@@ -238,13 +281,13 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 				<div class="content-2-1">
 			      	<form class="form-inline my-2 my-lg-0">
 			      		<label>유저 편집 : </label>
-					    <select class="form-control" id="sort-1 status">
+					    <select class="form-control status" id="sort-1">
 				        	<option>관리자</option>
 				        	<option>일반</option>
 				        	<option>정지</option>
 				        	<option>탈퇴</option>
 				        </select>
-				      	<button type="button" class="btn btn-outline-dark" id="statuBtn">확인</button>
+				      	<button type="button" class="btn btn-outline-dark" id="statusBtn">확인</button>
 				    </form>
 				</div>
 				<div class="content-2-2">
@@ -259,7 +302,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 				</div>
 				<div class="content-2-3"></div>
 				<div class="content-2-4">
-					<!-- <form class="form-inline my-2 my-lg-0"> -->
+					<form class="form-inline my-2 my-lg-0 content-2-4-form">
 						<select class="form-control" id="sortNum">
 				        	<option>5</option>
 				        	<option>10</option>
@@ -267,14 +310,16 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 				        	<option>20</option>
 				        	<option>30</option>
 				      	</select>
-				  	<!-- </form> -->
+				  	</form>
 				</div>
 				
 			</div>
+			
+			<!-----------페이징 바 ----------->
 			<div class="pagingBar">
 				<div class="pagingArea" align="center">
 					<!-- 맨 처음으로(<<) -->
-					<span class="pagingBtn clickBtn" 
+					<span class="pagingBtn clickBtn"
 onclick="location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=1&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'">&lt;&lt;</span>
 				
 					<!-- 이전 페이지로(<) -->
@@ -282,8 +327,7 @@ onclick="location.href='<%= request.getContextPath() %>/adminSelectMember.do?cur
 						<span class="pagingBtn">&lt;</span>
 					<% } else{ %>
 						<span class="pagingBtn clickBtn" 
-							onclick="location.href='<%= request.getContextPath() %>
-							/adminSelectMember.do?currentPage=<%= currentPage-1 %>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'">&lt;</span>
+onclick="location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=<%= currentPage-1 %>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'">&lt;</span>
 					<% } %>
 					
 					<!-- 페이지 목록 -->
@@ -306,8 +350,7 @@ onclick="location.href='<%=request.getContextPath()%>/adminSelectMember.do?curre
 					
 					<!-- 맨 끝으로(>>) -->
 					<span class="pagingBtn clickBtn"
-						onclick="location.href='<%= request.getContextPath() %>
-						/adminSelectMember.do?currentPage=<%= maxPage %>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'">&gt;&gt;</span>
+onclick="location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=<%= maxPage %>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'">&gt;&gt;</span>
 				</div>
 			</div>
 		</div>
@@ -425,9 +468,15 @@ onclick="location.href='<%=request.getContextPath()%>/adminSelectMember.do?curre
 			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=1&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'
 		});
 		
-		 $("#sortNum option").each(function(){
+		$("#sortNum option").each(function(){
 		    if($(this).val()==<%=sortNum%>){
-		      $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
+		      $(this).attr("selected","selected");
+		    }
+		});
+		 
+		$(".status option").each(function(){
+		    if($(this).val() == "<%=status%>"){
+		      $(this).attr("selected","selected");
 		    }
 		});
 		
@@ -490,7 +539,7 @@ onclick="location.href='<%=request.getContextPath()%>/adminSelectMember.do?curre
 			});
 			
 			$("#statusBtn").click(function(){
-				var statusVal = $("status option:selected").val();
+				var statusVal = $(".status option:selected").val();
 				if(statusVal == "관리자") {
 					sort = "status0";
 				}else if(statusVal == "일반") {
