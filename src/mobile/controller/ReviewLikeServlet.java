@@ -15,7 +15,7 @@ public class ReviewLikeServlet extends HttpServlet {
        
     public ReviewLikeServlet() { 
         super();
-    }
+    } 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int rno = Integer.parseInt(request.getParameter("rno"));

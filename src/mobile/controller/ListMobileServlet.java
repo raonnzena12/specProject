@@ -54,7 +54,7 @@ public class ListMobileServlet extends HttpServlet {
 		
 		PageInfo pInf = new PageInfo(listCount, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
 		
-		ArrayList<Mobile> list = null;
+		ArrayList<Mobile> list = null; 
 		if ( qString != null && qString.trim().length() != 0 ) {
 			String[] queryArr = qString.split(","); 
 			ArrayList<String[]> queryList = new ArrayList<String[]>();

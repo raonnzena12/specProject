@@ -35,7 +35,7 @@ public class ViewMobileServlet extends HttpServlet {
 			request.setAttribute("device", device);
 			page = "/views/mobile/mobileReview.jsp"; 
 			
-		} else {
+		} else { 
 			request.setAttribute("msg", "로딩 실패");
 			page = "/views/common/errorPage.jsp";
 		}

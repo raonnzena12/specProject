@@ -20,7 +20,7 @@ public class ListUpdateServlet extends HttpServlet {
        
     public ListUpdateServlet() { 
         super();
-    }
+    } 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));

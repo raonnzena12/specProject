@@ -13,7 +13,7 @@ public class ReviewInsertFormServlet extends HttpServlet {
        
     public ReviewInsertFormServlet() {
         super(); 
-    }
+    } 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

@@ -17,7 +17,7 @@ public class BoardDeleteServlet extends HttpServlet {
        
     
     public BoardDeleteServlet() {
-        super();
+        super(); 
        
     }
 
