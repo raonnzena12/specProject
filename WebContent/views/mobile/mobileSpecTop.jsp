@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="mobile.model.vo.Mobile"%>
+    pageEncoding="UTF-8" import="mobile.model.vo.*"%>
 <%
-    Mobile mo = (Mobile)request.getAttribute("device");
+    Mobile device = (Mobile)request.getAttribute("device");
 %>
 <!DOCTYPE html>
 <html>
@@ -120,16 +120,16 @@
         </div>
         <% } %>
         <div id="mobileView">
-            <% if ( mo.getmFrontImage() == null ) { %>
+            <% if ( device.getmFrontImage() == null ) { %>
             <img src="<%=request.getContextPath()%>/image/smartphoneG.png" id="deviceFront">
             <% } else { %>
-            <img src="<%=request.getContextPath()%>/image/mobileImages/<%=mo.getmFrontImage()%>" id="deviceFront">
+            <img src="<%=request.getContextPath()%>/image/mobileImages/<%=device.getmFrontImage()%>" id="deviceFront">
             <% } %>
         </div>
         <div id="mobileName">
-            <label><%= mo.getmBrandName() %></label>
+            <label><%= device.getmBrandName() %></label>
             <br><br>
-            <label><%= mo.getmName() %></label>
+            <label><%= device.getmName() %></label>
         </div>
         <div id="mobileCount">좋아요 / 소지수</div>
         <div id="clear"></div>
@@ -149,7 +149,7 @@
             });
             $("#mofidyDevice").on("click", function(){
                 <% if ( loginUser != null && loginUser.getUserName().equals("admin")) { %>
-                location.href="<%=request.getContextPath()%>/updateForm.mo?mno=<%=mo.getmNo()%>";
+                location.href="<%=request.getContextPath()%>/updateForm.mo?mno=<%=device.getmNo()%>";
                 <% } %>
             });
         });

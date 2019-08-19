@@ -203,7 +203,21 @@
 	<script>
 		$(function(){
 			$(".report").click(function(){
-
+				var bno = $(this).parent().parent().children().eq(1).text();
+				Swal.fire({
+				title: '게시글 경고',
+				text: "해당 글을 경고처리 하시겠습니까?",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '경고',
+				cancelButtonText: '취소'
+				}).then((result) => {
+				if (result.value) {
+					reportBoard(bno);
+				}
+				});
 			});
 			$(".delete").click(function(){
 				var bno = $(this).parent().parent().children().eq(1).text();
@@ -224,19 +238,10 @@
 			});
 			// 펑션모음
 			function deleteBoard(bno){
-
-				location.href='<%= request.getContextPath() %>/adminContentUpdate.do?&currentPage=<%=currentPage%>&bno='+bno+'&type=1';
-				// $.ajax({
-				// 	url: "adminContentUpdate.do",
-				// 	type: "GET",
-				// 	data: { bno : bno, type : 1},
-				// 	error: function(e){
-				// 		console.log(e);
-				// 	},
-				// 	success: function(result){
-
-				// 	}
-				// });
+				location.href='boardUpdate.do?currentPage=<%=currentPage%>&bno='+bno+'&type=2';
+			}
+			function reportBoard(bno){
+				location.href='boardUpdate.do?currentPage=<%=currentPage%>&bno='+bno+'&type=3';
 			}
 		});
 	</script>

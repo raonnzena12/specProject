@@ -385,20 +385,21 @@ public class AdminDao {
 	}
 
 	/**
-	 * 관리자 // 글 하나 삭제관리 하는 DAO
+	 * 관리자 // 글 하나 관리 하는 DAO
 	 * @param conn
 	 * @param bno 
 	 * @return result
 	 */
-	public int deleteContent(Connection conn, int bno) {
+	public int updateContent(Connection conn,int type, int bno) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("deleteContent");
+		String query = prop.getProperty("updateContent");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, bno);
+			pstmt.setInt(1, type);
+			pstmt.setInt(2, bno);
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -410,28 +411,28 @@ public class AdminDao {
 	}
 
 	/**
-	 * 관리자 // 글 여러개 삭제관리 하는 DAO
+	 * 관리자 // 글 여러개 관리 하는 DAO
 	 * @param conn
 	 * @param query
 	 * @return result
 	 */
-	public int deleteContents(Connection conn, String query) {
-		Statement stmt = null;
+	public int updateContents(Connection conn,int type, String query) {
+		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String baseQuery = prop.getProperty("deleteContents") + query;
+		String baseQuery = prop.getProperty("updateContents") + query;
 		
 		try {
-			stmt = conn.createStatement();
-			result = stmt.executeUpdate(baseQuery);
+			pstmt = conn.prepareStatement(baseQuery);
+			pstmt.setInt(1, type);
+			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 		}
 		return result;
 	}
-
 
 	
 	

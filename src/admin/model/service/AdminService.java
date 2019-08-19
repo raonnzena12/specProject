@@ -103,27 +103,27 @@ public class AdminService {
 	}
 
 	/**
-	 * 관리자 // 글 하나 삭제관리 하는 Service
+	 * 관리자 // 글 하나 관리 하는 Service
 	 * @param bno
 	 * @return result
 	 */
-	public int deleteContent(int bno) {
+	public int updateContent(int type, int bno) {
 		Connection conn = getConnection();
-		int result = new AdminDao().deleteContent(conn, bno);
+		int result = new AdminDao().updateContent(conn, type, bno);
 		if ( result > 0 ) commit(conn);
 		else rollback(conn);
 		return result;
 	}
 
 	/**
-	 * 관리자 // 글 여러개 삭제관리 하는 Service
+	 * 관리자 // 글 여러개 관리 하는 Service
 	 * @param bnoArr
 	 * @return result
 	 */
-	public int deleteCntents(String[] bnoArr) {
+	public int updateContents(int type, String[] bnoArr) {
 		Connection conn = getConnection();
 		String query = new CreateQuery().makeDeleteQuery(bnoArr);
-		int result = new AdminDao().deleteContents(conn, query);
+		int result = new AdminDao().updateContents(conn, type, query);
 		if ( result == bnoArr.length ) {
 			commit(conn);
 		} else {
@@ -132,6 +132,7 @@ public class AdminService {
 		}
 		return result;
 	}
+
 	
 	
 
