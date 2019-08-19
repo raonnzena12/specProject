@@ -492,4 +492,15 @@ public class MobileService {
 		return result;
 	}
 
+	/**
+	 * 모바일 이미지가 등록되어 있는지 확인하는 Service
+	 * @param mno
+	 * @return check
+	 */
+	public int checkMobileImage(int mno) {
+		Connection conn = getConnection();
+		int check = new MobileDao().checkMobileImage(conn, mno);
+		return check;
+	}
+
 }

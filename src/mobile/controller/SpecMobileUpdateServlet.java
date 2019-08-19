@@ -137,21 +137,26 @@ public class SpecMobileUpdateServlet extends HttpServlet {
 					saveFiles.add(multiRequest.getFilesystemName(name));
 				}
 			}
-			System.out.println(saveFiles.size());
-				MoImage fileList = new MoImage();
-				// 전송 순서 역순으로 파일이 list 에 저장 되었기 때문에 반복문을 역으로 수행함
-				MoImage mo = new MoImage();
-				mo.setMiPath(savePath);
-				if ( saveFiles.size() > 1 ) mo.setMiBackImage(saveFiles.get(1));
-				if ( saveFiles.size() > 0 ) mo.setMiFrontImage(saveFiles.get(0));
-				if ( mFrontImage != null && !mFrontImage.contains("#") ) mo.setMiFrontImage(mFrontImage);
-				if ( mBackImage != null && !mBackImage.contains("#") ) mo.setMiBackImage(mBackImage);
-				MobileService moService = new MobileService();
-				int result = 0, result2 = 0, result3 = 0;
-				result = moService.updateMobileSummary(mno, mi1);
-				result2 = moService.updateMobile(mno, mi2);
+			MoImage mo = new MoImage();
+			mo.setMiPath(savePath);
+			if ( saveFiles.size() > 1 ) {
+				mo.setMiBackImage(saveFiles.get(1));
+			}
+			if ( saveFiles.size() > 0 ) {
+				mo.setMiFrontImage(saveFiles.get(0));
+			}
+			if ( !mFrontImage.equals("") && !mFrontImage.contains("#") ) mo.setMiFrontImage(mFrontImage);
+			if ( !mBackImage.equals("") && !mBackImage.contains("#") ) mo.setMiBackImage(mBackImage);
+			MobileService moService = new MobileService();
+			int result = 0, result2 = 0, result3 = 0;
+			result = moService.updateMobileSummary(mno, mi1);
+			result2 = moService.updateMobile(mno, mi2);
+			int check = moService.checkMobileImage(mno);
+			if ( check > 0 ) {
 				result3 = moService.updateMobileImage(mno, mo);
-				
+			} else {
+				result3 = moService.insertMobileImage(mno, mo);
+			}
 				if ( result > 0 && result2 > 0 && result3 > 0 ) {
 					request.getSession().setAttribute("msg", "device spec이 성공적으로 갱신되었습니다.");
 					response.sendRedirect(request.getContextPath()+"/spec.mo?currentPage=1&mno="+mno+"&page=1");

@@ -1110,7 +1110,7 @@ public class MobileDao {
 		int result = 0;
 		
 		String query = prop.getProperty("updateMobileImage");
-		
+		System.out.println("mo.f : "+ mo.getMiFrontImage());
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, mo.getMiFrontImage());
@@ -1124,6 +1124,36 @@ public class MobileDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	/**
+	 * 업데이트 하려는 이미지가 등록되어 있는지 확인하는 DAO
+	 * @param conn
+	 * @param mno
+	 * @return check
+	 */
+	public int checkMobileImage(Connection conn, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int check = 0;
+		
+		String query = prop.getProperty("checkMobileImage");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			rset = pstmt.executeQuery();
+			
+			if ( rset.next() ) {
+				check = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return check;
 	}
 
 

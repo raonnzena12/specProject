@@ -21,6 +21,10 @@
         height: 500px;
         float: left;
     }
+    #mobileView img {
+        height: 350px;
+        width: auto;
+    }
     #deviceFront{
         height: 400px;
         width: auto;        
@@ -62,11 +66,14 @@
         color: #999;
         text-align: center;
         /* border: 10px solid white; */
+        position: relative;
     }
     .bar {
         width: 100%;
         background-color: #fff;
         height: 10px;
+        position: absolute;
+        bottom: 0px;
     }
     .clear {
         clear: both;
@@ -129,7 +136,7 @@
         <div id="mobileTab">
             <div class="tab" id="1"><a>SPEC</a><div class="bar"></div></div>
             <div class="tab" id="2"><a>REVIEW</a><div class="bar"></div></div>
-            <div class="tab" id="3"><a>COMPARE</a><div class="bar"></div></div>
+            <!-- <div class="tab" id="3"><a>COMPARE</a><div class="bar"></div></div> -->
         </div>
         <div class="clear"></div>
     </div>

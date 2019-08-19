@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,7 +18,12 @@ import mobile.model.vo.MobileInsert2;
 
 public class JsoupTest {
 	public static void main(String[] args) {
-		 String url = "https://review.cetizen.com/7097/view/3/7097/review"; //크롤링할 url지정
+		Scanner scan = new Scanner(System.in);
+		while(true) {
+			
+		System.out.print("주소 입력 : ");
+//		 String url = "https://review.cetizen.com/6704/view/3/6704/review"; //크롤링할 url지정
+		String url = scan.nextLine();
 		 Document doc = null;        //Document에는 페이지의 전체 소스가 저장된다
 		 try {
 	            doc = Jsoup.connect(url).get();
@@ -66,16 +72,8 @@ public class JsoupTest {
 		 
 		 // MobileInser2 객체 생성
 		 // String date형으로 변환
-		 String date = element4.text().trim().substring(6);
-		 if (date.length()==7) date = date + "/01";
-		 date = date.replaceAll("/", "-");
-		 Date releaseDate;
-		 try {
-			 releaseDate = Date.valueOf(date);
-		 } catch ( Exception e ) {
-			 e.printStackTrace();
-			 releaseDate = null;
-		 }
+		 String releaseDate = element4.text().trim().substring(6);
+		 if (releaseDate.length()==7) releaseDate = releaseDate + "/01";
 		 
 		 // os 정보 받아오기
 		 String osInfo = eList2.get(3).text().trim();
@@ -85,10 +83,13 @@ public class JsoupTest {
 		 case "안드로이드" : osCode = 1; break;
 		 case "Android" : osCode = 1; break;
 		 case "iOS" : osCode = 2; break;
+		 case "MIUI" : osCode = 1; 
 		 }
 		 String osVersion = "";
-		 if ( os.length != 1 ) {
+		 if ( os.length != 1 && !os[0].equals("MIUI") ) {
 			 osVersion = os[1].trim();
+		 } else if( os[0].equals("MIUI")) {
+			 osVersion = osInfo;
 		 }
 		 String material = eList2.get(4).text().trim().equals("")? null : eList2.get(4).text().trim();
 		 String size = eList2.get(5).text().trim();
@@ -151,8 +152,9 @@ public class JsoupTest {
 		 MobileInsert2 mi2 = new MobileInsert2(releaseDate, osCode, osVersion, material, size, weight, link, inch, resolution, pixelInch, displayType, disWidth, disHeight, ap, cpu, cpuCore, cpuClock, gpu, ram, innerMemory, outerMemory, cameraSensor, iris, flash, picResolution, vidResolution, vidFrame, frontResolution, frontVidResolution, frontVidFrame, camera, battery, batteryType, fastCharging, removableBattery, wirelessCharging, standBy, protocol, wifi, bluetooth, usb, bio, payment, verify, etc);
 		 
 		 MobileService moService = new MobileService();
-		 int result = moService.insertMobileSummary(mi1);
-		 if ( result > 0 ) result = moService.insertMobile(mi2);
+		 int index = moService.getIndex();
+		 int result = moService.insertMobileSummary(index, mi1);
+		 if ( result > 0 ) result = moService.insertMobile(index, mi2);
 		 if ( result > 0 ) System.out.println(moName + " DB 입력 성공");
 		 
 	        //Iterator을 사용하여 하나씩 값 가져오기
@@ -177,6 +179,6 @@ public class JsoupTest {
 
 	        System.out.println("============================================================");
 		 
-		 
+		}
 	}
 }
