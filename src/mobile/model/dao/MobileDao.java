@@ -46,7 +46,7 @@ public class MobileDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, index);
-			pstmt.setString(2, mi2.getReleaseDate());
+			pstmt.setDate(2, mi2.getReleaseDate());
 			pstmt.setString(3, mi2.getOsVersion());
 			pstmt.setString(4, mi2.getMaterial());
 			pstmt.setString(5, mi2.getSize());
@@ -988,135 +988,6 @@ public class MobileDao {
 			
 			result = pstmt.executeUpdate();
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-
-	/**
-	 * 모바일 정보 (간략개요) update Service
-	 * @param conn
-	 * @param mno
-	 * @param mi1
-	 * @return result
-	 */
-	public int updateMobileSummary(Connection conn, int mno, MobileInsert1 mi1) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("updateMobileSummary");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, mi1.getMoCode());
-			pstmt.setString(2, mi1.getMoName());
-			pstmt.setString(3, mi1.getMoNameEn());
-			pstmt.setInt(4, mi1.getMoBrandCode());
-			pstmt.setInt(5, mno);
-			
-			result = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-
-	/**
-	 * 모바일 정보(상세) update Service
-	 * @param conn
-	 * @param mno
-	 * @param mi2
-	 * @return result
-	 */
-	public int updateMobile(Connection conn, int mno, MobileInsert2 mi2) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("updateMobile");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, mi2.getReleaseDate());
-			pstmt.setString(2, mi2.getOsVersion());
-			pstmt.setString(3, mi2.getMaterial());
-			pstmt.setString(4, mi2.getSize());
-			pstmt.setString(5, mi2.getWeight());
-			pstmt.setString(6, mi2.getLink());
-			pstmt.setDouble(7, mi2.getInch());
-			pstmt.setString(8, mi2.getResolution());
-			pstmt.setString(9, mi2.getPixelInch());
-			pstmt.setString(10, mi2.getDisplayType());
-			pstmt.setString(11, mi2.getDisWidth());
-			pstmt.setString(12, mi2.getDisHeight());
-			pstmt.setString(13, mi2.getAp());
-			pstmt.setString(14, mi2.getCpu());
-			pstmt.setString(15, mi2.getCpuCore());
-			pstmt.setString(16, mi2.getCpuClock());
-			pstmt.setString(17, mi2.getGpu());
-			pstmt.setString(18, mi2.getRam());
-			pstmt.setString(19, mi2.getInnerMemory());
-			pstmt.setString(20, mi2.getOuterMemory());
-			pstmt.setString(21, mi2.getCameraSensor());
-			pstmt.setString(22, mi2.getIris());
-			pstmt.setString(23, mi2.getFlash());
-			pstmt.setString(24, mi2.getPicResolution());
-			pstmt.setString(25, mi2.getVidResolution());
-			pstmt.setString(26, mi2.getVidFrame());
-			pstmt.setString(27, mi2.getFrontResolution());
-			pstmt.setString(28, mi2.getFrontVidResolution());
-			pstmt.setString(29, mi2.getFrontVidFrame());
-			pstmt.setString(30, mi2.getCamera());
-			pstmt.setInt(31, mi2.getBattery());
-			pstmt.setString(32, mi2.getBatteryType());
-			pstmt.setString(33, mi2.getFastCharging());
-			pstmt.setString(34, mi2.getRemovableBattery());
-			pstmt.setString(35, mi2.getWirelessCharging());
-			pstmt.setString(36, mi2.getStandBy());
-			pstmt.setString(37, mi2.getProtocol());
-			pstmt.setString(38, mi2.getWifi());
-			pstmt.setString(39, mi2.getBluetooth());
-			pstmt.setString(40, mi2.getUsb());
-			pstmt.setString(41, mi2.getBio());
-			pstmt.setString(42, mi2.getPayment());
-			pstmt.setString(43, mi2.getVerify());
-			pstmt.setString(44, mi2.getEtc());
-			pstmt.setInt(45, mi2.getOsCode());
-			pstmt.setInt(46, mno);
-			
-			result = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-
-	/**
-	 * 모바일 이미지 update Service
-	 * @param conn
-	 * @param mno
-	 * @param mo
-	 * @return result 
-	 */
-	public int updateMobileImage(Connection conn, int mno, MoImage mo) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("updateMobileImage");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, mo.getMiFrontImage());
-			pstmt.setString(2, mo.getMiBackImage());
-			pstmt.setString(3, mo.getMiPath());
-			pstmt.setInt(4, mno);
-			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

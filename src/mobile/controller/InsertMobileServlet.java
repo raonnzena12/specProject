@@ -34,7 +34,7 @@ public class InsertMobileServlet extends HttpServlet {
 			String moName = request.getParameter("moName");
 			String moNameEn = request.getParameter("moNameEn");
 			String brand = request.getParameter("brand");
-			int moBrandCode = 0;
+			int moBrandCode = 4;
 			switch ( brand ) {
 			case "삼성전자" : moBrandCode = 1; break;
 			case "LG전자" : moBrandCode = 2; break;
@@ -47,7 +47,14 @@ public class InsertMobileServlet extends HttpServlet {
 //			    String value = request.getParameter(key);
 //			    if ( value != null) specMap.put(key, value);
 //			} 
-			String releaseDate = request.getParameter("releaseDate");
+			String date = request.getParameter("releaseDate");
+			Date releaseDate;
+			try {
+				releaseDate = Date.valueOf(date);
+			} catch ( Exception e ) {
+				e.printStackTrace();
+				releaseDate = null;
+			}
 			String os = request.getParameter("osCode");
 			int osCode = 0;
 			if ( os != null && !os.equals("") ) osCode = Integer.parseInt(os); 
@@ -86,13 +93,9 @@ public class InsertMobileServlet extends HttpServlet {
 			int battery = 0;
 			if ( bat != null && !bat.equals("") ) battery = Integer.parseInt(bat);
 			String batteryType = request.getParameter("batteryType");
-			if ( batteryType.equals("-----")) batteryType = null;
 			String fastCharging = request.getParameter("fastCharging");
-			if ( fastCharging.equals("-----")) fastCharging = null;
 			String removableBattery = request.getParameter("removableBattery");
-			if ( removableBattery.equals("-----")) removableBattery = null;
 			String wirelessCharging = request.getParameter("wirelessCharging");
-			if ( wirelessCharging.equals("-----")) wirelessCharging = null;
 			String standBy = request.getParameter("standBy");
 			String protocol = request.getParameter("protocol");
 			String wifi = request.getParameter("wifi");
@@ -100,7 +103,6 @@ public class InsertMobileServlet extends HttpServlet {
 			String usb = request.getParameter("usb");
 			String bio = request.getParameter("bio");
 			String payment = request.getParameter("payment");
-			if ( payment.equals("-----")) payment = null;
 			String verify = request.getParameter("verify");
 			String etc = request.getParameter("etc");
 			String status = request.getParameter("status");
@@ -147,8 +149,28 @@ public class InsertMobileServlet extends HttpServlet {
 			String moCode = multiRequest.getParameter("moCode");
 			String moName = multiRequest.getParameter("moName");
 			String moNameEn = multiRequest.getParameter("moNameEn");
-			int moBrandCode = Integer.parseInt(multiRequest.getParameter("brand"));
-			String releaseDate = multiRequest.getParameter("releaseDate");
+			String brand = multiRequest.getParameter("brand");
+			int moBrandCode = 4;
+			switch ( brand ) {
+			case "삼성전자" : moBrandCode = 1; break;
+			case "LG전자" : moBrandCode = 2; break;
+			case "애플" : moBrandCode = 3; break;
+			}
+//			Enumeration params = request.getParameterNames();
+//			Map<String,	String> specMap = new HashMap<String, String>();
+//			while (params.hasMoreElements()){
+//			    String key = (String)params.nextElement();
+//			    String value = request.getParameter(key);
+//			    if ( value != null) specMap.put(key, value);
+//			} 
+			String date = multiRequest.getParameter("releaseDate");
+			Date releaseDate;
+			try {
+				releaseDate = Date.valueOf(date);
+			} catch ( Exception e ) {
+				e.printStackTrace();
+				releaseDate = null;
+			}
 			int osCode = Integer.parseInt(multiRequest.getParameter("osCode"));
 			String osVersion = multiRequest.getParameter("osVersion");
 			String material = multiRequest.getParameter("material");
@@ -185,13 +207,9 @@ public class InsertMobileServlet extends HttpServlet {
 			int battery = 0;
 			if ( bat != null && !bat.equals("") ) battery = Integer.parseInt(bat);
 			String batteryType = multiRequest.getParameter("batteryType");
-			if ( batteryType.equals("-----")) batteryType = null;
 			String fastCharging = multiRequest.getParameter("fastCharging");
-			if ( fastCharging.equals("-----")) fastCharging = null;
 			String removableBattery = multiRequest.getParameter("removableBattery");
-			if ( removableBattery.equals("-----")) removableBattery = null;
 			String wirelessCharging = multiRequest.getParameter("wirelessCharging");
-			if ( wirelessCharging.equals("-----")) wirelessCharging = null;
 			String standBy = multiRequest.getParameter("standBy");
 			String protocol = multiRequest.getParameter("protocol");
 			String wifi = multiRequest.getParameter("wifi");
@@ -199,7 +217,6 @@ public class InsertMobileServlet extends HttpServlet {
 			String usb = multiRequest.getParameter("usb");
 			String bio = multiRequest.getParameter("bio");
 			String payment = multiRequest.getParameter("payment");
-			if ( payment.equals("-----")) payment = null;
 			String verify = multiRequest.getParameter("verify");
 			String etc = multiRequest.getParameter("etc");
 			String status = multiRequest.getParameter("status");

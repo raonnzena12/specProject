@@ -61,8 +61,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     
 	.outer {
 		width: 1200px;
-		min-height: 600px;
-		height: auto;
+		height: 600px;
 		margin: auto;
 	}
 	
@@ -100,15 +99,14 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     
     .title {
     	width: 100%;
-    	height: 100px;
+    	height: 20%;
     	padding: 20px 0 0 20px;
     	float: left;
     }
     
     .content-1 {
     	width: 100%;
-    	min-height: 300px;
-    	height: auto;
+    	height: 50%;
     	border: 1px solid orange;
     	float: left;
     }
@@ -147,32 +145,8 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     
     .content-2 {
     	width: 100%;
-    	height: 100px;
+    	height: 20%;
     	border: 1px solid green;
-    	float: left;
-    }
-    
-    .content-2-1 {
-    	width: 55%;
-    	height: 70%;
-    	float: left;
-    }
-    
-    .content-2-2 {
-    	width: 45%;
-    	height: 70%;
-    	float: left;
-    }
-    
-    .content-2-3 {
-    	width: 90%; 
-    	height: 30%;
-    	float: left;
-    }
-    
-    .content-2-4 {
-    	width: 10%;
-    	height: 30%;
     	float: left;
     }
     

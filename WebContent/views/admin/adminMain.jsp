@@ -176,18 +176,16 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	</div>
 	
 	<script>
-	
 		function selectMember() {
 			
 			var sort="admin";
 			var sortNum = 0;
 			var currentPage = 0;
-			
+
 			$.ajax({
 				url : "../../adminSelectMember.do",
 				type : "post",
 				dataType : "json",
-				data : {sort : sort, sortNum : sortNum},
 				success : function(map) {
 					if(map != null) {
 						var $memberTable = $("#memberTable");

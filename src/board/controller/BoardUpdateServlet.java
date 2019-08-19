@@ -9,59 +9,42 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
-import board.model.vo.Board;
-import member.model.vo.Member;
 
 
-@WebServlet("/write.bo")
-public class BoardWriteServlet extends HttpServlet {
+@WebServlet("/update.bo")
+public class BoardUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public BoardWriteServlet() {
+    public BoardUpdateServlet() {
         super();
         
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		int category = Integer.parseInt(request.getParameter("category"));
 		String title = request.getParameter("title-1");
 		String content = request.getParameter("summernote");
 		int brand = Integer.parseInt(request.getParameter("brand"));
-		System.out.println(title);
-		System.out.println(content);
-		System.out.println(category);
 		
-		int writer = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		content = content.replace("\n", "<br>");
 		
-		Board board = new Board();
-		board.setbCategory(category);
-		board.setbTitle(title);
-		board.setbContent(content); 
-		board.setbWriter(writer);
-		board.setbCode(brand);
-		
-		int result = new BoardService().writeBoard(board);
+		int result = new BoardService().updateBoard(bno, category, title, content, brand);
 		
 		if(result > 0) {
-			response.sendRedirect("maintotal.bo?bno="+ brand );
+			response.sendRedirect(request.getContextPath() + "/content.bo?bno="+bno);
 		}else {
-			request.setAttribute("msg", "게시글 작성 에러");
+			request.setAttribute("msg", "게시글 수정 에러");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
 		}
-		
-		
-		
-		
 		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		doGet(request, response);
 	}
 
