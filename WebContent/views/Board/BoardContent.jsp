@@ -205,8 +205,8 @@
    	
    	
    	<section id="conbtn">
-   	
-   	<% if(loginUser.getUserNo() == b.getbWriter()){ System.out.println("loginUser" + loginUser.getUserNo()); System.out.println("bWriter" + b.getbWriter());%>
+   	<%--  System.out.println("loginUser" + loginUser.getUserNo()); System.out.println("bWriter" + b.getbWriter());%> --%>
+   	<% if(loginUser.getUserNo() == b.getbWriter()){ %>
    		<button type="button" class="btn btn-secondary" id="deletebtn" onclick="deleteBoard();">삭제</button>
    		<button type="button" class="btn btn-secondary" id="motifybtn" onclick="updateBoard();">수정</button>
    	<% } %>
@@ -368,7 +368,7 @@
   	$(document).on("click", ".subdelete", function(){
 		var cno = $(this).parent().attr("id");
 		deleteReply(cno);
-		console.log("cno=" + cno);
+		/* console.log("cno=" + cno); */
 	});
 	
 	function deleteReply(cno){
@@ -394,13 +394,13 @@
 	$(document).on("click", ".subupdate", function(){
 		var cno = $(this).parent().attr("id");
 		updateReply(cno);
-		console.log("cno=" + cno);
+		/* console.log("cno=" + cno); */
 	});
 	
 	function updateReply(cno){
 		window.open("replyUpdateForm.bo?cno="+cno, "updateReplyForm","width=805, height=260, resizable = no, scrollbars = no");
 		<%-- location.href='<%= request.getContextPath()%>/replyUpdateForm.bo?cno='+cno; --%>
-		console.log("cno=" + cno);
+		/* console.log("cno=" + cno); */
 		
 	}
 	
@@ -409,7 +409,7 @@
 	$(document).on("click", ".subdanger", function(){
 		var cno = $(this).parent().attr("id");
 		dangerReply(cno);
-		console.log("cno=" + cno);
+		/* console.log("cno=" + cno); */
 	});
 	
 	function dangerReply(cno){
