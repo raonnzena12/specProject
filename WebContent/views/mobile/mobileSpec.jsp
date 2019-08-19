@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="mobile.model.vo.Mobile"%>
 <%
-	/* Mobile mo = (Mobile)request.getAttribute("device"); */
+ Mobile mo = (Mobile)request.getAttribute("device");
 %>
 <!DOCTYPE html>
 <html>  
@@ -142,8 +142,8 @@
         case "SK 텔레시스" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-sk telesys.png");<% break; 
         case "소니 모바일" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-sony.png");<% break; 
         case "노키아" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-nokia.png");<% break; 
-        } %>
-        <% switch ( mo.getmOsName() ) {
+        } 
+        switch ( mo.getmOsName() ) {
         case "안드로이드": %> $("#summaryOS").attr("src","image/OS/And.png"); <%break;
         case "iOS" : %> $("#summaryOS").attr("src","image/OS/iOS.png"); <%break;
         default : %> $("#summaryOS").attr("alt","미확인"); <%break;

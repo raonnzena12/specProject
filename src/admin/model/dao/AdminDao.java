@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -321,6 +322,117 @@ public class AdminDao {
 		return mList;
 	}
 
+	/**
+	 * 관리자 // 전체 글 갯수를 리턴하는 Service
+	 * @param conn
+	 * @return totalCount
+	 */
+	public int contentCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		String query = prop.getProperty("contentCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if (rset.next()) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return totalCount;
+	}
+
+	/**
+	 * 관리자 // 등록된 글 리스트를 받아오는 Service
+	 * @param conn
+	 * @param currentPage
+	 * @param limit
+	 * @return cList
+	 */
+	public ArrayList<AdminBoard> contentList(Connection conn, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminBoard> cList = new ArrayList<AdminBoard>();
+		
+		String query = prop.getProperty("contentList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			int startRow = ( currentPage - 1 ) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while ( rset.next() ) {
+				cList.add(new AdminBoard(rset.getInt("BNO"), rset.getString("BTITLE"), rset.getInt("BCOUNT"), rset.getDate("BREGDATE"), rset.getDate("BMODIDATE"), rset.getInt("BSTATUS"), rset.getInt("BWRITER"), rset.getString("USER_NAME")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return cList;
+	}
+
+	/**
+	 * 관리자 // 글 하나 관리 하는 DAO
+	 * @param conn
+	 * @param bno 
+	 * @return result
+	 */
+	public int updateContent(Connection conn,int type, int bno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateContent");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, type);
+			pstmt.setInt(2, bno);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 관리자 // 글 여러개 관리 하는 DAO
+	 * @param conn
+	 * @param query
+	 * @return result
+	 */
+	public int updateContents(Connection conn,int type, String query) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String baseQuery = prop.getProperty("updateContents") + query;
+		
+		try {
+			pstmt = conn.prepareStatement(baseQuery);
+			pstmt.setInt(1, type);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 	
 	
