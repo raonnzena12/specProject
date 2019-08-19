@@ -193,8 +193,12 @@
 				<p>댓글<%= replycount %></p>
 			</div>
 		</article>
-		
-		<textarea row="50" col="15" name="content" id="contentarea" style="resize:none;" readonly><%=b.getbContent() %></textarea>
+		<script>
+		    $(function(){
+		        $("#contentarea").html("<%=b.getbContent() %>");
+		    });
+		</script>
+		<div name="content" id="contentarea"></div>
    	</section>
    	
    	<section id="conbtn">
@@ -248,7 +252,11 @@
   <footer id="footer"></footer>
   
   <script>
-  
+  	function updateBoard(){
+		window.open("updateForm.bo?bno="+"<%=b.getbNo()%>", "updateBoardForm", "width=800, height=260, resizable = no, scrollbars = no");
+		/* window.open("replyUpdateForm.bo?cno="+cno, "updateReplyForm","width=805, height=260, resizable = no, scrollbars = no");
+		 */
+	}
   	
   	function deleteBoard(){
   		if(confirm('정말 삭제하시겠습니까?')){
