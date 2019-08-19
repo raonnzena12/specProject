@@ -17,7 +17,7 @@ public class ReviewEditServlet extends HttpServlet {
        
     public ReviewEditServlet() { 
         super();
-    }
+    } 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 리뷰 수정창 처음 열었을떄

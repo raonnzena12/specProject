@@ -18,7 +18,7 @@ public class BoardContentServlet extends HttpServlet {
        
    
     public BoardContentServlet() {
-        super();
+        super(); 
         
     }
 

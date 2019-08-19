@@ -19,7 +19,7 @@ public class CreateQuery {
 			case "nokia" : query += "\'노키아\'"; break;
 			default : break;
 			}
-			query += ( i == bArr.length-1 || i == 0 ) ? "" : ",";
+			query += ( i == bArr.length-1 || i == 0 ) ? "" : ","; 
 		}
 		query += " ) "; 
 		return query;

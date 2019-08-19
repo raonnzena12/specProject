@@ -19,7 +19,7 @@ public class ListCountServlet extends HttpServlet {
        
     public ListCountServlet() {
         super(); 
-    }
+    } 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String qString = request.getParameter("qString");
