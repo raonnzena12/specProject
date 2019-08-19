@@ -287,7 +287,7 @@
     <!-- <script>
     	$(document).ready(function(){
     		$("#total").css({"background-color": "#00264B", "color" : "white"});
-    	});
+    	}); 
     
     </script> -->
     

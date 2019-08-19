@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BoardWrite</title>
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <!-- include libraries(jQuery, bootstrap) -->
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
@@ -179,9 +179,18 @@
 	            		    ]
 	              });
 	                  
-	        });
-	        $("#write").click(function(){
-	        	var markupStr = $('#summernote').summernote('code');
+		        $("#write").click(function(){
+		        	var markupStr = $('#summernote').summernote('code');
+		        	console.log(markupStr);
+		        	/* return false; */
+		        	if(markupStr.trim() == "<p><br></p>"){
+		        		alert("내용을 입력하세요.");
+		        		return false;
+		        	}
+		        	$("#writeBoard").submit();
+		        	
+		        	
+		        });
 	        });
 	        
 	             
@@ -190,7 +199,7 @@
  	</section>
 	<section id="btn" class="sec">
 		<button type="button" class="btn btn-secondary btn1" id="preveal">미리보기</button>
-		<button type="submit" class="btn btn-secondary btn1" id="write">글쓰기</button>
+		<button type="button" class="btn btn-secondary btn1" id="write">글쓰기</button>
 		<button type="reset" class="btn btn-secondary btn1" id="cancel" onclick="javascript:history.back();">취소</button>
 	</section>
 	
@@ -204,7 +213,7 @@
 			var writeBoard = document.getElementById("writeBoard");
 			writeBoard.target = "preview";
 			writeBoard.action = "<%=request.getContextPath()%>/preview.bo";
-			console.log(content);
+			/* console.log(content); */
 			window.open("","preview","width=900px, height=600px");
 			writeBoard.submit();
 			writeBoard.action = "<%= request.getContextPath()%>/write.bo";
@@ -212,16 +221,15 @@
 		
   		
 			$("#writeBoard").submit(function(){
-				if($("#category").val() == "category"){
+				if($("#category").val() == "category"){ 
 		  			alert("카테고리를 선택하세요.");
 		  			return false;
 		  		}
-				console.log("제목 : "+$("#title-1").val());
+				/* console.log("제목 : "+$("#title-1").val()); */
 				if($("#title-1").val() == ""){
 					alert("제목을 입력하세요.");
 					return false;
 				}
-				
 				
 			});
 	

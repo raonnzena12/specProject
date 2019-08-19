@@ -201,7 +201,7 @@
 			var writeBoard = document.getElementById("updateBoard");
 			writeBoard.target = "preview";
 			writeBoard.action = "<%=request.getContextPath()%>/preview.bo";
-			console.log(content);
+			/* console.log(content); */
 			window.open("","preview","width=900px, height=600px");
 			writeBoard.submit();
 			writeBoard.action = "<%= request.getContextPath()%>/update.bo";
@@ -213,7 +213,7 @@
 		  			alert("카테고리를 선택하세요.");
 		  			return false;
 		  		}
-				console.log("제목 : "+$("#title-1").val());
+				/* console.log("제목 : "+$("#title-1").val()); */
 				if($("#title-1").val() == ""){
 					alert("제목을 입력하세요.");
 					return false;
