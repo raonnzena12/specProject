@@ -38,6 +38,12 @@
 		resize:none;
 	}
 </style>
+<script>
+$(function(){
+    var replycontent = "<%=content.getcContent()%>".replace("/(<br>|<br\/>|<br \/>)/g", "\n");
+    $("#text").val(replycontent);
+});
+</script>
 </head>
 <body style="overflow-x:hidden; overflow-y:hidden;">
 		<div class="card border-light mb-3" id="card" style="max-width: 50rem;">
@@ -67,12 +73,11 @@
 	<script>
 	
 		$(document).ready(function(){
-			var replycontent = "<%=content.getcContent()%>".replace(/(<br>|<br\/>|<br \/>)/g, "\n");
-		    $("#text").val(replycontent);
+			
 		});
 
 		$("#dangerReplyBtn").on("click", function(){
-			var text = $("#dangerContent").val().replace("\n", "<br>");// 신고 내용
+			var text = $("#dangerContent").val().replace("<br>", "\n");// 신고 내용
 			var dwriter = <%=dwriter%>; // 신고글 작성 한 사람
 			var user = <%=content.getcWriter()%>; // 댓글 신고 당한 사람
 			var cno = <%=content.getcNo()%>;
@@ -89,7 +94,7 @@
 					if(result > 0){
 						alert("신고 완료");
 						if (opener!= null) {
-	                        opener.dangerReplyForm = null;
+	                        opener.dangerReply = null;
 	                        self.close();
 	                    }
 	                    opener.location.href="javascript:selectRlist();"

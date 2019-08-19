@@ -21,8 +21,8 @@ public class Member implements java.io.Serializable { /**
 	private int userMno;
 	private String userEmailHash;
 	private String userDevice;
-	private String miFrontName;	
-	private String miProductName;
+		
+
 
 
 	
@@ -131,23 +131,6 @@ public class Member implements java.io.Serializable { /**
 		this.userVerify = userVerify;
 		this.userStatus = userStatus;
 		this.userDevice = userDevice;
-	}
-	public Member(int userNo, String userEmail, String userPwd, String userName, String phone, Date enrollDate,
-			Date modifyDate, char userEvent, int userVerify, int userStatus, String userDevice, String miFrontName, String miProductName) {
-		super();
-		this.userNo = userNo;
-		this.userEmail = userEmail;
-		this.userPwd = userPwd;
-		this.userName = userName;
-		this.phone = phone;
-		this.enrollDate = enrollDate;
-		this.modifyDate = modifyDate;
-		this.userEvent = userEvent;
-		this.userVerify = userVerify;
-		this.userStatus = userStatus;
-		this.userDevice = userDevice;
-		this.miFrontName = miFrontName;
-		this.miProductName = miProductName;
 	}
 
 
@@ -288,38 +271,6 @@ public class Member implements java.io.Serializable { /**
 
 	public void setUserEmailHash(String userEmailHash) {
 		this.userEmailHash = userEmailHash;
-	}
-
-	
-	// user device 기종 이름
-	public String getUserDevice() {
-		return userDevice;
-	}
-
-
-	public void setUserDevice(String userDevice) {
-		this.userDevice = userDevice;
-	}
-
-	
-	// 기종 제품 명
-	public String getMiProductName() {
-		return miProductName;
-	}
-
-
-	public void setMiProductName(String miProductName) {
-		this.miProductName = miProductName;
-	}
-
-
-	public String getMiFrontName() {
-		return miFrontName;
-	}
-
-
-	public void setMiFrontName(String miFrontName) {
-		this.miFrontName = miFrontName;
 	}
 
 

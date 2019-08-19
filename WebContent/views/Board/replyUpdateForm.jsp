@@ -26,7 +26,7 @@
 		width:800px;
 		height:200px;
 	}
-	.commentbtn{
+	#commentbtn{
 		display:inline-block;
 		float:right;
 		margin: 20px 10px 10px 10px;
@@ -40,15 +40,14 @@
 	<div class="card border-light mb-3" id="card" style="max-width: 50rem;">
 	  <div class="card-header">댓글 수정</div>
 	  <div class="card-body">
-	    <textarea rol="3" col="2" id="text"></textarea>
-	    <button type="button" class="btn btn-primary commentbtn"  onclick="javascript:self.close();">취소</button>
-	    <button type="button" class="btn btn-secondary commentbtn"  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom" id="updateReply">수정</button>
+	    <textarea rol="3" col="2" id="text"><%=content.getcContent() %></textarea>
+	    <button type="button" class="btn btn-primary" id="commentbtn" onclick="javascript:self.close();">취소</button>
+	    <button type="button" class="btn btn-secondary" id="commentbtn" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom" id="updateReply">수정</button>
 	  </div>
 	</div>
 <script>
 	$(document).ready(function(){
-		var replycontent = "<%=content.getcContent()%>".replace(/(<br>|<br\/>|<br \/>)/g, "\n");
-	    $("#text").val(replycontent);
+		
 	});
 	
 	$("#updateReply").click(function(){
@@ -56,7 +55,6 @@
 		var con = $("#text").val(); */
 		var modiCon = $("#text").val().trim();
 		var cno = <%=cno%>;
-		console.log(cno);
 		if( modiCon == ""){
 			alert("댓글을 입력해주세요.");
 			return false;
@@ -69,7 +67,7 @@
 				if(result > 0){
 					alert("댓글 수정 완료");
                     if (opener!= null) {
-                        opener.updateReplyForm = null;
+                        opener.updateReply = null;
                         self.close();
                     }
                     opener.location.href="javascript:selectRlist();"

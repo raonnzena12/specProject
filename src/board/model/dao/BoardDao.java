@@ -237,6 +237,39 @@ public class BoardDao {
 	}
 	
 	/**
+	 * 게시판 수정용 Dao
+	 * @param conn
+	 * @param category
+	 * @param title
+	 * @param content
+	 * @param brand
+	 * @return result
+	 */
+	public int updateBoard(Connection conn,int bno, int category, String title, String content, int brand) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, brand);
+			pstmt.setInt(4, category);
+			pstmt.setInt(5, bno);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/**
 	 * 게시판 검색용 Dao
 	 * @param conn
 	 * @param currentPage

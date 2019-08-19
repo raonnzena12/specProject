@@ -5,7 +5,6 @@
 
 	PageInfo pIf = (PageInfo)request.getAttribute("pIf");
 	
-	
 	int boardCount = pIf.getListCount();
 	int currentPage = pIf.getCurrentPage();
 	int maxPage = pIf.getMaxPage();
@@ -25,12 +24,12 @@
     	margin-top: 5%;
     }
 	#mypageNav ul>li{
-        width: 15%;
+        width: 20%;
         float: left;
         list-style-type: none;
         line-height: 80px;
         
-        margin: 0 10px;
+        margin: 0 15px;
         text-align: center;
     }
 
@@ -129,7 +128,6 @@
 			<li><a href="<%=request.getContextPath()%>/myBoardList.me">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/myReviewList.me" id="now">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
-			<li><a href="#">신고내역보기</a></li>
 		</ul>
     </nav>
     <div id="articleLayer">
@@ -157,7 +155,7 @@
 		    	<% for(Review r : rList){ %>
 		    	<tr>
 		    		<td><%=r.getRnum() %></td>
-		    		<td style="color:white"><%=r.getrRefMno() %></td>
+		    		<td><%=r.getrRefMno() %></td>
 		    		<td><%=r.getrTitle() %></td>
 		    		<td><%=r.getrDeviceName() %></td>
 		    		<td><%=r.getrRegDate2() %></td>
@@ -212,15 +210,15 @@
 		$("#reviewTable td").mouseenter(function(){
 			$(this).parent().css("cursor","pointer");
 		}).click(function(){
-			var mno = $(this).parent().children().eq(1).text();
+			var mno = $(this).parent().children().eq(1).val();
 			
 			console.log(mno);
 			// 로그인 한 사람만 게시글 상세보기 가능
-			<% if(loginUser != null){ %>
+			<%-- <% if(loginUser != null){ %>
 				location.href="<%= request.getContextPath() %>/spec.mo?mno="+mno + "&page=2";
 			<% } else{ %>
 				alert("로그인해야만 상세보기가 가능합니다!");
-			<% } %>
+			<% } %> --%>
 		});
 		
 		// 페이징바 마우스오버 이벤트

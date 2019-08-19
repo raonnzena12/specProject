@@ -21,8 +21,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     
 	.outer {
 		width: 1200px;
-		min-height: 600px;
-		height: auto;
+		height: 600px;
 		margin: auto;
 	}    
     .menu-outer {
@@ -59,15 +58,14 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     
     .title {
     	width: 100%;
-    	height: 100px;
+    	height: 20%;
     	padding: 20px 0 0 20px;
     	float: left;
     }
     
     .content-1 {
     	width: 100%;
-    	min-height: 300px;
-    	height: auto;
+    	height: 50%;
     	border: 1px solid orange;
     	float: left;
     }
@@ -106,38 +104,14 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     
     .content-2 {
     	width: 100%;
-    	height: 100px;
+    	height: 20%;
     	border: 1px solid green;
-    	float: left;
-    }
-    
-    .content-2-1 {
-    	width: 55%;
-    	height: 70%;
-    	float: left;
-    }
-    
-    .content-2-2 {
-    	width: 45%;
-    	height: 70%;
-    	float: left;
-    }
-    
-    .content-2-3 {
-    	width: 90%; 
-    	height: 30%;
-    	float: left;
-    }
-    
-    .content-2-4 {
-    	width: 10%;
-    	height: 30%;
     	float: left;
     }
     
     .pagingBar {
     	width: 100%;
-    	height: 100px;
+    	height: 10%;
     	border: 1px solid blue;
     	float: left;
     }
@@ -173,8 +147,8 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			</div>
 			<div class="content-1">
 				<table id="listTable">
-					<tr style="background-color:#E2E2E2">
-						<th><input id="checkAll" type="checkbox" name="memberCheck"></th>
+					<tr>
+						<th><input type="checkbox"></th>
 						<th>No ▼</th>
 						<th>아이디 ▼</th>
 						<th>닉네임 ▼</i></th>
@@ -184,58 +158,18 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 					</tr>
 				</table>
 			</div>
-			<div class="content-2">
-				<div class="content-2-1">
-			      	<form class="form-inline my-2 my-lg-0">
-			      		<label>유저 편집 : </label>
-					    <select class="form-control" id="sort-1">
-				        	<option>관리자</option>
-				        	<option>일반</option>
-				        	<option>정지</option>
-				        	<option>탈퇴</option>
-				        </select>
-				      	<button type="button" class="btn btn-outline-dark">검색</button>
-				    </form>
-				</div>
-				<div class="content-2-2">
-			      	<form class="form-inline my-2 my-lg-0">
-						<select class="form-control" id="sort-2">
-				        	<option>아이디</option>
-				        	<option>닉네임</option>
-				      	</select>
-				      	<input class="form-control mr-sm-2" type="text" placeholder="Search">
-				      	<button type="button" class="btn btn-outline-dark">검색</button>
-				  	</form>
-				</div>
-				<div class="content-2-3"></div>
-				<div class="content-2-4">
-					<form class="form-inline my-2 my-lg-0">
-						<select class="form-control" id="sortNum">
-				        	<option>5</option>
-				        	<option>10</option>
-				        	<option>15</option>
-				        	<option>20</option>
-				        	<option>30</option>
-				      	</select>
-				  	</form>
-				</div>
-				
-			</div>
+			<div class="content-2"></div>
 			<div class="pagingBar"></div>
 		</div>
 	</div>
 	
 	<script>
 		
-		function selectMember(sort) {
-			
-			var sortNum = $("#sortNum").val();
-			
+		function selectMember(sort, num) {
 			$.ajax({
 				url: "../../adminSelectMember.do",
 				type: "post",
 				dataType: "json",
-				data : {sort : sort, sortNum : sortNum},
 				success: function(map) {
 					if(sort == 'title') {
 						

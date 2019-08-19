@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="mobile.model.vo.*"%>
-    
 <%
 	Mobile mo = (Mobile)request.getAttribute("mo");
 	String mCode = mo.getmCode();
@@ -8,7 +7,7 @@
 	String mNameEn = mo.getmNameEn();
 	String mBrandName = mo.getmBrandName();
 	String mReleaseDate = mo.getmReleaseDate();
-    String mOsName = mo.getmOsName();
+	String mOsName = mo.getmOsName();
 	String mOsVersion = mo.getmOsVersion();
 	String mMaterial = mo.getmMaterial();
 	String mSize = mo.getmSize();
@@ -40,9 +39,8 @@
 	String mCamera = mo.getmCamera();
 	int mBattery = mo.getmBattery();
 	String mBatteryType = mo.getmBatteryType();
-    String mFastCharsing = mo.getmFastCharsing();
-    String mRemovableBat = mo.getmRemovableBat();
-    
+	String mFastCharsing = mo.getmFastCharsing();
+	String mRemovableBat = mo.getmRemovableBat();
 	String mWireless = mo.getmWireless();
 	String mStandBy = mo.getmStandBy();
 	String mProtocol = mo.getmProtocol();
@@ -63,11 +61,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert Mobile</title>
-<%@ include file ="../common/menubar.jsp" %>
 <style>
     .Mobilecontainer {
         width: 1080px;
-        margin: 30px auto;
+        margin: 0 auto;
     }
     /* .Mobilecontainer div {
         min-height: 100px;
@@ -99,61 +96,26 @@
         margin: 0 10px;
         width: 100px;
     }
-    #frontImg, #backImg {
-        height: 380px;
-        width: auto;
-        margin: auto;
-    }
-    .imgCon {
-        text-align: center;
-    }
 </style>
-<script>
-	$(function(){
-		if ( <%=mFrontImage != null%> ) {
-            $("#frontImg").attr("src","<%=request.getContextPath()%>/image/mobileImages/<%=mFrontImage%>");
-        }
-        if ( <%=mBackImage !=null%> ) {
-            $("#backImg").attr("src","<%=request.getContextPath()%>/image/mobileImages/<%=mBackImage%>");
-        }
-        $(".clearBtn").on("click", function(){
-            var $hidden = $(this).prev().prev();
-            $hidden.val($hidden.val()+"#");
-            $(this).parent().children(0).attr("src","<%=request.getContextPath()%>/image/smartphoneG.png");
-        });
-	});
-</script>
 </head>
 <body>
+	<%@ include file ="../common/menubar.jsp" %>
 	<section class="Mobilecontainer">
         <form action="<%=request.getContextPath()%>/updateForm.mo" method="POST" enctype="multipart/form-data">
         <div class="insertMobileTop">
-            <input type="hidden" name="mno" value="<%=mo.getmNo()%>">
-            <div class="imgCon">
-                <img id="frontImg" src="<%=request.getContextPath()%>/image/smartphoneG.png">
-                <input type="file" multiple="multiple" name="newFrontImg">
-                <input type="hidden" name="frontImg" <% if( mFrontImage != null ) { %>value="<%=mFrontImage%>" <% } %>><br>
-                <button type="button" class="clearBtn">이미지 삭제</button>
+            <div id="frontImg">
+                <input type="file" name="frontImg" multiple="multiple">
             </div>
-            <div class="imgCon">
-                <img id="backImg" src="<%=request.getContextPath()%>/image/smartphoneG.png">
-                <input type="file" multiple="multiple" name="newBackImg">
-                <input type="hidden" name="backImg" <% if( mBackImage != null ) { %>value="<%=mBackImage%>" <% } %>><br>
-                <button type="button" class="clearBtn">이미지 삭제</button>
+            <div id="backImg">
+                <input type="file" name="backImg" multiple="multiple">
             </div>
             <div class="nameInsert">
                 <label>브랜드<select name="brand" id="brand"  class="form-control">
-                    <option>-----</option>
-                    <option value="1" <% if ( mBrandName.equals("삼성전자") ) { %>selected<% } %>>삼성</option>
-                    <option value="2" <% if ( mBrandName.equals("LG전자") ) { %>selected<% } %>>LG전자</option>
-                    <option value="3" <% if ( mBrandName.equals("애플") ) { %>selected<% } %>>apple</option>
-                    <option value="4" <% if ( mBrandName.equals("팬택") ) { %>selected<% } %>>팬택</option>
-                    <option value="5" <% if ( mBrandName.equals("HTC") ) { %>selected<% } %>>HTC</option>
-                    <option value="6" <% if ( mBrandName.equals("모토로라") ) { %>selected<% } %>>모토로라</option>
-                    <option value="7" <% if ( mBrandName.equals("KT Tech") ) { %>selected<% } %>>KT Tech</option>
-                    <option value="8" <% if ( mBrandName.equals("SK 텔레시스") ) { %>selected<% } %>>SK 텔레시스</option>
-                    <option value="9" <% if ( mBrandName.equals("소니 모바일") ) { %>selected<% } %>>소니 모바일</option>
-                    <option value="10" <% if ( mBrandName.equals("노키아") ) { %>selected<% } %>>노키아</option>
+                    <option selected>-----</option>
+                    <option value="1">삼성</option>
+                    <option value="2">apple</option>
+                    <option value="3">LG전자</option>
+                    <option value="4">샤오미</option>
                 </select></label>
                 <br><br>
                 <label>모델번호<input type="text" name="moCode" id="moCode" class="form-control" placeholder="모델번호 입력" value="<%=mCode%>"></label>
@@ -171,7 +133,7 @@
                     </tr>
                     <tr>
                         <td>출시일</td>
-                        <td><input type="text" class="form-control" name="releaseDate" placeholder="2000-01-01" <% if( mReleaseDate != null ) { %>value="<%=mReleaseDate%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="releaseDate" placeholder="2000-01-01" <% if( mReleaseDate != null ) { %>value="<%=mNameEn%>" <% } %>></td>
                         <td>출시OS</td>
                         <td>
                         <div class="form-row align-items-center">
@@ -179,9 +141,9 @@
                             <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
                             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="osCode">
                                 <option value="0">OS선택</option>
-                                <option value="1" <% if ( mOsName != null && mOsName.equals("안드로이드") ) { %>selected<% } %>>안드로이드</option>
-                                <option value="2" <% if ( mOsName != null && mOsName.equals("iOS") ) { %>selected<% } %>>iOS</option>
-                                <option value="3" <% if ( mOsName != null && mOsName.equals("ETC") ) { %>selected<% } %>>ETC</option>
+                                <option value="1">안드로이드</option>
+                                <option value="2">iOS</option>
+                                <option value="3">etc</option>
                             </select>
                             </div>
                             <input type="text" class="form-control" name="osVersion" id="osVersion" <% if( mOsVersion != null ) { %>value="<%=mOsVersion%>" <% } %>>
@@ -195,15 +157,15 @@
                 <table class="table">
                     <tr>
                         <td>주요재질</td>
-                        <td><input type="text" class="form-control" name="material" <% if( mMaterial != null ) { %>value="<%=mMaterial%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="material"></td>
                         <td>크기(WxHxD, mm)</td>
-                        <td><input type="text" class="form-control" name="size" <% if( mSize != null ) { %>value="<%=mSize%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="size"></td>
                     </tr>
                     <tr>
                         <td>무게(g)</td>
-                        <td><input type="text" class="form-control" name="weight" <% if( mWeight != null ) { %>value="<%=mWeight%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="weight"></td>
                         <td>연결단자</td>
-                        <td><input type="text" class="form-control" name="link" <% if( mLink != null ) { %>value="<%=mLink%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="link"></td>
                     </tr>
                 </table>
             </div>
@@ -212,21 +174,21 @@
                 <table class="table">
                     <tr>
                         <td>액정크기(인치)</td>
-                        <td><input type="text" class="form-control" name="inch" <% if( mInch != 0 ) { %>value="<%=mInch%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="inch"></td>
                         <td>화면해상도</td>
-                        <td><input type="text" class="form-control" name="resolution" <% if( mResolution != null ) { %>value="<%=mResolution%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="resolution"></td>
                     </tr>
                     <tr>
                         <td>Pixel/Inch</td>
-                        <td><input type="text" class="form-control" name="pixelInch" <% if( mPixel != null ) { %>value="<%=mPixel%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="pixelInch"></td>
                         <td>화면 타입</td>
-                        <td><input type="text" class="form-control" name="displayType" <% if( mDisplayType != null ) { %>value="<%=mDisplayType%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="displayType"></td>
                     </tr>
                     <tr>
                         <td>화면 폭</td>
-                        <td><input type="text" class="form-control" name="disWidth" <% if( mDisWidth != null ) { %>value="<%=mDisWidth%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="disWidth"></td>
                         <td>화면 높이</td>
-                        <td><input type="text" class="form-control" name="disHeight" <% if( mDisHeight != null ) { %>value="<%=mDisHeight%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="disHeight"></td>
                     </tr>
                 </table>
             </div>
@@ -235,27 +197,27 @@
                 <table class="table">
                     <tr>
                         <td>AP</td>
-                        <td><input type="text" class="form-control" name="ap" <% if( mAp != null ) { %>value="<%=mAp%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="ap"></td>
                         <td>CPU</td>
-                        <td><input type="text" class="form-control" name="cpu" <% if( mCpu != null ) { %>value="<%=mCpu%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="cpu"></td>
                     </tr>
                     <tr>
                         <td>CPU코어</td>
-                        <td><input type="text" class="form-control" name="cpuCore" <% if( mCpuCore != null ) { %>value="<%=mCpuCore%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="cpuCore"></td>
                         <td>CPU클럭</td>
-                        <td><input type="text" class="form-control" name="cpuClock" <% if( mCpuClock != null ) { %>value="<%=mCpuClock%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="cpuClock"></td>
                     </tr>
                     <tr>
                         <td>GPU</td>
-                        <td><input type="text" class="form-control" name="gpu" <% if( mGpu != null ) { %>value="<%=mGpu%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="gpu"></td>
                         <td>메모리(RAM)</td>
-                        <td><input type="text" class="form-control" name="ram" <% if( mRam != null ) { %>value="<%=mRam%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="ram"></td>
                     </tr>
                     <tr>
                         <td>내장메모리</td>
-                        <td><input type="text" class="form-control" name="innerMemory" <% if( mInnerMemory != null ) { %>value="<%=mInnerMemory%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="innerMemory"></td>
                         <td>외장메모리</td>
-                        <td><input type="text" class="form-control" name="outerMemory" <% if( mOuterMemory != null ) { %>value="<%=mOuterMemory%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="outerMemory"></td>
                     </tr>
                 </table>
             </div>
@@ -264,33 +226,33 @@
                 <table class="table">
                     <tr>
                         <td>카메라 센서</td>
-                        <td><input type="text" class="form-control" name="cameraSensor" <% if( mSensor != null ) { %>value="<%=mSensor%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="cameraSensor"></td>
                         <td>카메라 조리개</td>
-                        <td><input type="text" class="form-control" name="iris" <% if( mIris != null ) { %>value="<%=mIris%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="iris"></td>
                     </tr>
                     <tr>
                         <td>Flash</td>
-                        <td><input type="text" class="form-control" name="flash" <% if( mFlash != null ) { %>value="<%=mFlash%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="flash"></td>
                         <td>사진촬영 해상도</td>
-                        <td><input type="text" class="form-control" name="picResolution" <% if( mPicResolution != null ) { %>value="<%=mPicResolution%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="picResolution"></td>
                     </tr>
                     <tr>
                         <td>동영상녹화 해상도</td>
-                        <td><input type="text" class="form-control" name="vidResolution" <% if( mVidResolution != null ) { %>value="<%=mVidResolution%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="vidResolution"></td>
                         <td>동영상녹화 프레임</td>
-                        <td><input type="text" class="form-control" name="vidFrame" <% if( mVidFrame != null ) { %>value="<%=mVidFrame%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="vidFrame"></td>
                     </tr>
                     <tr>
                         <td>전면 해상도</td>
-                        <td><input type="text" class="form-control" name="frontResolution" <% if( mFrontResolution != null ) { %>value="<%=mFrontResolution%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="frontResolution"></td>
                         <td>전면 동영상 해상도</td>
-                        <td><input type="text" class="form-control" name="frontVidResolution" <% if( mFrontVidResolution != null ) { %>value="<%=mFrontVidResolution%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="frontVidResolution"></td>
                     </tr>
                     <tr>
                         <td>전면 비디오 프레임</td>
-                        <td><input type="text" class="form-control" name="frontVidFrame" <% if( mFrontVidFrame != null ) { %>value="<%=mFrontVidFrame%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="frontVidFrame"></td>
                         <td>카메라 특징</td>
-                        <td><input type="text" class="form-control" name="camera" <% if( mCamera != null ) { %>value="<%=mCamera%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="camera"></td>
                     </tr>
                 </table>
             </div>
@@ -299,15 +261,15 @@
                 <table class="table">
                     <tr>
                         <td>배터리(mAH)</td>
-                        <td><input type="text" class="form-control" name="battery" <% if( mBattery != 0 ) { %>value="<%=mBattery%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="battery"></td>
                         <td>배터리타입</td>
                         <td>
                             <select id="batteryType" class="form-control" name="batteryType">
                             <option>-----</option>
-                            <option value="Lithium" <% if ( mBatteryType != null && mBatteryType.equals("Lithium") ) { %>selected<% } %>>Lithium</option>
-                            <option value="Li-Polymer" <% if ( mBatteryType != null && mBatteryType.equals("Li-Polymer") ) { %>selected<% } %>>Li-Polymer</option>
-                            <option value="Li-Ion" <% if ( mBatteryType != null && mBatteryType.equals("Li-Ion") ) { %>selected<% } %>>Li-Ion</option>
-                            <option value="Li-Ion Polymer" <% if ( mBatteryType != null && mBatteryType.equals("Li-Ion Polymer") ) { %>selected<% } %>>Li-Ion Polymer</option>
+                            <option value="Lithium">Lithium</option>
+                            <option value="Li-Polymer">Li-Polymer</option>
+                            <option value="Li-Ion">Li-Ion</option>
+                            <option value="Li-Ion Polymer">Li-Ion Polymer</option>
                             </select>
                         </td>
                     </tr>
@@ -316,15 +278,16 @@
                         <td>
                             <select id="fastCharging" class="form-control" name="fastCharging">
                             <option>-----</option>
-                            <option value="고속충전"<% if ( mFastCharsing != null ) { %>selected<% } %>>고속충전 지원</option>
+                            <option value="고속충전">지원</option>
+                            <option value="미지원">미지원</option>
                             </select>
                         </td>
                         <td>배터리 탈착여부</td>
                         <td>
                             <select id="removableBattery" class="form-control" name="removableBattery">
                             <option>-----</option>
-                            <option value="일체형" <% if ( mRemovableBat != null && mRemovableBat.equals("일체형")) { %>selected<% } %>>일체형</option>
-                            <option value="분리형" <% if ( mRemovableBat != null && mRemovableBat.equals("분리형")) { %>selected<% } %>>분리형</option>
+                            <option value="일체형">일체형</option>
+                            <option value="분리형">분리형</option>
                             </select>
                         </td>
                     </tr>
@@ -333,7 +296,8 @@
                         <td>
                             <select id="wirelessCharging" class="form-control" name="wirelessCharging">
                             <option>-----</option>
-                            <option value="무선충전 지원" <% if ( mWireless != null ) { %>selected<% } %>>무선충전 지원</option>
+                            <option value="무선충전">지원</option>
+                            <option value="미지원">미지원</option>
                             </select>
                         </td>
                         </tr>
@@ -344,15 +308,15 @@
                 <table class="table">
                     <tr>
                         <td>대기 시간</td>
-                        <td><input type="text" class="form-control" name="standBy" <% if( mStandBy != null ) { %>value="<%=mStandBy%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="standBy"></td>
                         <td>통신규격</td>
-                        <td><input type="text" class="form-control" name="protocol" <% if( mProtocol != null ) { %>value="<%=mProtocol%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="protocol"></td>
                     </tr>
                     <tr>
                         <td>WiFi</td>
-                        <td><input type="text" class="form-control" name="wifi" <% if( mWifi != null ) { %>value="<%=mWifi%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="wifi"></td>
                         <td>블루투스 버전</td>
-                        <td><input type="text" class="form-control" name="bluetooth" <% if( mBluetooth != null ) { %>value="<%=mBluetooth%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="bluetooth"></td>
                     </tr>
                 </table>
             </div>
@@ -361,25 +325,25 @@
                 <table class="table">
                     <tr>
                         <td>USB버전</td>
-                        <td><input type="text" class="form-control" name="usb" <% if( mUsb != null ) { %>value="<%=mUsb%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="usb"></td>
                         <td>생체인식</td>
-                        <td><input type="text" class="form-control" name="bio" <% if( mBio != null ) { %>value="<%=mBio%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="bio"></td>
                     </tr>
                     <tr>
                         <td>모바일결제</td>
                         <td>
                             <select id="payment" class="form-control" name="payment">
                             <option>-----</option>
-                            <option value="유" <% if ( mPayment != null && mPayment.equals("유") ) { %>selected<% } %>>유</option>
-                            <option value="무" <% if ( mPayment != null && mPayment.equals("무") ) { %>selected<% } %>>무</option>
+                            <option value="유">유</option>
+                            <option value="무">무</option>
                             </select>
                         </td>
                         <td>인증</td>
-                        <td><input type="text" class="form-control" name="verify" <% if( mVerify != null ) { %>value="<%=mVerify%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="verify"></td>
                     </tr>
                     <tr>
                         <td>기타</td>
-                        <td><input type="text" class="form-control" name="etc" <% if( mEtc != null ) { %>value="<%=mEtc%>" <% } %>></td>
+                        <td><input type="text" class="form-control" name="etc"></td>
                     </tr>
                 </table>
             </div>

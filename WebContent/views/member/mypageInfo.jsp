@@ -10,11 +10,8 @@
 <meta charset="UTF-8">
 <title>비밀번호 확인</title>
 <style>
-	/* *{
-		border: 1px solid black;
-	} */
 	#infoLayer{
-		width:100%;
+		width:1500px;
 		height: 800px;
 		margin:auto;
 	}
@@ -48,7 +45,7 @@
 		text-align:center;
 	}
 	.tableArea {
-		width:40%;
+		width:50%;
 		height:100%;
 		
 	}
@@ -57,7 +54,7 @@
 		height: 100%;
 	}
 	#listArea {
-		width:70%;
+		width:50%;
 		height:70%;
 		margin-left: 10%;
 		margin-top: 5%;
@@ -93,12 +90,12 @@
     	margin-top: 5%;
     }
 	#mypageNav ul>li{
-        width: 15%;
+        width: 20%;
         float: left;
         list-style-type: none;
         line-height: 80px;
         
-        margin: 0 10px;
+        margin: 0 15px;
         text-align: center;
     }
 
@@ -133,22 +130,21 @@
 	<nav id="mypageNav">
 		<ul>
 			<li><a href="<%=request.getContextPath()%>/mypage.me" id="info">회원정보</a></li>
-			<li><a href="<%=request.getContextPath()%>/myBoardList.me">작성글보기</a></li>
-			<li><a href="<%=request.getContextPath()%>/myReviewList.me">작성리뷰보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/views/member/myArticleList.jsp">작성글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/views/member/myReviewList.jsp">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
-			<li><a href="#">신고내역보기</a></li>
 		</ul>
     </nav>
 
 	<div id="infoLayer">
 		<div id="mobile" class="fl">
 			<div id="mobileImg">
-				<% if(member.getMiFrontName() != null){ %>
-				<img class="max-small" alt="" src="<%=request.getContextPath()%>/image/mobileImages/<%=member.getMiFrontName()%>">
-				<% } else{ %>
+				<% if(member.getPhone() != null){ %>
+				<img class="max-small" alt="" src="https://image-us.samsung.com/us/smartphones/galaxy-s10/gallery/s10e/prism-blue/001_Gallery_G970_Blue_1600x1200.jpg?$product-details-jpg$">
+				<% } %>
 			</div>
 			<div class="fts">
-				
+				<%if( member.getPhone() == null){%>
 				기기 정보가 없습니다.
 				<%} %>
 			</div>
@@ -191,8 +187,8 @@
 					<th>기종</th>
 				</tr>
 				<tr>
-                	<td> <%if( member.getMiProductName() != null){ %>
-                		<input type="text" name="device" class="form-control" value="<%=member.getMiProductName()%>" readonly>
+                	<td> <%if( member.getPhone() != null){ %>
+                		<input type="text" name="device" class="form-control" value="<%=member.getUserMno()%>" readonly>
                 		<% } else{ %>
                 		<input type="text" name="device" class="form-control" value="휴대폰 기기 정보가 없습니다." readonly>
 						<% } %>

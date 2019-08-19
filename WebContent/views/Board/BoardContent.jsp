@@ -95,9 +95,11 @@
         	height:40px;
        	}
        	#contentarea{
+       		border: 1px solid #ced4da;
        		width: 100%;
        		height: 420px;
        		margin: 0;
+       		margin-top:32px;
        		padding:0;
        	}
        	#contenttable{
@@ -193,7 +195,12 @@
 				<p>댓글<%= replycount %></p>
 			</div>
 		</article>
-		<textarea row="50" col="15" name="content" id="contentarea" style="resize:none;" readonly><%=b.getbContent() %></textarea>
+		<script>
+		    $(function(){
+		        $("#contentarea").html("<%=b.getbContent() %>");
+		    });
+		</script>
+		<div name="content" id="contentarea"></div>
    	</section>
    	
    	
@@ -248,7 +255,12 @@
   <footer id="footer"></footer>
   
   <script>
-  
+  	function updateBoard(){
+  		<%-- window.open("updateForm.bo?bno="+"<%=b.getbNo()%>", "updateBoardForm", "width=1150, height=880, resizable = no, scrollbars = no"); --%>
+  		location.href='<%= request.getContextPath()%>/updateForm.bo?bno=<%=b.getbNo()%>';
+  		/* window.open("replyUpdateForm.bo?cno="+cno, "updateReplyForm","width=805, height=260, resizable = no, scrollbars = no");
+		 */
+  	}
   	
   	function deleteBoard(){
   		if(confirm('정말 삭제하시겠습니까?')){

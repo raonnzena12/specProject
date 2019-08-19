@@ -29,37 +29,16 @@ public class SelectMemberServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String sort = request.getParameter("sort");
-		int sortNum = Integer.parseInt("sortNum");
+		ArrayList<AdminMember> mList = new AdminService().selectMember();
 		
-		ArrayList<AdminMember> mList = null;
+		JSONObject map = new JSONObject();
 		
-		AdminService aService = new AdminService();
-		
-		if(sort == null) {
-			mList = aService.selectMember();
-			
-			JSONObject map = new JSONObject();
-			
-			for(int i=0; i<mList.size(); i++) {
-				map.put(i, mList.get(i));
-			}
-			
-			response.setCharacterEncoding("UTF-8");
-			new Gson().toJson(map, response.getWriter());
-		}else {
-			if(sort == "no") {
-				
-			}else if(sort == "title") {
-				
-			}else if(sort == "name") {
-				
-			}else if(sort == "status") {
-				
-			}else if(sort == "date") {
-				
-			}
+		for(int i=0; i<mList.size(); i++) {
+			map.put(i, mList.get(i));
 		}
+		
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(map, response.getWriter());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

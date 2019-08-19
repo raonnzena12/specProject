@@ -27,6 +27,8 @@ public class MyReviewListServlet extends HttpServlet {
 	
 		String page = "";
 		if(loginUser != null) {
+			System.out.println("로그인 유저 번호 : " + loginUser.getUserNo());
+			//System.out.println(request.getParameter("currentPage"));
 			
 			MobileService mService = new MobileService();
 	    	
@@ -76,6 +78,7 @@ public class MyReviewListServlet extends HttpServlet {
 	    	//System.out.println("start" +startPage);
 	    	//System.out.println("end" + endPage);
 	    	PageInfo pIf = new PageInfo(myReviewCount, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
+	    	System.out.println(pIf);
 	    	// --------------------------- 페이징 바 처리 끝 -----------------------------------
 	    	
 	    	// -------------- 게시글 목록 조회 시작 ------------------
