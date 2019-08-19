@@ -117,7 +117,7 @@ CREATE TABLE USER_STATUS (
 	STATUS_TYPE	VARCHAR2(100)		NOT NULL
 );
 
-COMMENT ON COLUMN USER_STATUS.STATUS_TYPE IS '∞¸∏Æ¿⁄/¿œπ›/≈ª≈/¬˜¥‹';
+COMMENT ON COLUMN USER_STATUS.STATUS_TYPE IS 'Í¥ÄÎ¶¨Ïûê/ÏùºÎ∞ò/ÌÉàÌá¥/Ï∞®Îã®';
 
 CREATE TABLE REPORT (
 	REPORT_NO	NUMBER		NOT NULL,
@@ -130,14 +130,14 @@ CREATE TABLE REPORT (
 	REPORT_USER	number		NOT NULL
 );
 
-COMMENT ON COLUMN REPORT.REPORT_TYPE IS '±€/¥Ò±€/∏Æ∫‰';
+COMMENT ON COLUMN REPORT.REPORT_TYPE IS 'Í∏Ä/ÎåìÍ∏Ä/Î¶¨Î∑∞';
 
 CREATE TABLE CON_STATUS (
 	STATUS_CODE	NUMBER		NOT NULL,
 	STATUS_TYPE	VARCHAR2(100)		NOT NULL
 );
 
-COMMENT ON COLUMN CON_STATUS.STATUS_TYPE IS '∫Ì∂Û¿ŒµÂ/ªË¡¶/∫Òπ–±€/≈ÎªÛ';
+COMMENT ON COLUMN CON_STATUS.STATUS_TYPE IS 'Î∏îÎùºÏù∏Îìú/ÏÇ≠Ï†ú/ÎπÑÎ∞ÄÍ∏Ä/ÌÜµÏÉÅ';
 
 CREATE TABLE B_CODE (
 	BCODE	NUMBER		NOT NULL,
@@ -512,20 +512,20 @@ DELETE BRAND;
 DROP SEQUENCE BRAND_SEQ;
 CREATE SEQUENCE BRAND_SEQ NOCACHE;
 
-INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'ªÔº∫¿¸¿⁄');
-INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'LG¿¸¿⁄');
-INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'æ÷«√');
-INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, '∆“≈√');
+INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'ÏÇºÏÑ±Ï†ÑÏûê');
+INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'LGÏ†ÑÏûê');
+INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'Ïï†Ìîå');
+INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'Ìå¨ÌÉù');
 INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'HTC');
-INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, '∏≈‰∑Œ∂Û');
+INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'Î™®ÌÜ†Î°úÎùº');
 INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'KT Tech');
-INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'SK ≈⁄∑πΩ√Ω∫');
-INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'º“¥œ ∏πŸ¿œ');
-INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, '≥Î≈∞æ∆');
+INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'SK ÌÖîÎ†àÏãúÏä§');
+INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'ÏÜåÎãà Î™®Î∞îÏùº');
+INSERT INTO BRAND VALUES(BRAND_SEQ.NEXTVAL, 'ÎÖ∏ÌÇ§ÏïÑ');
 
 CREATE SEQUENCE OS_SEQ NOCACHE;
 
-INSERT INTO OS VALUES(OS_SEQ.NEXTVAL, 'æ»µÂ∑Œ¿ÃµÂ');
+INSERT INTO OS VALUES(OS_SEQ.NEXTVAL, 'ÏïàÎìúÎ°úÏù¥Îìú');
 INSERT INTO OS VALUES(OS_SEQ.NEXTVAL, 'iOS');
 
 DROP TABLE BATTERY CASCADE CONSTRAINTS; 
@@ -535,38 +535,38 @@ ALTER TABLE MOBILE ADD (MO_NAME_EN VARCHAR2(100));
 ALTER TABLE MOBILE_DETAIL DROP COLUMN MO_BRANDCODE;
 
 CREATE OR REPLACE VIEW MOBILE_VIEW AS
-    SELECT A.MO_NO NO, A.MO_CODE ∏µ®π¯»£, A.MO_NAME ¡¶«∞∏Ì, A.MO_NAME_EN ¡¶«∞∏Ì(øµæÓ), C.BRAND_NAME BRAND, B.MO_RELEASE πﬂ∏≈¿œ,
-        D.OS_NAME OS¿Ã∏ß, B.MO_OSVER OSπˆ¡Ø, B.MO_MATERIAL ¡÷ø‰¿Á¡˙, B.MO_SIZE ≈©±‚, B.MO_WEIGHT π´∞‘,
-        B.MO_LINK ø¨∞·¥‹¿⁄, B.MO_INCH æ◊¡§≈©±‚, B.MO_RESOL »≠∏È«ÿªÛµµ, B.MO_PIXEL «»ºø¿Œƒ°, B.MO_DISTYPE »≠∏È≈∏¿‘,
-        B.MO_DISWIDTH »≠∏È∆¯, B.MO_DISHEIGHT »≠∏È≥Ù¿Ã, B.MO_AP AP, B.MO_CPU CPU, B.MO_CPUCORE CPUƒ⁄æÓ,
-        B.MO_CPUCLOCK CPU≈¨∑∞, B.MO_GPU GPU, B.MO_RAM RAM, B.MO_INMEMO ≥ª¿Â∏ﬁ∏∏Æ, B.MO_OUTMEMO ø‹¿Â∏ﬁ∏∏Æ,
-        B.MO_SENSOR ƒ´∏ﬁ∂Ûºæº≠, B.MO_IRIS ƒ´∏ﬁ∂Û¡∂∏Æ∞≥, B.MO_FLASH ƒ´∏ﬁ∂Û«√∑°Ω¨, B.MO_PICRESOL ªÁ¡¯«ÿªÛµµ,
-        B.MO_VIDRESOL øµªÛ≥Ï»≠«ÿªÛµµ, B.MO_VIDFRAME øµªÛ≥Ï»≠«¡∑π¿”, B.MO_FRESOL ¿¸∏ÈªÁ¡¯«ÿªÛµµ,
-        B.MO_FVIDRESOL ¿¸∏È≥Ï»≠«ÿªÛµµ, B.MO_FVIDREAME ¿¸∏È≥Ï»≠«¡∑π¿”,
-        B.MO_CAMERA ƒ´∏ﬁ∂Û, B.MO_MAH πË≈Õ∏Æ, B.MO_BATTYPE πË≈Õ∏Æ≈∏¿‘, 
-        B.MO_FASTCHAR ∞Ìº”√Ê¿¸, B.MO_REMOVEBAT ≈ª¬¯ø©∫Œ, B.MO_WIRELESS π´º±√Ê¿¸, B.MO_STANDBY ¥Î±‚Ω√∞£,
-        B.MO_PROTOCOL ≈ÎΩ≈±‘∞›, B.MO_WIFI WIFI, B.MO_BLUETOOTH ∫Ì∑Á≈ıΩ∫, B.MO_USB USBπˆ¡Ø, B.MO_BIO ª˝√º¿ŒΩƒ,
-        B.MO_PAYMENT ∏πŸ¿œ∞·¡¶, B.MO_VERIFY ¿Œ¡ı, B.MO_ETC ETC, B.MO_STATUS STATUS,
-        E.MI_FRONTNAME ¿¸∏È¿ÃπÃ¡ˆ, E.MI_BACKNAME »ƒ∏È¿ÃπÃ¡ˆ, E.MI_PATH ¿˙¿Â∞Ê∑Œ
+    SELECT A.MO_NO NO, A.MO_CODE Î™®Îç∏Î≤àÌò∏, A.MO_NAME Ï†úÌíàÎ™Ö, A.MO_NAME_EN Ï†úÌíàÎ™Ö(ÏòÅÏñ¥), C.BRAND_NAME BRAND, B.MO_RELEASE Î∞úÎß§Ïùº,
+        D.OS_NAME OSÏù¥Î¶Ñ, B.MO_OSVER OSÎ≤ÑÏ†º, B.MO_MATERIAL Ï£ºÏöîÏû¨Ïßà, B.MO_SIZE ÌÅ¨Í∏∞, B.MO_WEIGHT Î¨¥Í≤å,
+        B.MO_LINK Ïó∞Í≤∞Îã®Ïûê, B.MO_INCH Ïï°Ï†ïÌÅ¨Í∏∞, B.MO_RESOL ÌôîÎ©¥Ìï¥ÏÉÅÎèÑ, B.MO_PIXEL ÌîΩÏÖÄÏù∏Ïπò, B.MO_DISTYPE ÌôîÎ©¥ÌÉÄÏûÖ,
+        B.MO_DISWIDTH ÌôîÎ©¥Ìè≠, B.MO_DISHEIGHT ÌôîÎ©¥ÎÜíÏù¥, B.MO_AP AP, B.MO_CPU CPU, B.MO_CPUCORE CPUÏΩîÏñ¥,
+        B.MO_CPUCLOCK CPUÌÅ¥Îü≠, B.MO_GPU GPU, B.MO_RAM RAM, B.MO_INMEMO ÎÇ¥Ïû•Î©îÎ™®Î¶¨, B.MO_OUTMEMO Ïô∏Ïû•Î©îÎ™®Î¶¨,
+        B.MO_SENSOR Ïπ¥Î©îÎùºÏÑºÏÑú, B.MO_IRIS Ïπ¥Î©îÎùºÏ°∞Î¶¨Í∞ú, B.MO_FLASH Ïπ¥Î©îÎùºÌîåÎûòÏâ¨, B.MO_PICRESOL ÏÇ¨ÏßÑÌï¥ÏÉÅÎèÑ,
+        B.MO_VIDRESOL ÏòÅÏÉÅÎÖπÌôîÌï¥ÏÉÅÎèÑ, B.MO_VIDFRAME ÏòÅÏÉÅÎÖπÌôîÌîÑÎ†àÏûÑ, B.MO_FRESOL Ï†ÑÎ©¥ÏÇ¨ÏßÑÌï¥ÏÉÅÎèÑ,
+        B.MO_FVIDRESOL Ï†ÑÎ©¥ÎÖπÌôîÌï¥ÏÉÅÎèÑ, B.MO_FVIDREAME Ï†ÑÎ©¥ÎÖπÌôîÌîÑÎ†àÏûÑ,
+        B.MO_CAMERA Ïπ¥Î©îÎùº, B.MO_MAH Î∞∞ÌÑ∞Î¶¨, B.MO_BATTYPE Î∞∞ÌÑ∞Î¶¨ÌÉÄÏûÖ, 
+        B.MO_FASTCHAR Í≥†ÏÜçÏ∂©Ï†Ñ, B.MO_REMOVEBAT ÌÉàÏ∞©Ïó¨Î∂Ä, B.MO_WIRELESS Î¨¥ÏÑ†Ï∂©Ï†Ñ, B.MO_STANDBY ÎåÄÍ∏∞ÏãúÍ∞Ñ,
+        B.MO_PROTOCOL ÌÜµÏã†Í∑úÍ≤©, B.MO_WIFI WIFI, B.MO_BLUETOOTH Î∏îÎ£®Ìà¨Ïä§, B.MO_USB USBÎ≤ÑÏ†º, B.MO_BIO ÏÉùÏ≤¥Ïù∏Ïãù,
+        B.MO_PAYMENT Î™®Î∞îÏùºÍ≤∞Ï†ú, B.MO_VERIFY Ïù∏Ï¶ù, B.MO_ETC ETC, B.MO_STATUS STATUS,
+        E.MI_FRONTNAME Ï†ÑÎ©¥Ïù¥ÎØ∏ÏßÄ, E.MI_BACKNAME ÌõÑÎ©¥Ïù¥ÎØ∏ÏßÄ, E.MI_PATH Ï†ÄÏû•Í≤ΩÎ°ú
 FROM MOBILE A
 JOIN BRAND C ON (MO_BRANDCODE = BRAND_CODE)
 JOIN MOBILE_DETAIL B ON ( A.MO_NO = B.MO_NO )
 JOIN OS D ON ( MO_OSCODE = D.OS_CODE )
 LEFT JOIN MOBILE_IMAGE E ON (A.MO_NO = E.REF_MO_NO);
 
-SELECT A.MO_NO NO, A.MO_CODE ∏µ®π¯»£, A.MO_NAME ¡¶«∞∏Ì, A.MO_NAME_EN ¡¶«∞∏Ì(øµæÓ), C.BRAND_NAME ¡¶¡∂ªÁ, B.MO_RELEASE πﬂ∏≈¿œ,
-        D.OS_NAME OS¿Ã∏ß, B.MO_OSVER OSπˆ¡Ø, B.MO_MATERIAL ¡÷ø‰¿Á¡˙, B.MO_SIZE ≈©±‚, B.MO_WEIGHT π´∞‘,
-        B.MO_LINK ø¨∞·¥‹¿⁄, B.MO_INCH æ◊¡§≈©±‚, B.MO_RESOL »≠∏È«ÿªÛµµ, B.MO_PIXEL «»ºø¿Œƒ°, B.MO_DISTYPE »≠∏È≈∏¿‘,
-        B.MO_DISWIDTH »≠∏È∆¯, B.MO_DISHEIGHT »≠∏È≥Ù¿Ã, B.MO_AP AP, B.MO_CPU CPU, B.MO_CPUCORE CPUƒ⁄æÓ,
-        B.MO_CPUCLOCK CPU≈¨∑∞, B.MO_GPU GPU, B.MO_RAM RAM, B.MO_INMEMO ≥ª¿Â∏ﬁ∏∏Æ, B.MO_OUTMEMO ø‹¿Â∏ﬁ∏∏Æ,
-        B.MO_SENSOR ƒ´∏ﬁ∂Ûºæº≠, B.MO_IRIS ƒ´∏ﬁ∂Û¡∂∏Æ∞≥, B.MO_FLASH ƒ´∏ﬁ∂Û«√∑°Ω¨, B.MO_PICRESOL ªÁ¡¯«ÿªÛµµ,
-        B.MO_VIDRESOL øµªÛ≥Ï»≠«ÿªÛµµ, B.MO_VIDFRAME øµªÛ≥Ï»≠«¡∑π¿”, B.MO_FRESOL ¿¸∏ÈªÁ¡¯«ÿªÛµµ,
-        B.MO_FVIDRESOL ¿¸∏È≥Ï»≠«ÿªÛµµ, B.MO_FVIDREAME ¿¸∏È≥Ï»≠«¡∑π¿”,
-        B.MO_CAMERA ƒ´∏ﬁ∂Û, B.MO_MAH πË≈Õ∏Æ, B.MO_BATTYPE πË≈Õ∏Æ≈∏¿‘, 
-        B.MO_FASTCHAR ∞Ìº”√Ê¿¸, B.MO_REMOVEBAT ≈ª¬¯ø©∫Œ, B.MO_WIRELESS π´º±√Ê¿¸, B.MO_STANDBY ¥Î±‚Ω√∞£,
-        B.MO_PROTOCOL ≈ÎΩ≈±‘∞›, B.MO_WIFI WIFI, B.MO_BLUETOOTH ∫Ì∑Á≈ıΩ∫, B.MO_USB USBπˆ¡Ø, B.MO_BIO ª˝√º¿ŒΩƒ,
-        B.MO_PAYMENT ∏πŸ¿œ∞·¡¶, B.MO_VERIFY ¿Œ¡ı, B.MO_ETC ETC, B.MO_STATUS STATUS,
-        E.MI_FRONTNAME ¿¸∏È¿ÃπÃ¡ˆ, E.MI_BACKNAME »ƒ∏È¿ÃπÃ¡ˆ, E.MI_PATH ¿˙¿Â∞Ê∑Œ
+SELECT A.MO_NO NO, A.MO_CODE Î™®Îç∏Î≤àÌò∏, A.MO_NAME Ï†úÌíàÎ™Ö, A.MO_NAME_EN Ï†úÌíàÎ™Ö(ÏòÅÏñ¥), C.BRAND_NAME Ï†úÏ°∞ÏÇ¨, B.MO_RELEASE Î∞úÎß§Ïùº,
+        D.OS_NAME OSÏù¥Î¶Ñ, B.MO_OSVER OSÎ≤ÑÏ†º, B.MO_MATERIAL Ï£ºÏöîÏû¨Ïßà, B.MO_SIZE ÌÅ¨Í∏∞, B.MO_WEIGHT Î¨¥Í≤å,
+        B.MO_LINK Ïó∞Í≤∞Îã®Ïûê, B.MO_INCH Ïï°Ï†ïÌÅ¨Í∏∞, B.MO_RESOL ÌôîÎ©¥Ìï¥ÏÉÅÎèÑ, B.MO_PIXEL ÌîΩÏÖÄÏù∏Ïπò, B.MO_DISTYPE ÌôîÎ©¥ÌÉÄÏûÖ,
+        B.MO_DISWIDTH ÌôîÎ©¥Ìè≠, B.MO_DISHEIGHT ÌôîÎ©¥ÎÜíÏù¥, B.MO_AP AP, B.MO_CPU CPU, B.MO_CPUCORE CPUÏΩîÏñ¥,
+        B.MO_CPUCLOCK CPUÌÅ¥Îü≠, B.MO_GPU GPU, B.MO_RAM RAM, B.MO_INMEMO ÎÇ¥Ïû•Î©îÎ™®Î¶¨, B.MO_OUTMEMO Ïô∏Ïû•Î©îÎ™®Î¶¨,
+        B.MO_SENSOR Ïπ¥Î©îÎùºÏÑºÏÑú, B.MO_IRIS Ïπ¥Î©îÎùºÏ°∞Î¶¨Í∞ú, B.MO_FLASH Ïπ¥Î©îÎùºÌîåÎûòÏâ¨, B.MO_PICRESOL ÏÇ¨ÏßÑÌï¥ÏÉÅÎèÑ,
+        B.MO_VIDRESOL ÏòÅÏÉÅÎÖπÌôîÌï¥ÏÉÅÎèÑ, B.MO_VIDFRAME ÏòÅÏÉÅÎÖπÌôîÌîÑÎ†àÏûÑ, B.MO_FRESOL Ï†ÑÎ©¥ÏÇ¨ÏßÑÌï¥ÏÉÅÎèÑ,
+        B.MO_FVIDRESOL Ï†ÑÎ©¥ÎÖπÌôîÌï¥ÏÉÅÎèÑ, B.MO_FVIDREAME Ï†ÑÎ©¥ÎÖπÌôîÌîÑÎ†àÏûÑ,
+        B.MO_CAMERA Ïπ¥Î©îÎùº, B.MO_MAH Î∞∞ÌÑ∞Î¶¨, B.MO_BATTYPE Î∞∞ÌÑ∞Î¶¨ÌÉÄÏûÖ, 
+        B.MO_FASTCHAR Í≥†ÏÜçÏ∂©Ï†Ñ, B.MO_REMOVEBAT ÌÉàÏ∞©Ïó¨Î∂Ä, B.MO_WIRELESS Î¨¥ÏÑ†Ï∂©Ï†Ñ, B.MO_STANDBY ÎåÄÍ∏∞ÏãúÍ∞Ñ,
+        B.MO_PROTOCOL ÌÜµÏã†Í∑úÍ≤©, B.MO_WIFI WIFI, B.MO_BLUETOOTH Î∏îÎ£®Ìà¨Ïä§, B.MO_USB USBÎ≤ÑÏ†º, B.MO_BIO ÏÉùÏ≤¥Ïù∏Ïãù,
+        B.MO_PAYMENT Î™®Î∞îÏùºÍ≤∞Ï†ú, B.MO_VERIFY Ïù∏Ï¶ù, B.MO_ETC ETC, B.MO_STATUS STATUS,
+        E.MI_FRONTNAME Ï†ÑÎ©¥Ïù¥ÎØ∏ÏßÄ, E.MI_BACKNAME ÌõÑÎ©¥Ïù¥ÎØ∏ÏßÄ, E.MI_PATH Ï†ÄÏû•Í≤ΩÎ°ú
 FROM MOBILE A
 JOIN BRAND C ON (MO_BRANDCODE = BRAND_CODE)
 JOIN MOBILE_DETAIL B ON ( A.MO_NO = B.MO_NO )
@@ -578,18 +578,18 @@ SELECT * FROM MOBILE_VIEW;
 
 
 CREATE OR REPLACE VIEW MOBILE_INSERT AS
-SELECT A.MO_NO NO, A.MO_CODE ∏µ®π¯»£, A.MO_NAME ¡¶«∞∏Ì, A.MO_NAME_EN ¡¶«∞∏Ì(øµæÓ), A.MO_BRANDCODE ¡¶¡∂ªÁƒ⁄µÂ, B.MO_RELEASE πﬂ∏≈¿œ,
-        B.MO_OSCODE OSƒ⁄µÂ, B.MO_OSVER OSπˆ¡Ø, B.MO_MATERIAL ¡÷ø‰¿Á¡˙, B.MO_SIZE ≈©±‚, B.MO_WEIGHT π´∞‘,
-        B.MO_LINK ø¨∞·¥‹¿⁄, B.MO_INCH æ◊¡§≈©±‚, B.MO_RESOL »≠∏È«ÿªÛµµ, B.MO_PIXEL «»ºø¿Œƒ°, B.MO_DISTYPE »≠∏È≈∏¿‘,
-        B.MO_DISWIDTH »≠∏È∆¯, B.MO_DISHEIGHT »≠∏È≥Ù¿Ã, B.MO_AP AP, B.MO_CPU CPU, B.MO_CPUCORE CPUƒ⁄æÓ,
-        B.MO_CPUCLOCK CPU≈¨∑∞, B.MO_GPU GPU, B.MO_RAM RAM, B.MO_INMEMO ≥ª¿Â∏ﬁ∏∏Æ, B.MO_OUTMEMO ø‹¿Â∏ﬁ∏∏Æ,
-        B.MO_SENSOR ƒ´∏ﬁ∂Ûºæº≠, B.MO_IRIS ƒ´∏ﬁ∂Û¡∂∏Æ∞≥, B.MO_FLASH ƒ´∏ﬁ∂Û«√∑°Ω¨, B.MO_PICRESOL ªÁ¡¯«ÿªÛµµ,
-        B.MO_VIDRESOL øµªÛ≥Ï»≠«ÿªÛµµ, B.MO_VIDFRAME øµªÛ≥Ï»≠«¡∑π¿”, B.MO_FRESOL ¿¸∏ÈªÁ¡¯«ÿªÛµµ,
-        B.MO_FVIDRESOL ¿¸∏È≥Ï»≠«ÿªÛµµ, B.MO_FVIDREAME ¿¸∏È≥Ï»≠«¡∑π¿”,
-        B.MO_CAMERA ƒ´∏ﬁ∂Û, B.MO_MAH πË≈Õ∏Æ, B.MO_BATTYPE πË≈Õ∏Æ≈∏¿‘, 
-        B.MO_FASTCHAR ∞Ìº”√Ê¿¸, B.MO_REMOVEBAT ≈ª¬¯ø©∫Œ, B.MO_WIRELESS π´º±√Ê¿¸, B.MO_STANDBY ¥Î±‚Ω√∞£,
-        B.MO_PROTOCOL ≈ÎΩ≈±‘∞›, B.MO_WIFI WIFI, B.MO_BLUETOOTH ∫Ì∑Á≈ıΩ∫, B.MO_USB USBπˆ¡Ø, B.MO_BIO ª˝√º¿ŒΩƒ,
-        B.MO_PAYMENT ∏πŸ¿œ∞·¡¶, B.MO_VERIFY ¿Œ¡ı, B.MO_ETC ETC, B.MO_STATUS ªÛ≈¬ƒ⁄µÂ
+SELECT A.MO_NO NO, A.MO_CODE Î™®Îç∏Î≤àÌò∏, A.MO_NAME Ï†úÌíàÎ™Ö, A.MO_NAME_EN Ï†úÌíàÎ™Ö(ÏòÅÏñ¥), A.MO_BRANDCODE Ï†úÏ°∞ÏÇ¨ÏΩîÎìú, B.MO_RELEASE Î∞úÎß§Ïùº,
+        B.MO_OSCODE OSÏΩîÎìú, B.MO_OSVER OSÎ≤ÑÏ†º, B.MO_MATERIAL Ï£ºÏöîÏû¨Ïßà, B.MO_SIZE ÌÅ¨Í∏∞, B.MO_WEIGHT Î¨¥Í≤å,
+        B.MO_LINK Ïó∞Í≤∞Îã®Ïûê, B.MO_INCH Ïï°Ï†ïÌÅ¨Í∏∞, B.MO_RESOL ÌôîÎ©¥Ìï¥ÏÉÅÎèÑ, B.MO_PIXEL ÌîΩÏÖÄÏù∏Ïπò, B.MO_DISTYPE ÌôîÎ©¥ÌÉÄÏûÖ,
+        B.MO_DISWIDTH ÌôîÎ©¥Ìè≠, B.MO_DISHEIGHT ÌôîÎ©¥ÎÜíÏù¥, B.MO_AP AP, B.MO_CPU CPU, B.MO_CPUCORE CPUÏΩîÏñ¥,
+        B.MO_CPUCLOCK CPUÌÅ¥Îü≠, B.MO_GPU GPU, B.MO_RAM RAM, B.MO_INMEMO ÎÇ¥Ïû•Î©îÎ™®Î¶¨, B.MO_OUTMEMO Ïô∏Ïû•Î©îÎ™®Î¶¨,
+        B.MO_SENSOR Ïπ¥Î©îÎùºÏÑºÏÑú, B.MO_IRIS Ïπ¥Î©îÎùºÏ°∞Î¶¨Í∞ú, B.MO_FLASH Ïπ¥Î©îÎùºÌîåÎûòÏâ¨, B.MO_PICRESOL ÏÇ¨ÏßÑÌï¥ÏÉÅÎèÑ,
+        B.MO_VIDRESOL ÏòÅÏÉÅÎÖπÌôîÌï¥ÏÉÅÎèÑ, B.MO_VIDFRAME ÏòÅÏÉÅÎÖπÌôîÌîÑÎ†àÏûÑ, B.MO_FRESOL Ï†ÑÎ©¥ÏÇ¨ÏßÑÌï¥ÏÉÅÎèÑ,
+        B.MO_FVIDRESOL Ï†ÑÎ©¥ÎÖπÌôîÌï¥ÏÉÅÎèÑ, B.MO_FVIDREAME Ï†ÑÎ©¥ÎÖπÌôîÌîÑÎ†àÏûÑ,
+        B.MO_CAMERA Ïπ¥Î©îÎùº, B.MO_MAH Î∞∞ÌÑ∞Î¶¨, B.MO_BATTYPE Î∞∞ÌÑ∞Î¶¨ÌÉÄÏûÖ, 
+        B.MO_FASTCHAR Í≥†ÏÜçÏ∂©Ï†Ñ, B.MO_REMOVEBAT ÌÉàÏ∞©Ïó¨Î∂Ä, B.MO_WIRELESS Î¨¥ÏÑ†Ï∂©Ï†Ñ, B.MO_STANDBY ÎåÄÍ∏∞ÏãúÍ∞Ñ,
+        B.MO_PROTOCOL ÌÜµÏã†Í∑úÍ≤©, B.MO_WIFI WIFI, B.MO_BLUETOOTH Î∏îÎ£®Ìà¨Ïä§, B.MO_USB USBÎ≤ÑÏ†º, B.MO_BIO ÏÉùÏ≤¥Ïù∏Ïãù,
+        B.MO_PAYMENT Î™®Î∞îÏùºÍ≤∞Ï†ú, B.MO_VERIFY Ïù∏Ï¶ù, B.MO_ETC ETC, B.MO_STATUS ÏÉÅÌÉúÏΩîÎìú
 
 FROM MOBILE A
 JOIN BRAND C ON (MO_BRANDCODE = BRAND_CODE)
@@ -638,12 +638,12 @@ DROP TABLE CAL_TYPE CASCADE CONSTRAINTS;
 DROP TABLE MOBILE_LIKE CASCADE CONSTRAINTS;
 DROP TABLE MOBILE_DETAIL CASCADE CONSTRAINTS;
 
-SELECT * FROM (SELECT ROWNUM RNUM, M.* FROM (SELECT * FROM MOBILE_VIEW WHERE STATUS = 'Y' and brand in ('æ÷«√') ORDER BY 1 DESC) M ) WHERE RNUM BETWEEN 1 AND 10;
+SELECT * FROM (SELECT ROWNUM RNUM, M.* FROM (SELECT * FROM MOBILE_VIEW WHERE STATUS = 'Y' and brand in ('Ïï†Ìîå') ORDER BY 1 DESC) M ) WHERE RNUM BETWEEN 1 AND 10;
 
 BEGIN
     FOR I IN 1..500
     LOOP
-        INSERT INTO MOBILE VALUES (MOB_SEQ.NEXTVAL, I||'CODE', I||'≈◊Ω∫∆Æ¿Ã∏ß',  ROUND(DBMS_RANDOM.VALUE(1,10)), I||'TESTNAME');
+        INSERT INTO MOBILE VALUES (MOB_SEQ.NEXTVAL, I||'CODE', I||'ÌÖåÏä§Ìä∏Ïù¥Î¶Ñ',  ROUND(DBMS_RANDOM.VALUE(1,10)), I||'TESTNAME');
         INSERT INTO MOBILE_DETAIL VALUES (MOB_SEQ.CURRVAL, SYSDATE, 'VER', 'TEST', 'TEST', 'TEST', 'TEST',  ROUND(DBMS_RANDOM.VALUE(4,9)), 'TEST', 'TEST', 'TEST', 'TEST', 'TEST',
 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST',
 'TEST', 'TEST',  ROUND(DBMS_RANDOM.VALUE(500,5000)), 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', 'TEST', ROUND(DBMS_RANDOM.VALUE(1,2)),
@@ -656,7 +656,7 @@ SELECT ROUND(DBMS_RANDOM.VALUE(1,2)) FROM DUAL;
 UPDATE mobile_detail SET MO_STATUS = 'Y' WHERE MO_NO > 50;
 
 COMMIT;
-SELECT * FROM (SELECT ROWNUM RNUM, M.* FROM (SELECT * FROM MOBILE_VIEW WHERE STATUS = 'Y' AND brand IN ( 'ªÔº∫¿¸¿⁄','LG¿¸¿⁄'  ) ORDER BY 1 DESC) M ) WHERE RNUM BETWEEN 1 AND 10;
+SELECT * FROM (SELECT ROWNUM RNUM, M.* FROM (SELECT * FROM MOBILE_VIEW WHERE STATUS = 'Y' AND brand IN ( 'ÏÇºÏÑ±Ï†ÑÏûê','LGÏ†ÑÏûê'  ) ORDER BY 1 DESC) M ) WHERE RNUM BETWEEN 1 AND 10;
 
 CREATE TABLE MO_COMM (
 	MCO_NO	NUMBER		NOT NULL,
@@ -692,12 +692,12 @@ REFERENCES CON_STATUS (
 	STATUS_CODE
 );
 
-INSERT INTO MO_COMM VALUES( 0, '¥Ò±€≈◊Ω∫∆Æ', DEFAULT, DEFAULT, 0, 0, 1);
+INSERT INTO MO_COMM VALUES( 0, 'ÎåìÍ∏ÄÌÖåÏä§Ìä∏', DEFAULT, DEFAULT, 0, 0, 1);
 
 
-INSERT INTO CON_STATUS VALUES( 1, '¿œπ›');
-INSERT INTO CON_STATUS VALUES( 2, 'ªË¡¶');
-INSERT INTO CON_STATUS VALUES( 3, 'Ω≈∞Ì¡¶¿Á');
+INSERT INTO CON_STATUS VALUES( 1, 'ÏùºÎ∞ò');
+INSERT INTO CON_STATUS VALUES( 2, 'ÏÇ≠Ï†ú');
+INSERT INTO CON_STATUS VALUES( 3, 'Ïã†Í≥†Ï†úÏû¨');
 
 INSERT INTO USER_STATUS VALUES( 0, 'TEST');
 
@@ -710,7 +710,7 @@ CREATE SEQUENCE SEQ_MOCTEST NOCACHE;
 BEGIN
     FOR I IN 1..100
     LOOP
-        INSERT INTO MO_COMM VALUES (SEQ_MOCTEST.NEXTVAL, I||'π¯¬∞ ¥Ò±€', DEFAULT, DEFAULT, ROUND(DBMS_RANDOM.VALUE(1,25))*2, 0, 1);
+        INSERT INTO MO_COMM VALUES (SEQ_MOCTEST.NEXTVAL, I||'Î≤àÏß∏ ÎåìÍ∏Ä', DEFAULT, DEFAULT, ROUND(DBMS_RANDOM.VALUE(1,25))*2, 0, 1);
        
     END LOOP;
 END;
@@ -719,16 +719,16 @@ COMMIT;
 
 SELECT ROUND(DBMS_RANDOM.VALUE(3,50)) FROM DUAL;
 
---- ∏πŸ¿œ ¥Ò±€ + ¿Ø¿˙ ≈◊¿Ã∫Ì
+--- Î™®Î∞îÏùº ÎåìÍ∏Ä + Ïú†Ï†Ä ÌÖåÏù¥Î∏î
 SELECT MCO_NO, MCO_CONTENT, MCO_REGDATE, MO_NO, MCO_USERNO, USER_NAME, MCO_STATUS FROM MO_COMM 
 JOIN USER_TABLE ON ( MCO_USERNO = USER_NO ) WHERE MO_NO = 40;
 
---- ∏πŸ¿œ ¥Ò±€ + ¿Ø¿˙≈◊¿Ã∫Ì ∫‰ ª˝º∫
+--- Î™®Î∞îÏùº ÎåìÍ∏Ä + Ïú†Ï†ÄÌÖåÏù¥Î∏î Î∑∞ ÏÉùÏÑ±
 CREATE OR REPLACE VIEW MOBILE_COMMENT_VIEW AS
 SELECT MCO_NO, MCO_CONTENT, MCO_REGDATE, MO_NO, MCO_USERNO, USER_NAME, MCO_STATUS FROM MO_COMM 
 JOIN USER_TABLE ON ( MCO_USERNO = USER_NO );
 
----- ∏πŸ¿œ ¥Ò±€ ∫‰ ≈◊Ω∫∆Æ
+---- Î™®Î∞îÏùº ÎåìÍ∏Ä Î∑∞ ÌÖåÏä§Ìä∏
 SELECT m.*, (SELECT COUNT(*) FROM REPORT_TABLE WHERE REPORT_WRI = 0 AND REPORT_CONNO = MCO_NO ) I_REPORT FROM MOBILE_COMMENT_VIEW m WHERE MO_NO = 42;
 
 UPDATE MO_COMM SET MCO_STATUS = 2, MCO_MODIDATE = SYSTIMESTAMP WHERE MCO_NO = 0;
@@ -742,17 +742,17 @@ CREATE SEQUENCE SEQ_REV NOCACHE;
 BEGIN
     FOR I IN 1..100
     LOOP
-        INSERT INTO REVIEW VALUES (SEQ_REV.NEXTVAL, I||'π¯¬∞ ∏Æ∫‰',  I||'π¯¬∞ ∏Æ∫‰ ≥ªøÎ', ROUND(DBMS_RANDOM.VALUE(1,10))*0.5, SYSDATE, SYSDATE, 0, 0, ROUND(DBMS_RANDOM.VALUE(2,50)), 1);
+        INSERT INTO REVIEW VALUES (SEQ_REV.NEXTVAL, I||'Î≤àÏß∏ Î¶¨Î∑∞',  I||'Î≤àÏß∏ Î¶¨Î∑∞ ÎÇ¥Ïö©', ROUND(DBMS_RANDOM.VALUE(1,10))*0.5, SYSDATE, SYSDATE, 0, 0, ROUND(DBMS_RANDOM.VALUE(2,50)), 1);
        
     END LOOP;
 END;
 /
 
 SELECT * FROM REVIEW WHERE RE_MNO = 50;
----------------- ∏πŸ¿œ ∏Æ∫‰ + ∏πŸ¿œ ¡¡æ∆ø‰---∏Æ∫‰∫∞  ¡¡æ∆ø‰ ∞πºˆ ºº±‚
+---------------- Î™®Î∞îÏùº Î¶¨Î∑∞ + Î™®Î∞îÏùº Ï¢ãÏïÑÏöî---Î¶¨Î∑∞Î≥Ñ  Ï¢ãÏïÑÏöî Í∞ØÏàò ÏÑ∏Í∏∞
 SELECT * FROM COUNT_REVIEW_LIKE;
 
------------- ¡¡æ∆ø‰ ∞πºˆ ∫‰ª˝º∫
+------------ Ï¢ãÏïÑÏöî Í∞ØÏàò Î∑∞ÏÉùÏÑ±
 CREATE OR REPLACE VIEW COUNT_REVIEW_LIKE AS
 SELECT RE_NO, COUNT(LIKE_NO) COUNT_L FROM REVIEW R
 JOIN REVIEW_LIKE ON ( RE_NO = LIKE_RNO )
@@ -760,20 +760,20 @@ GROUP BY RE_NO;
 
 
 
------------------ ∏Æ∫‰ ¡∂»∏øÎ ∫‰ ª˝º∫
+----------------- Î¶¨Î∑∞ Ï°∞ÌöåÏö© Î∑∞ ÏÉùÏÑ±
 CREATE OR REPLACE VIEW MOBILE_REVIEW AS
 SELECT RE_NO, RE_TITLE, RE_CONTENT, RE_STAR, RE_REGDATE, RE_MODIDATE, COUNT_L, RE_WRITER, USER_NAME, RE_MNO, RE_STATUS
 FROM REVIEW
 LEFT JOIN COUNT_REVIEW_LIKE USING ( RE_NO )
 JOIN USER_TABLE ON  ( RE_WRITER = USER_NO );
 
---------------------- ∏Æ∫‰ ¡∂»∏øÎ øπΩ√±∏πÆ
+--------------------- Î¶¨Î∑∞ Ï°∞ÌöåÏö© ÏòàÏãúÍµ¨Î¨∏
 SELECT RE_NO, RE_TITLE, RE_CONTENT, RE_STAR, RE_REGDATE, RE_MODIDATE, (SELECT COUNT(*) FROM REVIEW_LIKE WHERE LIKE_UNO = 0 GROUP BY LIKE_RNO) IM_LIKE, COUNT_L, RE_WRITER, USER_NAME, RE_MNO, RE_STATUS FROM MOBILE_REVIEW M ;
 SELECT RE_NO, RE_TITLE, RE_CONTENT, RE_STAR, RE_REGDATE, RE_MODIDATE, (SELECT COUNT(*) FROM REVIEW_LIKE WHERE LIKE_UNO = 0 and re_no=like_rno GROUP BY LIKE_RNO) IM_LIKE, COUNT_L, RE_WRITER, USER_NAME, RE_MNO, RE_STATUS, (SELECT COUNT(*) FROM REPORT_TABLE WHERE REPORT_WRI = 0 AND RE_NO = REPORT_CONNO) I_REPORT  FROM MOBILE_REVIEW M WHERE RE_MNO = 51 ORDER BY 1 DESC;
 
 
 
------------------ USER_TABLE ∞° µ•¿Ã≈Õ ≥÷±‚
+----------------- USER_TABLE Í∞Ä Îç∞Ïù¥ÌÑ∞ ÎÑ£Í∏∞
 BEGIN
     FOR I IN 1..100
     LOOP
@@ -788,27 +788,27 @@ END;
 commit;
 INSERT INTO USER_TABLE  VALUES ( SEQ_UNO.NEXTVAL, 'test01@test.co.kr', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 'test1', NULL, SYSDATE, SYSDATE, 'Y', 1, NULL, NULL, 1, NULL);
 
--------------------------- ∏Æ∫‰ ¡¡æ∆ø‰ ≈◊¿Ã∫Ì insertπÆ øπ¡¶
+-------------------------- Î¶¨Î∑∞ Ï¢ãÏïÑÏöî ÌÖåÏù¥Î∏î insertÎ¨∏ ÏòàÏ†ú
 
 
------------------------------------ ∏Æ∫‰ ≈◊¿Ã∫Ì insert πÆ øπ¡¶
+----------------------------------- Î¶¨Î∑∞ ÌÖåÏù¥Î∏î insert Î¨∏ ÏòàÏ†ú
 INSERT INTO REVIEW VALUES (SEQ_REV.NEXTVAL, ?, ?, ?, SYSDATE, SYSDATE, 0, ?, ?, 1);
 
--------------------------------- ∏Æ∫‰ ≈◊¿Ã∫Ì ªË¡¶ updateπÆ øπ¡¶
+-------------------------------- Î¶¨Î∑∞ ÌÖåÏù¥Î∏î ÏÇ≠Ï†ú updateÎ¨∏ ÏòàÏ†ú
 UPDATE REVIEW SET RE_STATUS = '2' WHERE ;
 
------------------------------------- ∏Æ∫‰ select πÆ øπ¡¶
+------------------------------------ Î¶¨Î∑∞ select Î¨∏ ÏòàÏ†ú
 SELECT * FROM REVIEW WHERE RE_STATUS = 1 AND RE_NO = 3;
 
---- ------------- ∏Æ∫‰UPDATEπÆ øπ¡¶
+--- ------------- Î¶¨Î∑∞UPDATEÎ¨∏ ÏòàÏ†ú
 UPDATE REVIEW SET RE_TITLE = 'AAA', RE_CONTENT = 'AAA', RE_STAR = 6 WHERE RE_NO = 3 AND RE_STATUS = 1;
 
--------------------COMPARE øÎ SEQUENCE ª˝º∫
+-------------------COMPARE Ïö© SEQUENCE ÏÉùÏÑ±
 CREATE SEQUENCE SEQ_MCP NOCACHE;
 
 SELECT COUNT(*) FROM COMPARE WHERE COM_MNO1 = 0 AND COM_MNO2 = 1;
 
------------------------- øπº≥ææ ∫‰
+------------------------ ÏòàÏÑ§Ïî® Î∑∞
 CREATE OR REPLACE VIEW MYBOARD
 AS
 SELECT ROWNUM RNUM, BNO, BTITLE, BCONTENT, BCOUNT, TO_CHAR(BREGDATE,'yyyy-mm-dd hh:mi:ss') BREGDATE,TO_CHAR(BMODIDATE,'yyyy-mm-dd hh:mi:ss') BMODIDATE, BCODE, BWRITER, BSTATUS, BCATEGORY FROM BOARD WHERE BSTATUS = 1 ORDER BY 1 DESC;
@@ -826,23 +826,23 @@ SELECT * FROM MYBOARDLIST WHERE BWRITER = 1 ;
 SELECT * FROM (SELECT ROWNUM RRNUM, M.*,(SELECT COUNT(*) FROM COMMENTT C WHERE C.BNO = M.BNO) COMM_COUNT FROM MYBOARD M WHERE BWRITER = ?) WHERE RRNUM BETWEEN ? AND ?;
 
 
------------------------------- COMPARE ≈◊¿Ã∫Ì INSERT ±∏πÆ øπΩ√
+------------------------------ COMPARE ÌÖåÏù¥Î∏î INSERT Íµ¨Î¨∏ ÏòàÏãú
 INSERT INTO COMPARE VALUES(SEQ_MCP.NEXTVAL, 0, 4, 5);
----------------------------- COMPARE ≈◊¿Ã∫Ì UPDATE ±∏πÆ øπΩ√
+---------------------------- COMPARE ÌÖåÏù¥Î∏î UPDATE Íµ¨Î¨∏ ÏòàÏãú
 UPDATE COMPARE SET COM_COUNT = COM_COUNT +1 WHERE COM_MNO1 = ? AND COM_MNO2 = ?;
 
---------------------------- ≈ª≈ ≈◊Ω∫∆Æ«— ¿Ø¿˙µÈ µ«ªÏ∏Æ±‚
+--------------------------- ÌÉàÌá¥ ÌÖåÏä§Ìä∏Ìïú Ïú†Ï†ÄÎì§ ÎêòÏÇ¥Î¶¨Í∏∞
 UPDATE USER_TABLE SET USER_STATUS = 1 WHERE USER_NO > 0;
 COMMIT;
 
---------------------------- ∫Ò±≥ ¥Ò±€ ∫‰ ∏∏µÈ±‚
+--------------------------- ÎπÑÍµê ÎåìÍ∏Ä Î∑∞ ÎßåÎì§Í∏∞
 CREATE OR REPLACE VIEW COMPARE_COMMENT_VIEW
 AS
 SELECT CC_NO, CC_CONTENT, CC_REGDATE, CC_MODIDATE, CC_STATUS, CC_WIRTER, USER_NAME, CC_CNO
 FROM COM_COMM
 LEFT JOIN USER_TABLE ON ( CC_WIRTER = USER_NO );
 
---------------------------- ∫Ò±≥ ¥Ò±€øÎ Ω√ƒˆΩ∫ ª˝º∫
+--------------------------- ÎπÑÍµê ÎåìÍ∏ÄÏö© ÏãúÌÄÄÏä§ ÏÉùÏÑ±
 CREATE SEQUENCE SEQ_MCC NOCACHE;
 INSERT INTO COM_COMM VALUES (SEQ_MCC.NEXTVAL, ? ,DEFAULT, DEFAULT, ?, ?, 1);
 
@@ -850,7 +850,7 @@ delete compare where com_no in (4, 6,7,8, 9);
 
 drop table com_comm;
 
----------------------------- ∏πŸ¿œ ¿ÃπÃ¡ˆøÎ ≈◊¿Ã∫Ì ºˆ¡§
+---------------------------- Î™®Î∞îÏùº Ïù¥ÎØ∏ÏßÄÏö© ÌÖåÏù¥Î∏î ÏàòÏ†ï
 DROP TABLE MOBILE_IMAGE;
 CREATE TABLE MOBILE_IMAGE (
 	REF_MO_NO	NUMBER		NOT NULL,
@@ -926,9 +926,18 @@ alter table REPORT DROP column REPORT_TITLE;
 alter table report rename to REPORT_TABLE;
 commit;
 
--------------------------- Ω≈∞Ì∞‘Ω√∆« insert øπ¡¶
+-------------------------- Ïã†Í≥†Í≤åÏãúÌåê insert ÏòàÏ†ú
 CREATE SEQUENCE SEQ_REP NOCACHE;
 INSERT INTO REPORT VALUES (SEQ_REP.NEXTVAL, ?, ?, SYSDATE, NULL, ?, ?, ?);
 
 SELECT M.*, (SELECT COUNT(*) FROM REPORT_TABLE WHERE REPORT_WRI = 0 AND REPORT_CONNO = MCO_NO AND REPORT_REF_NO = 5) I_REPORT, (SELECT COUNT(*) FROM REPORT_TABLE WHERE REPORT_REF_NO = 5 AND REPORT_CONNO = MCO_NO) REPORTED FROM MOBILE_COMMENT_VIEW M WHERE MO_NO = 50;
 SELECT C.*, (SELECT COUNT(*) FROM REPORT_TABLE WHERE REPORT_WRI = 0 AND REPORT_CONNO = CC_NO AND REPORT_REF_NO = 6) I_REPORT, (SELECT COUNT(*) FROM REPORT_TABLE WHERE REPORT_REF_NO = 6 AND REPORT_CONNO = CC_NO) REPORTED FROM COMPARE_COMMENT_VIEW C WHERE CC_CNO = 30;
+
+--------------------------------- mobile updateÎ¨∏ ÏòàÏ†ú
+UPDATE MOBILE SET MO_CODE = ?, MO_NAME = ?, MO_NAME_EN = ?, MO_BRANDCODE = ? WHERE MO_NO = ?,
+UPDATE MOBILE_DETAIL SET MO_REREASE = ?, MO_OSVER = ?, MO_MATERIAL = ?, MO_SIZE = ?, MO_WEIGHT = ?, MO_LINK = ?, MO_INCH = ?, MO_RESOL = ?, MO_PIXEL = ?, MO_DISTYPE = ?, MO_DISWIDTH = ?, MO_DISHEIGHT = ?, MO_AP = ?, MO_CPU = ?, MO_CPUCORE = ?, MO_CPUCLOCK = ?, MO_GPU = ?, MO_RAM = ?, MO_INMEMO = ?, MO_OUTMEMO = ?, MO_SENSOR = ?, MO_IRIS = ?, MO_FLASH = ?, MO_PICRESOL = ?, MO_VIDRESOL = ?, MO_VIDFRAME = ?, MO_FRESOL = ?, MO_FVIDRESOL = ?, MO_FVIDREAME = ?, MO_CAMERA = ?, MO_MAH = ?, MO_VATTYPE = ?, MO_FASTCHAR = ?, MO_REMOVEBAT = ?, MO_WIRELESS = ?, MO_STANDBY = ?, MO_PROTOCOL = ?, MO_WIFI = ?, MO_BLUETOOTH = ?, MO_USB = ?, MO_BIO = ?, MO_PAYMENT = ?, MO_VERIFY = ?, MO_ETC = ?, MO_STATUS = ?, MO_OSCODE = ? WHERE MO_NO = ?;
+UPDATE MOBILE_IMAGE SET MI_FRONTNAME = ?, MI_BACKNAME = ?, MI_PATH = ?, MI_UPDATE = SYSDATE WHERE REF_MO_NO = ?
+
+UPDATE MOBILE_IMAGE SET MI_FRONTNAME = 'aaa', MI_BACKNAME = 'aaa', MI_PATH = 'aaa', MI_UPDATE = SYSDATE WHERE REF_MO_NO = 5;
+
+ALTER TABLE MOBILE MODIFY(MO_code VARCHAR2(400)); 

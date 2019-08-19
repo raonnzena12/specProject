@@ -68,10 +68,33 @@
         width: 110px;
         height: 110px;
     }
+    #summaryOS {
+        width: auto;
+        height: 55px;
+        margin: 5px auto 0 auto;
+    }
     #battery {
         clear: both;
         width: 200px;
         height: 80px;
+        font-weight: 600;
+        text-align: center;
+        /* line-height: 80px; */
+    }
+    #specSummary div {
+        text-align: center;
+    }
+    #specSummary span {
+        background-color: #666;
+        display: inline-block;
+        /* color: white; */
+        /* width: 20px; */
+        /* height: 20px; */
+        border-radius: 20px;
+        color: #fff;
+        font-weight: 900;
+        margin: 10px 0 0 0;
+        /* transform: rotate(90deg); */
     }
     #display {
         width: 80px;
@@ -87,6 +110,9 @@
         bottom: 5px;
         width: 120px;
         height: 200px;
+        background: url(image/smartphoneDisSize.png) no-repeat center;
+        background-size: 80px auto;
+        line-height: 25px;
     }
     .long-Ad {
         clear: both;
@@ -103,22 +129,53 @@
         margin: 0 auto;
     }
 </style>
+<script>
+    $(function(){
+        <% switch ( mo.getmBrandName() ) { 
+        case "삼성전자" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-samsung.png"); <% break; 
+        case "LG전자" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-lg.png");<% break; 
+        case "애플" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-apple.png");<% break; 
+        case "팬택" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-Pantech.png");<% break; 
+        case "HTC" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-htc.png");<% break; 
+        case "모토로라" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-motorola.png");<% break; 
+        case "KT Tech" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-KT_Tech.png");<% break; 
+        case "SK 텔레시스" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-sk telesys.png");<% break; 
+        case "소니 모바일" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-sony.png");<% break; 
+        case "노키아" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-nokia.png");<% break; 
+        } %>
+        <% switch ( mo.getmOsName() ) {
+        case "안드로이드": %> $("#summaryOS").attr("src","image/OS/And.png"); <%break;
+        case "iOS" : %> $("#summaryOS").attr("src","image/OS/iOS.png"); <%break;
+        default : %> $("#summaryOS").attr("alt","미확인"); <%break;
+        } %>
+    });
+
+</script>
 </head>
 <body>
  	<%@ include file ="/views/common/menubar.jsp" %>
     <%@ include file = "mobileSpecTop.jsp"%>
 	<section class="Mobilecontainer">
         <div id="specSummary">
-            <div id="brand"><%= mo.getmBrandName() %></div>
-            <div id="size"><%= mo.getmSize() %></div>
-            <div id="weight"><%= mo.getmWeight() %></div>
-            <div id="gb"><%= mo.getmInnerMemory() %></div>
-            <div id="ap"><%= mo.getmAp() %></div>
-            <div id="os"><%= mo.getmOsName() %></div>
-            <div id="battery"><%= mo.getmBattery() %></div>
-            <div id="display"><%= mo.getmDisplayType() %></div>
-            <div id="ram"><%= mo.getmRam() %></div>
-            <div id="disSize"><%= mo.getmInch() %></div>
+            <div id="brand">
+                <img id="summaryLogo">
+            </div>
+            <div id="size"><span>&nbsp;&nbsp;Size&nbsp;&nbsp;</span><br><%= mo.getmSize() %></div>
+            <div id="weight"><span>&nbsp;&nbsp;weight&nbsp;&nbsp;</span><br><%= mo.getmWeight() %></div>
+            <div id="gb"><span>&nbsp;&nbsp;gb&nbsp;&nbsp;</span><br><%= mo.getmInnerMemory() %></div>
+            <div id="ap"><span>&nbsp;&nbsp;AP&nbsp;&nbsp;</span><br><%= mo.getmAp() %></div>
+            <div id="os">
+                <span>&nbsp;&nbsp;OS&nbsp;&nbsp;</span><br>
+                <img id="summaryOS">
+            </div>
+            <div id="battery">
+                <!-- <i class="material-icons">battery_90</i> -->
+                <span>&nbsp;&nbsp;Battery&nbsp;&nbsp;</span>
+                <br>
+                <%= mo.getmBattery() %> mAh</div>
+            <div id="display"><span>&nbsp;&nbsp;Display&nbsp;&nbsp;</span><br><%= mo.getmDisplayType() %></div>
+            <div id="ram"><span>&nbsp;&nbsp;Ram&nbsp;&nbsp;</span><br><%= mo.getmRam() %></div>
+            <div id="disSize"><span>&nbsp;&nbsp;DisplaySize&nbsp;&nbsp;</span><br><br><br><%= mo.getmInch() %></div>
         </div>
         <div class="long-Ad">
             가로광고란
