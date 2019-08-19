@@ -40,12 +40,12 @@ public class SelectMemberServlet extends HttpServlet {
 		AdminService aService = new AdminService();
 		
 		//------------------- list 받아오는 처리 --------------------
-		
+		JSONObject map = null;
 		
 		if(sort.equals("admin")) {
 			list = aService.selectMember();
 			
-			JSONObject map = new JSONObject();
+			map = new JSONObject();
 			
 			for(int i=0; i<list.size(); i++) {
 				map.put(i, list.get(i));
@@ -118,13 +118,8 @@ public class SelectMemberServlet extends HttpServlet {
 				request.setAttribute("msg", "게시판 목록 조회 실패");
 			}
 			request.getRequestDispatcher(page).forward(request, response);
-				
-			
 			
 		}
-		
-		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(map, response.getWriter());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
