@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="board.model.vo.Board"%>
-    
 <%
 	Board b = (Board)request.getAttribute("board");
 %>
@@ -8,8 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 수정</title>
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<title>Insert title here</title>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <!-- include libraries(jQuery, bootstrap) -->
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
@@ -17,14 +16,21 @@
   
         <!-- include summernote css/js --> 
         <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
-       
 	<style>
-        body{
+       body{
            	width: 1080px;
          	/* height: auto; */
            	margin: auto;
           	padding: 0;
+          	border: 1px solid black;
        	}
+       #header{
+        	width: 100%;
+        	/* height : 80px; */
+        	margin : 0;
+        	padding : 0;
+        	clear : both;
+        }
      	/* .sec{
            	border: 1px solid black;
        	} */
@@ -66,6 +72,13 @@
                 margin-right: 0;
                 padding: 0;
             }
+            /* #writetitle{
+             	font-size: 30px;
+                padding: 0;
+                margin-left: 10px;
+                margin-top: 30px;
+            } */
+            
             #brand, #category{
                height: 50%;
                display: block;
@@ -97,18 +110,19 @@
 	<script>
 		$(document).ready(function(){
 			var bcode = "<%=b.getbCode()%>";
+			console.log(bcode);
 			switch(bcode){
-			case 1 : ($("#brand").val() == 1) = "selected"; break;
-			case 2 : ($("#brand").val() == 2) = "selected"; break;
-			case 3 : ($("#brand").val() == 3) = "selected"; break;
-			case 4 : ($("#brand").val() == 4) = "selected"; break;
-			case 5 : ($("#brand").val() == 5) = "selected"; break;
+			case "1" : $("#brand").val(1).prop("selected",true); break;
+			case "2" : $("#brand").val(2).prop("selected",true); break;
+			case "3" : $("#brand").val(3).prop("selected",true); break;
+			case "4" : $("#brand").val(4).prop("selected",true); break;
+			case "5" : $("#brand").val(5).prop("selected",true); break;
 			}
 			
 			var bcategory = "<%=b.getbCategory()%>";
 			switch(bcategory){
-			case 1 : ($("#category").val() ==1) = "selected";break;
-			case 2 : ($("#category").val() ==2) = "selected";break;
+			case "1" : $("#category").val(1).prop("selected",true);break;
+			case "2" : $("#category").val(2).prop("selected",true);break;
 			}
 			
 			var title = "<%=b.getbTitle()%>";
@@ -116,6 +130,9 @@
 		});
 	
 	</script>
+	<header id="header">
+			<%@include file="/views/common/menubar.jsp"%>
+	</header>
 	<section id="nametitle" class="sec">
            <h1 id="bname">글 수정</h1>
     </section>
@@ -160,9 +177,9 @@
 	              
 	                  
 	        });
-	        $("#write").click(function(){
+	        /* $("#write").click(function(){
 	        	var markupStr = $('#summernote').summernote('code');
-	        });
+	        }); */
 	        
 	             
     </script>
@@ -170,8 +187,8 @@
  	</section>
 	<section id="btn" class="sec">
 		<button type="button" class="btn btn-secondary btn1" id="preveal">미리보기</button>
-		<button type="submit" class="btn btn-secondary btn1" id="write">글쓰기</button>
-		<button type="reset" class="btn btn-secondary btn1" id="cancel" onclick="javascript:self.close();">취소</button>
+		<button type="submit" class="btn btn-secondary btn1" id="write">글 수정</button>
+		<button type="reset" class="btn btn-secondary btn1" id="cancel" onclick="javascript:history.back();">취소</button>
 	</section>
 	
 	
@@ -181,13 +198,13 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 	<script>
 		$("#preveal").click(function(){
-			var writeBoard = document.getElementById("writeBoard");
+			var writeBoard = document.getElementById("updateBoard");
 			writeBoard.target = "preview";
 			writeBoard.action = "<%=request.getContextPath()%>/preview.bo";
 			console.log(content);
-			window.open("","preview","width=900px, height=500px");
+			window.open("","preview","width=900px, height=600px");
 			writeBoard.submit();
-			writeBoard.action = "<%= request.getContextPath()%>/write.bo";
+			writeBoard.action = "<%= request.getContextPath()%>/update.bo";
 		});
 		
   		
@@ -201,16 +218,7 @@
 					alert("제목을 입력하세요.");
 					return false;
 				}
-				
-				
-				
 			});
-			
-			if (opener!= null) {
-                opener.updateReplyForm = null;
-                self.close();
-            }
-	
 
 	</script>
 </body>

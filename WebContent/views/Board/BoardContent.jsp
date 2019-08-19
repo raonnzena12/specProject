@@ -95,9 +95,11 @@
         	height:40px;
        	}
        	#contentarea{
+       		border: 1px solid #ced4da;
        		width: 100%;
        		height: 420px;
        		margin: 0;
+       		margin-top:32px;
        		padding:0;
        	}
        	#contenttable{
@@ -201,6 +203,7 @@
 		<div name="content" id="contentarea"></div>
    	</section>
    	
+   	
    	<section id="conbtn">
    	
    	<% if(loginUser.getUserNo() == b.getbWriter()){ System.out.println("loginUser" + loginUser.getUserNo()); System.out.println("bWriter" + b.getbWriter());%>
@@ -253,10 +256,11 @@
   
   <script>
   	function updateBoard(){
-		window.open("updateForm.bo?bno="+"<%=b.getbNo()%>", "updateBoardForm", "width=800, height=260, resizable = no, scrollbars = no");
-		/* window.open("replyUpdateForm.bo?cno="+cno, "updateReplyForm","width=805, height=260, resizable = no, scrollbars = no");
+  		<%-- window.open("updateForm.bo?bno="+"<%=b.getbNo()%>", "updateBoardForm", "width=1150, height=880, resizable = no, scrollbars = no"); --%>
+  		location.href='<%= request.getContextPath()%>/updateForm.bo?bno=<%=b.getbNo()%>';
+  		/* window.open("replyUpdateForm.bo?cno="+cno, "updateReplyForm","width=805, height=260, resizable = no, scrollbars = no");
 		 */
-	}
+  	}
   	
   	function deleteBoard(){
   		if(confirm('정말 삭제하시겠습니까?')){
@@ -328,9 +332,9 @@
   					
   					
 	  					var $buttonTd = $("<td>").attr("id", rList[i].cNo).css("width","15%");
-	  					var $button1 = $("<button>").addClass("btn btn-link").attr({"id":"subdanger" , "type":"button","onclick":"dangerReply();"}).text("신고").css({"color":"red", "font-weight":"bold"});
-	  					var $button2 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subupdate","onclick":"updateReply();"}).text("수정").css({"color":"black", "font-weight":"bold"});
-		  				var $button3 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subdelete","onclick":"deleteReply();"}).text("삭제").css({"color":"black", "font-weight":"bold"});
+	  					var $button1 = $("<button>").addClass("btn btn-link subdanger").attr({"type":"button", "id":"subdanger"}).text("신고").css({"color":"red", "font-weight":"bold"});
+	  					var $button2 = $("<button>").addClass("btn btn-link subupdate").attr({"type":"button", "id":"subupdate"}).text("수정").css({"color":"black", "font-weight":"bold"});
+		  				var $button3 = $("<button>").addClass("btn btn-link subdelete").attr({"type":"button", "id":"subdelete"}).text("삭제").css({"color":"black", "font-weight":"bold"});
 		  				var $dateTd = $("<td>").text(rList[i].cRegdate).css("width","10%");
 		  				
 		  				if(rList[i].cStatus != 3){
@@ -355,15 +359,19 @@
   	
   	selectRlist();
   	
-  	setInterval(function(){
+  	/* setInterval(function(){
   		selectRlist();
-  	}, 3000);
+  	}, 3000); */
   	
   	// 댓글 삭제
-	
-	function deleteReply(){
-		
+  	
+  	$(document).on("click", ".subdelete", function(){
 		var cno = $(this).parent().attr("id");
+		deleteReply(cno);
+		console.log("cno=" + cno);
+	});
+	
+	function deleteReply(cno){
 		
 		$.ajax({
 			url: "replydelete.bo",
@@ -371,7 +379,9 @@
 			data:{cno:cno},
 			success : function(result){
 				if(result > 0){
-					selectRlist();
+					if(confirm("정말로 삭제 하시겠습니까?")){
+						selectRlist();
+					}
 				}else{
 					result = "댓글 삭제 실패";
 				}
@@ -381,14 +391,14 @@
 	}
 	
 	// 댓글 수정
-	$(document).on("click", "#subupdate", function(){
+	$(document).on("click", ".subupdate", function(){
 		var cno = $(this).parent().attr("id");
 		updateReply(cno);
 		console.log("cno=" + cno);
 	});
 	
 	function updateReply(cno){
-		window.open("replyUpdateForm.bo?cno="+cno, "updateReply","width=805, height=260, resizable = no, scrollbars = no");
+		window.open("replyUpdateForm.bo?cno="+cno, "updateReplyForm","width=805, height=260, resizable = no, scrollbars = no");
 		<%-- location.href='<%= request.getContextPath()%>/replyUpdateForm.bo?cno='+cno; --%>
 		console.log("cno=" + cno);
 		
@@ -396,14 +406,14 @@
 	
 	//댓글 신고
 	
-	$(document).on("click", "#subdanger", function(){
+	$(document).on("click", ".subdanger", function(){
 		var cno = $(this).parent().attr("id");
 		dangerReply(cno);
 		console.log("cno=" + cno);
 	});
 	
 	function dangerReply(cno){
-		window.open("replyDangerForm.bo?cno="+ cno + "&dwriter=<%=loginUser.getUserNo()%>", "dangerReply", "width=800, height=550, resizable = no , scrollbars =no");
+		window.open("replyDangerForm.bo?cno="+ cno + "&dwriter=<%=loginUser.getUserNo()%>", "dangerReplyForm", "width=800, height=550, resizable = no , scrollbars =no");
 		
 	}
 	

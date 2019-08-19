@@ -132,7 +132,7 @@
 	<section id="nametitle" class="sec">
            <h1 id="bname">글쓰기</h1>
     </section>
-     <form action="<%= request.getContextPath()%>/write.bo" method="post">
+     <form action="<%= request.getContextPath()%>/write.bo" method="post" id="writeBoard">
     <section id="title" class="sec"> 
     	<select name="brand" id="brand">
      		<option value="1">LG게시판</option>
@@ -166,7 +166,18 @@
             <%@ include file="/views/Board/WriteAPI.jsp" %>
             <script>
 	        $(document).ready(function() {
-	              $('#summernote').summernote();
+	              $('#summernote').summernote({
+	            	  lang:'ko-KR',
+	            	  toolbar: [
+	            		    // [groupName, [list of button]]
+	            		    ['style', ['bold', 'italic', 'underline', 'clear']],
+	            		    ['font', ['strikethrough', 'superscript', 'subscript']],
+	            		    ['fontsize', ['fontsize']],
+	            		    ['color', ['color']],
+	            		    ['para', ['ul', 'ol', 'paragraph']],
+	            		    ['height', ['height']]
+	            		    ]
+	              });
 	                  
 	        });
 	        $("#write").click(function(){
@@ -188,6 +199,34 @@
 	
 	
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+	<script>
+		$("#preveal").click(function(){
+			var writeBoard = document.getElementById("writeBoard");
+			writeBoard.target = "preview";
+			writeBoard.action = "<%=request.getContextPath()%>/preview.bo";
+			console.log(content);
+			window.open("","preview","width=900px, height=600px");
+			writeBoard.submit();
+			writeBoard.action = "<%= request.getContextPath()%>/write.bo";
+		});
+		
+  		
+			$("#writeBoard").submit(function(){
+				if($("#category").val() == "category"){
+		  			alert("카테고리를 선택하세요.");
+		  			return false;
+		  		}
+				console.log("제목 : "+$("#title-1").val());
+				if($("#title-1").val() == ""){
+					alert("제목을 입력하세요.");
+					return false;
+				}
+				
+				
+			});
+	
+
+	</script>
 	
 </body>
 </html>

@@ -135,6 +135,7 @@
 		    	display: block;
 		    	padding-top: 5px;
 		    	padding-bottom: 8px;
+		    	margin-left:10px;
 		    	color: black;
 		    	
 		    	
@@ -160,6 +161,18 @@
 	<nav id="bnav"> 
 		<%@include file="/views/Board/BoardListNav.jsp"%>
 	</nav>
+	<script>
+		$(document).ready(function(){
+			switch(<%=request.getAttribute("bno")%>){
+			case 0 : $("#total").css({"background-color": "#00264B", "color" : "white"}); break;
+			case 1: $("#lg").css({"background-color": "#00264B", "color" : "white"}); break;
+			case 2: $("#samsung").css({"background-color": "#00264B", "color" : "white"}); break;
+			case 3: $("#apple").css({"background-color": "#00264B", "color" : "white"}); break;
+			case 4: $("#etc").css({"background-color": "#00264B", "color" : "white"}); break;
+			case 5: $("#free").css({"background-color": "#00264B", "color" : "white"}); break;
+			}
+		});
+	</script>
 	
     <section id="ad">
      <article id="ad-2">광고</article>

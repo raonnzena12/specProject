@@ -663,7 +663,7 @@ public class BoardDao {
 			
 			while(rset.next()) {
 				Board b = new Board(
-						rset.getInt("RNUM"),
+						rset.getInt("BNO"),
 						rset.getString("BTITLE"),
 						rset.getString("BCONTENT"),
 						rset.getInt("BCOUNT"),
