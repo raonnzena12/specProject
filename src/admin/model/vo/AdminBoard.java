@@ -10,12 +10,12 @@ public class AdminBoard {
 	private Date bRegdate;
 	private Date bModidate;
 	private String bStatusType;
+	private int bStatusCode;
+	private int userNo;
 	private String userName;
 	
 	public AdminBoard() {}
 	
-	
-
 	public AdminBoard(int bNo, String bTitle, int bCount, Date bRegdate, Date bModidate, String bStatusType,
 			String userName) {
 		this.bNo = bNo;
@@ -24,6 +24,25 @@ public class AdminBoard {
 		this.bRegdate = bRegdate;
 		this.bModidate = bModidate;
 		this.bStatusType = bStatusType;
+		this.userName = userName;
+	}
+	
+	public AdminBoard(int bNo, String bTitle, int bCount, Date bRegdate, Date bModidate, String bStatusType, int userNo,
+			String userName) {
+		this(bNo, bTitle, bCount, bRegdate, bModidate, bStatusType, userName);
+		this.userNo = userNo;
+	}
+	
+	public AdminBoard(int bNo, String bTitle, int bCount, Date bRegdate, Date bModidate, int bStatusCode, int userNo,
+			String userName) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bCount = bCount;
+		this.bRegdate = bRegdate;
+		this.bModidate = bModidate;
+		this.bStatusCode = bStatusCode;
+		this.userNo = userNo;
 		this.userName = userName;
 	}
 
@@ -83,11 +102,19 @@ public class AdminBoard {
 		this.userName = userName;
 	}
 
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
 	@Override
 	public String toString() {
 		return "AdminBoard [bNo=" + bNo + ", bTitle=" + bTitle + ", bCount=" + bCount + ", bRegdate=" + bRegdate
-				+ ", bModidate=" + bModidate + ", bStatusType=" + bStatusType + ", userName=" + userName + "]";
+				+ ", bModidate=" + bModidate + ", bStatusType=" + bStatusType + ", userNo=" + userNo + ", userName="
+				+ userName + "]";
 	}
-	
-	
+
 }
