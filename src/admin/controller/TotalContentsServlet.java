@@ -28,12 +28,17 @@ public class TotalContentsServlet extends HttpServlet {
 		int totalContent = aService.contentCount();
 		
 		// 페이징 처리용 변수 선언
-		int limit = 10; // 한 페이지에 보여질 게시글 수
+		int limit = 0; // 한 페이지에 보여질 게시글 수
 		int pagingBarSize = 10; // 보여질 페이징바의 페이지 개수
 		int currentPage = 0; // 현재 페이지 번호를 표시할 변수
 		int maxPage = 0; // 전체 페이지에서 가장 마지막 페이지
 		int startPage = 0; // 페이징 바 시작 페이지 번호
 		int endPage = 0; // 페이징 바 끝 페이지 번호
+		if ( request.getParameter("limit") == null ) {
+			limit = 10;
+		} else {
+			limit = Integer.parseInt(request.getParameter("limit"));
+		}
 		
 		// currentPage - 현재 페이지 번호를 표시할 변수
 		if ( request.getParameter("currentPage") == null ) {
