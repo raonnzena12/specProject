@@ -209,6 +209,23 @@
 			writeBoard.submit();
 			writeBoard.action = "<%= request.getContextPath()%>/write.bo";
 		});
+		
+  		
+			$("#writeBoard").submit(function(){
+				if($("#category").val() == "category"){
+		  			alert("카테고리를 선택하세요.");
+		  			return false;
+		  		}
+				console.log("제목 : "+$("#title-1").val());
+				if($("#title-1").val() == ""){
+					alert("제목을 입력하세요.");
+					return false;
+				}
+				
+				
+			});
+	
+
 	</script>
 	
 </body>
