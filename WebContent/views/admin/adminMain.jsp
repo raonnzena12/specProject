@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String sort = "no";
+	int sortNum = 5;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +106,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	<div class="outer">
 		<div class="menu-outer">
 			<ul class="menu-ul">
-				<li><a href="adminMember.jsp">회원관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/adminSelectMember.do?sort=<%=sort%>&sortNum=<%=sortNum%>">회원관리</a></li>
 				<li><a href="#">글 관리</a></li>
 				<li><a href="#">댓글 관리</a></li>
 				<li><a href="#">리뷰 관리</a></li>
@@ -118,7 +122,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 						<tr>
 							<th><i class="material-icons">supervisor_account</i></th>
 							<th>회원 관리</th>
-							<td><a href="adminMember.jsp">more></td>
+							<td><a href="<%=request.getContextPath() %>/adminSelectMember.do?sort=<%=sort%>&sortNum=<%=sortNum%>">more></td>
 						</tr>
 					</table>
 				</div>
@@ -172,10 +176,12 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	</div>
 	
 	<script>
-		var sort = null;
-		var sortNum = 0;
-	
-		function selectMember(sort) {
+		function selectMember() {
+			
+			var sort="admin";
+			var sortNum = 0;
+			var currentPage = 0;
+
 			$.ajax({
 				url : "../../adminSelectMember.do",
 				type : "post",

@@ -24,7 +24,7 @@ public class AdminMember {
 		this.modifyDate = modifyDate;
 		this.userStatusType = userStatusType;
 	}
-	
+
 	public AdminMember(int rNum, int userNo, String userEmail, String userName, Date enrollDate, Date modifyDate,
 			String userStatusType) {
 		super();
@@ -36,7 +36,7 @@ public class AdminMember {
 		this.modifyDate = modifyDate;
 		this.userStatusType = userStatusType;
 	}
-	
+
 	public int getrNum() {
 		return rNum;
 	}
@@ -100,5 +100,6 @@ public class AdminMember {
 				+ userStatusType + "]";
 	}
 
+	
 
 }

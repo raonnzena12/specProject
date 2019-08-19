@@ -106,6 +106,27 @@ public class BoardService {
 		return result;
 	}
 
+	/**
+	 * 게시판 수정용 Service
+	 * @param bno
+	 * @param category
+	 * @param title
+	 * @param content
+	 * @param brand
+	 * @return result
+	 */
+	public int updateBoard(int bno, int category, String title, String content, int brand) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().updateBoard(conn, bno, category, title, content, brand);
+		
+		if(result > 0) {
+			commit(conn); 
+		}else {
+			rollback(conn); 
+		}
+		return result;
+	}
 	
 	/**
 	 * 게시판 검색용 Service

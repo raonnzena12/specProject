@@ -85,8 +85,6 @@ public class MobileService {
 				case "brand" : query += cq.createBrandq(strArr); break;
 				case "battery" : query += cq.createBatteryq(strArr); break;
 				case "screen" : query += cq.createInchq(strArr); break;
-				case "batType" : query+= cq.createBatTypeq(strArr); break;
-				case "batEtc" : query += cq.createBatEtcq(strArr); break;
 				}
 			}
 		}
@@ -124,8 +122,6 @@ public class MobileService {
 				case "brand" : query += cq.createBrandq(strArr); break;
 				case "battery" : query += cq.createBatteryq(strArr); break;
 				case "screen" : query += cq.createInchq(strArr); break;
-				case "batType" : query+= cq.createBatTypeq(strArr); break;
-				case "batEtc" : query += cq.createBatEtcq(strArr); break;
 				}
 			}
 		}
@@ -492,4 +488,14 @@ public class MobileService {
 		return result;
 	}
 
+	/**
+	 * 모바일 이미지가 등록되어 있는지 확인하는 Service
+	 * @param mno
+	 * @return check
+	 */
+	public int checkMobileImage(int mno) {
+		Connection conn = getConnection();
+		int check = new MobileDao().checkMobileImage(conn, mno);
+		return check;
+	}
 }

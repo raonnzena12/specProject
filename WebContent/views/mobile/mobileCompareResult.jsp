@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>COMPARE RESULT</title>
+<%@ include file ="/views/common/menubar.jsp" %>
 <style>
     * {
         box-sizing: border-box;
@@ -28,6 +29,17 @@
         float: left;
         width: 50%;
         height: 100%;
+        text-align: center;
+    }
+    #device1Front, #device2Front {
+        height: 350px;
+        width: auto;
+    }
+    .compareTop span {
+        font-size: 40px;
+        font-weight: 900;
+        color: #fff;
+        text-shadow: 0px 0px 5px rgba(0,0,0,0.7), 0px 0px 10px rgba(0,0,0,0.3);
     }
     .mo1Count {
         width: 25%;
@@ -46,15 +58,57 @@
         border-radius: 5px;
         padding: 5px;
         width: 90%;
-        position: relative;
+        display: grid;
+        grid-template-columns: 30% 22.5% 22.5% 25%;
+        grid-template-rows: 30% 10% 20% 10% 30%;
     }
-    #specSummary div {
+    #specSummary1 div,#specSummary2 div {
         display: inline-block;
         border-radius: 5px;
         border: 1px solid #ccc;
         background-color: white;
         margin: 5px;
-        float: left;
+    }
+    /* summary 위치잡기 */
+    #mobile1brand, #mobile2brand {
+        grid-row-start: 1;
+        grid-row-end: 3;
+        position: relative;
+    }
+    #mobile1os, #mobile2os{
+        grid-column-start: 4;
+        grid-column-end: 5;
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+    #mobile1disSize, #mobile2disSize {
+        grid-column-start: 4;
+        grid-column-end: 5;
+        grid-row-start: 3;
+        grid-row-end: 6;
+    }
+    #mobile1size, #mobile2size{
+        grid-column-start: 2;
+        grid-column-end: 4;
+    }
+    #mobile1weight, #mobile1gb, #mobile2weight, #mobile2gb {
+        grid-row-start: 2;
+        grid-row-end: 4;
+    }
+    #mobile1ap, #mobile2ap {
+        grid-row-start: 3;
+        grid-row-end: 5;
+    }
+    #mobile1battery, #mobile2battery {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        background: url(image/OS/battery.png) no-repeat center;
+        background-size: 120px;
+
+    }
+    #mobile1display, #mobile1ram, #mobile2display, #mobile2ram {
+        grid-row-start: 4;
+        grid-row-end: 6;
     }
     .long-Ad {
         clear: both;
@@ -81,46 +135,131 @@
         width: 900px;
         margin: 0 auto;
     }
+    #specSummary1 span, #specSummary2 span {
+        background-color: #666;
+        display: inline-block;
+        border-radius: 20px;
+        color: #fff;
+        font-weight: 900;
+        margin: 10px 0 0 0;
+    }
+    #mo2brand, #mo1brand {
+        width: 100px;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    #mobile1osLogo, #mobile2osLogo {
+        width: auto;
+        height: 55px;
+        margin: 5px auto 0 auto;
+    }
+    #mobile1disSize, #mobile2disSize {
+        background: url(image/smartphoneDisSize.png) no-repeat center;
+        background-size: 80px auto;
+        line-height: 20px;
+    }
 </style>
+<script>
+        $(function(){
+            <% switch ( device1.getmBrandName() ) { 
+            case "삼성전자" : %> $("#mo1brand").attr("src","image/logo/logo-samsung.png"); <% break; 
+            case "LG전자" : %> $("#mo1brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-lg.png");<% break; 
+            case "애플" : %> $("#mo1brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-apple.png");<% break; 
+            case "팬택" : %> $("#mo1brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-Pantech.png");<% break; 
+            case "HTC" : %> $("#mo1brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-htc.png");<% break; 
+            case "모토로라" : %> $("#mo1brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-motorola.png");<% break; 
+            case "KT Tech" : %> $("#mo1brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-KT_Tech.png");<% break; 
+            case "SK 텔레시스" : %> $("#mo1brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-sk telesys.png");<% break; 
+            case "소니 모바일" : %> $("#mo1brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-sony.png");<% break; 
+            case "노키아" : %> $("#mo1brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-nokia.png");<% break; 
+            } %>
+            <% switch ( device2.getmBrandName() ) { 
+            case "삼성전자" : %> $("#mo2brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-samsung.png"); <% break; 
+            case "LG전자" : %> $("#mo2brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-lg.png");<% break; 
+            case "애플" : %> $("#mo2brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-apple.png");<% break; 
+            case "팬택" : %> $("#mo2brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-Pantech.png");<% break; 
+            case "HTC" : %> $("#mo2brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-htc.png");<% break; 
+            case "모토로라" : %> $("#mo2brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-motorola.png");<% break; 
+            case "KT Tech" : %> $("#mo2brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-KT_Tech.png");<% break; 
+            case "SK 텔레시스" : %> $("#mo2brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-sk telesys.png");<% break; 
+            case "소니 모바일" : %> $("#mo2brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-sony.png");<% break; 
+            case "노키아" : %> $("#mo2brand").attr("src","<%=request.getContextPath()%>/image/logo/logo-nokia.png");<% break; 
+            } %>
+            <% switch ( device1.getmOsName() ) {
+            case "안드로이드": %> $("#mobile1osLogo").attr("src","image/OS/And.png"); <%break;
+            case "iOS" : %> $("#mobile1osLogo").attr("src","image/OS/iOS.png"); <%break;
+            default : %> $("#mobile1osLogo").attr("alt","미확인"); <%break;
+            } %>
+            <% switch ( device2.getmOsName() ) {
+            case "안드로이드": %> $("#mobile2osLogo").attr("src","image/OS/And.png"); <%break;
+            case "iOS" : %> $("#mobile2osLogo").attr("src","image/OS/iOS.png"); <%break;
+            default : %> $("#mobile2osLogo").attr("alt","미확인"); <%break;
+            } %>
+        });
+    
+    </script>
 </head>
 <body>
-    <%@ include file ="/views/common/menubar.jsp" %>
     <section class="compareRe">
         <div class="compareTop">
-            <div class="mobile1"><%=device1.getmName()%>
-                <div class="mo1Count">좋아요/소지수</div>
+            <div class="mobile1">
+                <% if ( device1.getmFrontImage() == null ) { %>
+                <img src="<%=request.getContextPath()%>/image/smartphoneG.png" id="device1Front">
+                <% } else { %>
+                <img src="<%=request.getContextPath()%>/image/mobileImages/<%=device1.getmFrontImage()%>" id="device1Front">
+                <% } %>
+                <br><span><%=device1.getmName()%></span>
+                <!-- <div class="mo1Count">좋아요/소지수</div> -->
             </div>
-            <div class="mobile2"><%=device2.getmName()%>
-                <div class="mo2Count">좋아요/소지수</div>
+            <div class="mobile2">
+                <% if ( device2.getmFrontImage() == null ) { %>
+                <img src="<%=request.getContextPath()%>/image/smartphoneG.png" id="device2Front">
+                <% } else { %>
+                <img src="<%=request.getContextPath()%>/image/mobileImages/<%=device2.getmFrontImage()%>" id="device2Front">
+                <% } %>
+                <br><span><%=device2.getmName()%></span>
+                <!-- <div class="mo2Count">좋아요/소지수</div> -->
             </div>
         </div>
         <div class="compareMid">
             <div class="mobile1">
                 <div id="specSummary1">
-                    <div id="brand"><%=device1.getmBrandName()%></div>
-                    <div id="size"><%=device1.getmSize()%></div>
-                    <div id="weight"><%=device1.getmWeight()%></div>
-                    <div id="gb"><%=device1.getmInnerMemory()%></div>
-                    <div id="ap"><%=device1.getmAp()%></div>
-                    <div id="os"><%=device1.getmOsName()%></div>
-                    <div id="battery"><%=device1.getmBattery()%></div>
-                    <div id="display"><%=device1.getmDisplayType()%></div>
-                    <div id="ram"><%=device1.getmRam()%></div>
-                    <div id="disSize"><%=device1.getmInch()%></div>
+                    <div id="mobile1brand">
+                        <img id="mo1brand">
+                    </div>
+                    <div id="mobile1size"><span>&nbsp;&nbsp;Size&nbsp;&nbsp;</span><br><%=device1.getmSize()%></div>
+                    <div id="mobile1weight"><span>&nbsp;&nbsp;Weight&nbsp;&nbsp;</span><br><%=device1.getmWeight()%></div>
+                    <div id="mobile1gb"><span>&nbsp;&nbsp;Gb&nbsp;&nbsp;</span><br><%=device1.getmInnerMemory()%></div>
+                    <div id="mobile1ap"><span>&nbsp;&nbsp;AP&nbsp;&nbsp;</span><br><%=device1.getmAp()%></div>
+                    <div id="mobile1os"><span>&nbsp;&nbsp;OS&nbsp;&nbsp;</span><br>
+                        <img id="mobile1osLogo">
+                    </div>
+                    <div id="mobile1battery"><span>&nbsp;&nbsp;Battery&nbsp;&nbsp;</span><br><%=device1.getmBattery()%></div>
+                    <div id="mobile1display"><span>&nbsp;&nbsp;Display&nbsp;&nbsp;</span><br><%=device1.getmDisplayType()%></div>
+                    <div id="mobile1ram"><span>&nbsp;&nbsp;Ram&nbsp;&nbsp;</span><br><%=device1.getmRam()%></div>
+                    <div id="mobile1disSize"><span>&nbsp;&nbsp;DisplaySize&nbsp;&nbsp;</span><br><br><br><%=device1.getmInch()%></div>
                 </div>
             </div>
             <div class="mobile2">
                 <div id="specSummary2">
-                    <div id="brand"><%=device2.getmBrandName()%></div>
-                    <div id="size"><%=device2.getmSize()%></div>
-                    <div id="weight"><%=device2.getmWeight()%></div>
-                    <div id="gb"><%=device2.getmInnerMemory()%></div>
-                    <div id="ap"><%=device2.getmAp()%></div>
-                    <div id="os"><%=device2.getmOsName()%></div>
-                    <div id="battery"><%=device2.getmBattery()%></div>
-                    <div id="display"><%=device2.getmDisplayType()%></div>
-                    <div id="ram"><%=device2.getmRam()%></div>
-                    <div id="disSize"><%=device2.getmInch()%></div>
+                    <div id="mobile2brand">
+                        <img id="mo2brand">
+                    </div>
+                    <div id="mobile2size"><span>&nbsp;&nbsp;Size&nbsp;&nbsp;</span><br><%=device2.getmSize()%></div>
+                    <div id="mobile2weight"><span>&nbsp;&nbsp;Weight&nbsp;&nbsp;</span><br><%=device2.getmWeight()%></div>
+                    <div id="mobile2gb"><span>&nbsp;&nbsp;Gb&nbsp;&nbsp;</span><br><%=device2.getmInnerMemory()%></div>
+                    <div id="mobile2ap"><span>&nbsp;&nbsp;AP&nbsp;&nbsp;</span><br><%=device2.getmAp()%></div>
+                    <div id="mobile2os"><span>&nbsp;&nbsp;OS&nbsp;&nbsp;</span><br>
+                        <img id="mobile2osLogo">
+                    </div>
+                    <div id="mobile2battery"><span>&nbsp;&nbsp;Battery&nbsp;&nbsp;</span><br><%=device2.getmBattery()%></div>
+                    <div id="mobile2display"><span>&nbsp;&nbsp;Display&nbsp;&nbsp;</span><br><%=device2.getmDisplayType()%></div>
+                    <div id="mobile2ram"><span>&nbsp;&nbsp;Ram&nbsp;&nbsp;</span><br><%=device2.getmRam()%></div>
+                    <div id="mobile2disSize"><span>&nbsp;&nbsp;DisplaySize&nbsp;&nbsp;</span><br><br><br><%=device2.getmInch()%></div>
                 </div>
             </div>
             <div class="clear"></div>

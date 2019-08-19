@@ -46,7 +46,7 @@ public class MobileDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, index);
-			pstmt.setString(2, mi2.getReleaseDate());
+			pstmt.setDate(2, mi2.getReleaseDate());
 			pstmt.setString(3, mi2.getOsVersion());
 			pstmt.setString(4, mi2.getMaterial());
 			pstmt.setString(5, mi2.getSize());
@@ -253,7 +253,6 @@ public class MobileDao {
 		String makeQuery = prop.getProperty("filterList1");
 		makeQuery += query;
 		makeQuery += prop.getProperty("filterList2");
-		System.out.println(makeQuery);
 		try {
 			
 			pstmt = conn.prepareStatement(makeQuery);
@@ -1110,7 +1109,7 @@ public class MobileDao {
 		int result = 0;
 		
 		String query = prop.getProperty("updateMobileImage");
-		
+		System.out.println("mo.f : "+ mo.getMiFrontImage());
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, mo.getMiFrontImage());
@@ -1126,6 +1125,35 @@ public class MobileDao {
 		return result;
 	}
 
+	/**
+	 * 업데이트 하려는 이미지가 등록되어 있는지 확인하는 DAO
+	 * @param conn
+	 * @param mno
+	 * @return check
+	 */
+	public int checkMobileImage(Connection conn, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int check = 0;
+		
+		String query = prop.getProperty("checkMobileImage");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			rset = pstmt.executeQuery();
+			
+			if ( rset.next() ) {
+				check = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return check;
+	}
 
 /* 	
  * for ( int i = 0 ; i < fileList.size(); i ++ ) {

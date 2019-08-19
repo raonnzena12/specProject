@@ -595,6 +595,7 @@
 					</p>
                     <div id="slider-battery"></div>
                     <div>
+                        <label for="batType">배터리 타입</label>
                         <select name="batType" id="batType" class="form-control form-control-sm">
                             <option value="0">----</option>
                             <option value="Lithium">Lithium</option>

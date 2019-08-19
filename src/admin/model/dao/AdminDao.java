@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -32,43 +33,6 @@ public class AdminDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public ArrayList<AdminMember> selectMember(Connection conn) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<AdminMember> mList = null;
-		AdminMember mem = null;
-		
-		
-		String query = prop.getProperty("selectMember");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			
-			rset = pstmt.executeQuery();
-			
-			mList = new ArrayList<AdminMember>();
-			
-			while(rset.next()) {
-				mem = new AdminMember(
-						rset.getInt(1),
-						rset.getString(2),
-						rset.getString(3),
-						rset.getDate(4),
-						rset.getDate(5),
-						rset.getString(6)
-						);
-				
-				mList.add(mem);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return mList;
 	}
 
 	public ArrayList<AdminBoard> selectBoard(Connection conn) {
@@ -211,7 +175,264 @@ public class AdminDao {
 		}
 		return cList;
 	}
+	
+	//-------------------------------------------- selectMember -----------------------------------------------
+	
 
+	public ArrayList<AdminMember> selectMember(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminMember> mList = null;
+		AdminMember mem = null;
+		
+		
+		String query = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			mList = new ArrayList<AdminMember>();
+			
+			while(rset.next()) {
+				mem = new AdminMember(
+						rset.getInt(1),
+						rset.getString(2),
+						rset.getString(3),
+						rset.getDate(4),
+						rset.getDate(5),
+						rset.getString(6)
+						);
+				
+				mList.add(mem);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mList;
+	}
+
+	public int getMemberCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("getMemberCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+	public ArrayList<AdminMember> selectMemberSort(Connection conn, String sort, boolean isSort, int sortNum, int currentPage) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminMember> mList = null;
+		AdminMember mem = null;
+		
+		String query = "";
+		
+		if(sort.contains("no")) {
+			if(isSort == true) {
+				query = prop.getProperty("selectMemberSortNo");
+			}else {
+				query = prop.getProperty("selectMemberSortNoDesc");
+			}
+		}else if(sort.contains("email")) {
+			if(isSort == true) {
+				query = prop.getProperty("selectMemberSortEmail");
+			}else {
+				query = prop.getProperty("selectMemberSortEmailDesc");
+			}
+		}else if(sort.contains("name")) {
+			if(isSort == true) {
+				query = prop.getProperty("selectMemberSortName");
+			}else {
+				query = prop.getProperty("selectMemberSortNameDesc");
+			}
+		}else if(sort.contains("status")) {
+			if(sort.contains("0")) {
+				query = prop.getProperty("selectMemberSortStatusAdmin");
+			}else if(sort.contains("1")) {
+				query = prop.getProperty("selectMemberSortStatusGeneral");
+			}else if(sort.contains("2")) {
+				query = prop.getProperty("selectMemberSortStatusSuspended");
+			}else if(sort.contains("3")) {
+				query = prop.getProperty("selectMemberSortStatusDeleted");
+			}
+		}else if(sort.contains("date")) {
+			if(isSort == true) {
+				query = prop.getProperty("selectMemberSortDate");
+			}else {
+				query = prop.getProperty("selectMemberSortDateDesc");
+			}
+		}else {
+			System.out.println("DB에서 sort가 읽히지 않음");
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			mList = new ArrayList<AdminMember>();
+			
+			int startRow = (currentPage - 1) * sortNum + 1;
+			int endRow = startRow + sortNum - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			
+			while(rset.next()) {
+				mem = new AdminMember(
+						rset.getInt(1),
+						rset.getInt(2),
+						rset.getString(3),
+						rset.getString(4),
+						rset.getDate(5),
+						rset.getDate(6),
+						rset.getString(7)
+						);
+				
+				mList.add(mem);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mList;
+	}
+
+	/**
+	 * 관리자 // 전체 글 갯수를 리턴하는 Service
+	 * @param conn
+	 * @return totalCount
+	 */
+	public int contentCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		String query = prop.getProperty("contentCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if (rset.next()) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return totalCount;
+	}
+
+	/**
+	 * 관리자 // 등록된 글 리스트를 받아오는 Service
+	 * @param conn
+	 * @param currentPage
+	 * @param limit
+	 * @return cList
+	 */
+	public ArrayList<AdminBoard> contentList(Connection conn, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminBoard> cList = new ArrayList<AdminBoard>();
+		
+		String query = prop.getProperty("contentList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			int startRow = ( currentPage - 1 ) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while ( rset.next() ) {
+				cList.add(new AdminBoard(rset.getInt("BNO"), rset.getString("BTITLE"), rset.getInt("BCOUNT"), rset.getDate("BREGDATE"), rset.getDate("BMODIDATE"), rset.getInt("BSTATUS"), rset.getInt("BWRITER"), rset.getString("USER_NAME")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return cList;
+	}
+
+	/**
+	 * 관리자 // 글 하나 관리 하는 DAO
+	 * @param conn
+	 * @param bno 
+	 * @return result
+	 */
+	public int updateContent(Connection conn,int type, int bno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateContent");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, type);
+			pstmt.setInt(2, bno);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 관리자 // 글 여러개 관리 하는 DAO
+	 * @param conn
+	 * @param query
+	 * @return result
+	 */
+	public int updateContents(Connection conn,int type, String query) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String baseQuery = prop.getProperty("updateContents") + query;
+		
+		try {
+			pstmt = conn.prepareStatement(baseQuery);
+			pstmt.setInt(1, type);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 	
 	
