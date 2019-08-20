@@ -147,6 +147,7 @@
 		    <tr>
 		      <th scope="col" width="80px">번호</th>
 		      <th scope="col" width="80px">페이지</th>
+		      <th scope="col" width="80px">참조번호</th>
 		      <th scope="col" width="400px">내용</th>
 		      <th scope="col" width="200px">글제목</th>
 		      <th scope="col" width="200px">등록일</th>
@@ -164,6 +165,7 @@
             		<tr>
             			<td><%= r.getcNo()%></td>
             			<td><%= r.getcTableNo()%></td>
+            			<td><%= r.getRefNo()%></td>
             			<td><%= r.getcContent()%></td>
             			<td><%= r.getRefContType()%><br><%=r.getRefCont() %></td>
             			<td><%= r.getcRegdate2()%></td>
@@ -216,11 +218,18 @@
 		$("#articleTable td").mouseenter(function(){
 			$(this).parent().css("cursor","pointer");
 		}).click(function(){
-			var bno = $(this).parent().children().eq(0).text();
-			
+			var cno = $(this).parent().children().eq(0).text();
+			var tno = $(this).parent().children().eq(1).text();
+			var rno = $(this).parent().children().eq(2).text();
 			// 로그인 한 사람만 게시글 상세보기 가능
 			<% if(loginUser != null){ %>
-				location.href="<%= request.getContextPath() %>/content.bo?bno="+bno;
+				if(tno == 1){
+					location.href="<%= request.getContextPath() %>/content.bo?bno="+rno;
+				}else if(tno == 2){
+					location.href="<%= request.getContextPath() %>/spec.mo?mno="+rno +"&page=1";
+				}else{
+					
+				}
 			<% } else{ %>
 				alert("로그인해야만 상세보기가 가능합니다!");
 			<% } %>
