@@ -38,17 +38,18 @@ public class MemberInsertServlet extends HttpServlet {
 		String pwd = request.getParameter("pwd");
 		
 		String phone = "";
-		int device = 0;
-		
+		int mno = 0;
+		String device = "";
 		Member member = null;
 		if(request.getParameter("device") != null) {
-			device = Integer.parseInt(request.getParameter("device"));
+			mno = Integer.parseInt(request.getParameter("selectedDevice"));
+			device = request.getParameter("device");
 			phone = request.getParameter("phone");
-			member = new Member(userEmail, pwd, userName, phone, 'Y', device, new SHA256().getSHA256(userEmail));
-			System.out.println(member.toString());
+			member = new Member(userEmail, pwd, userName, phone, 'Y', mno, new SHA256().getSHA256(userEmail), device);
+			System.out.println("memberInsertServlet: "+member.toString());
 		} else {
 			member = new Member(userEmail, pwd, userName, 'N', new SHA256().getSHA256(userEmail));
-			System.out.println(member.toString());
+			System.out.println("memberInsertServlet: "+member.toString());
 		}
 
 		int result = new MemberService().insertMember(member);

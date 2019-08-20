@@ -170,11 +170,10 @@ JavaScript
                         </tr>
                        
                         <tr>
-                            <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled></td>
-                            <td><button type="button" class="btn btn-info" disabled>기종선택</button></td>
+                            <td colspan="2"><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled></td>
                         </tr>
                         <tr>
-                            <td><input class="form-control" type="text" id="selectedDevice" disabled></td>
+                            <td><input class="form-control" type="hidden" name="selectedDevice"></td>
                             <td></td>
                         </tr>
                     </table>
@@ -349,25 +348,11 @@ JavaScript
     						
     						$mb[k] = v;
     						
-    						//console.log("name: " + name + "/ no : " + no);
-    						
-    						//mb.sList[i].mNameEn =v;
-    						//mb.sList[i].mNameEn = sList[i].mNo;
-    						//mb.name = sList[i].mNameEn;
-    						//mb.mNo = sList[i].mNo;
-    						//console.log(mb);
-    						//deviceArr.push(mb);
-    						//deviceArr.push(mb.mNo);
     						
 	    					console.log("each success : "+Object.keys($mb));
 							
 						});
-						//mobile = sList;
-						//console.log(deviceArr);
-						//console.log("mobile: "+mobile);
-						//console.log("deviceArr.key: "+Object.keys(deviceArr));
 						
-						//console.log("mobile:"+ mobile);
 	    				console.log("after each success : "+$mb);
     				}
     			});
@@ -384,7 +369,9 @@ JavaScript
     		
     		$("#joinForm").submit(function(){
     			
-    			console.log(clicks);
+    			var selected = $mb[$("#joinForm input[name=device]").val()];
+    			$("#joinForm input[name=selectedDevice]").val(selected);
+    			console.log($("#joinForm input[name=selectedDevice]").val());
     			
     			if(!clicks){
     				if($("#joinForm input[name=phone]").val().trim() == "" || $("#joinForm input[name=device]").val().trim() == ""){
