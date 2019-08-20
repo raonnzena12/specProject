@@ -109,6 +109,10 @@
 		left: 15%; */
 		color: black;
 	}
+	.white{
+		color:white;
+		font-size:10px;
+	}
 </style>
 <title>작성글 보기</title>
 <%@ include file="/views/common/menubar.jsp" %>
@@ -145,9 +149,9 @@
     	<table id="articleTable" class="table table-hover">
 		  <thead>
 		    <tr>
-		      <th scope="col" width="80px">번호</th>
-		      <th scope="col" width="80px">페이지</th>
-		      <th scope="col" width="80px">참조번호</th>
+		      <!-- th scope="col" width="80px">번호</th> -->
+		      <th scope="col" width="60px" class="white">page</th>
+		      <th scope="col" width="60px" class="white">ref</th>
 		      <th scope="col" width="400px">내용</th>
 		      <th scope="col" width="200px">글제목</th>
 		      <th scope="col" width="200px">등록일</th>
@@ -163,11 +167,11 @@
             	<% }else{ %>
             		<%for(Reply r : rList){ %>
             		<tr>
-            			<td><%= r.getcNo()%></td>
-            			<td><%= r.getcTableNo()%></td>
-            			<td><%= r.getRefNo()%></td>
-            			<td><%= r.getcContent()%></td>
-            			<td><%= r.getRefContType()%><br><%=r.getRefCont() %></td>
+            			<%-- <td><%= r.getcNo()%></td> --%>
+            			<td class="white"><%= r.getcTableNo()%></td>
+            			<td class="white"><%= r.getRefNo()%></td>
+            			<td><% String tmp =""; if(r.getcContent().replaceAll("<br>"," ").length() > 20){ tmp = r.getcContent().replaceAll("<br>"," ").substring(10) + "...";}else{ tmp = r.getcContent().replaceAll("<br>"," ");} %><%= tmp %></td>
+            			<td>[<%= r.getRefContType()%>]<br><%if(r.getRefCont() != null){ %><%=r.getRefCont() %><%} %></td>
             			<td><%= r.getcRegdate2()%></td>
             			<td><%= r.getcModidate2()%></td>
             		</tr>

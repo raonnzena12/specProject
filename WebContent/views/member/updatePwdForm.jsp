@@ -15,12 +15,12 @@
     	margin-top: 5%;
     }
 	#mypageNav ul>li{
-        width: 20%;
+        width: 15%;
         float: left;
         list-style-type: none;
         line-height: 80px;
         
-        margin: 0 15px;
+        margin: 0 10px;
         text-align: center;
         
     }
@@ -78,7 +78,8 @@
 			<li><a href="<%=request.getContextPath()%>/mypage.me" id="info">회원정보</a></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/myArticleList.jsp">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/myReviewList.jsp">작성리뷰보기</a></li>
-			<li><a href="#">작성댓글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReportList.me">작성댓글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReportList.me">신고내역보기</a></li>
 		</ul>
     </nav>
     

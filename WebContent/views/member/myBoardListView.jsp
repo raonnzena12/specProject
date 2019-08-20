@@ -133,7 +133,7 @@
 			<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
 			<li><a href="<%=request.getContextPath()%>/myBoardList.me" id="now">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/myReviewList.me">작성리뷰보기</a></li>
-			<li><a href="#">작성댓글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReportList.me">작성댓글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/myReportList.me">신고내역보기</a></li>
 		</ul>
     </nav>
@@ -218,7 +218,7 @@
 			
 			// 로그인 한 사람만 게시글 상세보기 가능
 			<% if(loginUser != null){ %>
-				location.href="<%= request.getContextPath() %>/content.bo?bno="+bno;
+				location.href="<%= request.getContextPath() %>/content.bo?bno="+bno+"&bcode=0";
 			<% } else{ %>
 				alert("로그인해야만 상세보기가 가능합니다!");
 			<% } %>

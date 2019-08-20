@@ -248,7 +248,7 @@ JavaScript
     		$("#joinForm input[name=userName]").on("input", function(){
     			var userName = $("#joinForm input[name=userName]").val().trim();
     			
-    			var regExp = /^[a-z][a-zA-Z0-9]{4,}$/;
+    			var regExp = /^[가-힣a-zA-Z0-9]{4,25}$/;
     			console.log(userName);
     			if(regExp.test(userName)){
     				
