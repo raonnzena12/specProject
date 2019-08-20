@@ -176,9 +176,115 @@ public class AdminDao {
 		return cList;
 	}
 	
-	//-------------------------------------------- selectMember -----------------------------------------------
+	
+	
+	//-------------------------------------------- Member -----------------------------------------------
+	
 	
 
+	/**
+	 * 관리자 // 전체 멤버를 리턴하는 Dao
+	 * @param conn
+	 * @return count
+	 */
+	public int getMemberCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("getMemberCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+
+	/**
+	 * 관리자 // 회원 상태에 따른 멤버 수를 리턴하는 Dao
+	 * @param conn
+	 * @param statusNum
+	 * @return count
+	 */
+	public int getMemberStatusCount(Connection conn, int statusNum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("getMemberStatusCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, statusNum);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	public int getMemberSearchCount(Connection conn, String searchSort, String searchText) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query;
+		if(searchSort.contains("아이디")) {
+			query = prop.getProperty("getMemberSearchIdCount");
+		}else {
+			query = prop.getProperty("getMemberSearchNameCount");
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, searchText);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+	
+
+	/**
+	 * 관리자 // 전체 멤버를 리턴하는 Dao
+	 * @param conn
+	 * @return mList
+	 */
 	public ArrayList<AdminMember> selectMember(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -215,31 +321,55 @@ public class AdminDao {
 		}
 		return mList;
 	}
-
-	public int getMemberCount(Connection conn) {
+	
+	public ArrayList<AdminMember> selectMemberSearch(Connection conn, String searchSort, String searchText, int sortNum, int currentPage) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		int count = 0;
+		ArrayList<AdminMember> mList = null;
+		AdminMember mem = null;
 		
-		String query = prop.getProperty("getMemberCount");
+		String query;
+		if(searchSort.contains("아이디")) {
+			query = prop.getProperty("selectMemberSearchId");
+		}else {
+			query = prop.getProperty("selectMemberSearchName");
+		}
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			mList = new ArrayList<AdminMember>();
+			
+			int startRow = (currentPage - 1) * sortNum + 1;
+			int endRow = startRow + sortNum - 1;
+			
+			pstmt.setString(1, searchText);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				count = rset.getInt(1);
+			while(rset.next()) {
+				mem = new AdminMember(
+						rset.getInt(1),
+						rset.getInt(2),
+						rset.getString(3),
+						rset.getString(4),
+						rset.getDate(5),
+						rset.getDate(6),
+						rset.getString(7)
+						);
+				
+				mList.add(mem);
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		return count;
+		return mList;
 	}
+
 
 	public ArrayList<AdminMember> selectMemberSort(Connection conn, String sort, boolean isSort, int sortNum, int currentPage) {
 		PreparedStatement pstmt = null;
@@ -276,6 +406,8 @@ public class AdminDao {
 				query = prop.getProperty("selectMemberSortStatusSuspended");
 			}else if(sort.contains("3")) {
 				query = prop.getProperty("selectMemberSortStatusDeleted");
+			}else if(sort.contains("4")) {
+				query = prop.getProperty("selectMemberSortNo");
 			}
 		}else if(sort.contains("date")) {
 			if(isSort == true) {
@@ -299,7 +431,6 @@ public class AdminDao {
 			
 			rset = pstmt.executeQuery();
 			
-			
 			while(rset.next()) {
 				mem = new AdminMember(
 						rset.getInt(1),
@@ -321,6 +452,28 @@ public class AdminDao {
 		}
 		return mList;
 	}
+	
+	public int updateMemberStatus(Connection conn, int mno, int statusNum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateMemberStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, statusNum);
+			pstmt.setInt(2, mno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	//---------------------------- 관리자 글 ------------------------------------------
 
 	/**
 	 * 관리자 // 전체 글 갯수를 리턴하는 DAO
@@ -531,6 +684,9 @@ public class AdminDao {
 		}
 		return sList;
 	}
+
+
+
 
 
 

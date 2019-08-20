@@ -33,7 +33,10 @@ public class SelectMemberServlet extends HttpServlet {
 		System.out.println("--------------------------- 서블릿 ---------------------------");
 		
 		String sort = request.getParameter("sort");
-		int sortNum = Integer.parseInt(request.getParameter("sortNum"));
+		int sortNum = 5;
+		if(request.getParameter("sortNum") != null) {
+			sortNum = Integer.parseInt(request.getParameter("sortNum"));
+		}
 		
 		ArrayList<AdminMember> list = null;
 		
@@ -65,7 +68,42 @@ public class SelectMemberServlet extends HttpServlet {
 				isSort = true;
 			}
 			
-			int count = aService.getMemberCount();
+			//----------------------- count 계산 및 페이징 변수 선언 --------------------------
+			
+			int count;
+			int statusNum = 5;
+			String searchSort = null;
+			String searchText = null;
+			
+			if(request.getParameter("searchSort") != null) {
+				searchSort = request.getParameter("searchSort");
+			}
+			
+			if(request.getParameter("searchText") != null) {
+				searchText = request.getParameter("searchText");
+			}
+			
+			if(sort.contains("status")) {
+				if(sort.contains("0")) {
+					statusNum = 0;
+				}else if(sort.contains("1")) {
+					statusNum = 1;
+				}else if(sort.contains("2")) {
+					statusNum = 2;
+				}else if(sort.contains("3")) {
+					statusNum = 3;
+				}
+				if(sort.contains("4")) {
+					count = aService.getMemberCount();
+				}else {
+					count = aService.getMemberStatusCount(statusNum);
+				}
+			}else if(sort.contains("search")) {
+				count = aService.getMemberSearchCount(searchSort, searchText);
+			}else {
+				count = aService.getMemberCount();
+			}
+			System.out.println("count : " + count);
 			
 			int limit = sortNum;
 			int pagingBarSize = 10;
@@ -86,7 +124,6 @@ public class SelectMemberServlet extends HttpServlet {
 			maxPage = (int)Math.ceil((double)count / limit);
 			
 			startPage = ((currentPage - 1) / pagingBarSize) * pagingBarSize + 1;
-			System.out.println("startPage 계산  후: " + startPage);
 			endPage = startPage + pagingBarSize - 1;
 			
 			if(maxPage <= endPage) {
@@ -95,24 +132,33 @@ public class SelectMemberServlet extends HttpServlet {
 			
 			AdminPageInfo pInf = new AdminPageInfo(count, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
 			
+			System.out.println("pInf : " + pInf);
+			
 			//------------------------- Member list 받아오기 -----------------------------
 			
 			System.out.println("sort : " + sort);
 			System.out.println("isSort : " + isSort);
 			System.out.println("sortNum : " + sortNum);
 			System.out.println("currentPage : " + currentPage);
+			System.out.println("searchSort : " + searchSort);
 
-			list = aService.selectMemberSort(sort, isSort, sortNum, currentPage);
+			if(sort.contains("search")) {
+				list = aService.selectMemberSearch(searchSort, searchText, sortNum, currentPage);
+			}else {				
+				list = aService.selectMemberSort(sort, isSort, sortNum, currentPage);
+			}
 			System.out.println("list 크기 : " + list.size());
 
 			String page = "";
 			if(list != null) {
-				page = "views/admin/adminMember.jsp";
+				page = "views/admin/adminMember.jsp";			
 				request.setAttribute("list", list);
 				request.setAttribute("pInf", pInf);
 				request.setAttribute("isSort", isSort);
 				request.setAttribute("sort", sort);
 				request.setAttribute("sortNum", sortNum);
+				request.setAttribute("searchSort", searchSort);
+				request.setAttribute("searchText", searchText);
 				
 				if(sort.contains("status")) {
 					request.setAttribute("status", sort);
