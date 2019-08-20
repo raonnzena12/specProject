@@ -277,7 +277,7 @@
         		<li><a href="inputPwdForm.me?code=1">정보수정</a></li>
         		<li><a href="<%=request.getContextPath()%>/myBoardList.me">내글관리</a></li>
         		<li><a href="<%=request.getContextPath()%>/myReviewList.me">내리뷰관리</a></li>
-        		<li><a href="#">내댓글관리</a></li>
+        		<li><a href="<%=request.getContextPath()%>/myReplyList.me">내댓글관리</a></li>
         		<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
         	</ul>
         </div>

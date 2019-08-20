@@ -15,6 +15,14 @@ public class Reply {
 	private int bNo;
 	private int cCount;
 	
+	private int rRnum;
+	private String cRegdate2;
+	private String cModidate2;
+	private int refNo;
+	private int cTableNo;
+	private String refCont;
+	private String refContType;
+	
 	
 	public Reply() {
 		super();
@@ -155,6 +163,79 @@ public class Reply {
 
 	public void setcCount(int cCount) {
 		this.cCount = cCount;
+	}
+	
+	
+
+
+	public int getrRnum() {
+		return rRnum;
+	}
+
+
+	public void setrRnum(int rRnum) {
+		this.rRnum = rRnum;
+	}
+
+
+	public String getcRegdate2() {
+		return cRegdate2;
+	}
+
+
+	public void setcRegdate2(String cRegdate2) {
+		this.cRegdate2 = cRegdate2;
+	}
+
+
+	public String getcModidate2() {
+		return cModidate2;
+	}
+
+
+	public void setcModidate2(String cModidate2) {
+		this.cModidate2 = cModidate2;
+	}
+
+
+	public int getRefNo() {
+		return refNo;
+	}
+
+
+	public void setRefNo(int refNo) {
+		this.refNo = refNo;
+	}
+
+
+	public int getcTableNo() {
+		return cTableNo;
+	}
+
+
+	public void setcTableNo(int cTableNo) {
+		this.cTableNo = cTableNo;
+	}
+
+	
+
+	public String getRefCont() {
+		return refCont;
+	}
+
+
+	public void setRefCont(String refCont) {
+		this.refCont = refCont;
+	}
+
+
+	public String getRefContType() {
+		return refContType;
+	}
+
+
+	public void setRefContType(String refContType) {
+		this.refContType = refContType;
 	}
 
 

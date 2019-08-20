@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import board.model.vo.Reply;
 import member.model.vo.Member;
 import mobile.model.vo.Report;
 
@@ -508,5 +509,74 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return rpList;
+	}
+
+	public int getMyReplyCount(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("getMyReplyCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+	    return result;
+	}
+
+	public ArrayList<Reply> selectMyReply(Connection conn, int currentPage, int limit, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Reply> rList = null;
+		Reply r = null;
+		String query = prop.getProperty("selectMyReply");
+		
+		try {
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			rList = new ArrayList<Reply>();
+			while(rset.next()) {
+				r = new Reply();
+				r.setcNo(rset.getInt("CNO"));
+				r.setcContent(rset.getString("CCONTENT"));
+				r.setcRegdate2(rset.getString("CREGDATE"));
+				r.setcModidate2(rset.getString("CMODIDATE"));
+				r.setRefNo(rset.getInt("REF_NO"));
+				r.setcWriter(rset.getInt("CWRITER"));
+				r.setcTableNo(rset.getInt("CTABLENO"));
+				r.setRefCont(rset.getString("REFCONT"));
+				r.setRefContType(rset.getString("REFCONTTYPE"));
+				
+				rList.add(r);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rList;
 	}
 }
