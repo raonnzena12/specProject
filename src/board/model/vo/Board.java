@@ -18,6 +18,7 @@ public class Board {
 	private String cgCategory;
 	private String bUser;// 유저이름
 	
+	
 	// 임시 등록일 필드
 	private String bRegdate2;
 	private String bModidate2;
@@ -60,6 +61,7 @@ public class Board {
 		this.bCategory = bCategory;
 		this.cgCategory = cgCategory;
 		this.bUser = bUser;
+		
 	}
 
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, int bCode, int bCategory,
@@ -142,6 +144,7 @@ public class Board {
 		this.bCategory = bCategory;
 		this.cgCategory = cgCategory;
 		this.bUser = bUser;
+		
 	}
 
 	
@@ -366,12 +369,9 @@ public class Board {
 		return "Board [bNo=" + bNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bCount=" + bCount
 				+ ", bRegdate=" + bRegdate + ", bModidate=" + bModidate + ", bCode=" + bCode + ", bType=" + bType
 				+ ", bWriter=" + bWriter + ", bStatus=" + bStatus + ", bCategory=" + bCategory + ", cgCategory="
-				+ cgCategory + ", bUser=" + bUser + "]";
+				+ cgCategory + ", bUser=" + bUser + ", bRegdate2=" + bRegdate2 + ", bModidate2=" + bModidate2
+				+ ", bCommCount=" + bCommCount + "]";
 	}
-
-	
-	
-	
 	
 	// temp 임시 게터세터
 	
@@ -383,13 +383,7 @@ public class Board {
 
 
 
-	/*
-	 * @Override public String toString() { return "Board [bNo=" + bNo + ", bTitle="
-	 * + bTitle + ", bContent=" + bContent + ", bCount=" + bCount + ", bRegdate=" +
-	 * bRegdate + ", bModidate=" + bModidate + ", bCode=" + bCode + ", bType=" +
-	 * bType + ", bWriter=" + bWriter + ", bStatus=" + bStatus + ", bCategory=" +
-	 * bCategory + ", cgCategory=" + cgCategory + "]"; }
-	 */
+	
 	
 	
 

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 import board.model.vo.Board;
+import board.model.vo.BoardReport;
 
 
 @WebServlet("/content.bo")
@@ -25,15 +26,20 @@ public class BoardContentServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.parseInt(request.getParameter("bno"));
+		int bcode = Integer.parseInt(request.getParameter("bcode"));
 		
 		Board board = new BoardService().contentBoard(bNo);
 		int replycount = new BoardService().getReplyCount(bNo);
+		BoardReport report = new BoardService().reportBoard(bNo);
 		
 		String page = "";
 		if(board != null ) {
 			page = "views/Board/BoardContent.jsp";
 			request.setAttribute("board", board);
 			request.setAttribute("replycount", replycount);
+			request.setAttribute("report", report);
+			request.setAttribute("bcode", bcode); 
+		
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시글 상세조회 에러");

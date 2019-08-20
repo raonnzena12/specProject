@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import board.model.service.BoardService;
+import board.model.vo.BoardReport;
 import board.model.vo.Reply;
 
 
@@ -31,9 +32,9 @@ public class ReplySelectServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bno = Integer.parseInt(request.getParameter("bno"));
+		int user = Integer.parseInt(request.getParameter("user"));
 		
-		ArrayList<Reply> rList = new BoardService().selectReply(bno);
-		
+		ArrayList<Reply> rList = new BoardService().selectReply(bno, user);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yy년 MM월 dd일 HH:mm:ss").create();
 		gson.toJson(rList, response.getWriter());
