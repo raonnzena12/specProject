@@ -17,9 +17,9 @@ public class BoardPageInfo {
 	public BoardPageInfo(int boardCount, int limit, int pageingBarSize, int currentPage, int maxPage, int startPage,
 			int endPage) {
 		super();
-		BoardCount = boardCount;
+		this.BoardCount = boardCount;
 		this.limit = limit;
-		PageingBarSize = pageingBarSize;
+		this.PageingBarSize = pageingBarSize;
 		this.currentPage = currentPage;
 		this.maxPage = maxPage;
 		this.startPage = startPage;

@@ -7,6 +7,7 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import board.model.vo.Reply;
 import member.model.dao.MemberDao;
 import member.model.vo.Member;
 import mobile.model.vo.Report;
@@ -171,6 +172,33 @@ public class MemberService {
 		ArrayList<Report> rpList = new MemberDao().selectMyReport(conn, currentPage, limit, userNo);
 		
 		return rpList;
+	}
+
+	/**
+	 * 내가 쓴 댓글개수 service
+	 * @param userNo
+	 * @return
+	 */
+	public int getMyReplyCount(int userNo) {
+		Connection conn = getConnection();
+		
+		int myReplyCount = new MemberDao().getMyReplyCount(conn, userNo);
+		
+		return myReplyCount;
+	}
+
+	/**
+	 * @param currentPage
+	 * @param limit
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<Reply> selectMyReply(int currentPage, int limit, int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Reply> rList = new MemberDao().selectMyReply(conn, currentPage, limit, userNo);
+		
+		return rList;
 	}
 	
 	
