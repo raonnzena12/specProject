@@ -138,16 +138,7 @@
 <script>
 	$(function(){
 		
-		clicks = true;
-		$("input[name=optionInfo]").click(function(){
-			
-			if(clicks){
-				$("#optionInfo *").removeAttr("disabled");
-			}else{
-				$("#optionInfo *").attr("disabled","disabled");
-			}
-			clicks = !clicks;
-		});
+		
 		
 		$("a").mouseenter(function() {
 			$(this).css("color", "#00264B");
@@ -182,19 +173,18 @@
                         <tr><td><label>이메일</label><input type="email" name="userEmail" class="form-control" value="<%=loginUser.getUserEmail()%>" readonly></td></tr>
                         <tr><td><label>닉네임</label><input type="text" name="userName" class="form-control" placeholder="닉네임" value="<%=loginUser.getUserName()%>"></td></tr>
                         
-                        <tr><td><input type="checkbox" name="optionInfo">&nbsp;선택정보 입력하기</td></tr>
                     </table>
                 </div>
                 <div id="optionInfo" class="form-group">
                      <table>
                         <tr>
                             <td colspan="2"><label>휴대폰 번호</label><input class="form-control" type="tel" name="phone"
-                                 <%if(loginUser.getPhone() == null){ %>  placeholder="핸드폰번호(01012341234)"<%}else{ %>value="<%=loginUser.getPhone() %>"<%} %> disabled></td>
+                                 <%if(loginUser.getPhone() == null){ %>  placeholder="핸드폰번호(01012341234)"<%}else{ %>value="<%=loginUser.getPhone() %>"<%} %> ></td>
                         </tr>
                        
                         <tr>
-                            <td colspan="2"><label>휴대폰 기종</label><input class="form-control" type="text" name="device" <%if(loginUser.getUserDevice() == null){ %> placeholder="기종찾기"<%}else{ %>value="<%=loginUser.getUserDevice() %>"<%} %> disabled></td>
-                            <td><input type="hidden" name="userMno" <%if(loginUser.getUserMno() != 0){ %> value="<%=loginUser.getUserMno()%>"<%} %>></td>
+                            <td colspan="2"><label>휴대폰 기종</label><input class="form-control" type="text" name="device" <%if(loginUser.getUserDevice() == null){ %> placeholder="기종찾기"<%}else{ %>value="<%=loginUser.getUserDevice() %>"<%} %>></td>
+                            <td><input type="hidden" name="userMno" <%if(loginUser.getUserMno() != 0){ %> value="<%=loginUser.getUserMno()%>"<%}else{ %>value="0"<%} %>></td>
                         </tr>
                     </table>
                 </div>
@@ -210,6 +200,7 @@
     </div>
        
     <script>
+    
     
     	$(function(){
     		
@@ -268,6 +259,7 @@
         		
         		
         		var $mb = {};
+        		var deviceVal;
         		$("#updateForm input[name=device]").on("input",function(){
         			var device = $(this).val().replace(/(\s*)/g,"");
         			
@@ -293,11 +285,11 @@
         						$mb[k] = v;
         						
         						
-    	    					console.log("each success : "+Object.keys($mb));
+    	    					console.log("each success : "+$mb[i]);
     							
     						});
     						
-    	    				console.log("after each success : "+$mb);
+    	    				console.log("after each success : "+Object.keys($mb));
         				}
         			});
     	    		console.log("after ajax : "+$mb);
@@ -306,47 +298,32 @@
     				$("#updateForm input[name=device]").autocomplete({
     					source : Object.keys($mb)
     				});
+        			
         		});
         		
         		
-        		$("#updateBtn").click(function(){
-        			if($("#updateForm input[name=userName]").val().trim() == "<%=loginUser.getUserName()%>" || $("#updateForm input[name=userName]").val().trim() == "" ){
-        				nCk = true;
-        			}
-        			
-        			
-        			if(!nCk){
-        				alert("이름 형식을 확인해주세요."); 
-        				return false;
-        			}
-        			
-        			if($("#updateForm input[name=optionInfo]").is(":checked")){
-        				if($("#updateForm input[name=phone]").val().trim() == '' || $("#updateForm input[name=device]").val().trim() != ''){
-            				console.log("phone: "+$("#updateForm input[name=phone]").val().trim());
-            				console.log('<%=loginUser.getUserEvent()%>');
-        					if('<%=loginUser.getUserEvent()%>' == 'N'){
-            					alert("휴대폰 정보를 입력해주세요!");
-            					return false;
-            				}
-        				} 
-            			
-        			}else{
-        				if($("#updateForm input[name=phone]").val().trim() != '' || $("#updateForm input[name=device]").val().trim() != ''){
-        					alert("선택정보 입력을 체크해주세요!");
-        					return false;
-            			}
-        			}
-	        		var selected = $mb[$("#updateForm input[name=device]").val()];
-	    			if($("#updateForm input[name=device]").val() != '<%=loginUser.getUserDevice()%>'){
-	        			$("#updateForm input[name=userMno]").val(selected);
-	    			}
-	    			
-	    			if(window.confirm("정말 수정 하시겠습니까?")){
-	    				$("#updateForm").submit();
-	    			}
-        		});
-        		
+			$("#updateBtn").click(function(){
+				
+    			var	deviceVal = $mb[$("#updateForm input[name=device]").val()];
+    			$("#updateForm input[name=userMno]").val(deviceVal);
+    			
+    			if($("#updateForm input[name=userName]").val().trim() == '<%=loginUser.getUserName()%>'){
+					$("#updateForm input[name=userName]").removeClass('is-invalid');
+    				$("#updateForm input[name=userName]").addClass('is-valid');
+    				nCk = true;
+				}
+    			
+				if(!nCk){
+					alert("이름 형식을 확인해주세요."); 
+					return false;
+				}
+				
+				if(window.confirm("정말 수정 하시겠습니까?")){
+					$("#updateForm").submit();
+				}
+			});
     	});
+    	
     </script>  
 </body>
 </html>

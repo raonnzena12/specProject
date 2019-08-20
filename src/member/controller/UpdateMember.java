@@ -32,39 +32,58 @@ public class UpdateMember extends HttpServlet {
 		String userEmail = request.getParameter("userEmail");
 		String userName = request.getParameter("userName");
 		
-		String phone = "";
+		String phone = request.getParameter("phone");
 		int mno = 0;
-		String device = "";
+		String device = request.getParameter("device");
 		Member member = null;
-		if(request.getParameter("device") == null && (userName.equals("") || userName.equals(loginUser.getUserName()))) {
-			
-			member = new Member();
-			member.setUserEmail(userEmail);
-			member.setUserName(loginUser.getUserName());
-			member.setUserEvent('N');
-			
-		}else if(request.getParameter("device") != null && (userName.equals("") || userName.equals(loginUser.getUserName()))) {
-			
+		char userEvent;
+		
+		if(request.getParameter("userMno") != "") {
 			mno = Integer.parseInt(request.getParameter("userMno"));
-			device = request.getParameter("device");
-			phone = request.getParameter("phone");
-			member = new Member(userEmail, loginUser.getUserName(), phone, 'Y', mno,device);
-			
-		} else if(request.getParameter("device") != null && (!userName.equals("") || !userName.equals(loginUser.getUserName()))) {
-			
-			mno = Integer.parseInt(request.getParameter("userMno"));
-			device = request.getParameter("device");
-			phone = request.getParameter("phone");
-			member = new Member(userEmail, userName, phone, 'Y', mno,device);
-			
-		}else {
-			
-			member = new Member();
-			member.setUserEmail(userEmail);
-			member.setUserName(userName);
-			member.setUserEvent('N');
 		}
+		
+		if(request.getParameter("phone") != "") {
+			userEvent = 'Y';
+		}else {
+			userEvent = 'N';			
+		}
+		
+		member = new Member();
+		member.setUserEmail(userEmail);
+		member.setUserName(userName);
+		member.setPhone(phone);
+		member.setUserDevice(device);
+		member.setUserMno(mno);
+		member.setUserEvent(userEvent);
+		
+		/*
+		 * if(request.getParameter("device") == null && (userName.equals("") ||
+		 * userName.equals(loginUser.getUserName()))) {
+		 * 
+		 * member = new Member(); member.setUserEmail(userEmail);
+		 * member.setUserName(loginUser.getUserName()); member.setUserEvent('N');
+		 * 
+		 * }else if(request.getParameter("device") != null && (userName.equals("") ||
+		 * userName.equals(loginUser.getUserName()))) {
+		 * 
+		 * mno = Integer.parseInt(request.getParameter("userMno")); device =
+		 * request.getParameter("device"); phone = request.getParameter("phone"); member
+		 * = new Member(userEmail, loginUser.getUserName(), phone, 'Y', mno,device);
+		 * 
+		 * } else if(request.getParameter("device") != null && (!userName.equals("") ||
+		 * !userName.equals(loginUser.getUserName()))) {
+		 * 
+		 * mno = Integer.parseInt(request.getParameter("userMno")); device =
+		 * request.getParameter("device"); phone = request.getParameter("phone"); member
+		 * = new Member(userEmail, userName, phone, 'Y', mno,device);
+		 * 
+		 * }else {
+		 * 
+		 * member = new Member(); member.setUserEmail(userEmail);
+		 * member.setUserName(userName); member.setUserEvent('N'); }
+		 */
 
+	
 		int result = new MemberService().updateMember(member);
 		
 		if(result > 0) {
@@ -77,6 +96,7 @@ public class UpdateMember extends HttpServlet {
 			request.setAttribute("msg", "회원정보 수정 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp");
 		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

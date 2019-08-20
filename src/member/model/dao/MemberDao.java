@@ -254,29 +254,19 @@ public class MemberDao {
 	public int updateMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query ="";
+		String query = prop.getProperty("updateMember");
 		
 		try {
-			if(member.getUserEvent() != 'N') {
-				query = prop.getProperty("updateMember2");
-				pstmt = conn.prepareStatement(query);
-				pstmt.setString(1,member.getUserName());
-				pstmt.setString(2, member.getPhone());
-				pstmt.setString(3, member.getUserEvent()+"");
-				pstmt.setInt(4,member.getUserMno());
-				pstmt.setString(5, member.getUserDevice());
-				pstmt.setString(6, member.getUserEmail());
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,member.getUserName());
+			pstmt.setString(2, member.getPhone());
+			pstmt.setString(3, member.getUserEvent()+"");
+			pstmt.setInt(4,member.getUserMno());
+			pstmt.setString(5, member.getUserDevice());
+			pstmt.setString(6, member.getUserEmail());
 				
-				result = pstmt.executeUpdate();
-			}else {
-				query = prop.getProperty("updateMember1");
-				pstmt = conn.prepareStatement(query);
-				pstmt.setString(1,member.getUserName());
-				pstmt.setString(2, member.getUserEvent()+"");
-				pstmt.setString(3, member.getUserEmail());
-				
-				result = pstmt.executeUpdate();
-			}
+			result = pstmt.executeUpdate();
+			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
