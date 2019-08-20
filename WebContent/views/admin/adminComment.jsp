@@ -113,7 +113,7 @@
 		line-height: 10px;
 		cursor: pointer;
 	}
-	#typeSelector {
+	.typeSelector {
 		position: relative;
 	}
 	#myDropdown {
@@ -127,6 +127,20 @@
 		width: 50px;
 		font-size: 12px;
 		font-weight: 400;
+		z-index: 1000;
+	}
+	#myDropdown2 {
+		position: absolute;
+		float: left;
+		top: 20px;
+		right: -30px;
+		display: none;
+		border: 1px solid #ddd;
+		background-color: #fafafa;
+		width: 50px;
+		font-size: 12px;
+		font-weight: 400;
+		z-index: 1000;
 	}
 </style>
 </head>
@@ -151,8 +165,17 @@
 					<tr>
 					<th scope="col" style="width:15px"><input type="checkbox" id="selectAll"></th>
 					<th scope="col" style="width:80px">No<% if ( sort < 5 && sort > 0 ) { %><i class="material-icons arrow" id="noOrderBy">arrow_drop_down</i><% } %></th>
-					<th scope="col" style="width:60px">유형</th>
-					<th scope="col" id="typeSelector">댓글 내용<% if ( sort > 0 ) { %><i class="material-icons arrow" id="conTypeSelect">arrow_drop_down</i>
+					<th scope="col" style="width:60px" class="typeSelector">
+						유형<% if ( ( 0 < sort && sort < 3 ) || ( 7 < sort && sort < 11) ) { %><i class="material-icons arrow" id="conTableSelect">arrow_drop_down</i>
+						<div id="myDropdown2" class="dropdown-content">
+							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>'>전체유형</a>
+							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=8'>게시판</a>
+							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=9'>모바일</a>
+							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=10'>비교</a>
+						</div>
+						<% } %>
+					</th>
+					<th scope="col" class="typeSelector">댓글 내용<% if ( sort > 0 && sort < 8  ) { %><i class="material-icons arrow" id="conTypeSelect">arrow_drop_down</i>
 						<div id="myDropdown" class="dropdown-content">
 							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>'>전체댓글</a>
 							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=5'>일반댓글</a>
@@ -228,14 +251,14 @@
 		<!-- 페이징 처리 시작! -->
 		<div class="pagingArea">
 			<!-- 맨 처음으로(<<) -->
-			<span class="pagingBtn clickBtn" onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=1&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=1&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;&lt;</span>
+			<span class="pagingBtn clickBtn" onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=1&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=1&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;&lt;</span>
 		
 			<!-- 이전 페이지로(<) -->
 			<% if(currentPage <= 1 || currentPage <= pagingBarSize ) { %>
 				<span class="pagingBtn">&lt;</span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href=<% if (sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;</span>
+					onclick="location.href=<% if (sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;</span>
 			<% } %>
 			
 			<!-- 페이지 목록 -->
@@ -244,7 +267,7 @@
 					<span class="pagingBtn selectBtn"><%= p %></span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= p %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=<%= p %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>"><%=p%></span>
+						onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= p %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= p %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>"><%=p%></span>
 				<% } %>
 			<%} %>
 			
@@ -253,12 +276,12 @@
 				<span class="pagingBtn"> &gt; </span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;</span>
+					onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;</span>
 			<% } %>
 			
 			<!-- 맨 끝으로(>>) -->
 			<span class="pagingBtn clickBtn"
-				onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;&gt;</span>
+				onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;&gt;</span>
 		</div>
 		<div class="input-group input-group-sm mb-3">
 		<select class="custom-select my-1 mr-sm-2 custom-select-sm" id="selectLimit">
@@ -372,7 +395,7 @@
 				if ( keyWord.length == 0 ) return false;
 				var type = $("#searchSelect").val();
 
-				location.href='<%=request.getContextPath()%>/boardSearch.ad?type='+type+'&keyWord='+keyWord+'&limit=<%=limit%>';
+				location.href='<%=request.getContextPath()%>/commentSearch.ad?type='+type+'&keyWord='+keyWord+'&limit=<%=limit%>';
 
 			});
 			// limit 변경했을때
@@ -381,7 +404,7 @@
 				if ( limit != "---" && <%=sort!= 0%> ) {
 					location.href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit='+limit+'&sort=<%=sort%>';
 				} else {
-					location.href='<%= request.getContextPath() %>/boardSearch.ad?currentPage=<%= currentPage %>&limit='+limit+'&type=<%=searchType%>&keyWord=<%=keyWord%>';
+					location.href='<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= currentPage %>&limit='+limit+'&type=<%=searchType%>&keyWord=<%=keyWord%>';
 				}
 			});
 			// sort 변경했을 때
@@ -398,6 +421,13 @@
 					$("#myDropdown").css("display","block");
 				} else {
 					$("#myDropdown").css("display","none");
+				}
+			});
+			$("#conTableSelect").on("click", function(){
+				if ( $("#myDropdown2").css("display") == "none" ) {
+					$("#myDropdown2").css("display","block");
+				} else {
+					$("#myDropdown2").css("display","none");
 				}
 			});
 		});
