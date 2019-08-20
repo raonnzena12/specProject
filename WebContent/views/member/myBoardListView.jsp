@@ -28,12 +28,12 @@
     	margin-top: 5%;
     }
 	#mypageNav ul>li{
-        width: 20%;
+        width: 15%;
         float: left;
         list-style-type: none;
         line-height: 80px;
         
-        margin: 0 15px;
+        margin: 0 10px;
         text-align: center;
     }
 
@@ -132,8 +132,9 @@
 		<ul>
 			<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
 			<li><a href="<%=request.getContextPath()%>/myBoardList.me" id="now">작성글보기</a></li>
-			<li><a href="<%=request.getContextPath()%>/views/member/myReviewList.jsp">작성리뷰보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReviewList.me">작성리뷰보기</a></li>
 			<li><a href="#">작성댓글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReportList.me">신고내역보기</a></li>
 		</ul>
     </nav>
     <div id="articleLayer">
@@ -213,11 +214,11 @@
 		$("#articleTable td").mouseenter(function(){
 			$(this).parent().css("cursor","pointer");
 		}).click(function(){
-			var bid = $(this).parent().children().eq(0).text();
+			var bno = $(this).parent().children().eq(0).text();
 			
 			// 로그인 한 사람만 게시글 상세보기 가능
 			<% if(loginUser != null){ %>
-				location.href="<%= request.getContextPath() %>/detail.bo?bid="+bid;
+				location.href="<%= request.getContextPath() %>/content.bo?bno="+bno;
 			<% } else{ %>
 				alert("로그인해야만 상세보기가 가능합니다!");
 			<% } %>
