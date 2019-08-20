@@ -12,6 +12,11 @@ import member.model.vo.Member;
 import util.SHA256;
 
 
+/**
+ * 회원정보 수정용 서블릿
+ * @author user1
+ *
+ */
 @WebServlet("/update.me")
 public class UpdateMember extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,33 +33,44 @@ public class UpdateMember extends HttpServlet {
 		String userName = request.getParameter("userName");
 		
 		String phone = "";
-		int device = 0;
-		
+		int mno = 0;
+		String device = "";
 		Member member = null;
 		if(request.getParameter("device") == null && (userName.equals("") || userName.equals(loginUser.getUserName()))) {
 			
-			member = new Member(userEmail, loginUser.getUserName(), 'N');
+			member = new Member();
+			member.setUserEmail(userEmail);
+			member.setUserName(loginUser.getUserName());
+			member.setUserEvent('N');
 			
 		}else if(request.getParameter("device") != null && (userName.equals("") || userName.equals(loginUser.getUserName()))) {
 			
-			device = Integer.parseInt(request.getParameter("device"));
+			mno = Integer.parseInt(request.getParameter("userMno"));
+			device = request.getParameter("device");
 			phone = request.getParameter("phone");
-			member = new Member(userEmail, loginUser.getUserName(), phone, 'Y', device);
+			member = new Member(userEmail, loginUser.getUserName(), phone, 'Y', mno,device);
 			
 		} else if(request.getParameter("device") != null && (!userName.equals("") || !userName.equals(loginUser.getUserName()))) {
 			
-			device = Integer.parseInt(request.getParameter("device"));
+			mno = Integer.parseInt(request.getParameter("userMno"));
+			device = request.getParameter("device");
 			phone = request.getParameter("phone");
-			member = new Member(userEmail, userName, phone, 'Y', device);
+			member = new Member(userEmail, userName, phone, 'Y', mno,device);
 			
 		}else {
 			
-			member = new Member(userEmail, userName, 'N');
+			member = new Member();
+			member.setUserEmail(userEmail);
+			member.setUserName(userName);
+			member.setUserEvent('N');
 		}
 
 		int result = new MemberService().updateMember(member);
 		
 		if(result > 0) {
+			
+			Member mem = new MemberService().loginMember((Member)request.getSession().getAttribute("loginUser"));
+			request.getSession().setAttribute("loginUser", mem);
 			request.getSession().setAttribute("msg", "성공적으로 수정되었습니다!");
 			response.sendRedirect("mypage.me");
 		}else {

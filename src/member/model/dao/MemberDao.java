@@ -264,7 +264,8 @@ public class MemberDao {
 				pstmt.setString(2, member.getPhone());
 				pstmt.setString(3, member.getUserEvent()+"");
 				pstmt.setInt(4,member.getUserMno());
-				pstmt.setString(5, member.getUserEmail());
+				pstmt.setString(5, member.getUserDevice());
+				pstmt.setString(6, member.getUserEmail());
 				
 				result = pstmt.executeUpdate();
 			}else {
