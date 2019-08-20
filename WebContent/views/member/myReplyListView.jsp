@@ -226,17 +226,19 @@
 			var tno = $(this).parent().children().eq(1).text();
 			var rno = $(this).parent().children().eq(2).text();
 			// 로그인 한 사람만 게시글 상세보기 가능
-			<% if(loginUser != null){ %>
-				if(tno == 1){
-					location.href="<%= request.getContextPath() %>/content.bo?bno="+rno +"&bcode=0";
-				}else if(tno == 2){
-					location.href="<%= request.getContextPath() %>/spec.mo?mno="+rno +"&page=1";
-				}else{
-					location.href="<%= request.getContextPath() %>/compareSpec.mo?mno="+rno;
-				}
-			<% } else{ %>
-				alert("로그인해야만 상세보기가 가능합니다!");
-			<% } %>
+			<%if(!rList.isEmpty()){%>
+				<% if(loginUser != null){ %>
+					if(tno == 1){
+						location.href="<%= request.getContextPath() %>/content.bo?bno="+rno +"&bcode=0";
+					}else if(tno == 2){
+						location.href="<%= request.getContextPath() %>/spec.mo?mno="+rno +"&page=1";
+					}else{
+						location.href="<%= request.getContextPath() %>/compareSpec.mo?mno="+rno;
+					}
+				<% } else{ %>
+					alert("로그인해야만 상세보기가 가능합니다!");
+				<% } %>
+			<%}%>
 		});
 		
 		// 페이징바 마우스오버 이벤트
