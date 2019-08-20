@@ -4,13 +4,15 @@ import static common.JDBCTemplate.close;
 
 import java.io.FileReader;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import member.model.vo.Member;
+import mobile.model.vo.Report;
 
 public class MemberDao {
 	private Properties prop = new Properties();
@@ -27,13 +29,18 @@ public class MemberDao {
 		}
 	}
 	
+	/**
+	 * login dao
+	 * @param conn
+	 * @param member
+	 * @return
+	 */
 	public Member loginMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member loginUser = null;
 		
 		String query = prop.getProperty("loginMember");
-		System.out.println(query);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, member.getUserEmail());
@@ -41,7 +48,18 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				loginUser = new Member(rset.getInt("USER_NO"), rset.getString("USER_EMAIL"), rset.getString("USER_PWD"), rset.getString("USER_NAME"), rset.getString("USER_PHONE"), rset.getDate("USER_ENDATE"), rset.getDate("USER_MDDATE"), rset.getString("USER_EVENT").charAt(0), rset.getInt("USER_VERIFY"), rset.getInt("USER_STATUS"), rset.getString("USER_DEVICE"));
+				loginUser = new Member();
+				loginUser.setUserNo(rset.getInt("USER_NO"));
+				loginUser.setUserEmail(rset.getString("USER_EMAIL"));
+				loginUser.setUserPwd(rset.getString("USER_PWD"));
+				loginUser.setUserName(rset.getString("USER_NAME"));
+				loginUser.setPhone(rset.getString("USER_PHONE"));
+				loginUser.setEnrollDate(rset.getDate("USER_ENDATE"));
+				loginUser.setModifyDate(rset.getDate("USER_MDDATE"));
+				loginUser.setUserEvent(rset.getString("USER_EVENT").charAt(0));
+				loginUser.setUserMno(rset.getInt("USER_MNO"));
+				loginUser.setUserDevice(rset.getString("MO_NAME_EN"));
+				loginUser.setUserStatus(rset.getInt("USER_STATUS"));
 			}
 			
 		} catch (SQLException e) {
@@ -55,6 +73,12 @@ public class MemberDao {
 		return loginUser;
 	}
 
+	/**
+	 * 이메일 중복 검사
+	 * @param conn
+	 * @param email
+	 * @return
+	 */
 	public int checkEmail(Connection conn, String email) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -117,6 +141,12 @@ public class MemberDao {
 		return result;
 	}
 
+	/**
+	 * 회원가입 dao
+	 * @param conn
+	 * @param member
+	 * @return
+	 */
 	public int insertMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -133,6 +163,7 @@ public class MemberDao {
 				pstmt.setString(4, member.getPhone());
 				pstmt.setInt(5,member.getUserMno());
 				pstmt.setString(6, member.getUserEmailHash());
+				pstmt.setString(7, member.getUserDevice());
 				
 				result = pstmt.executeUpdate();
 			}else {
@@ -157,7 +188,7 @@ public class MemberDao {
 	}
 
 	/**
-	 * 이메일 인증 체크용 DAO
+	 * 이메일 인증 완료 전 회원 존재여부 체크용(해쉬값 가져와야 함) DAO
 	 * @param conn
 	 * @param userEmail
 	 * @return
@@ -176,7 +207,11 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				member = new Member(rset.getString("USER_EMAIL"), rset.getString("USER_PWD"), rset.getString("USER_NAME"), rset.getInt("USER_STATUS"), rset.getString("USER_EMAILHASH"));
+				member = new Member(rset.getString("USER_EMAIL"), 
+						rset.getString("USER_PWD"), 
+						rset.getString("USER_NAME"), 
+						rset.getInt("USER_STATUS"), 
+						rset.getString("USER_EMAILHASH"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -215,6 +250,7 @@ public class MemberDao {
 		return result;
 	}
 
+	// 회원정보 수정 dao
 	public int updateMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -273,7 +309,19 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				member = new Member(rset.getInt("USER_NO"), rset.getString("USER_EMAIL"), rset.getString("USER_PWD"), rset.getString("USER_NAME"), rset.getString("USER_PHONE"), rset.getDate("USER_ENDATE"), rset.getDate("USER_MDDATE"), rset.getString("USER_EVENT").charAt(0), rset.getInt("USER_VERIFY"), rset.getInt("USER_STATUS"), rset.getString("USER_DEVICE"));
+				member = new Member(rset.getInt("USER_NO"), 
+						rset.getString("USER_EMAIL"), 
+						rset.getString("USER_PWD"), 
+						rset.getString("USER_NAME"), 
+						rset.getString("USER_PHONE"), 
+						rset.getDate("USER_ENDATE"), 
+						rset.getDate("USER_MDDATE"), 
+						rset.getString("USER_EVENT").charAt(0), 
+						rset.getInt("USER_VERIFY"), 
+						rset.getInt("USER_STATUS"), 
+						rset.getString("MO_NAME_EN"),
+						rset.getString("MI_FRONTNAME"),
+						rset.getString("MO_CODE"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -390,5 +438,77 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return userEmail;
+	}
+
+	/**
+	 * 내가 신고한 개수 구하는 dao
+	 * @param conn
+	 * @param userNo
+	 * @return
+	 */
+	public int getMyReportCount(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("getMyReportCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+	    return result;
+	}
+
+	/**
+	 * 내가 신고한 목록 불러오는 dao
+	 * @param conn
+	 * @param currentPage
+	 * @param limit
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<Report> selectMyReport(Connection conn, int currentPage, int limit, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Report> rpList = null;
+		
+		String query = prop.getProperty("selectMyReport");
+		
+		try {
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			rpList = new ArrayList<Report>();
+			while(rset.next()) {
+				rpList.add(new Report(rset.getInt("REPORT_NO"), rset.getString("REPORT_CONT"), rset.getString("REPORT_DATE"), rset.getInt("REPORT_RESULT"), rset.getInt("REPORT_WRI"), rset.getInt("REPORT_USER"), rset.getString("REPORT_REF_CONT"), rset.getString("REPORT_CON_TYPE")));
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rpList;
 	}
 }
