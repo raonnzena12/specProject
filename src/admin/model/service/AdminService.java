@@ -89,16 +89,41 @@ public class AdminService {
 		int totalCount = new AdminDao().contentCount(conn);
 		return totalCount;
 	}
+	
+	/**
+	 * 관리자 // 필터링한 글 갯수를 리턴하는 Service
+	 * @param sort
+	 * @return totalCount
+	 */
+	public int contentCount(int sort) {
+		Connection conn = getConnection();
+		int totalCount = new AdminDao().contentCount(conn, sort);
+		return totalCount;
+	}
+	
+	/**
+	 * 관리자 // 검색한 글 갯수를 리턴하는 Service
+	 * @param type
+	 * @param keyWord
+	 * @return totalCount
+	 */
+	public int contentCount(int type, String keyWord) {
+		Connection conn = getConnection();
+		int totalCount = new AdminDao().contentCount(conn, type, keyWord);
+		return totalCount;
+	}
+
 
 	/**
 	 * 관리자 // 등록된 글 리스트를 받아오는 Service
 	 * @param currentPage
 	 * @param limit
+	 * @param sort 
 	 * @return cList
 	 */
-	public ArrayList<AdminBoard> contentList(int currentPage, int limit) {
+	public ArrayList<AdminBoard> contentList(int currentPage, int limit, int sort) {
 		Connection conn = getConnection();
-		ArrayList<AdminBoard> cList = new AdminDao().contentList(conn, currentPage, limit);
+		ArrayList<AdminBoard> cList = new AdminDao().contentList(conn, currentPage, limit, sort);
 		return cList;
 	}
 
@@ -133,7 +158,20 @@ public class AdminService {
 		return result;
 	}
 
-	
+	/**
+	 * 관리자 // 검색 결과 불러오는 Service
+	 * @param type
+	 * @param keyWord
+	 * @param limit 
+	 * @param currentPage 
+	 * @return sList
+	 */
+	public ArrayList<AdminBoard> searchAdminBoard(int type, String keyWord, int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<AdminBoard> sList = new AdminDao().searchAdminBoard(conn, type, keyWord, currentPage, limit); 
+		return sList;
+	}
+
 	
 
 }

@@ -323,7 +323,7 @@ public class AdminDao {
 	}
 
 	/**
-	 * 관리자 // 전체 글 갯수를 리턴하는 Service
+	 * 관리자 // 전체 글 갯수를 리턴하는 DAO
 	 * @param conn
 	 * @return totalCount
 	 */
@@ -349,20 +349,80 @@ public class AdminDao {
 		}
 		return totalCount;
 	}
+	
+	/**
+	 * 관리자 // 필터링한 글 갯수를 리턴하는 DAO
+	 * @param conn
+	 * @param sort
+	 * @return totalCount
+	 */
+	public int contentCount(Connection conn, int sort) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		String query = prop.getProperty("contentCount" + sort);
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if (rset.next()) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return totalCount;
+	}
+	
+	/**
+	 * 관리자 // 검색한 글 갯수를 반환하는 DAO
+	 * @param conn
+	 * @param type
+	 * @param keyWord
+	 * @return totalCount
+	 */
+	public int contentCount(Connection conn, int type, String keyWord) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		String query = prop.getProperty("contentCount" + type);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, keyWord);
+			rset = pstmt.executeQuery();
+			if (rset.next()) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalCount;
+	}
 
 	/**
 	 * 관리자 // 등록된 글 리스트를 받아오는 Service
 	 * @param conn
 	 * @param currentPage
 	 * @param limit
+	 * @param sort 
 	 * @return cList
 	 */
-	public ArrayList<AdminBoard> contentList(Connection conn, int currentPage, int limit) {
+	public ArrayList<AdminBoard> contentList(Connection conn, int currentPage, int limit, int sort) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<AdminBoard> cList = new ArrayList<AdminBoard>();
 		
-		String query = prop.getProperty("contentList");
+		String query = prop.getProperty("contentList"+sort);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -433,6 +493,46 @@ public class AdminDao {
 		}
 		return result;
 	}
+
+	/**
+	 * 관리자 // 검색 결과 반환하는 DAO
+	 * @param conn
+	 * @param type
+	 * @param keyWord
+	 * @param limit 
+	 * @param currentPage 
+	 * @return sList
+	 */
+	public ArrayList<AdminBoard> searchAdminBoard(Connection conn, int type, String keyWord, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminBoard> sList = new ArrayList<AdminBoard>();
+		
+		String query = prop.getProperty("searchAdminBoard" + type);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			int startRow = ( currentPage - 1 ) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setString(1, keyWord);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while ( rset.next() ) {
+				sList.add(new AdminBoard(rset.getInt("BNO"), rset.getString("BTITLE"), rset.getInt("BCOUNT"), rset.getDate("BREGDATE"), rset.getDate("BMODIDATE"), rset.getInt("BSTATUS"), rset.getInt("BWRITER"), rset.getString("USER_NAME")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sList;
+	}
+
+
 
 	
 	

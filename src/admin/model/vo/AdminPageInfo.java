@@ -4,11 +4,14 @@ public class AdminPageInfo {
 	
 	private int count;
 	private int limit;
-	private int PagingBarSize;
+	private int pagingBarSize;
 	private int currentPage;
 	private int maxPage;
 	private int startPage;
 	private int endPage;
+	private int sortNum;
+	private int searchType;
+	private String keyWord;
 	
 	public AdminPageInfo() {}
 
@@ -17,11 +20,50 @@ public class AdminPageInfo {
 		super();
 		this.count = count;
 		this.limit = limit;
-		PagingBarSize = pagingBarSize;
+		this.pagingBarSize = pagingBarSize;
 		this.currentPage = currentPage;
 		this.maxPage = maxPage;
 		this.startPage = startPage;
 		this.endPage = endPage;
+	}
+	
+	public AdminPageInfo(int count, int limit, int pagingBarSize, int currentPage, int maxPage, int startPage,
+			int endPage, int sortNum) {
+		this(count, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
+		this.sortNum = sortNum;
+	}
+	
+	
+
+	public AdminPageInfo(int count, int limit, int pagingBarSize, int currentPage, int maxPage, int startPage,
+			int endPage, int sortNum, int searchType, String keyWord) {
+		this(count, limit, pagingBarSize, currentPage, maxPage, startPage, endPage, sortNum);
+		this.searchType = searchType;
+		this.keyWord = keyWord;
+	}
+
+	public int getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(int searchType) {
+		this.searchType = searchType;
+	}
+
+	public String getKeyWord() {
+		return keyWord;
+	}
+
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
+	}
+
+	public int getSortNum() {
+		return sortNum;
+	}
+
+	public void setSortNum(int sortNum) {
+		this.sortNum = sortNum;
 	}
 
 	public int getCount() {
@@ -41,11 +83,11 @@ public class AdminPageInfo {
 	}
 
 	public int getPagingBarSize() {
-		return PagingBarSize;
+		return pagingBarSize;
 	}
 
 	public void setPagingBarSize(int pagingBarSize) {
-		PagingBarSize = pagingBarSize;
+		this.pagingBarSize = pagingBarSize;
 	}
 
 	public int getCurrentPage() {
@@ -82,7 +124,7 @@ public class AdminPageInfo {
 
 	@Override
 	public String toString() {
-		return "AdminPageInfo [count=" + count + ", limit=" + limit + ", PagingBarSize=" + PagingBarSize
+		return "AdminPageInfo [count=" + count + ", limit=" + limit + ", PagingBarSize=" + pagingBarSize
 				+ ", currentPage=" + currentPage + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
 				+ endPage + "]";
 	}

@@ -10,36 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import admin.model.service.AdminService;
-import admin.model.vo.*;
+import admin.model.vo.AdminBoard;
+import admin.model.vo.AdminPageInfo;
 
-@WebServlet("/adminBoard.do")
-public class TotalContentsServlet extends HttpServlet {
+@WebServlet("/boardSearch.ad")
+public class ContentSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public TotalContentsServlet() {
+    public ContentSearchServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// sort 정렬값 구하기
-		int sort = 0;
-		if ( request.getParameter("sort") == null ) {
-			sort = 1;
-		} else {
-			sort = Integer.parseInt(request.getParameter("sort"));
-		}
-		
+		int type = Integer.parseInt(request.getParameter("type"));
+		String keyWord = request.getParameter("keyWord");
 		
 		AdminService aService = new AdminService();
-		
-		// === === === 페이징 처리  === === ===
-		// 전체 게시글 수 구하기
-		int totalContent= 0;
-		if ( sort > 4 ) {
-			totalContent = aService.contentCount(sort);
-		} else {
-			totalContent = aService.contentCount();
-		}
+		int totalContent =  aService.contentCount(type, keyWord);
 		
 		// 페이징 처리용 변수 선언
 		int limit = 0; // 한 페이지에 보여질 게시글 수
@@ -48,6 +35,7 @@ public class TotalContentsServlet extends HttpServlet {
 		int maxPage = 0; // 전체 페이지에서 가장 마지막 페이지
 		int startPage = 0; // 페이징 바 시작 페이지 번호
 		int endPage = 0; // 페이징 바 끝 페이지 번호
+		int sort = 0;
 		if ( request.getParameter("limit") == null ) {
 			limit = 10;
 		} else {
@@ -68,21 +56,23 @@ public class TotalContentsServlet extends HttpServlet {
 		
 		AdminPageInfo pInf = new AdminPageInfo(totalContent, limit, pagingBarSize, currentPage, maxPage, startPage, endPage, sort);
 		
-		ArrayList<AdminBoard> cList = aService.contentList(currentPage, limit, sort);
 		
-		if ( !cList.isEmpty() ) {
-			request.setAttribute("cList", cList);
+		ArrayList<AdminBoard> sList = aService.searchAdminBoard(type, keyWord, currentPage, limit);
+		
+		if ( !sList.isEmpty() ) {
+			request.setAttribute("sList", sList);
 			request.setAttribute("pInf", pInf);
 			request.getRequestDispatcher("views/admin/adminContent.jsp").forward(request, response);
 		} else {
-			request.setAttribute("msg", "리스트 조회 실패");
+			request.setAttribute("msg", "검색 결과 로딩 오류");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+		
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		doGet(request, response);
+		doGet(request, response);
 	}
 
 }
