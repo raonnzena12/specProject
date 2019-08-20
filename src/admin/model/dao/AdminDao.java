@@ -834,5 +834,150 @@ public class AdminDao {
 		return sList;
 	}
 
+///////////////////////////////////////////////// REVIEW 관리 //////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * 관리자 // 리뷰 갯수를 리턴하는 DAO
+	 * @param conn
+	 * @return totalCOunt
+	 */
+	public int reviewCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int totalCount = 0 ;
+		
+		String query = prop.getProperty("reviewCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			if ( rset.next() ) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return totalCount;
+	}
+	
+	/**
+	 * 관리자 // 리뷰 상태 별 갯수를 받아오는 DAO
+	 * @param conn
+	 * @param sort
+	 * @return totalCount
+	 */
+	public int reviewCount(Connection conn, int sort) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int totalCount = 0 ;
+		
+		String query = prop.getProperty("reviewCount"+sort);
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			if ( rset.next() ) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return totalCount;
+	}
+
+
+	/**
+	 * 관리자 // 리뷰 리스트를 반환하는 DAO
+	 * @param conn
+	 * @param currentPage
+	 * @param limit
+	 * @param sort
+	 * @return cList
+	 */
+	public ArrayList<AdminReview> reviewList(Connection conn, int currentPage, int limit, int sort) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminReview> cList = new ArrayList<AdminReview>();
+		
+		String query = prop.getProperty("reviewList"+sort);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				cList.add(new AdminReview(rset.getInt("RE_NO"), rset.getString("RE_TITLE"), rset.getString("RE_CONTENT"), rset.getDouble("RE_STAR"), rset.getDate("RE_REGDATE"), rset.getDate("RE_MODIDATE"), rset.getInt("RE_WRITER"), rset.getString("USER_NAME"), rset.getInt("RE_MNO"), rset.getInt("RE_STATUS"), rset.getString("MO_NAME"), rset.getInt("LCOUNT"), rset.getString("BRAND_NAME")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return cList;
+	}
+
+	/**
+	 * 관리자 // 개별 리뷰 상태 처리하는 DAO
+	 * @param conn
+	 * @param type
+	 * @param rno
+	 * @return result 
+	 */
+	public int updateReview(Connection conn, int type, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, type);
+			pstmt.setInt(2, rno);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * 관리자 // 복수 리뷰 상태처리하는 DAO
+	 * @param conn
+	 * @param type
+	 * @param query
+	 * @return result
+	 */
+	public int updateReviews(Connection conn, int type, String query) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String baseQuery = prop.getProperty("updateReviews")+query;
+		
+		try {
+			pstmt = conn.prepareStatement(baseQuery);
+			pstmt.setInt(1, type);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
 
 }

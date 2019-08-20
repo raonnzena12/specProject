@@ -151,7 +151,7 @@
 				<li><a href="<%=request.getContextPath() %>/adminSelectMember.do?sort=no&sortNum=5">회원관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminBoard.do">글 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminComment.ad">댓글 관리</a></li>
-				<li><a href="#">리뷰 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/adminReview.ad">리뷰 관리</a></li>
 				<li><a href="#">신고 관리</a></li>
 				<li><a href="#">일정 관리</a></li>
 			</ul>

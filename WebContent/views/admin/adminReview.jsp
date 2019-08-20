@@ -26,6 +26,9 @@
 <title>admin-review</title>
 <%@ include file ="/views/common/menubar.jsp" %>
 <style>
+	#tttt{
+		height: auto;
+	}
 	#adminContent {
 		width: 1200px;
 		min-height: 600px;
@@ -151,7 +154,7 @@
 				<li><a href="<%=request.getContextPath() %>/adminSelectMember.do?sort=no&sortNum=5">회원관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminBoard.do">글 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminComment.ad">댓글 관리</a></li>
-				<li><a href="#">리뷰 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/adminReview.ad">리뷰 관리</a></li>
 				<li><a href="#">신고 관리</a></li>
 				<li><a href="#">일정 관리</a></li>
 			</ul>
@@ -164,22 +167,22 @@
 				<thead>
 					<tr>
 					<th scope="col" style="width:15px"><input type="checkbox" id="selectAll"></th>
-					<th scope="col" style="width:60px">No<% if ( sort < 5 && sort > 0 ) { %><i class="material-icons arrow" id="noOrderBy">arrow_drop_down</i><% } %></th>
-					<th scope="col" style="width:60px" class="typeSelector">
+					<th scope="col" style="width:50px">No<% if ( sort < 5 && sort > 0 ) { %><i class="material-icons arrow" id="noOrderBy">arrow_drop_down</i><% } %></th>
+					<th scope="col" style="width:100px" class="typeSelector">
 						기종명
 					</th>
 					<th scope="col" class="typeSelector">리뷰 제목<% if ( sort > 0 && sort < 8  ) { %><i class="material-icons arrow" id="conTypeSelect">arrow_drop_down</i>
 						<div id="myDropdown" class="dropdown-content">
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>'>전체리뷰</a>
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=5'>일반리뷰</a>
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=6'>삭제리뷰</a>
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=7'>경고리뷰</a>
+							<a href='<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage %>&limit=<%=limit%>'>전체리뷰</a>
+							<a href='<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=5'>일반리뷰</a>
+							<a href='<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=6'>삭제리뷰</a>
+							<a href='<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=7'>경고리뷰</a>
 						</div>
 						<% } %>
 					</th>
 					<th scope="col" style="width:100px">닉네임</th>
-					<th scope="col" style="width:50px">추천수</th>
-					<th scope="col" style="width:120px">작성일</th>
+					<th scope="col" style="width:55px">추천<% if ( sort < 5 && sort > 0 ) { %><i class="material-icons arrow" id="likeOrderBy">arrow_drop_down</i><% } %></th>
+					<th scope="col" style="width:100px">작성일</th>
 					<th scope="col" style="width:80px;">리뷰관리</th>
 					</tr>
 				</thead>
@@ -200,12 +203,13 @@
 							<% if ( b.getrStatusCode() == 1 ) { %>
 								<%=b.getrContent().replaceAll("<br>"," ").length() > 20 ? b.getrContent().replaceAll("<br>"," ").substring(0, 19) : b.getrContent().replaceAll("<br>"," ")%>
 							<% } else if ( b.getrStatusCode() == 2 ) { %>
-								<del class="delContent"><%=b.getrContent().replaceAll("<br>"," ")%></del>
+								<del class="delContent"><%=b.getrContent().replaceAll("<br>"," ").length() > 20 ? b.getrContent().replaceAll("<br>"," ").substring(0, 19) : b.getrContent().replaceAll("<br>"," ")%></del>
 							<% } else if ( b.getrStatusCode() == 3 ) { %>
-								<i class="material-icons reportContent">lock</i><%=b.getrContent().replaceAll("<br>"," ")%>
+								<i class="material-icons reportContent">lock</i><%=b.getrContent().replaceAll("<br>"," ").length() > 20 ? b.getrContent().replaceAll("<br>"," ").substring(0, 19) : b.getrContent().replaceAll("<br>"," ")%>
 							<% } %>
 						</a></td>
 						<td id="<%=b.getrWriterNo()%>"><%= b.getrWriterName()%></td>
+						<td><%=b.getrLike() %></td>
 						<td><%=b.getrRegDate() %></td>
 						<td class="control"><span class="report">경고</span><span class="delete">삭제</span></td>
 					</tr>
@@ -241,14 +245,14 @@
 		<!-- 페이징 처리 시작! -->
 		<div class="pagingArea">
 			<!-- 맨 처음으로(<<) -->
-			<span class="pagingBtn clickBtn" onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=1&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=1&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;&lt;</span>
+			<span class="pagingBtn clickBtn" onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=1&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=1&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;&lt;</span>
 		
 			<!-- 이전 페이지로(<) -->
 			<% if(currentPage <= 1 || currentPage <= pagingBarSize ) { %>
 				<span class="pagingBtn">&lt;</span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href=<% if (sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;</span>
+					onclick="location.href=<% if (sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;</span>
 			<% } %>
 			
 			<!-- 페이지 목록 -->
@@ -257,7 +261,7 @@
 					<span class="pagingBtn selectBtn"><%= p %></span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= p %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= p %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>"><%=p%></span>
+						onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= p %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= p %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>"><%=p%></span>
 				<% } %>
 			<%} %>
 			
@@ -266,12 +270,12 @@
 				<span class="pagingBtn"> &gt; </span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;</span>
+					onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;</span>
 			<% } %>
 			
 			<!-- 맨 끝으로(>>) -->
 			<span class="pagingBtn clickBtn"
-				onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;&gt;</span>
+				onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;&gt;</span>
 		</div>
 		<div class="input-group input-group-sm mb-3">
 		<select class="custom-select my-1 mr-sm-2 custom-select-sm" id="selectLimit">
@@ -288,10 +292,10 @@
 		$(function(){
 			// 경고처리를 하나 눌렀을 떄
 			$(".report").click(function(){
-				var cno = $(this).parent().parent().children().eq(1).text();
+				var rno = $(this).parent().parent().children().eq(1).text();
 				Swal.fire({
-				title: '댓글 경고',
-				text: "해당 댓글을 경고처리 하시겠습니까?",
+				title: '리뷰 경고',
+				text: "해당 리뷰를 경고처리 하시겠습니까?",
 				type: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
@@ -300,16 +304,16 @@
 				cancelButtonText: '취소'
 				}).then((result) => {
 				if (result.value) {
-					reportReview(cno);
+					reportReview(rno);
 				}
 				});
 			});
 			// 삭제처리를 하나 눌렀을 떄
 			$(".delete").click(function(){
-				var cno = $(this).parent().parent().children().eq(1).text();
+				var rno = $(this).parent().parent().children().eq(1).text();
 				Swal.fire({
-				title: '댓글 삭제',
-				text: "해당 댓글을 삭제하시겠습니까?",
+				title: '리뷰 삭제',
+				text: "해당 리뷰를 삭제하시겠습니까?",
 				type: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
@@ -318,7 +322,7 @@
 				cancelButtonText: '취소'
 				}).then((result) => {
 				if (result.value) {
-					deleteReview(cno);
+					deleteReview(rno);
 				}
 				});
 			});
@@ -345,8 +349,8 @@
 				var type = $("#inlineFormCustomSelectPref").val();
 				if ( type == 2 ) {
 					Swal.fire({
-					title: '댓글 삭제',
-					text: "해당 댓글을 삭제하시겠습니까?",
+					title: '리뷰 삭제',
+					text: "해당 리뷰를 삭제하시겠습니까?",
 					type: 'warning',
 					showCancelButton: true,
 					confirmButtonColor: '#3085d6',
@@ -360,8 +364,8 @@
 					});
 				} else if ( type == 3 ) {
 					Swal.fire({
-					title: '댓글 경고',
-					text: "해당 댓글을 경고처리 하시겠습니까?",
+					title: '리뷰 경고',
+					text: "해당 리뷰를 경고처리 하시겠습니까?",
 					type: 'warning',
 					showCancelButton: true,
 					confirmButtonColor: '#3085d6',
@@ -388,7 +392,7 @@
 			$("#selectLimit").change(function(){
 				var limit = $(this).val();
 				if ( limit != "---" && <%=sort!= 0%> ) {
-					location.href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit='+limit+'&sort=<%=sort%>';
+					location.href='<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage %>&limit='+limit+'&sort=<%=sort%>';
 				} else {
 					location.href='<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= currentPage %>&limit='+limit+'&type=<%=searchType%>&keyWord=<%=keyWord%>';
 				}
@@ -396,9 +400,16 @@
 			// sort 변경했을 때
 			$("#noOrderBy").on("click", function(){
 				if ( <%=sort != 2%> ) {
-					location.href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=2';
+					location.href='<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=2';
 				} else {
-					location.href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>';
+					location.href='<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage %>&limit=<%=limit%>';
+				}
+			});
+			$("#likeOrderBy").on("click", function(){
+				if ( <%= sort != 3%> ) {
+					location.href='<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=3';
+				} else {
+					location.href='<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=4';
 				}
 			});
 			// 글제목 화살표 표시했을때 display 변경
@@ -418,11 +429,11 @@
 			});
 		});
 		// 펑션모음
-		function deleteReview(cno){
-			location.href='<%=request.getContextPath()%>/commentUpdate.ad?currentPage=<%=currentPage%>&type=2&cno='+cno+'&tno='+tno+'&limit=<%=limit%>&sort=<%=sort%>';
+		function deleteReview(rno){
+			location.href='<%=request.getContextPath()%>/reviewUpdate.ad?currentPage=<%=currentPage%>&type=2&rno='+rno+'&limit=<%=limit%>&sort=<%=sort%>';
 		}
-		function reportReview(cno){
-			location.href='<%=request.getContextPath()%>/commentUpdate.ad?currentPage=<%=currentPage%>&type=3&cno='+cno+'&tno='+tno+'&limit=<%=limit%>&sort=<%=sort%>';
+		function reportReview(rno){
+			location.href='<%=request.getContextPath()%>/reviewUpdate.ad?currentPage=<%=currentPage%>&type=3&rno='+rno+'&limit=<%=limit%>&sort=<%=sort%>';
 		}
 	</script>
 </body>
