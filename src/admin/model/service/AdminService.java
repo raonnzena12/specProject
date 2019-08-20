@@ -205,7 +205,6 @@ public class AdminService {
 
 	/**
 	 * 관리자 // 글 여러개 관리 하는 Service
-	 * 
 	 * @param bnoArr
 	 * @return result
 	 */
@@ -275,7 +274,6 @@ public class AdminService {
 
 	/**
 	 * 관리자 // 코멘트 리스트 받아오는 Service
-	 * 
 	 * @param currentPage
 	 * @param limit
 	 * @param sort
@@ -340,6 +338,76 @@ public class AdminService {
 		ArrayList<AdminReply> sList = new AdminDao().searchAdminComment(conn, type, keyWord, currentPage, limit);
 		return sList;
 	}
+	
+///////////////////////////////////////////////// REVIEW 관리 //////////////////////////////////////////////////////////////////////
+
+	/**
+	 * 관리자 // 리뷰 갯수를 카운트하는 Service
+	 * @return totalCount
+	 */
+	public int reviewCount() {
+		Connection conn = getConnection();
+		int totalCount = new AdminDao().reviewCount(conn);
+		return totalCount;
+	}
+	
+	/**
+	 * 관리자 // 리뷰 상태 별 갯수를 받아오는 Service
+	 * @param sort
+	 * @return totalCount
+	 */
+	public int reviewCount(int sort) {
+		Connection conn = getConnection();
+		int totalCount = new AdminDao().reviewCount(conn, sort);
+		return totalCount;
+	}
+
+	/**
+	 * 관리자 // 리뷰 리스트 받아오는 Service
+	 * @param currentPage
+	 * @param limit
+	 * @param sort
+	 * @return cList
+	 */
+	public ArrayList<AdminReview> reviewList(int currentPage, int limit, int sort) {
+		Connection conn = getConnection();
+		ArrayList<AdminReview> cList = new AdminDao().reviewList(conn, currentPage, limit, sort);
+		return cList;
+	}
+
+	/**
+	 * 관리자 // 개별 리뷰 상태처리하는 Service
+	 * @param type
+	 * @param parseInt
+	 * @return result
+	 */
+	public int updateReview(int type, int rno) {
+		Connection conn = getConnection();
+		int result = new AdminDao().updateReview(conn, type, rno);
+		if (result > 0) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	/**
+	 * 관리자 // 복수 리뷰 상태처리하는 Service
+	 * @param type
+	 * @param cnoArr
+	 * @return result 
+	 */
+	public int updateReviews(int type, String[] cnoArr) {
+		Connection conn = getConnection();
+		String query = new CreateQuery().makeDeleteQuery(cnoArr);
+		int result = new AdminDao().updateReviews(conn, type, query);
+		if (result == cnoArr.length) {
+			commit(conn);
+		} else {
+			rollback(conn);
+			result = 0;
+		}
+		return result;
+	}
+
 
 
 }
