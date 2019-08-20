@@ -20,9 +20,18 @@ public class CompareViewServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int com1 = Integer.parseInt(request.getParameter("com1"));
-		int com2 = Integer.parseInt(request.getParameter("com2"));
 		MobileService ms = new MobileService();
+		int com1 = 0;
+		int com2 = 0;
+		if ( request.getParameter("mno") != null ) {
+			int mno = Integer.parseInt(request.getParameter("mno"));
+			CompareT ct = ms.selectCompareTable(mno);
+			com1 = ct.getComDevice1();
+			com2 = ct.getComDevice2();
+		} else {
+			com1 = Integer.parseInt(request.getParameter("com1"));
+			com2 = Integer.parseInt(request.getParameter("com2"));
+		}
 		if ( com1 > com2 ) { // com1과 com2를 오름차순으로 정렬한다
 			int tmp = com1;
 			com1 = com2;

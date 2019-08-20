@@ -23,7 +23,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>admin-comment</title>
+<title>admin-review</title>
 <%@ include file ="/views/common/menubar.jsp" %>
 <style>
 	#adminContent {
@@ -200,7 +200,7 @@
 						for ( AdminReply b : cList ) {%>
 					<tr>
 						<th scope="row"><input type="checkbox" name="selectContent" value="<%=b.getcNo()%>"></th>
-						<th scope="row cnoNum" id="<%=b.getbNo()%>"><%=b.getcNo()%></th>
+						<th scope="row cnoNum"><%=b.getcNo()%></th>
 						<% if ( b.getcRefTableNo() == 1 ) { %>
 							<td tno="1">게시판</td>
 						<% } else if ( b.getcRefTableNo() == 2 ) { %>
@@ -208,7 +208,7 @@
 						<% } else if ( b.getcRefTableNo() == 3 ) { %>
 							<td tno="3">비교</td>
 						<% } %>
-						<td><a target="_blank" class="clickLink">
+						<td><a href="<%=b.getcNo()%>" target="_blank">
 							<% if ( b.getcStatusCode() == 1 ) { %>
 								<%=b.getcContent().replaceAll("<br>"," ").length() > 20 ? b.getcContent().replaceAll("<br>"," ").substring(0, 19) : b.getcContent().replaceAll("<br>"," ")%>
 							<% } else if ( b.getcStatusCode() == 2 ) { %>
@@ -296,20 +296,6 @@
 	</section>
 	<script>
 		$(function(){
-			// 내용 클릭시 연결 페이지
-			$(".clickLink").each(function(){
-				var tno = $(this).parent().parent().children().eq(2).attr("tno");
-				var cno = $(this).parent().parent().children().eq(1).text();
-				var mno = $(this).parent().parent().children().eq(1).attr("id");
-				console.log(tno+"/" + cno +"/" + mno);
-				if ( tno == 2 ) {
-					$(this).attr("href","<%= request.getContextPath()%>/spec.mo?mno="+mno+"&page=1");
-				} else if ( tno == 3 ) {
-					$(this).attr("href","<%= request.getContextPath()%>/compareSpec.mo?mno="+mno);
-				} else if ( tno == 1 ) {
-					$(this).attr("href","<%= request.getContextPath()%>/content.bo?bno="+mno+"&bcode=0")
-				}
-			});
 			// 경고처리를 하나 눌렀을 떄
 			$(".report").click(function(){
 				var cno = $(this).parent().parent().children().eq(1).text();
