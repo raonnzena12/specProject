@@ -173,6 +173,18 @@ public class Member implements java.io.Serializable { /**
 		this.userMno = userMno;
 	}
 
+	
+	// 이벤트 수신 동의 회원 생성자
+	public Member(String userEmail, String userName, String phone, char userEvent, int userMno, String userDevice) {
+		super();
+		this.userEmail = userEmail;
+		this.userName = userName;
+		this.phone = phone;
+		this.userEvent = userEvent;
+		this.userMno = userMno;
+		this.userDevice = userDevice;
+	}
+
 
 	// 로그인 생성자
 	public Member(int userNo, String userEmail, String userPwd, String userName, String phone, Date enrollDate,
@@ -370,7 +382,7 @@ public class Member implements java.io.Serializable { /**
 		return "Member [userNo=" + userNo + ", userEmail=" + userEmail + ", userPwd=" + userPwd + ", userName="
 				+ userName + ", phone=" + phone + ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate
 				+ ", userEvent=" + userEvent + ", userVerify=" + userVerify + ", userStatus=" + userStatus
-				+ ", userMno=" + userMno + ", userEmailHash=" + userEmailHash + "]";
+				+ ", userMno=" + userMno +  ", userDevice="+ userDevice +  ", userEmailHash=" + userEmailHash + "]";
 	}
 
 
