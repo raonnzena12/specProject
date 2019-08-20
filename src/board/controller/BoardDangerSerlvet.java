@@ -11,40 +11,36 @@ import javax.servlet.http.HttpServletResponse;
 import board.model.service.BoardService;
 
 
-@WebServlet("/update.bo")
-public class BoardUpdateServlet extends HttpServlet {
+@WebServlet("/danger.bo")
+public class BoardDangerSerlvet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public BoardUpdateServlet() {
+    public BoardDangerSerlvet() {
         super();
-        
+       
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bno = Integer.parseInt(request.getParameter("bno"));
-		int category = Integer.parseInt(request.getParameter("category"));
-		String title = request.getParameter("title-1");
-		String content = request.getParameter("summernote");
-		int brand = Integer.parseInt(request.getParameter("brand"));
+		int user = Integer.parseInt(request.getParameter("dangerUser"));
+		int dwriter = Integer.parseInt(request.getParameter("dwriter"));
+		String content = request.getParameter("dangerContent");
 		
-		content = content.replace("\n", "<br>");
-		
-		int result = new BoardService().updateBoard(bno, category, title, content, brand);
+		int result = new BoardService().dangerBoard(bno, user, dwriter, content);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/content.bo?bno="+bno);
+			response.sendRedirect(request.getContextPath() + "/content.bo?bno=" + bno);
 		}else {
-			request.setAttribute("msg", "게시글 수정 실패");
+			request.setAttribute("msg", "게시글 신고 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			
 		}
-		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 

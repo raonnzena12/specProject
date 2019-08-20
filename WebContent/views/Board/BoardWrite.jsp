@@ -188,8 +188,6 @@
 		        		return false;
 		        	}
 		        	$("#writeBoard").submit();
-		        	
-		        	
 		        });
 	        });
 	        
@@ -214,7 +212,7 @@
 			writeBoard.target = "preview";
 			writeBoard.action = "<%=request.getContextPath()%>/preview.bo";
 			/* console.log(content); */
-			window.open("","preview","width=900px, height=600px");
+			window.open("","preview","width=900px, height=700px");
 			writeBoard.submit();
 			writeBoard.action = "<%= request.getContextPath()%>/write.bo";
 		});

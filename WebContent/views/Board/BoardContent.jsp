@@ -5,8 +5,6 @@
 	int replycount = (int)request.getAttribute("replycount");
 	
 	ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList");
-	
-	
 
 %>
 
@@ -111,7 +109,7 @@
       		text-align: center;
       	}
       
-      	#deletebtn, #motifybtn{
+      	#deletebtn, #motifybtn, #dangerbtn{
        		background-color : white;
        		color: black; 
        		font-weight: bold;
@@ -200,7 +198,7 @@
 		        $("#contentarea").html("<%=b.getbContent() %>");
 		    });
 		</script>
-		<div name="content" id="contentarea"></div>
+		<div id="contentarea"></div>
    	</section>
    	
    	
@@ -209,7 +207,12 @@
    	<% if(loginUser.getUserNo() == b.getbWriter()){ %>
    		<button type="button" class="btn btn-secondary" id="deletebtn" onclick="deleteBoard();">삭제</button>
    		<button type="button" class="btn btn-secondary" id="motifybtn" onclick="updateBoard();">수정</button>
-   	<% } %>
+   	<% }else if(b.getbWriter() != 0){ %>
+   		<button type="button" class="btn btn-secondary" id="dangerbtn" onclick="dangerBoard();">신고</button>
+   	<%}else{ %>
+   	
+   	
+   	<%} %>
    	</section>
 
 	<section id="sub">
@@ -255,18 +258,24 @@
   <footer id="footer"></footer>
   
   <script>
+  	//게시글 수정
   	function updateBoard(){
   		<%-- window.open("updateForm.bo?bno="+"<%=b.getbNo()%>", "updateBoardForm", "width=1150, height=880, resizable = no, scrollbars = no"); --%>
   		location.href='<%= request.getContextPath()%>/updateForm.bo?bno=<%=b.getbNo()%>';
   		/* window.open("replyUpdateForm.bo?cno="+cno, "updateReplyForm","width=805, height=260, resizable = no, scrollbars = no");
 		 */
   	}
-  	
+  	// 게시글 삭제
   	function deleteBoard(){
   		if(confirm('정말 삭제하시겠습니까?')){
   			location.href='<%= request.getContextPath()%>/delete.bo?bno=<%= b.getbNo()%>&bcode=<%= b.getbCode()%>';
   		}
   		
+  	}
+  	//게시글 신고
+  	function dangerBoard(){
+  		<%-- window.open("dangerForm.bo?bno=" + "<%=b.getbNo()%> &dwriter=<%=loginUser.getUserNo()%>", "boardDangerForm", "width=800, height=550, resizable = no , scrollbars =no"); --%>
+  		location.href='<%= request.getContextPath()%>/dangerForm.bo?bno=<%=b.getbNo()%>&dwriter=<%=loginUser.getUserNo()%>';
   	}
   
   // 댓글 등록
@@ -399,8 +408,7 @@
 	
 	function updateReply(cno){
 		window.open("replyUpdateForm.bo?cno="+cno, "updateReplyForm","width=805, height=260, resizable = no, scrollbars = no");
-		<%-- location.href='<%= request.getContextPath()%>/replyUpdateForm.bo?cno='+cno; --%>
-		/* console.log("cno=" + cno); */
+		
 		
 	}
 	
@@ -416,26 +424,6 @@
 		window.open("replyDangerForm.bo?cno="+ cno + "&dwriter=<%=loginUser.getUserNo()%>", "dangerReplyForm", "width=800, height=550, resizable = no , scrollbars =no");
 		
 	}
-	
-	
-	
-	
-		/* $.ajax({
-			url : "replyDangerServlet.bo",
-			type : "post",
-			data : {cno:cno},
-			success : function(result){
-				if(result > 0){
-					alert("정말 신고 하시겠습니까?");
-					selectRlist();
-				}else{
-					result = "신고 실패";
-				}
-				
-			}
-		}); */
-	
-	
   	
   </script>
 </body>

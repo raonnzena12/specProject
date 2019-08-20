@@ -143,7 +143,8 @@ public class BoardDao {
 									rset.getInt("BCODE"),
 									rset.getInt("BWRITER"),
 									rset.getInt("BCATEGORY"),
-									rset.getString("CGCATEGORY"));
+									rset.getString("CGCATEGORY"),
+									rset.getString("USER_NAME"));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -360,6 +361,40 @@ public class BoardDao {
 		
 		return tlist;
 		
+	}
+	
+	/**
+	 * 게시글 신고용  Dao
+	 * @param conn
+	 * @param bno
+	 * @param user
+	 * @param dwriter
+	 * @param content
+	 * @return result
+	 */
+	public int dangerBoard(Connection conn, int bno, int user, int dwriter, String content) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("dangerBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, content);
+			pstmt.setInt(2, bno);
+			pstmt.setInt(3, dwriter);
+			pstmt.setInt(4, user);
+			
+			result= pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 
@@ -594,7 +629,6 @@ public class BoardDao {
 	 * @param conn
 	 * @param text 
 	 * @param cno
-	 * @param cno2 
 	 * @param user 
 	 * @return result
 	 */
@@ -725,6 +759,10 @@ public class BoardDao {
 		}
 		return result;
 	}
+
+
+
+	
 
 	
 

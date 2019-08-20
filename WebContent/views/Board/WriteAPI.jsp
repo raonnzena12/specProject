@@ -44,6 +44,6 @@
 	             
             </script> -->
 	    
-			<textarea name="summernote" id="summernote" style="height: 550px;" value=""></textarea>
+			<textarea name="summernote" id="summernote" style="height: 550px;"></textarea>
 </body>
 </html>
