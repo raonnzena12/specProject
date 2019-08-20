@@ -211,14 +211,6 @@
 				onclick="location.href='<%= request.getContextPath() %>/myReportList.me?currentPage=<%= maxPage %>'">&gt;&gt;</span>
 		</div>
 		
-		<script>
-		
-		// 페이징바 마우스오버 이벤트
-		$(".clickBtn").mouseenter(function(){
-			$(this).css("cursor","pointer");
-		}).click(function(){
-			$(this).css("font-weight","bold");
-		});
-		</script>
+	
 </body>
 </html>

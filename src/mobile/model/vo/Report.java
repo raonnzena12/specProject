@@ -3,15 +3,19 @@ package mobile.model.vo;
 import java.sql.Date;
 
 public class Report {
-	int rNo;
-	String rContent;
-	int rTableNo;
-	Date rDate;
-	String rResult;
-	int rWriter;
-	int rUser;
-	int rRefNo;
-		
+	private int rNo;
+	private String rContent;
+	private int rTableNo;
+	private String rDate;
+	private int rResult;
+	private int rWriter;
+	private int rUser;
+	private int rRefNo;
+	
+	
+	private String reRefCont;
+	private String reRefContType;
+	
 	public Report() {}
 
 	public Report(String rContent, int rTableNo, int rWriter, int rUser, int rRefNo) {
@@ -23,7 +27,7 @@ public class Report {
 		this.rRefNo = rRefNo;
 	}
 
-	public Report(int rNo, String rContent, int rTableNo, Date rDate, String rResult, int rWriter, int rUser,
+	public Report(int rNo, String rContent, int rTableNo, String rDate, int rResult, int rWriter, int rUser,
 			int rRefNo) {
 		super();
 		this.rNo = rNo;
@@ -34,6 +38,32 @@ public class Report {
 		this.rWriter = rWriter;
 		this.rUser = rUser;
 		this.rRefNo = rRefNo;
+	}
+	
+	
+
+	/**
+	 * 내가 쓴 신고 불러오는 생성자
+	 * @param rNo
+	 * @param rContent
+	 * @param rDate
+	 * @param rResult
+	 * @param rWriter
+	 * @param rUser
+	 * @param refCont
+	 * @param refType
+	 */
+	public Report(int rNo, String rContent, String rDate, int rResult, int rWriter, int rUser, String reRefCont,
+			String reRefContType) {
+		super();
+		this.rNo = rNo;
+		this.rContent = rContent;
+		this.rDate = rDate;
+		this.rResult = rResult;
+		this.rWriter = rWriter;
+		this.rUser = rUser;
+		this.reRefCont = reRefCont;
+		this.reRefContType = reRefContType;
 	}
 
 	public int getrNo() {
@@ -60,19 +90,19 @@ public class Report {
 		this.rTableNo = rTableNo;
 	}
 
-	public Date getrDate() {
+	public String getrDate() {
 		return rDate;
 	}
 
-	public void setrDate(Date rDate) {
+	public void setrDate(String rDate) {
 		this.rDate = rDate;
 	}
 
-	public String getrResult() {
+	public int getrResult() {
 		return rResult;
 	}
 
-	public void setrResult(String rResult) {
+	public void setrResult(int rResult) {
 		this.rResult = rResult;
 	}
 
@@ -98,6 +128,32 @@ public class Report {
 
 	public void setrRefNo(int rRefNo) {
 		this.rRefNo = rRefNo;
+	}
+	
+	
+
+	public int getrWriter() {
+		return rWriter;
+	}
+
+	public void setrWriter(int rWriter) {
+		this.rWriter = rWriter;
+	}
+
+	public String getReRefCont() {
+		return reRefCont;
+	}
+
+	public void setReRefCont(String reRefCont) {
+		this.reRefCont = reRefCont;
+	}
+
+	public String getReRefContType() {
+		return reRefContType;
+	}
+
+	public void setReRefContType(String reRefContType) {
+		this.reRefContType = reRefContType;
 	}
 
 	@Override

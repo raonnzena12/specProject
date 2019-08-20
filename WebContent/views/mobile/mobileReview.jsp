@@ -87,6 +87,9 @@
     .reported {
         color: #aaa;
     }
+    .myReivew {
+    	color: blue;
+    }
 </style>
 <%@ include file ="/views/common/menubar.jsp" %>
 <script>
@@ -297,7 +300,7 @@
                 Swal.fire( '로그인이 필요합니다!', '리뷰를 작성하시기 전 로그인을 해주세요!', 'warning' );
                 return false;
             <% } %>
-            location.href='<%=request.getContextPath()%>/writeReview.mo?mno=<%=mo.getmNo()%>';
+            location.href='<%=request.getContextPath()%>/writeReview.mo?mno=<%=device.getmNo()%>';
         });
         $(document).on("click", ".delReview", function(){
             var rno = $(this).parent().parent().attr("id");

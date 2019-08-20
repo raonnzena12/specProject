@@ -190,20 +190,7 @@
                             <td colspan="2"><input class="form-control" type="tel" name="phone"
                                 placeholder="핸드폰번호(01012341234)" disabled></td>
                         </tr>
-                        <tr>
-                        	<td colspan="2">
-                        		<select class="selectpicker" data-live-search="true" id="deviceSelect" >
-									<option data-tokens="ketchup mustard">Hot Dog, Fries
-										and a Soda</option>
-									<option data-tokens="mustard">Burger, Shake and a
-										Smile</option>
-									<option data-tokens="frosting">Sugar, Spice and all
-									
-									<option value="salt">abc소금</option>
-								</select>
-
-							</td>
-                        </tr>
+                       
                         <tr>
                             <td><input class="form-control" type="text" name="device" placeholder="기종찾기" disabled readonly></td>
                             <td><button type="button" class="btn btn-info" disabled>기종찾기</button></td>

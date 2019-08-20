@@ -499,7 +499,14 @@ public class MemberDao {
 			
 			rpList = new ArrayList<Report>();
 			while(rset.next()) {
-				rpList.add(new Report(rset.getInt("REPORT_NO"), rset.getString("REPORT_CONT"), rset.getString("REPORT_DATE"), rset.getInt("REPORT_RESULT"), rset.getInt("REPORT_WRI"), rset.getInt("REPORT_USER"), rset.getString("REPORT_REF_CONT"), rset.getString("REPORT_CON_TYPE")));
+				rpList.add(new Report(rset.getInt("REPORT_NO"), 
+						rset.getString("REPORT_CONT"), 
+						rset.getString("REPORT_DATE"), 
+						rset.getInt("REPORT_RESULT"), 
+						rset.getInt("REPORT_WRI"), 
+						rset.getInt("REPORT_USER"), 
+						rset.getString("REPORT_REF_CONT"), 
+						rset.getString("REPORT_CON_TYPE")));
 			}
 			
 		} catch (Exception e) {
