@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"  import="java.util.ArrayList, admin.model.vo.*"%>
 <%
-	String sort = "no";
-	int sortNum = 5;
-	ArrayList<AdminBoard> cList = (ArrayList<AdminBoard>)request.getAttribute("cList");
+	ArrayList<AdminBoard> cList = null;
+	ArrayList<AdminBoard> sList = null;
+	if ( (ArrayList<AdminBoard>)request.getAttribute("cList") != null ) {
+		cList = (ArrayList<AdminBoard>)request.getAttribute("cList");
+	} else {
+		sList = (ArrayList<AdminBoard>)request.getAttribute("sList");
+	}
 	AdminPageInfo pInf = (AdminPageInfo)request.getAttribute("pInf");
 	int boardCount = pInf.getCount();
 	int currentPage = pInf.getCurrentPage();
@@ -12,6 +16,9 @@
 	int endPage = pInf.getEndPage();
 	int limit = pInf.getLimit();
 	int pagingBarSize = pInf.getPagingBarSize();
+	int sort = pInf.getSortNum();
+	int searchType = pInf.getSearchType();
+	String keyWord = pInf.getKeyWord();
 %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +32,19 @@
 		min-height: 600px;
 		height: auto;
 		margin: auto;
-	}    
+	}
+	#adminContent a {
+		text-decoration: none;
+		color: #333;
+	}
+	#adminContent .delContent {
+		color: #aaa;
+		text-decoration:line-through;
+	}
+	#adminContent .reportContent {
+		color: #666;
+		font-size: 13px;
+	}
     .menu-outer {
     	width : 20%;
     	min-height : 600px;
@@ -90,13 +109,33 @@
 		margin-top: 4px;
 		height: 31px;
 	}
+	#adminContent .arrow {
+		font-size: 14px;
+		line-height: 10px;
+		cursor: pointer;
+	}
+	#typeSelector {
+		position: relative;
+	}
+	#myDropdown {
+		position: absolute;
+		float: left;
+		top: 20px;
+		right: 60px;
+		display: none;
+		border: 1px solid #ddd;
+		background-color: #fafafa;
+		width: 50px;
+		font-size: 12px;
+		font-weight: 400;
+	}
 </style>
 </head>
 <body>
 	<section id="adminContent">
 		<div class="menu-outer">
 			<ul class="menu-ul">
-				<li><a href="<%=request.getContextPath() %>/adminSelectMember.do?sort=<%=sort%>&sortNum=<%=sortNum%>">회원관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/adminSelectMember.do?sort=no&sortNum=5">회원관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminBoard.do">글 관리</a></li>
 				<li><a href="#">댓글 관리</a></li>
 				<li><a href="#">리뷰 관리</a></li>
@@ -112,10 +151,18 @@
 				<thead>
 					<tr>
 					<th scope="col" style="width:15px"><input type="checkbox" id="selectAll"></th>
-					<th scope="col" style="width:80px">No</th>
-					<th scope="col">글 제목</th>
+					<th scope="col" style="width:80px">No<% if ( sort < 5 || cList != null ) { %><i class="material-icons arrow" id="noOrderBy">arrow_drop_down</i><% } %></th>
+					<th scope="col" id="typeSelector">글 제목<% if ( cList != null ) { %><i class="material-icons arrow" id="conTypeSelect">arrow_drop_down</i>
+						<div id="myDropdown" class="dropdown-content">
+							<a href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit=<%=limit%>'>전체글</a>
+							<a href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=5'>일반글</a>
+							<a href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=6'>삭제글</a>
+							<a href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=7'>경고글</a>
+						</div>
+						<% } %>
+					</th>
 					<th scope="col" style="width:100px">닉네임</th>
-					<th scope="col" style="width:80px">조회수</th>
+					<th scope="col" style="width:80px">조회수<% if ( sort < 5 || cList != null  ) { %><i class="material-icons arrow" id="countOrderBy">arrow_drop_down</i><% } %></th>
 					<th scope="col" style="width:120px">작성일</th>
 					<th scope="col" style="width:80px;">글관리</th>
 					</tr>
@@ -132,7 +179,15 @@
 					<tr>
 						<th scope="row"><input type="checkbox" name="selectContent" value="<%=b.getbNo()%>"></th>
 						<th scope="row cnoNum"><%=b.getbNo()%></th>
-						<td><a href="content.bo?bno=<%=b.getbNo()%>" target="_blank"><%=b.getbTitle()%></a></td>
+						<td><a href="content.bo?bno=<%=b.getbNo()%>" target="_blank">
+							<% if ( b.getbStatusCode() == 1 ) { %>
+								<%=b.getbTitle()%>
+							<% } else if ( b.getbStatusCode() == 2 ) { %>
+								<del class="delContent"><%=b.getbTitle()%></del>
+							<% } else if ( b.getbStatusCode() == 3 ) { %>
+								<i class="material-icons reportContent">lock</i><%=b.getbTitle()%>
+							<% } %>
+						</a></td>
 						<td id="<%=b.getUserNo()%>"><%= b.getUserName()%></td>
 						<td><%=b.getbCount() %></td>
 						<td><%=b.getbRegdate() %></td>
@@ -168,14 +223,14 @@
 		<!-- 페이징 처리 시작! -->
 		<div class="pagingArea">
 			<!-- 맨 처음으로(<<) -->
-			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=1'">&lt;&lt;</span>
+			<span class="pagingBtn clickBtn" onclick="location.href=<% if ( cList != null ) { %>'<%= request.getContextPath() %>/adminBoard.do?currentPage=1&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=1&limit=<%=limit%>'<% } %>">&lt;&lt;</span>
 		
 			<!-- 이전 페이지로(<) -->
 			<% if(currentPage <= 1 || currentPage <= pagingBarSize ) { %>
 				<span class="pagingBtn">&lt;</span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage-pagingBarSize %>'">&lt;</span>
+					onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&sort=<%=sort%>'">&lt;</span>
 			<% } %>
 			
 			<!-- 페이지 목록 -->
@@ -184,7 +239,7 @@
 					<span class="pagingBtn selectBtn"><%= p %></span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= p %>'"><%=p%></span>
+						onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= p %>&limit=<%=limit%>&sort=<%=sort%>'"><%=p%></span>
 				<% } %>
 			<%} %>
 			
@@ -193,12 +248,20 @@
 				<span class="pagingBtn"> &gt; </span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>'">&gt;</span>
+					onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&sort=<%=sort%>'">&gt;</span>
 			<% } %>
 			
 			<!-- 맨 끝으로(>>) -->
 			<span class="pagingBtn clickBtn"
-				onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= maxPage %>'">&gt;&gt;</span>
+				onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= maxPage %>&limit=<%=limit%>&sort=<%=sort%>'">&gt;&gt;</span>
+		</div>
+		<div class="input-group input-group-sm mb-3">
+		<select class="custom-select my-1 mr-sm-2 custom-select-sm" id="selectLimit">
+				<option>---</option>
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="50">50</option>
+			</select> 
 		</div>
 				</div>
 		<div class="clear"></div>
@@ -300,15 +363,51 @@
 			$("#button-addon2").on("click",function(){
 				var keyWord = $("#serarchKeyW").val().trim();
 				if ( keyWord.length == 0 ) return false;
+				var type = $("#searchSelect").val();
 
+				location.href='<%=request.getContextPath()%>/boardSearch.ad?type='+type+'&keyWord='+keyWord+'&limit=<%=limit%>';
+
+			});
+			// limit 변경했을때
+			$("#selectLimit").change(function(){
+				var limit = $(this).val();
+				if ( limit != "---") {
+					location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit='+limit+'&sort=<%=sort%>';
+				} 
+			});
+			// sort 변경했을 때
+			$("#noOrderBy").on("click", function(){
+				if ( <%=sort != 2%> ) {
+					location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=2';
+				} else {
+					location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit=<%=limit%>';
+				}
+			});
+			// countSort 변경했을 떄
+			$("#countOrderBy").on("click", function(){
+				if ( <%= sort != 3 %> ) {
+					location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=3';
+				} else {
+					location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit=<%=limit%>';
+				}
+			});
+			// 글제목 화살표 표시했을때 display 변경
+			$("#conTypeSelect").on("click", function(){
+				if ( $("#myDropdown").css("display") == "none" ) {
+					$("#myDropdown").css("display","block");
+				} else {
+					$("#myDropdown").css("display","none");
+				}
 			});
 		});
 		// 펑션모음
 		function deleteBoard(bno){
-			location.href='<%=request.getContextPath()%>/boardUpdate.ad?currentPage=<%=currentPage%>&type=2&bno='+bno;
+			limit = $("#selectLimit").val();
+			location.href='<%=request.getContextPath()%>/boardUpdate.ad?currentPage=<%=currentPage%>&type=2&bno='+bno+'&limit=<%=limit%>&sort=<%=sort%>';
 		}
 		function reportBoard(bno){
-			location.href='<%=request.getContextPath()%>/boardUpdate.ad?currentPage=<%=currentPage%>&type=3&bno='+bno;
+			limit = $("#selectLimit").val();
+			location.href='<%=request.getContextPath()%>/boardUpdate.ad?currentPage=<%=currentPage%>&type=3&bno='+bno+'&limit=<%=limit%>&sort=<%=sort%>';
 		}
 	</script>
 </body>
