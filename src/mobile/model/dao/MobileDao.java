@@ -46,7 +46,7 @@ public class MobileDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, index);
-			pstmt.setDate(2, mi2.getReleaseDate());
+			pstmt.setString(2, mi2.getReleaseDate());
 			pstmt.setString(3, mi2.getOsVersion());
 			pstmt.setString(4, mi2.getMaterial());
 			pstmt.setString(5, mi2.getSize());
@@ -1153,6 +1153,35 @@ public class MobileDao {
 			close(pstmt);
 		}
 		return check;
+	}
+
+	/**
+	 * 컴페어 테이블 인덱스로 기기번호를 반환하는 DAO
+	 * @param conn
+	 * @param mno
+	 * @return ct
+	 */
+	public CompareT selectCompareTable(Connection conn, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		CompareT ct = null;
+		String query = prop.getProperty("selectCompareTable");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			rset = pstmt.executeQuery();
+			
+			if ( rset.next() ) {
+				ct = new CompareT(rset.getInt("COM_MNO1"), rset.getInt("COM_MNO2"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return ct;
 	}
 
 /* 	

@@ -498,4 +498,15 @@ public class MobileService {
 		int check = new MobileDao().checkMobileImage(conn, mno);
 		return check;
 	}
+
+	/**
+	 * 컴페어 테이블 index로 기기번호를 반환하는 Service
+	 * @param mno
+	 * @return ct
+	 */
+	public CompareT selectCompareTable(int mno) {
+		Connection conn = getConnection();
+		CompareT ct = new MobileDao().selectCompareTable(conn, mno);
+		return ct;
+	}
 }
