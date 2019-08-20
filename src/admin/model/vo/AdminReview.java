@@ -6,14 +6,19 @@ public class AdminReview {
 	
 	private int rNo;
 	private String rTitle;
+	private String rContent;
 	private Double rStar;
 	private Date rRegDate;
 	private Date rModiDate;
-	private int rLike;
+	private int rWriterNo;
 	private String rWriterName;
 	private int rRefMno;
+	private int rStatusCode;
 	private String rStatusType;
+	private String mobileName;
+	private int rLike;
 	private String brandName;
+	
 	
 	public AdminReview() {}
 	
@@ -32,6 +37,56 @@ public class AdminReview {
 		this.brandName = brandName;
 	}
 	
+	public AdminReview(int rNo, String rTitle, String rContent, Double rStar, Date rRegDate, Date rModiDate,
+			int rWriterNo, String rWriterName, int rRefMno, int rStatusCode, String mobileName, int rLike,
+			String brandName) {
+		super();
+		this.rNo = rNo;
+		this.rTitle = rTitle;
+		this.rContent = rContent;
+		this.rStar = rStar;
+		this.rRegDate = rRegDate;
+		this.rModiDate = rModiDate;
+		this.rWriterNo = rWriterNo;
+		this.rWriterName = rWriterName;
+		this.rRefMno = rRefMno;
+		this.rStatusCode = rStatusCode;
+		this.mobileName = mobileName;
+		this.rLike = rLike;
+		this.brandName = brandName;
+	}
+
+	public String getrContent() {
+		return rContent;
+	}
+
+	public void setrContent(String rContent) {
+		this.rContent = rContent;
+	}
+
+	public int getrWriterNo() {
+		return rWriterNo;
+	}
+
+	public void setrWriterNo(int rWriterNo) {
+		this.rWriterNo = rWriterNo;
+	}
+
+	public int getrStatusCode() {
+		return rStatusCode;
+	}
+
+	public void setrStatusCode(int rStatusCode) {
+		this.rStatusCode = rStatusCode;
+	}
+
+	public String getMobileName() {
+		return mobileName;
+	}
+
+	public void setMobileName(String mobileName) {
+		this.mobileName = mobileName;
+	}
 
 	public String getrTitle() {
 		return rTitle;

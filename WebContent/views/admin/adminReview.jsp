@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"  import="java.util.ArrayList, admin.model.vo.*"%>
 <%
-	ArrayList<AdminReply> cList = null;
-	if ( (ArrayList<AdminReply>)request.getAttribute("cList") != null ) {
-		cList = (ArrayList<AdminReply>)request.getAttribute("cList");
+	ArrayList<AdminReview> cList = null;
+	if ( (ArrayList<AdminReview>)request.getAttribute("cList") != null ) {
+		cList = (ArrayList<AdminReview>)request.getAttribute("cList");
 	} else {
-		cList = (ArrayList<AdminReply>)request.getAttribute("sList");
+		cList = (ArrayList<AdminReview>)request.getAttribute("sList");
 	}
 	AdminPageInfo pInf = (AdminPageInfo)request.getAttribute("pInf");
 	int boardCount = pInf.getCount();
@@ -157,68 +157,56 @@
 			</ul>
 		</div>
 		<div class="content-outer">
-			<h2>전체 댓글 관리</h2>
+			<h2>전체 리뷰 관리</h2>
 			<p>Total : <span id="total-count"><%=pInf.getCount() %></span></p>
 			<form class="form-inline">
 			<table class="table table-sm table-hover border-bottom">
 				<thead>
 					<tr>
 					<th scope="col" style="width:15px"><input type="checkbox" id="selectAll"></th>
-					<th scope="col" style="width:80px">No<% if ( sort < 5 && sort > 0 ) { %><i class="material-icons arrow" id="noOrderBy">arrow_drop_down</i><% } %></th>
+					<th scope="col" style="width:60px">No<% if ( sort < 5 && sort > 0 ) { %><i class="material-icons arrow" id="noOrderBy">arrow_drop_down</i><% } %></th>
 					<th scope="col" style="width:60px" class="typeSelector">
-						유형<% if ( ( 0 < sort && sort < 3 ) || ( 7 < sort && sort < 11) ) { %><i class="material-icons arrow" id="conTableSelect">arrow_drop_down</i>
-						<div id="myDropdown2" class="dropdown-content">
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>'>전체유형</a>
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=8'>게시판</a>
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=9'>모바일</a>
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=10'>비교</a>
-						</div>
-						<% } %>
+						기종명
 					</th>
-					<th scope="col" class="typeSelector">댓글 내용<% if ( sort > 0 && sort < 8  ) { %><i class="material-icons arrow" id="conTypeSelect">arrow_drop_down</i>
+					<th scope="col" class="typeSelector">리뷰 제목<% if ( sort > 0 && sort < 8  ) { %><i class="material-icons arrow" id="conTypeSelect">arrow_drop_down</i>
 						<div id="myDropdown" class="dropdown-content">
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>'>전체댓글</a>
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=5'>일반댓글</a>
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=6'>삭제댓글</a>
-							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=7'>경고댓글</a>
+							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>'>전체리뷰</a>
+							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=5'>일반리뷰</a>
+							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=6'>삭제리뷰</a>
+							<a href='<%= request.getContextPath() %>/adminComment.ad?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=7'>경고리뷰</a>
 						</div>
 						<% } %>
 					</th>
 					<th scope="col" style="width:100px">닉네임</th>
+					<th scope="col" style="width:50px">추천수</th>
 					<th scope="col" style="width:120px">작성일</th>
-					<th scope="col" style="width:80px;">댓글관리</th>
+					<th scope="col" style="width:80px;">리뷰관리</th>
 					</tr>
 				</thead>
 				<tbody>
 					<% if( cList.isEmpty() ) { %>
 					<tr>
-						<td colspan="7">
-							등록된 댓글이 없습니다.
+						<td colspan="8">
+							등록된 리뷰가 없습니다.
 						</td>
 					</tr>
 					<% } else { 
-						for ( AdminReply b : cList ) {%>
+						for ( AdminReview b : cList ) {%>
 					<tr>
-						<th scope="row"><input type="checkbox" name="selectContent" value="<%=b.getcNo()%>"></th>
-						<th scope="row cnoNum"><%=b.getcNo()%></th>
-						<% if ( b.getcRefTableNo() == 1 ) { %>
-							<td tno="1">게시판</td>
-						<% } else if ( b.getcRefTableNo() == 2 ) { %>
-							<td tno="2">모바일</td>
-						<% } else if ( b.getcRefTableNo() == 3 ) { %>
-							<td tno="3">비교</td>
-						<% } %>
-						<td><a href="<%=b.getcNo()%>" target="_blank">
-							<% if ( b.getcStatusCode() == 1 ) { %>
-								<%=b.getcContent().replaceAll("<br>"," ").length() > 20 ? b.getcContent().replaceAll("<br>"," ").substring(0, 19) : b.getcContent().replaceAll("<br>"," ")%>
-							<% } else if ( b.getcStatusCode() == 2 ) { %>
-								<del class="delContent"><%=b.getcContent().replaceAll("<br>"," ")%></del>
-							<% } else if ( b.getcStatusCode() == 3 ) { %>
-								<i class="material-icons reportContent">lock</i><%=b.getcContent().replaceAll("<br>"," ")%>
+						<th scope="row"><input type="checkbox" name="selectContent" value="<%=b.getrNo()%>"></th>
+						<th scope="row cnoNum"><%=b.getrNo()%></th>
+						<td><%=b.getMobileName()%></td>
+						<td><a href="<%=request.getContextPath()%>/spec.mo?mno=<%=b.getrRefMno()%>&page=2" target="_blank">
+							<% if ( b.getrStatusCode() == 1 ) { %>
+								<%=b.getrContent().replaceAll("<br>"," ").length() > 20 ? b.getrContent().replaceAll("<br>"," ").substring(0, 19) : b.getrContent().replaceAll("<br>"," ")%>
+							<% } else if ( b.getrStatusCode() == 2 ) { %>
+								<del class="delContent"><%=b.getrContent().replaceAll("<br>"," ")%></del>
+							<% } else if ( b.getrStatusCode() == 3 ) { %>
+								<i class="material-icons reportContent">lock</i><%=b.getrContent().replaceAll("<br>"," ")%>
 							<% } %>
 						</a></td>
-						<td id="<%=b.getcWriterNo()%>"><%= b.getcWriterName()%></td>
-						<td><%=b.getcRegdate() %></td>
+						<td id="<%=b.getrWriterNo()%>"><%= b.getrWriterName()%></td>
+						<td><%=b.getrRegDate() %></td>
 						<td class="control"><span class="report">경고</span><span class="delete">삭제</span></td>
 					</tr>
 						<% }
@@ -228,7 +216,7 @@
 
 		
 			<div class="input-group input-group-sm mb-3">
-			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">선택한&nbsp;<span id="selectCount">0</span>개 댓글 편집 : </label>
+			<label class="my-1 mr-2" for="inlineFormCustomSelectPref">선택한&nbsp;<span id="selectCount">0</span>개 리뷰 편집 : </label>
 			<select class="custom-select my-1 mr-sm-2 custom-select-sm" id="inlineFormCustomSelectPref">
 				<option value="2">삭제</option>
 				<option value="3">경고</option>
@@ -237,7 +225,9 @@
 			<div class="space"></div>
 			<select class="custom-select my-1 mr-sm-2 custom-select-sm" id="searchSelect">
 				<option value="1">닉네임</option>
-				<option value="2">댓글내용</option>
+				<option value="2">리뷰제목</option>
+				<option value="3">기종명</option>
+				<option value="4">BRAND</option>
 			</select> 
 			<input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" id="serarchKeyW">
 			<div class="input-group-append">
@@ -299,7 +289,6 @@
 			// 경고처리를 하나 눌렀을 떄
 			$(".report").click(function(){
 				var cno = $(this).parent().parent().children().eq(1).text();
-				var tno = $(this).parent().parent().children().eq(2).attr("tno");
 				Swal.fire({
 				title: '댓글 경고',
 				text: "해당 댓글을 경고처리 하시겠습니까?",
@@ -311,14 +300,13 @@
 				cancelButtonText: '취소'
 				}).then((result) => {
 				if (result.value) {
-					reportComment(cno,tno);
+					reportReview(cno);
 				}
 				});
 			});
 			// 삭제처리를 하나 눌렀을 떄
 			$(".delete").click(function(){
 				var cno = $(this).parent().parent().children().eq(1).text();
-				var tno = $(this).parent().parent().children().eq(2).attr("tno");
 				Swal.fire({
 				title: '댓글 삭제',
 				text: "해당 댓글을 삭제하시겠습니까?",
@@ -330,7 +318,7 @@
 				cancelButtonText: '취소'
 				}).then((result) => {
 				if (result.value) {
-					deleteComment(cno,tno);
+					deleteReview(cno);
 				}
 				});
 			});
@@ -351,10 +339,8 @@
 			$("#pluralRequest").on("click",function(){
 				if ($("input[name=selectContent]:checked").length == 0 ) return false;
 				var ckStr = "";
-				var ckStr2 = "";
 				$("input[name=selectContent]:checked").each(function(){
 					ckStr += $(this).val() + "/";
-					ckStr2 += $(this).parent().parent().children().eq(2).attr("tno") + "/";
 				});
 				var type = $("#inlineFormCustomSelectPref").val();
 				if ( type == 2 ) {
@@ -369,7 +355,7 @@
 					cancelButtonText: '취소'
 					}).then((result) => {
 					if (result.value) {
-						deleteComment(ckStr, ckStr2);
+						deleteReview(ckStr);
 					}
 					});
 				} else if ( type == 3 ) {
@@ -384,7 +370,7 @@
 					cancelButtonText: '취소'
 					}).then((result) => {
 					if (result.value) {
-						reportComment(ckStr, ckStr2);
+						reportReview(ckStr);
 					}
 					});
 				}
@@ -432,10 +418,10 @@
 			});
 		});
 		// 펑션모음
-		function deleteComment(cno,tno){
+		function deleteReview(cno){
 			location.href='<%=request.getContextPath()%>/commentUpdate.ad?currentPage=<%=currentPage%>&type=2&cno='+cno+'&tno='+tno+'&limit=<%=limit%>&sort=<%=sort%>';
 		}
-		function reportComment(cno,tno){
+		function reportReview(cno){
 			location.href='<%=request.getContextPath()%>/commentUpdate.ad?currentPage=<%=currentPage%>&type=3&cno='+cno+'&tno='+tno+'&limit=<%=limit%>&sort=<%=sort%>';
 		}
 	</script>
