@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import admin.model.service.AdminService;
 import admin.model.vo.*;
 
-@WebServlet("/CommentSearchServlet")
+@WebServlet("/commentSearch.ad")
 public class CommentSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -58,14 +58,9 @@ public class CommentSearchServlet extends HttpServlet {
 		
 		ArrayList<AdminReply> sList = aService.searchAdminComment(type, keyWord, currentPage, limit);
 		
-		if ( !sList.isEmpty() ) {
-			request.setAttribute("sList", sList);
-			request.setAttribute("pInf", pInf);
-			request.getRequestDispatcher("views/admin/adminContent.jsp").forward(request, response);
-		} else {
-			request.setAttribute("msg", "검색 결과 로딩 오류");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		request.setAttribute("sList", sList);
+		request.setAttribute("pInf", pInf);
+		request.getRequestDispatcher("views/admin/adminComment.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

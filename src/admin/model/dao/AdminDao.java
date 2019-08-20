@@ -672,6 +672,33 @@ public class AdminDao {
 		}
 		return totalCount;
 	}
+	
+	/**
+	 * 관리자 // 댓글 상태별 갯수를 카운트하는 DAO
+	 * @param conn
+	 * @param sort
+	 * @return totalCount
+	 */
+	public int commentCount(Connection conn, int sort) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		String query = prop.getProperty("commentCount"+sort);
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			if ( rset.next() ) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return totalCount;
+	}
 
 	/**
 	 * 관리자 // 필터링된 댓글 댓수 반환하는 DAO
@@ -776,10 +803,36 @@ public class AdminDao {
 	 * @param limit
 	 * @return sList
 	 */
-	public ArrayList<AdminReply> searchAdminComment(Connection conn, int type, String keyWord, int currentPage,
-			int limit) {
-
-		return null;
+	public ArrayList<AdminReply> searchAdminComment(Connection conn, int type, String keyWord, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminReply> sList = new ArrayList<AdminReply>();
+		
+		String query = prop.getProperty("searchAdminComment"+type);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setString(1, keyWord);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while ( rset.next() ) {
+				sList.add(new AdminReply(rset.getInt("CNO"), rset.getString("CCONTENT"), rset.getTimestamp("CREGDATE"),
+						rset.getTimestamp("CMODIDATE"), rset.getInt("REF_NO"), rset.getInt("CWRITER"),
+						rset.getInt("CSTATUS"), rset.getInt("CTABLENO"), rset.getString("USER_NAME")));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sList;
 	}
+
 
 }

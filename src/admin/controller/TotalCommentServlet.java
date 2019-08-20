@@ -36,7 +36,7 @@ public class TotalCommentServlet extends HttpServlet {
 		// 전체 게시글 수 구하기
 		int totalContent= 0;
 		if ( sort > 4 ) {
-//			totalContent = aService.commentCount(sort);
+			totalContent = aService.commentCount(sort);
 		} else {
 			totalContent = aService.commentCount();
 		}
@@ -70,14 +70,9 @@ public class TotalCommentServlet extends HttpServlet {
 		
 		ArrayList<AdminReply> cList = aService.commentList(currentPage, limit, sort);
 		
-		if ( !cList.isEmpty() ) {
 			request.setAttribute("cList", cList);
 			request.setAttribute("pInf", pInf);
 			request.getRequestDispatcher("views/admin/adminComment.jsp").forward(request, response);
-		} else {
-			request.setAttribute("msg", "댓글 리스트 조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
 		
 	}
 

@@ -127,6 +127,7 @@
 		width: 50px;
 		font-size: 12px;
 		font-weight: 400;
+		z-index: 1000;
 	}
 </style>
 </head>
@@ -136,7 +137,7 @@
 			<ul class="menu-ul">
 				<li><a href="<%=request.getContextPath() %>/adminSelectMember.do?sort=no&sortNum=5">회원관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminBoard.do">글 관리</a></li>
-				<li><a href="#">댓글 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/adminComment.ad">댓글 관리</a></li>
 				<li><a href="#">리뷰 관리</a></li>
 				<li><a href="#">신고 관리</a></li>
 				<li><a href="#">일정 관리</a></li>

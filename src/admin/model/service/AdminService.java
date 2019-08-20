@@ -7,10 +7,7 @@ import java.util.ArrayList;
 
 import admin.model.dao.AdminDao;
 import admin.model.util.CreateQuery;
-import admin.model.vo.AdminBoard;
-import admin.model.vo.AdminMember;
-import admin.model.vo.AdminReply;
-import admin.model.vo.AdminReview;
+import admin.model.vo.*;
 import board.model.vo.Board;
 import calendar.model.vo.Calendar;
 import member.model.vo.Member;
@@ -251,6 +248,17 @@ public class AdminService {
 		int totalCount = new AdminDao().commentCount(conn);
 		return totalCount;
 	}
+	
+	/**
+	 * 관리자 // 댓글 상태 별 코멘트 갯수 카운트 하는 Service
+	 * @param sort
+	 * @return totalCount
+	 */
+	public int commentCount(int sort) {
+		Connection conn = getConnection();
+		int totalCount = new AdminDao().commentCount(conn, sort);
+		return totalCount;
+	}
 
 	/**
 	 * 관리자 // 필터링된 코멘트 갯수 카운트 하는 Service
@@ -332,5 +340,6 @@ public class AdminService {
 		ArrayList<AdminReply> sList = new AdminDao().searchAdminComment(conn, type, keyWord, currentPage, limit);
 		return sList;
 	}
+
 
 }
