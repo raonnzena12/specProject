@@ -1,12 +1,15 @@
 package board.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.dao.BoardDao;
 import board.model.vo.Board;
+import board.model.vo.BoardReport;
 import board.model.vo.Reply;
 
 public class BoardService {
@@ -166,6 +169,22 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	/**
+	 * 신고글 조회용 Service
+	 * @param bNo
+	 * @return report
+	 */
+	public BoardReport reportBoard(int bNo) {
+		Connection conn = getConnection();
+		
+		BoardReport report = new BoardDao().reportBoard(conn, bNo);
+		
+		return report;
+	}
+
+	
+
 
 	//------------------댓글 Service---------------------------------
 	
@@ -195,10 +214,10 @@ public class BoardService {
 	 * @param bno
 	 * @return rList
 	 */
-	public ArrayList<Reply> selectReply(int bno) {
+	public ArrayList<Reply> selectReply(int bno, int user) {
 		Connection conn = getConnection();
 		
-		ArrayList<Reply> rList = new BoardDao().selectReply(conn, bno);
+		ArrayList<Reply> rList = new BoardDao().selectReply(conn, bno, user);
 		
 		return rList;
 	}
@@ -313,6 +332,19 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	/**
+	 * 댓글 신고글 조회용 Service
+	 * @param cno
+	 * @return report
+	 */
+	public BoardReport reportReply(int cno) {
+		Connection conn = getConnection();
+		
+		BoardReport reportReply = new BoardDao().reportReply(conn, cno);
+		
+		return reportReply;
+	}
 
 
 	//------------------------------------------------------------------------
@@ -349,8 +381,6 @@ public class BoardService {
 
 	
 
-
-	
 
 
 }

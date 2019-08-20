@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Board;
+import board.model.vo.BoardReport;
 import board.model.vo.Reply;
 
 public class BoardDao {
@@ -396,6 +397,43 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+
+	/**
+	 * 신고글 조회용 Dao
+	 * @param conn
+	 * @param bNo
+	 * @return report
+	 */
+	public BoardReport reportBoard(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		BoardReport report = null;
+		
+		String query = prop.getProperty("reportBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				report = new BoardReport(rset.getInt("REPORT_NO"),
+										rset.getString("REPORT_CONT"),
+										rset.getInt("REPORT_CONNO"),
+										rset.getDate("REPORT_DATE"),
+										rset.getInt("REPORT_WRI"),
+										rset.getInt("REPORT_USER"),
+										rset.getInt("REPORT_REF_NO"),
+										rset.getInt("REPORT_RESULT"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return report;
+	}
 
 
 	//-------------------댓글 Dao--------------------------------------
@@ -441,7 +479,7 @@ public class BoardDao {
 	 * @param bno
 	 * @return rList
 	 */
-	public ArrayList<Reply> selectReply(Connection conn, int bno) {
+	public ArrayList<Reply> selectReply(Connection conn, int bno, int user) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -452,7 +490,8 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setInt(1, bno);
+			pstmt.setInt(1, user);
+			pstmt.setInt(2, bno);
 			
 			rset = pstmt.executeQuery();
 			
@@ -466,8 +505,8 @@ public class BoardDao {
 						rset.getInt("CWRITER"),
 						rset.getString("USER_NAME"),
 						rset.getInt("CSTATUS"),
-						rset.getInt("BNO")
-						));
+						rset.getInt("BNO"),
+						rset.getInt("REPORTED")));
 			}
 			
 		}catch (Exception e) {
@@ -656,6 +695,39 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	public BoardReport reportReply(Connection conn, int cno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		BoardReport reportReply = null;
+		
+		String query = prop.getProperty("reportReply");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				reportReply = new BoardReport(rset.getInt("REPORT_NO"),
+										rset.getString("REPORT_CONT"),
+										rset.getInt("REPORT_CONNO"),
+										rset.getDate("REPORT_DATE"),
+										rset.getInt("REPORT_WRI"),
+										rset.getInt("REPORT_USER"),
+										rset.getInt("REPORT_REF_NO"),
+										rset.getInt("REPORT_RESULT"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return reportReply;
+	}
 
 
 
@@ -764,6 +836,6 @@ public class BoardDao {
 
 	
 
-	
+
 
 }

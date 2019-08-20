@@ -113,7 +113,7 @@
 		    
 		    <section id="usersection">
 			  <p style="display:inline-block; float:left; margin-top:20px;">신고 유저</p> 
-			  <input type="text" name="dangerUser" id="dangerUser" value="<%=b.getbUser() %>" readonly>
+			  <input type="text" name="dangerUserName" id="dangerUser" value="<%=b.getbUser() %>" readonly>
 			</section>
 		    
 		    <section id="dangersection">
@@ -125,7 +125,7 @@
 			    
 			    <input type="hidden" name="bno" value="<%=b.getbNo()%>">
 				<input type="hidden" name="dwriter" value="<%=dwriter%>">
-				<input type="hidden" name="dwriter" value="<%=b.getbWriter()%>">
+				<input type="hidden" name="dangerUser" value="<%=b.getbWriter()%>">
 				
 			    <button type="reset" class="btn btn-secondary dangerBtn" data-toggle="tooltip" data-placement="bottom" data-original-title="Tooltip on bottom" onclick="javascript:history.back();">취소</button>
 			    <button type="submit" class="btn btn-primary dangerBtn" id="dangerBtn">신고</button>

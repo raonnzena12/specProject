@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.model.vo.Board" import="board.model.vo.Reply" import="java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="board.model.vo.Board" import="board.model.vo.Reply" import="java.util.ArrayList" import="board.model.vo.BoardReport"%>
 <%
 	Board b = (Board)request.getAttribute("board");
 	int replycount = (int)request.getAttribute("replycount");
+	BoardReport report = (BoardReport)request.getAttribute("report");
+	/* BoardReport reportReply = (BoardReport)request.getAttribute("reportReply"); */
 	
 	ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList");
 
@@ -119,6 +121,16 @@
         	width: 60px;
         	height:40px;
        	}
+       	#dangerNoneBtn{
+       		background-color : white;
+       		color: gray; 
+       		font-weight: bold;
+       		float:right;
+        	margin: 10px;
+        	display:block;
+        	width: 60px;
+        	height:40px;
+       	}
        	.num{
        		float:right;
        		display:block;
@@ -136,6 +148,12 @@
        	}
        	
        	#subdanger, #subupdate, #subdelete{
+       		width: auto;
+       		height:30px;
+       		float: right;
+       		font-size: 7px;
+       	}
+       	#subdangerNone{
        		width: auto;
        		height:30px;
        		float: right;
@@ -203,16 +221,23 @@
    	
    	
    	<section id="conbtn">
-   	<%--  System.out.println("loginUser" + loginUser.getUserNo()); System.out.println("bWriter" + b.getbWriter());%> --%>
-   	<% if(loginUser.getUserNo() == b.getbWriter()){ %>
-   		<button type="button" class="btn btn-secondary" id="deletebtn" onclick="deleteBoard();">삭제</button>
-   		<button type="button" class="btn btn-secondary" id="motifybtn" onclick="updateBoard();">수정</button>
-   	<% }else if(b.getbWriter() != 0){ %>
-   		<button type="button" class="btn btn-secondary" id="dangerbtn" onclick="dangerBoard();">신고</button>
-   	<%}else{ %>
-   	
-   	
-   	<%} %>
+	   	<%--  System.out.println("loginUser" + loginUser.getUserNo()); System.out.println("bWriter" + b.getbWriter());%> --%>
+	   	<% if(loginUser.getUserNo() == b.getbWriter()){ %>
+	   		<button type="button" class="btn btn-secondary" id="deletebtn" onclick="deleteBoard();">삭제</button>
+	   		<button type="button" class="btn btn-secondary" id="motifybtn" onclick="updateBoard();">수정</button>
+	   	<% }else if(b.getbWriter() != 0){ %>
+	   		<%if(report.getBrWriter() != loginUser.getUserNo()){ %>
+	   			<button type="button" class="btn btn-secondary" id="dangerbtn" onclick="dangerBoard();">신고</button>
+	   		<%}else{ %>
+	   			<button type="button" class="btn btn-secondary" id="dangerNoneBtn" onclick="dangerNoneBtn();">신고</button>
+	   		<%} %>
+	   	<%} %>
+	   	<script>
+	   		function dangerNoneBtn(){
+	   			alert("이미 신고한 글 입니다.");
+	   		}
+	   	</script>
+   
    	</section>
 
 	<section id="sub">
@@ -242,7 +267,7 @@
 	<br>
 	<br>
 	<section id="listbtn">
-		<button type="button" class="btn btn-secondary" id="listbtnbtn" onclick="javascript:history.back();">목록</button>
+		<button type="button" class="btn btn-secondary" id="listbtnbtn" onclick="location.href='<%=request.getContextPath()%>/maintotal.bo?bno=<%=request.getAttribute("bcode")%>'">목록</button>
 		
 		<a href="#boardcontent" class="updown"><i class="material-icons" id="listbtndown">arrow_upward</i></a>
 		<a href="#footer" class="updown"><i class = "material-icons" id="listbtnup">arrow_downward</i></a>
@@ -309,14 +334,15 @@
   	// 댓글 출력용 함수
   	function selectRlist(){
   		var bno = <%=b.getbNo()%>;
+  		var user = <%=loginUser.getUserNo()%>;
   		
   		$.ajax({
   			url : "selectReply.bo",
-  			tpe : "post",
+  			type : "post",
   			dataType : "json",
-  			data : {bno : bno},
+  			data : {bno : bno, user:user},
   			success : function(rList){
-  				console.log(rList);
+  				
   				var $replyTable = $("#subtable");
   				
   				$replyTable.html("");
@@ -342,16 +368,23 @@
   					
 	  					var $buttonTd = $("<td>").attr("id", rList[i].cNo).css("width","15%");
 	  					var $button1 = $("<button>").addClass("btn btn-link subdanger").attr({"type":"button", "id":"subdanger"}).text("신고").css({"color":"red", "font-weight":"bold"});
+	  					var $button4 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subdangerNone", "onclick":"dangerNoneBtn();"}).text("신고").css({"color":"gray", "font-weight":"bold"});
 	  					var $button2 = $("<button>").addClass("btn btn-link subupdate").attr({"type":"button", "id":"subupdate"}).text("수정").css({"color":"black", "font-weight":"bold"});
 		  				var $button3 = $("<button>").addClass("btn btn-link subdelete").attr({"type":"button", "id":"subdelete"}).text("삭제").css({"color":"black", "font-weight":"bold"});
 		  				var $dateTd = $("<td>").text(rList[i].cRegdate).css("width","10%");
 		  				
 		  				if(rList[i].cStatus != 3){
-		  					if( <%=loginUser.getUserNo()%> == rList[i].cWriter ){
+		  					if( <%=loginUser.getUserNo()%> == rList[i].cWriter){
 		  						$buttonTd.append($button2);
 		  	  					$buttonTd.append($button3);
 		  					}else{
-		  						$buttonTd.append($button1);
+		  						if(rList[i].cReport == 0){
+		  							$buttonTd.append($button1);
+		  						}else{
+		  							$buttonTd.append($button4);
+		  						}
+		  						
+		  						
 		  					}
 		  				}
 	  					
@@ -413,16 +446,19 @@
 	}
 	
 	//댓글 신고
-	
 	$(document).on("click", ".subdanger", function(){
 		var cno = $(this).parent().attr("id");
 		dangerReply(cno);
+		/* dangerReplybtn(cno); */
 		/* console.log("cno=" + cno); */
 	});
 	
+	<%-- function dangerReplybtn(cno){
+		location.href='<%= request.getContextPath()%>/replyReport.bo?cno='+cno;
+	} --%>
+	
 	function dangerReply(cno){
 		window.open("replyDangerForm.bo?cno="+ cno + "&dwriter=<%=loginUser.getUserNo()%>", "dangerReplyForm", "width=800, height=550, resizable = no , scrollbars =no");
-		
 	}
   	
   </script>
