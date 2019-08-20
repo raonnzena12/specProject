@@ -109,6 +109,10 @@
 		left: 15%; */
 		color: black;
 	}
+	.white{
+		color:white;
+		font-size:10px;
+	}
 </style>
 <title>작성글 보기</title>
 <%@ include file="/views/common/menubar.jsp" %>
@@ -145,9 +149,9 @@
     	<table id="articleTable" class="table table-hover">
 		  <thead>
 		    <tr>
-		      <th scope="col" width="80px">번호</th>
-		      <th scope="col" width="80px">페이지</th>
-		      <th scope="col" width="80px">참조번호</th>
+		      <!-- th scope="col" width="80px">번호</th> -->
+		      <th scope="col" width="60px" class="white">page</th>
+		      <th scope="col" width="60px" class="white">ref</th>
 		      <th scope="col" width="400px">내용</th>
 		      <th scope="col" width="200px">글제목</th>
 		      <th scope="col" width="200px">등록일</th>
@@ -163,11 +167,11 @@
             	<% }else{ %>
             		<%for(Reply r : rList){ %>
             		<tr>
-            			<td><%= r.getcNo()%></td>
-            			<td><%= r.getcTableNo()%></td>
-            			<td><%= r.getRefNo()%></td>
-            			<td><%= r.getcContent()%></td>
-            			<td><%= r.getRefContType()%><br><%=r.getRefCont() %></td>
+            			<%-- <td><%= r.getcNo()%></td> --%>
+            			<td class="white"><%= r.getcTableNo()%></td>
+            			<td class="white"><%= r.getRefNo()%></td>
+            			<td><% String tmp =""; if(r.getcContent().replaceAll("<br>"," ").length() > 20){ tmp = r.getcContent().replaceAll("<br>"," ").substring(10) + "...";}else{ tmp = r.getcContent().replaceAll("<br>"," ");} %><%= tmp %></td>
+            			<td>[<%= r.getRefContType()%>]<br><%if(r.getRefCont() != null){ %><%=r.getRefCont() %><%} %></td>
             			<td><%= r.getcRegdate2()%></td>
             			<td><%= r.getcModidate2()%></td>
             		</tr>
@@ -222,17 +226,19 @@
 			var tno = $(this).parent().children().eq(1).text();
 			var rno = $(this).parent().children().eq(2).text();
 			// 로그인 한 사람만 게시글 상세보기 가능
-			<% if(loginUser != null){ %>
-				if(tno == 1){
-					location.href="<%= request.getContextPath() %>/content.bo?bno="+rno;
-				}else if(tno == 2){
-					location.href="<%= request.getContextPath() %>/spec.mo?mno="+rno +"&page=1";
-				}else{
-					
-				}
-			<% } else{ %>
-				alert("로그인해야만 상세보기가 가능합니다!");
-			<% } %>
+			<%if(!rList.isEmpty()){%>
+				<% if(loginUser != null){ %>
+					if(tno == 1){
+						location.href="<%= request.getContextPath() %>/content.bo?bno="+rno +"&bcode=0";
+					}else if(tno == 2){
+						location.href="<%= request.getContextPath() %>/spec.mo?mno="+rno +"&page=1";
+					}else{
+						location.href="<%= request.getContextPath() %>/compareSpec.mo?mno="+rno;
+					}
+				<% } else{ %>
+					alert("로그인해야만 상세보기가 가능합니다!");
+				<% } %>
+			<%}%>
 		});
 		
 		// 페이징바 마우스오버 이벤트

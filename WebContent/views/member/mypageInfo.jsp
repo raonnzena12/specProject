@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 확인</title>
+<title>마이페이지</title>
 <style>
 	/* *{
 		border: 1px solid black;
@@ -24,12 +24,13 @@
 	}
 	#mobileImg{
 		height: 70%;
+		text-align:center;
 	}
 	
-	#mobileImg img{
-		width:100%;
-		height: 100%;
+	#mobileImg *{
+		margin:auto;
 	}
+	
 	#mobile>div{
 		width:100%;
 	}
@@ -135,7 +136,7 @@
 			<li><a href="<%=request.getContextPath()%>/mypage.me" id="info">회원정보</a></li>
 			<li><a href="<%=request.getContextPath()%>/myBoardList.me">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/myReviewList.me">작성리뷰보기</a></li>
-			<li><a href="#">작성댓글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReportList.me">작성댓글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/myReportList.me">신고내역보기</a></li>
 		</ul>
     </nav>
@@ -145,7 +146,9 @@
 			<div id="mobileImg">
 				<% if(member.getMiFrontName() != null){ %>
 				<img class="max-small" alt="" src="<%=request.getContextPath()%>/image/mobileImages/<%=member.getMiFrontName()%>">
-				<% } %>
+				<% }else{ %>
+				<img class="max-small" alt="" src="<%=request.getContextPath()%>/image/smartphoneG.png">
+				<%} %>
 			</div>
 			<div class="fts">
 				<%if(member.getUserDevice()!= null){ %>
