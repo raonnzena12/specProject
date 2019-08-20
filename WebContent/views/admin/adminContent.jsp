@@ -2,11 +2,10 @@
     pageEncoding="UTF-8"  import="java.util.ArrayList, admin.model.vo.*"%>
 <%
 	ArrayList<AdminBoard> cList = null;
-	ArrayList<AdminBoard> sList = null;
 	if ( (ArrayList<AdminBoard>)request.getAttribute("cList") != null ) {
 		cList = (ArrayList<AdminBoard>)request.getAttribute("cList");
 	} else {
-		sList = (ArrayList<AdminBoard>)request.getAttribute("sList");
+		cList = (ArrayList<AdminBoard>)request.getAttribute("sList");
 	}
 	AdminPageInfo pInf = (AdminPageInfo)request.getAttribute("pInf");
 	int boardCount = pInf.getCount();
@@ -151,8 +150,8 @@
 				<thead>
 					<tr>
 					<th scope="col" style="width:15px"><input type="checkbox" id="selectAll"></th>
-					<th scope="col" style="width:80px">No<% if ( sort < 5 || cList != null ) { %><i class="material-icons arrow" id="noOrderBy">arrow_drop_down</i><% } %></th>
-					<th scope="col" id="typeSelector">글 제목<% if ( cList != null ) { %><i class="material-icons arrow" id="conTypeSelect">arrow_drop_down</i>
+					<th scope="col" style="width:80px">No<% if ( sort < 5 && sort > 0 ) { %><i class="material-icons arrow" id="noOrderBy">arrow_drop_down</i><% } %></th>
+					<th scope="col" id="typeSelector">글 제목<% if ( sort > 0 ) { %><i class="material-icons arrow" id="conTypeSelect">arrow_drop_down</i>
 						<div id="myDropdown" class="dropdown-content">
 							<a href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit=<%=limit%>'>전체글</a>
 							<a href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=5'>일반글</a>
@@ -162,7 +161,7 @@
 						<% } %>
 					</th>
 					<th scope="col" style="width:100px">닉네임</th>
-					<th scope="col" style="width:80px">조회수<% if ( sort < 5 || cList != null  ) { %><i class="material-icons arrow" id="countOrderBy">arrow_drop_down</i><% } %></th>
+					<th scope="col" style="width:80px">조회수<% if ( sort < 5 && sort > 0  ) { %><i class="material-icons arrow" id="countOrderBy">arrow_drop_down</i><% } %></th>
 					<th scope="col" style="width:120px">작성일</th>
 					<th scope="col" style="width:80px;">글관리</th>
 					</tr>
@@ -223,14 +222,14 @@
 		<!-- 페이징 처리 시작! -->
 		<div class="pagingArea">
 			<!-- 맨 처음으로(<<) -->
-			<span class="pagingBtn clickBtn" onclick="location.href=<% if ( cList != null ) { %>'<%= request.getContextPath() %>/adminBoard.do?currentPage=1&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=1&limit=<%=limit%>'<% } %>">&lt;&lt;</span>
+			<span class="pagingBtn clickBtn" onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminBoard.do?currentPage=1&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=1&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;&lt;</span>
 		
 			<!-- 이전 페이지로(<) -->
 			<% if(currentPage <= 1 || currentPage <= pagingBarSize ) { %>
 				<span class="pagingBtn">&lt;</span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&sort=<%=sort%>'">&lt;</span>
+					onclick="location.href=<% if (sort != 0 ) { %>'<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;</span>
 			<% } %>
 			
 			<!-- 페이지 목록 -->
@@ -239,7 +238,7 @@
 					<span class="pagingBtn selectBtn"><%= p %></span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= p %>&limit=<%=limit%>&sort=<%=sort%>'"><%=p%></span>
+						onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= p %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=<%= p %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>"><%=p%></span>
 				<% } %>
 			<%} %>
 			
@@ -248,12 +247,12 @@
 				<span class="pagingBtn"> &gt; </span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&sort=<%=sort%>'">&gt;</span>
+					onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminBoard.do?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;</span>
 			<% } %>
 			
 			<!-- 맨 끝으로(>>) -->
 			<span class="pagingBtn clickBtn"
-				onclick="location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= maxPage %>&limit=<%=limit%>&sort=<%=sort%>'">&gt;&gt;</span>
+				onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= maxPage %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/boardSearch.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;&gt;</span>
 		</div>
 		<div class="input-group input-group-sm mb-3">
 		<select class="custom-select my-1 mr-sm-2 custom-select-sm" id="selectLimit">
@@ -371,9 +370,11 @@
 			// limit 변경했을때
 			$("#selectLimit").change(function(){
 				var limit = $(this).val();
-				if ( limit != "---") {
+				if ( limit != "---" && <%=sort!= 0%> ) {
 					location.href='<%= request.getContextPath() %>/adminBoard.do?currentPage=<%= currentPage %>&limit='+limit+'&sort=<%=sort%>';
-				} 
+				} else {
+					location.href='<%= request.getContextPath() %>/boardSearch.ad?currentPage=<%= currentPage %>&limit='+limit+'&type=<%=searchType%>&keyWord=<%=keyWord%>';
+				}
 			});
 			// sort 변경했을 때
 			$("#noOrderBy").on("click", function(){
