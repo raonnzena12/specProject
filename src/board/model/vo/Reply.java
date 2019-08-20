@@ -14,6 +14,7 @@ public class Reply {
 	private int cStatus;
 	private int bNo;
 	private int cCount;
+	private int cReport;
 	
 	private int rRnum;
 	private String cRegdate2;
@@ -30,6 +31,18 @@ public class Reply {
 	}
 	
 	
+	public Reply(int cNo, String cContent, Timestamp cRegdate, int cWriter, String bcWriter, int cStatus, int bNo, int cReport) {
+		super();
+		this.cNo = cNo;
+		this.cContent = cContent;
+		this.cRegdate = cRegdate;
+		this.cWriter = cWriter;
+		this.bcWriter = bcWriter;
+		this.cStatus = cStatus;
+		this.bNo = bNo;
+		this.cReport = cReport;
+	}
+	
 	public Reply(int cNo, String cContent, Timestamp cRegdate, int cWriter, String bcWriter, int cStatus, int bNo) {
 		super();
 		this.cNo = cNo;
@@ -39,6 +52,7 @@ public class Reply {
 		this.bcWriter = bcWriter;
 		this.cStatus = cStatus;
 		this.bNo = bNo;
+		
 	}
 
 
@@ -55,7 +69,7 @@ public class Reply {
 
 
 	public Reply(int cNo, String cContent, Timestamp cRegdate, Timestamp cModidate, int cWriter, String bcWriter,
-			int cStatus, int bNo, int cCount) {
+			int cStatus, int bNo, int cCount, int cReport) {
 		super();
 		this.cNo = cNo;
 		this.cContent = cContent;
@@ -66,6 +80,8 @@ public class Reply {
 		this.cStatus = cStatus;
 		this.bNo = bNo;
 		this.cCount = cCount;
+		this.cReport = cReport;
+		
 	}
 
 
@@ -236,6 +252,13 @@ public class Reply {
 
 	public void setRefContType(String refContType) {
 		this.refContType = refContType;
+	public int getcReport() {
+		return cReport;
+	}
+
+
+	public void setcReport(int cReport) {
+		this.cReport = cReport;
 	}
 
 
@@ -243,8 +266,11 @@ public class Reply {
 	public String toString() {
 		return "Reply [cNo=" + cNo + ", cContent=" + cContent + ", cRegdate=" + cRegdate + ", cModidate=" + cModidate
 				+ ", cWriter=" + cWriter + ", bcWriter=" + bcWriter + ", cStatus=" + cStatus + ", bNo=" + bNo
-				+ ", cCount=" + cCount + "]";
+				+ ", cCount=" + cCount + ", cReport=" + cReport + "]";
 	}
+
+
+	
 	
 	
 	

@@ -183,13 +183,20 @@
 		        	var markupStr = $('#summernote').summernote('code');
 		        	console.log(markupStr);
 		        	/* return false; */
+		        	if($("#category").val() == "category"){ 
+			  			alert("카테고리를 선택하세요.");
+			  			return false;
+			  		}
+					/* console.log("제목 : "+$("#title-1").val()); */
+					if($("#title-1").val() == ""){
+						alert("제목을 입력하세요.");
+						return false;
+					}
 		        	if(markupStr.trim() == "<p><br></p>"){
 		        		alert("내용을 입력하세요.");
 		        		return false;
 		        	}
 		        	$("#writeBoard").submit();
-		        	
-		        	
 		        });
 	        });
 	        
@@ -214,24 +221,16 @@
 			writeBoard.target = "preview";
 			writeBoard.action = "<%=request.getContextPath()%>/preview.bo";
 			/* console.log(content); */
-			window.open("","preview","width=900px, height=600px");
+			window.open("","preview","width=900px, height=700px");
 			writeBoard.submit();
 			writeBoard.action = "<%= request.getContextPath()%>/write.bo";
 		});
 		
   		
-			$("#writeBoard").submit(function(){
-				if($("#category").val() == "category"){ 
-		  			alert("카테고리를 선택하세요.");
-		  			return false;
-		  		}
-				/* console.log("제목 : "+$("#title-1").val()); */
-				if($("#title-1").val() == ""){
-					alert("제목을 입력하세요.");
-					return false;
-				}
+			/* $("#writeBoard").submit(function(){
 				
-			});
+				
+			}); */
 	
 
 	</script>

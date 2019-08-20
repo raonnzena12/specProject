@@ -8,9 +8,12 @@ public class AdminReply {
 	private String cContent;
 	private Timestamp cRegdate;
 	private Timestamp cModidate;
-	private String cWriterName;
-	private String cStatusType;
 	private int bNo;
+	private int cWriterNo;
+	private int cStatusCode;
+	private String cStatusType;
+	private int cRefTableNo;
+	private String cWriterName;
 	
 	public AdminReply() {}
 
@@ -24,6 +27,43 @@ public class AdminReply {
 		this.cWriterName = cWriterName;
 		this.cStatusType = cStatusType;
 		this.bNo = bNo;
+	}
+	
+	public AdminReply(int cNo, String cContent, Timestamp cRegdate, Timestamp cModidate, int bNo, int cWriterNo,
+			String cStatusType, int cRefTableNo, String cWriterName) {
+		this(cNo, cContent, cRegdate, cModidate, cWriterName, cStatusType, bNo);
+		this.cWriterNo = cWriterNo;
+		this.cRefTableNo = cRefTableNo;
+	}
+
+	public AdminReply(int cNo, String cContent, Timestamp cRegdate, Timestamp cModidate, int bNo, int cWriterNo,
+			int cStatusCode, int cRefTableNo, String cWriterName) {
+		super();
+		this.cNo = cNo;
+		this.cContent = cContent;
+		this.cRegdate = cRegdate;
+		this.cModidate = cModidate;
+		this.bNo = bNo;
+		this.cWriterNo = cWriterNo;
+		this.cStatusCode = cStatusCode;
+		this.cRefTableNo = cRefTableNo;
+		this.cWriterName = cWriterName;
+	}
+
+	public int getcWriterNo() {
+		return cWriterNo;
+	}
+
+	public void setcWriterNo(int cWriterNo) {
+		this.cWriterNo = cWriterNo;
+	}
+
+	public int getcRefTableNo() {
+		return cRefTableNo;
+	}
+
+	public void setcRefTableNo(int cRefTableNo) {
+		this.cRefTableNo = cRefTableNo;
 	}
 
 	public int getcNo() {
@@ -80,6 +120,14 @@ public class AdminReply {
 
 	public void setbNo(int bNo) {
 		this.bNo = bNo;
+	}
+
+	public int getcStatusCode() {
+		return cStatusCode;
+	}
+
+	public void setcStatusCode(int cStatusCode) {
+		this.cStatusCode = cStatusCode;
 	}
 
 	@Override

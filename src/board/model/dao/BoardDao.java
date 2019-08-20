@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Board;
+import board.model.vo.BoardReport;
 import board.model.vo.Reply;
 
 public class BoardDao {
@@ -143,7 +144,8 @@ public class BoardDao {
 									rset.getInt("BCODE"),
 									rset.getInt("BWRITER"),
 									rset.getInt("BCATEGORY"),
-									rset.getString("CGCATEGORY"));
+									rset.getString("CGCATEGORY"),
+									rset.getString("USER_NAME"));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -361,6 +363,77 @@ public class BoardDao {
 		return tlist;
 		
 	}
+	
+	/**
+	 * 게시글 신고용  Dao
+	 * @param conn
+	 * @param bno
+	 * @param user
+	 * @param dwriter
+	 * @param content
+	 * @return result
+	 */
+	public int dangerBoard(Connection conn, int bno, int user, int dwriter, String content) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("dangerBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, content);
+			pstmt.setInt(2, bno);
+			pstmt.setInt(3, dwriter);
+			pstmt.setInt(4, user);
+			
+			result= pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+
+	/**
+	 * 신고글 조회용 Dao
+	 * @param conn
+	 * @param bNo
+	 * @return report
+	 */
+	public BoardReport reportBoard(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		BoardReport report = null;
+		
+		String query = prop.getProperty("reportBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				report = new BoardReport(rset.getInt("REPORT_NO"),
+										rset.getString("REPORT_CONT"),
+										rset.getInt("REPORT_CONNO"),
+										rset.getDate("REPORT_DATE"),
+										rset.getInt("REPORT_WRI"),
+										rset.getInt("REPORT_USER"),
+										rset.getInt("REPORT_REF_NO"),
+										rset.getInt("REPORT_RESULT"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return report;
+	}
 
 
 	//-------------------댓글 Dao--------------------------------------
@@ -406,7 +479,7 @@ public class BoardDao {
 	 * @param bno
 	 * @return rList
 	 */
-	public ArrayList<Reply> selectReply(Connection conn, int bno) {
+	public ArrayList<Reply> selectReply(Connection conn, int bno, int user) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -417,7 +490,8 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setInt(1, bno);
+			pstmt.setInt(1, user);
+			pstmt.setInt(2, bno);
 			
 			rset = pstmt.executeQuery();
 			
@@ -431,8 +505,8 @@ public class BoardDao {
 						rset.getInt("CWRITER"),
 						rset.getString("USER_NAME"),
 						rset.getInt("CSTATUS"),
-						rset.getInt("BNO")
-						));
+						rset.getInt("BNO"),
+						rset.getInt("REPORTED")));
 			}
 			
 		}catch (Exception e) {
@@ -594,7 +668,6 @@ public class BoardDao {
 	 * @param conn
 	 * @param text 
 	 * @param cno
-	 * @param cno2 
 	 * @param user 
 	 * @return result
 	 */
@@ -621,6 +694,39 @@ public class BoardDao {
 		}
 		
 		return result;
+	}
+	
+	public BoardReport reportReply(Connection conn, int cno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		BoardReport reportReply = null;
+		
+		String query = prop.getProperty("reportReply");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				reportReply = new BoardReport(rset.getInt("REPORT_NO"),
+										rset.getString("REPORT_CONT"),
+										rset.getInt("REPORT_CONNO"),
+										rset.getDate("REPORT_DATE"),
+										rset.getInt("REPORT_WRI"),
+										rset.getInt("REPORT_USER"),
+										rset.getInt("REPORT_REF_NO"),
+										rset.getInt("REPORT_RESULT"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return reportReply;
 	}
 
 
@@ -726,6 +832,10 @@ public class BoardDao {
 		return result;
 	}
 
+
+
 	
+
+
 
 }

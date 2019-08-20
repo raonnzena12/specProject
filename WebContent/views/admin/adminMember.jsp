@@ -22,6 +22,13 @@
 		status = (String)request.getAttribute("status");
 	}
 	
+	String searchSort = null;
+	String searchText = null;
+	if(request.getAttribute("searchSort") != null) {
+		searchSort = (String)request.getAttribute("searchSort");
+		searchText= (String)request.getAttribute("searchText");
+	}
+	
 	if(status.contains("0")) {
 		status = "관리자";
 	}else if(status.contains("1")) {
@@ -30,6 +37,8 @@
 		status = "정지";
 	}else if(status.contains("3")) {
 		status = "탈퇴";
+	}else if(status.contains("4")) {
+		status = "전체";
 	}
 	
 	String sort = "no";
@@ -50,6 +59,9 @@
 	System.out.println("isSort : " + isSort);
 	System.out.println("sort : " + sort);
 	System.out.println("pInf : " + pInf);
+	System.out.println("searchSort : " + searchSort);
+	System.out.println("searchText : " + searchText);
+	System.out.println("status : " + status);
 %>
 <!DOCTYPE html>
 <html>
@@ -63,9 +75,6 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 </head>
 <style>
 
-	html, body {
-		height: 100%;
-	}
 	* {
         box-sizing: border-box;
         margin: 0px;
@@ -76,13 +85,13 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     
 	.outer {
 		width: 1200px;
-		height: 600px;
+		min-height: 600px;
 		margin: auto;
 	}
 	
     .menu-outer {
     	width : 20%;
-    	height : 100%;
+    	height :  fill;
     	border-right: 1px solid gray;
     	float: left;
     }
@@ -107,7 +116,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     
     .content-outer {
     	width: 70%;
-    	height: 100%;
+    	height: auto;
     	float: left;
     	padding-left: 20px;
     }
@@ -122,7 +131,6 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     .content-1 {
     	width: 100%;
     	height: 50%;
-    	border: 1px solid orange;
     	float: left;
     }
     
@@ -134,6 +142,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     
     .content-1 tr {
     	height: 30px;
+    	border-bottom: 1px solid gray;
     }
     
     .content-1 th:nth-child(1), .content-1 td:nth-child(1) {
@@ -158,21 +167,24 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     	width: 15%;
     }
     
+    .content-1 .statusPrint a {
+    	margin: 1px;
+    }
+    
     .content-2 {
     	width: 100%;
-    	height: 20%;
-    	border: 1px solid green;
+    	height: 120px;
     	float: left;
     }
     
     .content-2-1 {
-    	width: 55%;
+    	width: 65%;
     	height: 70%;
     	float: left;
     }
     
     .content-2-2 {
-    	width: 45%;
+    	width: 35%;
     	height: 70%;
     	float: left;
     }
@@ -189,14 +201,9 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     	float: left;
     }
     
-    .content-2-4-form, #sortNum {
-    	height: 100%;
-    }
-    
     .pagingBar {
     	width: 100%;
     	height: 40px;
-    	border: 1px solid blue;
     	float: left;
     }
     
@@ -218,17 +225,6 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		color : gray;
 	}
     
-    table {
-    	border: 1px solid black;
-    }
-    
-    tr {
-    	border: 1px solid red;
-    }
-    
-    th, td {
-    	border: 1px solid blue;
-    }
 </style>
 <body>
 	<div class="outer">
@@ -245,7 +241,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		<div class="content-outer">
 			<div class="title">
 				<span style="font-size:30px">전체 회원 관리</span><br>
-				<span style="color:gray"><h5>Total : ??</h5></span>
+				<span style="color:gray"><h5>Total : <%=count%></h5></span>
 			</div>
 			<div class="content-1">
 				<table id="listTable">
@@ -265,52 +261,64 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 					<% }else { 
 						int i = 1;%>
 						<% for(AdminMember mem : list) { %>
-						<tr>
-							<td><input type="checkbox" name="memberCheck"></td>
+						<tr class="statusPrint">
+							<td><input type="checkbox" name="memberCheck" value="<%=mem.getUserNo()%>"></td>
 							<td><%= mem.getrNum() %></td>
 							<td><%= mem.getUserEmail() %></td>
 							<td><%= mem.getUserName() %></td>
 							<td><%= mem.getUserStatusType() %></td>
 							<td><%= mem.getEnrollDate() %></td>
-							<td><a href="#">정지</a><a href="#">탈퇴</a></td>
+							<td name=<%=mem.getUserNo()%>>
+								<% if(!mem.getUserStatusType().equals("일반")) { %>
+									<a href="#" class="general" name=<%=mem.getUserNo()%> onclick="updateGeneral(<%=mem.getUserNo()%>);">일반</a>
+								<% } %>
+								<% if(!mem.getUserStatusType().equals("정지")) { %>
+									<a href="#" class="suspend" name=<%=mem.getUserNo()%> onclick="updateSuspend(<%=mem.getUserNo()%>);">정지</a>
+								<% } %>
+								<% if(!mem.getUserStatusType().equals("탈퇴")) { %>
+									<a href="#" class="delete" name=<%=mem.getUserNo()%> onclick="updateDelete(<%=mem.getUserNo()%>);">탈퇴</a>
+								<% } %>
+							</td>
 						<% } %>
 					<% } %>
 				</table>
 			</div>
 			<div class="content-2">
 				<div class="content-2-1">
-			      	<form class="form-inline my-2 my-lg-0">
-			      		<label>유저 편집 : </label>
-					    <select class="form-control status" id="sort-1">
-				        	<option>관리자</option>
-				        	<option>일반</option>
-				        	<option>정지</option>
-				        	<option>탈퇴</option>
-				        </select>
-				      	<button type="button" class="btn btn-outline-dark" id="statusBtn">확인</button>
-				    </form>
+				    <select class="status" id="selectUserStatus">
+				    	<option>전체</option>
+			        	<option>관리자</option>
+			        	<option>일반</option>
+			        	<option>정지</option>
+			        	<option>탈퇴</option>
+			        </select>&nbsp;
+			      	<button type="button" id="statusBtn">확인</button>
 				</div>
 				<div class="content-2-2">
-			      	<form class="form-inline my-2 my-lg-0">
-						<select class="form-control" id="sort-2">
-				        	<option>아이디</option>
-				        	<option>닉네임</option>
-				      	</select>
-				      	<input class="form-control mr-sm-2" type="text" placeholder="Search">
-				      	<button type="button" class="btn btn-outline-dark">검색</button>
-				  	</form>
+					<select class="searchSelect">
+			        	<option>아이디</option>
+			        	<option>닉네임</option>
+			      	</select>
+			      	<input type="text" placeholder="Search" id="searchInput">
+			      	<button type="button" id="searchBtn">검색</button>
 				</div>
-				<div class="content-2-3"></div>
+				<div class="content-2-3">
+					<label>선택된 유저 처리 : </label>&nbsp;
+					<select id="editUserSelect">
+						<option>일반</option>
+			        	<option>정지</option>
+			        	<option>탈퇴</option>
+				    </select>
+				    <button type="button" id="editUserBtn" onclick="editBtn()">확인</button>
+				</div>
 				<div class="content-2-4">
-					<form class="form-inline my-2 my-lg-0 content-2-4-form">
-						<select class="form-control" id="sortNum">
-				        	<option>5</option>
-				        	<option>10</option>
-				        	<option>15</option>
-				        	<option>20</option>
-				        	<option>30</option>
-				      	</select>
-				  	</form>
+					<select id="sortNum">
+			        	<option>5</option>
+			        	<option>10</option>
+			        	<option>15</option>
+			        	<option>20</option>
+			        	<option>30</option>
+			      	</select>
 				</div>
 				
 			</div>
@@ -319,15 +327,13 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			<div class="pagingBar">
 				<div class="pagingArea" align="center">
 					<!-- 맨 처음으로(<<) -->
-					<span class="pagingBtn clickBtn"
-onclick="location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=1&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'">&lt;&lt;</span>
-				
+					<span class="pagingBtn clickBtn firstBtn" onclick="firstBtn()">&lt;&lt;</span>
+					
 					<!-- 이전 페이지로(<) -->
 					<% if(currentPage <= 1) { %>
 						<span class="pagingBtn">&lt;</span>
 					<% } else{ %>
-						<span class="pagingBtn clickBtn" 
-onclick="location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=<%= currentPage-1 %>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'">&lt;</span>
+						<span class="pagingBtn clickBtn" onclick="backBtn()">&lt;</span>
 					<% } %>
 					
 					<!-- 페이지 목록 -->
@@ -335,8 +341,7 @@ onclick="location.href='<%= request.getContextPath() %>/adminSelectMember.do?cur
 						<% if(p == currentPage) { %>
 							<span class="pagingBtn selectBtn"><%= p %></span>
 						<% } else{ %>
-							<span class="pagingBtn clickBtn"
-onclick="location.href='<%=request.getContextPath()%>/adminSelectMember.do?currentPage=<%=p%>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'"><%=p %></span>
+							<span class="pagingBtn clickBtn" onclick="middleBtn(<%=p%>)"><%=p %></span>
 						<% } %>
 					<%} %>
 					
@@ -344,128 +349,78 @@ onclick="location.href='<%=request.getContextPath()%>/adminSelectMember.do?curre
 					<% if(currentPage >= maxPage){ %>
 						<span class="pagingBtn"> &gt; </span>
 					<% } else{ %>
-						<span class="pagingBtn clickBtn" 
-onclick="location.href='<%=request.getContextPath()%>/adminSelectMember.do?currentPage=<%= currentPage+1 %>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'">&gt;</span>
+						<span class="pagingBtn clickBtn" onclick="nextBtn()">&gt;</span>
 					<% } %>
 					
 					<!-- 맨 끝으로(>>) -->
-					<span class="pagingBtn clickBtn"
-onclick="location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=<%= maxPage %>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'">&gt;&gt;</span>
+					<span class="pagingBtn clickBtn" onclick="lastBtn()">&gt;&gt;</span>
 				</div>
 			</div>
 		</div>
 	</div>
 	
 	<script>
-/* 		function selectMember(sort, currentPage) {
-			
-			cSort = "no";
-			
-			var isSort;
-			
-			switch(sort) {
-				case "no" : isSort = isNo; break;
-				case "title" : isSort = isTitle; break;
-				case "name" : isSort = isName; break;
-				case "status" : isSort = isStatus; break;
-				case "date" : isSort = isDate; break;
-			}
-			
-			$.ajax({
-				url: "../../adminSelectMember.do",
-				type: "post",
-				dataType: "json",
-				async : false,
-				data : {sort : sort, isSort : isSort, 
- : sortNum, currentPage : currentPage},
-				success: function(map) {
-					if(map != null) {
-						var $listTable = $("#listTable");
-						var $pagingArea = $(".pagingArea");
-						var j = 1;
-						
-						$listTable.html(table);
-						
-						var mList = map[mList];
-						
- 						$.each(map, function(i){
- 							if(i == "pInf") {
- 								pInf = map[i];
- 								console.log(pInf);
- 								return false;
- 							}
- 							
-							var $tr = $("<tr>");
-							var $checkBox = $("<td>").html("<input type='checkbox' name='memberCheck'>");
-							var $no = $("<td>").text(j++);
-							var $email = $("<td>").text(map[i].userEmail);
-							var $name = $("<td>").text(map[i].userName);
-							var $status = $("<td>").text(map[i].userStatusType);
-							var $enDate = $("<td>").text(map[i].enrollDate);
-							var $statusManage = $("<td>").html("<a href='#'>정지</a><a href='#'>탈퇴</a>");
-							
-							$tr.append($checkBox);
-							$tr.append($no);
-							$tr.append($email);
-							$tr.append($name);
-							$tr.append($status);
-							$tr.append($enDate);
-							$tr.append($statusManage);
-							$listTable.append($tr);
- 						});
- 						
- 						//----------------------------- < 페이징바 처리 > ------------------------------------------
- 						$pagingArea.html("");
- 						
- 						$span = $("<span class='pagingBtn clickBtn' onclick='selectMember(cSort, 1)'>").html("&lt;&lt;");
- 						$pagingArea.append($span);
- 						
- 						//------------------------------ 이전 페이지로 ---------------------------------------
- 						if(pInf["currentPage"] <= 1) {
- 							$span = $("<span class='pagingBtn'>").html("&lt");
- 						}else{
- 							$span = $("<span class='pagingBtn clickBtn' onclick='selectMember(cSort, " + (pInf['currentPage']-1) + ");'>").html("&lt");
- 						}
- 						$pagingArea.append($span);
- 						
- 						
- 						//------------------------------ 페이지 목록 ---------------------------------------
- 						for(var p=pInf["startPage"]; p<=pInf["endPage"]; p++) {
- 							console.log(p);
- 							if(p == pInf["currentPage"]) {
- 								$span = $("<span class='pagingBtn selectBtn'>").text(p);
- 							}else {
- 								$span = $("<span class='pagingBtn clickBtn' onclick='selectMember(cSort, " + p + ");'>").text(p); 
- 							}
- 							$pagingArea.append($span);
- 						}
- 						
- 						//------------------------------ 다음 페이지로 ---------------------------------------
- 						if(pInf["currentPage"] >= pInf["maxPage"]) {
- 							$span = $("<span class='pagingBtn'>").text("&gt");
- 						}else {
- 							$span = $("<span class='pagingBtn clickBtn' onclick='selectMember(cSort, " +  (pInf['currentPage']+1) + ");'>").html("&gt;");
- 						}
- 						$pagingArea.append($span);
- 						
- 						//------------------------------ 맨 끝페이지로 ---------------------------------------
- 						$span = $("<span class='pagingBtn clickBtn' onclick='selectMember(cSort, " + pInf['maxPage'] + ");'>").html("&gt;&gt;");
- 						$pagingArea.append($span);
- 						
-					}
-				},
-				error : function() {
-					alert("회원 조회 중 에러 발생");
-				}
-			});
-		} */
 		
 		var sortNum = <%=sortNum%>;
 		var isSort = <%= isSort %>;
 		var sort = "<%= sort %>";
+		
+		var nameVal;
+		
+		var status; // 회원 상태 select option:selected 의 값을 담을 변수
+		
+		
+		//--------------------------------- 페이징바 onclick 처리 ---------------------------------
+		
+		function firstBtn() {
+			<% if(sort.contains("search")) { %>
+			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=1&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>&searchSort=<%=searchSort%>&searchText=<%=searchText%>';
+			<% }else { %>
+			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=1&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>';
+			<% } %>
+		}
+		
+		function backBtn() {
+			<% if(sort.contains("search")) { %>
+			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=<%=currentPage-1%>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>&searchSort=<%=searchSort%>&searchText=<%=searchText%>';
+			<% }else { %>
+			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=<%=currentPage-1%>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>';
+			<% } %>
+		}
+		
+		function middleBtn(p) {
+			<% if(sort.contains("search")) { %>
+			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage='+p+'&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>&searchSort=<%=searchSort%>&searchText=<%=searchText%>';
+			<% }else { %>
+			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage='+p+'&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>';
+			<% } %>
+		}
+		
+		function nextBtn() {
+			<% if(sort.contains("search")) { %>
+			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=<%=currentPage+1%>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>&searchSort=<%=searchSort%>&searchText=<%=searchText%>';
+			<% }else { %>
+			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=<%=currentPage+1%>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>';
+			<% } %>
+		}
+		
+		function lastBtn() {
+			<% if(sort.contains("search")) { %>
+			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=<%=maxPage%>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>&searchSort=<%=searchSort%>&searchText=<%=searchText%>';
+			<% }else { %>
+			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=<%=maxPage%>&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>';
+			<% } %>
+		}
+		
+		//------------------------ select, checkbox 처리 이벤트 -------------------------
+		
 		$("#sortNum").on('change',function(){
 			sortNum = $("#sortNum option:selected").val();
-			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=1&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>'
+			<% if(sort.contains("search")) { %>
+				location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=1&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>&searchSort=<%=searchSort%>&searchText=<%=searchText%>';
+			<% }else { %>
+				location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=1&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>';
+			<% } %>
 		});
 		
 		$("#sortNum option").each(function(){
@@ -480,8 +435,114 @@ onclick="location.href='<%= request.getContextPath() %>/adminSelectMember.do?cur
 		    }
 		});
 		
- 		$(function(){
+		$(".searchSelect option").each(function(){
+		    if($(this).val() == "<%=searchSort%>"){
+		      $(this).attr("selected","selected");
+		    }
+		});
+		
+		$("#checkAll").on("change", function(){
+			if($(this).is(":checked")) {
+				$("input[name=memberCheck]").prop("checked",true);
+			}else {
+				$("input[name=memberCheck]").prop("checked",false);
+			}
+		});
+		
+		function editBtn() {
+			var valArr = new Array();
+			var edit = $("#editUserSelect option:selected").val();
 			
+			$("input[name=memberCheck]:checked").each(function(){
+				valArr.push($(this).val());				
+			});
+			for(i in valArr) {
+				if(edit == "일반") {
+					updateGeneral(valArr[i]);
+				}else if(edit == "정지") {
+					updateSuspend(valArr[i]);
+				}else {
+					updateDelete(valArr[i]);
+				}
+			}
+		}
+		
+		
+		//------------------------------------ 회원 상태 처리 이벤트 ----------------------------------------
+		
+		function updateGeneral(nameVal) {
+			status = "general";
+			
+ 			$.ajax({
+				url: "<%=request.getContextPath()%>/adminUpdateMember.do",
+				type: "post",
+				data : {status : status, mno : nameVal},
+				success: function(result) {
+					if(result > 0) {
+						alert("회원 상태를 일반으로 성공적으로 변경하였습니다.");
+						location.reload();
+					}else {
+						alert("회원 상태 일반으로 변경 중 오류 발생");
+					}
+				},
+				error: function() {
+					alert("통신 에러 발생");
+				}
+			});
+		}
+		
+		function updateSuspend(nameVal) {
+			status = "suspend";
+			
+ 			$.ajax({
+				url: "<%=request.getContextPath()%>/adminUpdateMember.do",
+				type: "post",
+				data : {status : status, mno : nameVal},
+				success: function(result) {
+					if(result > 0) {
+						alert("회원 정지가 성공적으로 처리 되었습니다.");
+						location.reload();
+					}else {
+						alert("회원 정지 처리 중 오류 발생");
+					}
+				},
+				error: function() {
+					alert("통신 에러 발생");
+				}
+			});
+		}
+		
+		function updateDelete(nameVal) {
+			status = "delete";
+			
+			$.ajax({
+				url: "<%=request.getContextPath()%>/adminUpdateMember.do",
+				type: "post",
+				data : {status : status, mno : nameVal},
+				success: function(result) {
+					if(result > 0) {
+						alert("회원 탈퇴가 성공적으로 처리 되었습니다.");
+						location.reload();
+					}else {
+						alert("회원 탈퇴 처리 중 오류 발생");
+					}
+				},
+				error: function() {
+					alert("통신 에러 발생");
+				}
+			});
+		}
+
+		//------------------------------- search 이벤트 처리 --------------------------------------
+		$("#searchBtn").click(function(){
+			var searchSort = $(".searchSelect option:selected").val();
+			var searchText = $("#searchInput").val();
+			sort = "search";
+			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=1&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>&searchSort='+searchSort+'&searchText='+searchText+'';
+		});
+		
+		
+ 		$(function(){
 			// -------------- 페이징바 마우스오버 이벤트 ----------------
 			$(".clickBtn").mouseenter(function(){
 				$(this).css({"background":"darkgray", "cursor":"pointer"});
@@ -501,7 +562,7 @@ onclick="location.href='<%= request.getContextPath() %>/adminSelectMember.do?cur
 					}else {
 						isSort = true;
 					}
-				}%>
+				} %>
 				sort = "no";
 				location.href="<%=request.getContextPath()%>/adminSelectMember.do?currentPage=1&sort="+sort+"&sortNum="+sortNum+"&isSort=<%=isSort%>";
 			});
@@ -548,6 +609,8 @@ onclick="location.href='<%= request.getContextPath() %>/adminSelectMember.do?cur
 					sort = "status2";
 				}else if(statusVal == "탈퇴") {
 					sort = "status3";
+				}else if(statusVal == "전체") {
+					sort = "status4";
 				}
 				location.href="<%=request.getContextPath()%>/adminSelectMember.do?currentPage=1&sort="+sort+"&sortNum="+sortNum+"&isSort=<%=isSort%>";
 			});

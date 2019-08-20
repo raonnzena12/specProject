@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import admin.model.service.AdminService;
 import admin.model.vo.*;
 
-@WebServlet("/adminBoard.do")
-public class TotalContentsServlet extends HttpServlet {
+@WebServlet("/adminComment.ad")
+public class TotalCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public TotalContentsServlet() {
+    public TotalCommentServlet() {
         super();
     }
 
@@ -36,9 +36,9 @@ public class TotalContentsServlet extends HttpServlet {
 		// 전체 게시글 수 구하기
 		int totalContent= 0;
 		if ( sort > 4 ) {
-			totalContent = aService.contentCount(sort);
+			totalContent = aService.commentCount(sort);
 		} else {
-			totalContent = aService.contentCount();
+			totalContent = aService.commentCount();
 		}
 		
 		// 페이징 처리용 변수 선언
@@ -68,11 +68,11 @@ public class TotalContentsServlet extends HttpServlet {
 		
 		AdminPageInfo pInf = new AdminPageInfo(totalContent, limit, pagingBarSize, currentPage, maxPage, startPage, endPage, sort);
 		
-		ArrayList<AdminBoard> cList = aService.contentList(currentPage, limit, sort);
+		ArrayList<AdminReply> cList = aService.commentList(currentPage, limit, sort);
 		
 			request.setAttribute("cList", cList);
 			request.setAttribute("pInf", pInf);
-			request.getRequestDispatcher("views/admin/adminContent.jsp").forward(request, response);
+			request.getRequestDispatcher("views/admin/adminComment.jsp").forward(request, response);
 		
 	}
 

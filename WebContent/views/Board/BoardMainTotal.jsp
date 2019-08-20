@@ -107,14 +107,14 @@
 	        
 	        #boardlist{
 	            width: 1080px;
-	            height: 600px;
+	            height: 550px;
 	            margin: auto;
 	            padding: 0;
 	            color: black;
 	        }
 			#boardbtn{
 		            width: 1080px;
-		            height: 60px;
+		            height: 80px;
 		            margin: auto;
 		            padding-top: 10px;
 		            color: black;
@@ -125,7 +125,7 @@
 		            height: 100px;
 		            margin: auto;
 		            padding: 0;
-		            padding-left: 450px;
+		            padding-left: 360px;
 		            color: black;
 		        }
 		    #searchselect{
@@ -237,14 +237,20 @@
 			<div>
 		         <ul class="pagination pagination-sm">
 		   			<!-- 맨 처음(<<) -->
-		   			<li class="page-item disabled">
+		   			<li class="page-item ">
 		   				<a class="page-link" href="<%= request.getContextPath()%>/maintotal.bo?currentPage=1&bno=<%=request.getAttribute("bno")%>">&laquo;</a>
 		   			</li>
-		   			
+		   			<!-- 이전 페이지로 -->
+		   			<% if(currentPage <= 1){ %>
+		   				<li class="page-item">
+			   				<a class="page-link">&lt;</a>
+			   			</li>
+		   			<% }else{%>
+		   				<li class="page-item">
+			   				<a class="page-link" href="<%=request.getContextPath()%>/maintotal.bo?currentPage=<%= currentPage-1 %>&bno=<%=request.getAttribute("bno")%>">&lt;</a>
+			   			</li>
+		   			<%} %>
 		   			<!-- 페이지 목록 넘기기 -->
-		   			
-		   			
-		   			
 		   			<% for(int p = startPage; p <= endPage; p++){ %>
 		   				<%if(p == currentPage){ %>
 			   				<li class="page-item">
@@ -256,23 +262,17 @@
 				   			</li>
 			   			<% } %>
 		   			<% } %>
-		    		
-		            
-		            
-		            
-		           <!--  <li class="page-item">
-		                 <a class="page-link" href="#">2</a>
-		      		</li>
-		     		<li class="page-item">
-		    			<a class="page-link" href="#">3</a>
-		   			</li>
-		   			<li class="page-item">
-		    			<a class="page-link" href="#">4</a>
-		    		</li>
-		    		<li class="page-item">
-		     			<a class="page-link" href="#">5</a>
-		     		</li> -->
 		     		
+		     		<!-- 다음 페이지로 -->
+		     		<% if(currentPage >= maxPage){ %>
+		   				<li class="page-item">
+			   				<a class="page-link">&gt;</a>
+			   			</li>
+		   			<% }else{%>
+		   				<li class="page-item">
+			   				<a class="page-link" href="<%=request.getContextPath()%>/maintotal.bo?currentPage=<%= currentPage+1 %>&bno=<%=request.getAttribute("bno")%>">&gt;</a>
+			   			</li>
+		   			<%} %>
 		     		<!-- 맨끝으로(>>) -->
 		    		 <li class="page-item">
 		     			<a class="page-link" href="<%=request.getContextPath()%>/maintotal.bo?currentPage=<%= maxPage %>&bno=<%=request.getAttribute("bno")%>">&raquo;</a>
@@ -295,10 +295,10 @@
     	// 게시판 상세보기
     	$(function(){
     		$("#boardlisttable td").click(function(){
-    			
+    			var bcode = <%=request.getAttribute("bno")%>;
     			var bno = $(this).parent().children().eq(0).text();
     			<%if(loginUser !=null){%>	
-    				location.href="<%= request.getContextPath() %>/content.bo?bno="+bno;
+    				location.href="<%= request.getContextPath() %>/content.bo?bno="+bno +"&bcode="+ bcode;
     				<%-- location.href="<%= request.getContextPath()%>/replyCount.bo?bno="+bno; --%>
     			<% } else{ %>
 					alert("로그인해야만 상세보기가 가능합니다!");

@@ -110,6 +110,14 @@ public class AdminBoard {
 		this.userNo = userNo;
 	}
 
+	public int getbStatusCode() {
+		return bStatusCode;
+	}
+
+	public void setbStatusCode(int bStatusCode) {
+		this.bStatusCode = bStatusCode;
+	}
+
 	@Override
 	public String toString() {
 		return "AdminBoard [bNo=" + bNo + ", bTitle=" + bTitle + ", bCount=" + bCount + ", bRegdate=" + bRegdate
