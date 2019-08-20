@@ -19,6 +19,8 @@ import mobile.model.vo.Mobile;
 public class AdminService {
 	
 	public AdminService() {}
+	
+	//------------------------- 관리자 메인 --------------------------
 
 	public ArrayList<AdminMember> selectMember() {
 		Connection conn = getConnection();
@@ -61,9 +63,15 @@ public class AdminService {
 	}
 	
 	
-	//--------------------------------------- sortMember ------------------------------------------------
+	//--------------------------------------- 관리자 멤버 ------------------------------------------------
 	
 	
+	//--------- memberCount ---------
+	
+	/**
+	 * 관리자 // 전체 멤버 수를 리턴하는 Service
+	 * @return count;
+	 */
 	public int getMemberCount() {
 		Connection conn = getConnection();
 		int count = new AdminDao().getMemberCount(conn);
@@ -71,7 +79,39 @@ public class AdminService {
 		return count;
 	}
 	
-
+	/**
+	 * 관리자 // 회원 상태에 따른 멤버 수를 리턴하는 Service
+	 * @param statusNum
+	 * @return count
+	 */
+	public int getMemberStatusCount(int statusNum) {
+		Connection conn = getConnection();
+		
+		int count = new AdminDao().getMemberStatusCount(conn, statusNum);
+		
+		return count;
+	}
+	
+	public int getMemberSearchCount(String searchSort, String searchText) {
+		Connection conn = getConnection();
+		
+		int count = new AdminDao().getMemberSearchCount(conn, searchSort, searchText);
+		
+		return count;
+	}
+	
+	//---------- searchMember ----------
+	
+	public ArrayList<AdminMember> selectMemberSearch(String searchSort, String searchText, int sortNum, int currentPage) {
+		Connection conn = getConnection();
+		
+		ArrayList<AdminMember> mList = new AdminDao().selectMemberSearch(conn, searchSort, searchText, sortNum, currentPage);
+		
+		return mList;
+	}
+	
+	//---------- sortMember -----------
+	
 	public ArrayList<AdminMember> selectMemberSort(String sort, boolean isSort, int sortNum, int currentPage) {
 		Connection conn = getConnection();
 		
@@ -79,7 +119,24 @@ public class AdminService {
 		
 		return mList;
 	}
-
+	
+	//---------- updateMember -----------
+	
+	public int updateMemberStatus(int mno, int statusNum) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().updateMemberStatus(conn, mno, statusNum);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
+	//-------------------------------------- 관리자 글 ------------------------------------------
+	
 	/**
 	 * 관리자 // 전체 글 갯수를 리턴하는 Service
 	 * @return totalCount
@@ -171,6 +228,9 @@ public class AdminService {
 		ArrayList<AdminBoard> sList = new AdminDao().searchAdminBoard(conn, type, keyWord, currentPage, limit); 
 		return sList;
 	}
+
+
+
 
 	
 
