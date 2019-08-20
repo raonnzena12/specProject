@@ -252,6 +252,7 @@ public class Reply {
 
 	public void setRefContType(String refContType) {
 		this.refContType = refContType;
+	}
 	public int getcReport() {
 		return cReport;
 	}
