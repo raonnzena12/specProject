@@ -54,7 +54,7 @@ public class ContentSearchServlet extends HttpServlet {
 		endPage = startPage + pagingBarSize - 1 ;
 		if ( endPage >= maxPage ) endPage = maxPage;
 		
-		AdminPageInfo pInf = new AdminPageInfo(totalContent, limit, pagingBarSize, currentPage, maxPage, startPage, endPage, sort);
+		AdminPageInfo pInf = new AdminPageInfo(totalContent, limit, pagingBarSize, currentPage, maxPage, startPage, endPage, sort, type, keyWord);
 		
 		
 		ArrayList<AdminBoard> sList = aService.searchAdminBoard(type, keyWord, currentPage, limit);
