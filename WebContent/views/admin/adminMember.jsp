@@ -91,7 +91,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	
     .menu-outer {
     	width : 20%;
-    	height : auto;
+    	height :  fill;
     	border-right: 1px solid gray;
     	float: left;
     }
@@ -131,7 +131,6 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     .content-1 {
     	width: 100%;
     	height: 50%;
-    	border: 1px solid orange;
     	float: left;
     }
     
@@ -143,6 +142,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     
     .content-1 tr {
     	height: 30px;
+    	border-bottom: 1px solid gray;
     }
     
     .content-1 th:nth-child(1), .content-1 td:nth-child(1) {
@@ -174,7 +174,6 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     .content-2 {
     	width: 100%;
     	height: 120px;
-    	border: 1px solid green;
     	float: left;
     }
     
@@ -205,7 +204,6 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     .pagingBar {
     	width: 100%;
     	height: 40px;
-    	border: 1px solid blue;
     	float: left;
     }
     
@@ -227,17 +225,6 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		color : gray;
 	}
     
-    table {
-    	border: 1px solid black;
-    }
-    
-    tr {
-    	border: 1px solid red;
-    }
-    
-    th, td {
-    	border: 1px solid blue;
-    }
 </style>
 <body>
 	<div class="outer">
@@ -254,7 +241,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		<div class="content-outer">
 			<div class="title">
 				<span style="font-size:30px">전체 회원 관리</span><br>
-				<span style="color:gray"><h5>Total : ??</h5></span>
+				<span style="color:gray"><h5>Total : <%=count%></h5></span>
 			</div>
 			<div class="content-1">
 				<table id="listTable">
@@ -281,15 +268,15 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 							<td><%= mem.getUserName() %></td>
 							<td><%= mem.getUserStatusType() %></td>
 							<td><%= mem.getEnrollDate() %></td>
-							<td name="<%=mem.getUserNo()%>">
+							<td name=<%=mem.getUserNo()%>>
 								<% if(!mem.getUserStatusType().equals("일반")) { %>
-									<a href="#" class="general">일반</a>
+									<a href="#" class="general" name=<%=mem.getUserNo()%> onclick="updateGeneral(<%=mem.getUserNo()%>);">일반</a>
 								<% } %>
 								<% if(!mem.getUserStatusType().equals("정지")) { %>
-									<a href="#" class="suspend">정지</a>
+									<a href="#" class="suspend" name=<%=mem.getUserNo()%> onclick="updateSuspend(<%=mem.getUserNo()%>);">정지</a>
 								<% } %>
 								<% if(!mem.getUserStatusType().equals("탈퇴")) { %>
-									<a href="#" class="delete">탈퇴</a>
+									<a href="#" class="delete" name=<%=mem.getUserNo()%> onclick="updateDelete(<%=mem.getUserNo()%>);">탈퇴</a>
 								<% } %>
 							</td>
 						<% } %>
@@ -317,10 +304,12 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 				</div>
 				<div class="content-2-3">
 					<label>선택된 유저 처리 : </label>&nbsp;
-					<select id="updateUser">
+					<select id="editUserSelect">
+						<option>일반</option>
 			        	<option>정지</option>
 			        	<option>탈퇴</option>
 				    </select>
+				    <button type="button" id="editUserBtn" onclick="editBtn()">확인</button>
 				</div>
 				<div class="content-2-4">
 					<select id="sortNum">
@@ -376,7 +365,12 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		var isSort = <%= isSort %>;
 		var sort = "<%= sort %>";
 		
-		var status;
+		var nameVal;
+		
+		var status; // 회원 상태 select option:selected 의 값을 담을 변수
+		
+		
+		//--------------------------------- 페이징바 onclick 처리 ---------------------------------
 		
 		function firstBtn() {
 			<% if(sort.contains("search")) { %>
@@ -455,10 +449,28 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			}
 		});
 		
+		function editBtn() {
+			var valArr = new Array();
+			var edit = $("#editUserSelect option:selected").val();
+			
+			$("input[name=memberCheck]:checked").each(function(){
+				valArr.push($(this).val());				
+			});
+			for(i in valArr) {
+				if(edit == "일반") {
+					updateGeneral(valArr[i]);
+				}else if(edit == "정지") {
+					updateSuspend(valArr[i]);
+				}else {
+					updateDelete(valArr[i]);
+				}
+			}
+		}
+		
+		
 		//------------------------------------ 회원 상태 처리 이벤트 ----------------------------------------
 		
-		$(".general").click(function(){
-			var nameVal = $(this).parent().attr("name");
+		function updateGeneral(nameVal) {
 			status = "general";
 			
  			$.ajax({
@@ -477,10 +489,9 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 					alert("통신 에러 발생");
 				}
 			});
-		});
+		}
 		
-		$(".suspend").click(function(){
-			var nameVal = $(this).parent().attr("name");
+		function updateSuspend(nameVal) {
 			status = "suspend";
 			
  			$.ajax({
@@ -499,10 +510,9 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 					alert("통신 에러 발생");
 				}
 			});
-		});
+		}
 		
-		$(".delete").click(function(){
-			var nameVal = $(this).parent().attr("name");
+		function updateDelete(nameVal) {
 			status = "delete";
 			
 			$.ajax({
@@ -521,8 +531,8 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 					alert("통신 에러 발생");
 				}
 			});
-		});
-		
+		}
+
 		//------------------------------- search 이벤트 처리 --------------------------------------
 		$("#searchBtn").click(function(){
 			var searchSort = $(".searchSelect option:selected").val();
