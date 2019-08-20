@@ -144,6 +144,28 @@ public class BoardService {
 		
 		return tlist;
 	}
+	
+	/**
+	 * 게시글 신고용 Service
+	 * @param bno
+	 * @param user
+	 * @param dwriter
+	 * @param content
+	 * @return result
+	 */
+	public int dangerBoard(int bno, int user, int dwriter, String content) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().dangerBoard(conn, bno, user, dwriter, content);
+		
+		if(result > 0) {
+			commit(conn); 
+		}else {
+			rollback(conn); 
+		}
+		
+		return result;
+	}
 
 	//------------------댓글 Service---------------------------------
 	
@@ -323,6 +345,9 @@ public class BoardService {
 		
 		return mlist;
 	}
+
+
+	
 
 
 	

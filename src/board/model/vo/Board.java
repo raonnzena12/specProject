@@ -16,6 +16,7 @@ public class Board {
 	private int bStatus;
 	private int bCategory;
 	private String cgCategory;
+	private String bUser;// 유저이름
 	
 	// 임시 등록일 필드
 	private String bRegdate2;
@@ -47,7 +48,7 @@ public class Board {
 	}
 
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, int bCode, int bWriter,
-			int bCategory, String cgCategory) {
+			int bCategory, String cgCategory, String bUser) {
 		super();
 		this.bNo = bNo;
 		this.bTitle = bTitle;
@@ -58,6 +59,7 @@ public class Board {
 		this.bWriter = bWriter;
 		this.bCategory = bCategory;
 		this.cgCategory = cgCategory;
+		this.bUser = bUser;
 	}
 
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, int bCode, int bCategory,
@@ -100,11 +102,9 @@ public class Board {
 		this.bContent = bContent;
 		this.bCount = bCount;
 		this.bRegdate = bRegdate;
-
 		this.bModidate = bModidate;
 		this.bCode = bCode;
 		this.bType = bType;
- 
 		this.bWriter = bWriter;
 		this.bCategory = bCategory;
 		this.cgCategory = cgCategory;
@@ -127,7 +127,7 @@ public class Board {
 	}
 
   public Board(int bNo, String bTitle, String bContent, int bCount, Date bRegdate, Date bModidate, int bCode,
-			String bType, int bWriter, int bStatus, int bCategory, String cgCategory) {
+			String bType, int bWriter, int bStatus, int bCategory, String cgCategory, String bUser) {
 		super();
 		this.bNo = bNo;
 		this.bTitle = bTitle;
@@ -141,6 +141,7 @@ public class Board {
 		this.bStatus = bStatus;
 		this.bCategory = bCategory;
 		this.cgCategory = cgCategory;
+		this.bUser = bUser;
 	}
 
 	
@@ -344,6 +345,29 @@ public class Board {
 		this.cgCategory = cgCategory;
 	}
 
+	public String getbUser() {
+		return bUser;
+	}
+
+
+
+
+
+	public void setbUser(String bUser) {
+		this.bUser = bUser;
+	}
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "Board [bNo=" + bNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bCount=" + bCount
+				+ ", bRegdate=" + bRegdate + ", bModidate=" + bModidate + ", bCode=" + bCode + ", bType=" + bType
+				+ ", bWriter=" + bWriter + ", bStatus=" + bStatus + ", bCategory=" + bCategory + ", cgCategory="
+				+ cgCategory + ", bUser=" + bUser + "]";
+	}
 
 	
 	
@@ -354,13 +378,18 @@ public class Board {
 	
 	
 
-	@Override
-	public String toString() {
-		return "Board [bNo=" + bNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bCount=" + bCount
-				+ ", bRegdate=" + bRegdate + ", bModidate=" + bModidate + ", bCode=" + bCode + ", bType=" + bType
-				+ ", bWriter=" + bWriter + ", bStatus=" + bStatus + ", bCategory=" + bCategory + ", cgCategory="
-				+ cgCategory + "]";
-	}
+	
+
+
+
+
+	/*
+	 * @Override public String toString() { return "Board [bNo=" + bNo + ", bTitle="
+	 * + bTitle + ", bContent=" + bContent + ", bCount=" + bCount + ", bRegdate=" +
+	 * bRegdate + ", bModidate=" + bModidate + ", bCode=" + bCode + ", bType=" +
+	 * bType + ", bWriter=" + bWriter + ", bStatus=" + bStatus + ", bCategory=" +
+	 * bCategory + ", cgCategory=" + cgCategory + "]"; }
+	 */
 	
 	
 
