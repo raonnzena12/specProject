@@ -21,8 +21,8 @@ public class Member implements java.io.Serializable { /**
 	private int userMno;
 	private String userEmailHash;
 	private String userDevice;
-		
-
+	private String miFrontName;	
+	private String miProductName;
 
 
 	
@@ -38,12 +38,8 @@ public class Member implements java.io.Serializable { /**
 		this.userPwd = userPwd;
 	}
 
-	
-	
-	
-	
 
-
+	// 정보 수정용 생성자(이벤트 활용 동의 체크 ㄴ)
 	public Member(String userEmail, String userName, char userEvent) {
 		super();
 		this.userEmail = userEmail;
@@ -52,19 +48,8 @@ public class Member implements java.io.Serializable { /**
 	}
 	
 	
-	
 
-
-	public Member(String userEmail, String userName, String phone, char userEvent, int Mno) {
-		super();
-		this.userEmail = userEmail;
-		this.userName = userName;
-		this.phone = phone;
-		this.userEvent = userEvent;
-		this.userMno = userMno;
-	}
-
-
+	// 회원가입용 insertMember1용 생성자
 	public Member(String userEmail, String userPwd, String userName, char userEvent, String userEmailHash) {
 		super();
 		this.userEmail = userEmail;
@@ -73,13 +58,31 @@ public class Member implements java.io.Serializable { /**
 		this.userEvent = userEvent;
 		this.userEmailHash = userEmailHash;
 	}
+	
+	
 
-	public Member(String userEmail, String userPwd, String userName, int userVerify, String userEmailHash) {
+	// 회원가입용 insertMember2용 생성자
+	public Member(String userEmail, String userPwd, String userName, String phone, char userEvent, int userMno,
+			String userEmailHash, String userDevice) {
 		super();
 		this.userEmail = userEmail;
 		this.userPwd = userPwd;
 		this.userName = userName;
-		this.userVerify = userVerify;
+		this.phone = phone;
+		this.userEvent = userEvent;
+		this.userMno = userMno;
+		this.userEmailHash = userEmailHash;
+		this.userDevice = userDevice;
+	}
+
+
+	// 이메일 인증 체크용 생성자
+	public Member(String userEmail, String userPwd, String userName, int userStatus, String userEmailHash) {
+		super();
+		this.userEmail = userEmail;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userStatus= userStatus;
 		this.userEmailHash = userEmailHash;
 	}
 
@@ -130,6 +133,60 @@ public class Member implements java.io.Serializable { /**
 		this.userEvent = userEvent;
 		this.userVerify = userVerify;
 		this.userStatus = userStatus;
+		this.userDevice = userDevice;
+	}
+	
+	// 마이페이지용 생성자
+	public Member(int userNo, String userEmail, String userPwd, String userName, String phone, Date enrollDate,
+			Date modifyDate, char userEvent, int userVerify, int userStatus, String userDevice, String miFrontName, String miProductName) {
+		super();
+		this.userNo = userNo;
+		this.userEmail = userEmail;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.userEvent = userEvent;
+		this.userVerify = userVerify;
+		this.userStatus = userStatus;
+		this.userDevice = userDevice;
+		this.miFrontName = miFrontName;
+		this.miProductName = miProductName;
+	}
+
+	
+	/**
+	 * updateMember 용 생성자
+	 * @param userEmail
+	 * @param userName
+	 * @param phone
+	 * @param userEvent
+	 * @param userMno
+	 */
+	public Member(String userEmail, String userName, String phone, char userEvent, int userMno) {
+		super();
+		this.userEmail = userEmail;
+		this.userName = userName;
+		this.phone = phone;
+		this.userEvent = userEvent;
+		this.userMno = userMno;
+	}
+
+
+	// 로그인 생성자
+	public Member(int userNo, String userEmail, String userPwd, String userName, String phone, Date enrollDate,
+			Date modifyDate, char userEvent,  int userMno, String userDevice) {
+		super();
+		this.userNo = userNo;
+		this.userEmail = userEmail;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.userEvent = userEvent;
+		this.userMno = userMno;
 		this.userDevice = userDevice;
 	}
 
@@ -272,6 +329,40 @@ public class Member implements java.io.Serializable { /**
 	public void setUserEmailHash(String userEmailHash) {
 		this.userEmailHash = userEmailHash;
 	}
+
+	
+	// user device 기종 이름
+	public String getUserDevice() {
+		return userDevice;
+	}
+
+
+	public void setUserDevice(String userDevice) {
+		this.userDevice = userDevice;
+	}
+
+	
+	// 기종 제품 명
+	public String getMiProductName() {
+		return miProductName;
+	}
+
+
+	public void setMiProductName(String miProductName) {
+		this.miProductName = miProductName;
+	}
+
+
+	public String getMiFrontName() {
+		return miFrontName;
+	}
+
+
+	public void setMiFrontName(String miFrontName) {
+		this.miFrontName = miFrontName;
+	}
+	
+	
 
 
 	@Override
