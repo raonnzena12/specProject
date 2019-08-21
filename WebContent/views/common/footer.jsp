@@ -33,7 +33,6 @@
 </style>
 </head>
 <body>
-
 	<footer>
 		<div id="footer-1">
 			<div id="footer-nav">

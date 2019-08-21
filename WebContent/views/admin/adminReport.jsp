@@ -129,6 +129,9 @@
 		font-weight: 400;
 		z-index: 1000;
 	}
+	.clear {
+		clear: both;
+	}
 </style>
 </head>
 <body>
@@ -225,8 +228,8 @@
 			<span class="pagingBtn clickBtn"
 				onclick="location.href='<%= request.getContextPath() %>/adminReport.do?currentPage=<%= maxPage %>'">&gt;&gt;</span>
 		</div>
-		
 	</section>
+		<div class="clear"></div>
 	<script>
 		$(function(){
 			// 경고처리를 하나 눌렀을 떄
