@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import mobile.model.service.MobileService;
 import mobile.model.vo.CompareT;
 import mobile.model.vo.MoImage;
+import mobile.model.vo.Mobile;
 
 
 @WebServlet("/mainPageRank.bo")
@@ -31,11 +32,14 @@ public class MainMobileRankingServlet extends HttpServlet {
 		
 		ArrayList<MoImage> img = new MobileService().mobileImg();
 		
+		ArrayList<Mobile> hList = new MobileService().mobileHotRank();
+		
 		String page = "";
 		if(rankList != null) {
 				page="views/common/mainPage.jsp";
 				request.setAttribute("rankList", rankList);
-				request.setAttribute("img", img); 
+				request.setAttribute("img", img);
+				request.setAttribute("hList", hList); 
 				
 		}else{
 			page = "views/common/errorPage.jsp";

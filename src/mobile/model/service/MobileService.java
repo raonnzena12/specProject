@@ -515,6 +515,10 @@ public class MobileService {
 	
 	//------------------------------mainPage-----------------------------------
 	
+	/**
+	 * 매칭 폰 랭킻 조회용 Service
+	 * @return rankList
+	 */
 	public ArrayList<CompareT> mobileRank() {
 		Connection conn = getConnection();
 		
@@ -522,7 +526,19 @@ public class MobileService {
 		
 		return rankList;
 	}
-
+	
+	/**
+	 * 인기 폰 랭킹 조회용 Service
+	 * @return hList
+	 */
+	public ArrayList<Mobile> mobileHotRank() {
+		Connection conn = getConnection();
+		
+		ArrayList<Mobile> hList = new MobileDao().mobileHotRank(conn);
+		
+		return hList;
+	}
+	
 	/**
 	 * 최근 업데이트 폰 이미지 조회용 Service
 	 * @return img
@@ -547,7 +563,5 @@ public class MobileService {
 		else rollback(conn);
 		return result;
 	}
-	
-	
 	
 }

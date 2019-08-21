@@ -67,8 +67,11 @@
             height: 100px;
             margin-top: 20px;
             margin-left: 38px;
-            background-color: gray;
             color : white;
+            background-color:#4F90CC;
+			font-size: 50px;
+			text-align: center;
+			padding-top:12px;
         }
         #text{
         	width: 900px;
@@ -190,7 +193,7 @@
 	</header>
 	
 	<section id="ad">
-     	<article id="ad2">광고</article>
+     	<article id="ad2">AD</article>
    	</section>
    	
    	<section id="content">

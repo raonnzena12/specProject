@@ -1200,7 +1200,7 @@ public class MobileDao {
 	//---------------------mainPage------------------------------
 	
 	/**
-	 * 모바일 랭킹 Dao
+	 * 모바일 매칭 랭킹 Dao
 	 * @return rankList
 	 */
 	public ArrayList<CompareT> mobileRank(Connection conn) {
@@ -1237,6 +1237,36 @@ public class MobileDao {
 		
 		return rankList;
 	}
+	
+	public ArrayList<Mobile> mobileHotRank(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Mobile> hList = null;
+		
+		String query = prop.getProperty("mobileHRank");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			hList = new ArrayList<Mobile>();
+			
+			while(rset.next()) {
+				hList.add(new Mobile(rset.getInt("MO_NO"),
+									rset.getString("MO_NAME"),
+									rset.getString("MO_NAME_EN")));
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return hList;
+	}
+
 
 	/**
 	 * 최근 업데이트된 폰 이미지 조회용 Dao
@@ -1298,7 +1328,6 @@ public class MobileDao {
 		}
 		return result;
 	}
-
 
 
 }
