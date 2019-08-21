@@ -480,6 +480,11 @@ public class AdminService {
 		
 		int result = new AdminDao().updateReport(conn, tno, refNo);
 		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		return result;
 	}
 
@@ -488,6 +493,11 @@ public class AdminService {
 		
 		int result = new AdminDao().resultUpdate(conn, rNo);
 		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		return result;
 	}
 
@@ -496,6 +506,11 @@ public class AdminService {
 		
 		int result = new AdminDao().reportDelete(conn, tno, refNo);
 		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		return result;
 	}
 
