@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>MENUBAR</title>
+<%@ include file ="/views/common/footer.jsp" %>
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -43,7 +44,21 @@
         /* min-width: 1200px !important; */
         width:100%;
         margin: auto;
+        min-height: 100%;
         height: auto;
+        position: relative;
+        
+    }
+         footer {
+        background-color: #8ba7c9;
+        width: 100%;
+        height: 180px;
+        z-index: 2;
+        bottom: 0;
+        margin: auto;
+        color: white;
+    	text-align: center;
+        position: absolute;
     }
     header {
         background-color: #00264B;
