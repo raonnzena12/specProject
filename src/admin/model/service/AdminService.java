@@ -59,6 +59,13 @@ public class AdminService {
 
 		return cList;
 	}
+	public ArrayList<AdminReport> selectReport() {
+		Connection conn = getConnection();
+
+		ArrayList<AdminReport> rList = new AdminDao().selectReport(conn);
+
+		return rList;
+	}
 
 	// --------------------------------------- 관리자 멤버
 	// ------------------------------------------------
@@ -513,6 +520,7 @@ public class AdminService {
 		}
 		return result;
 	}
+
 
 
 

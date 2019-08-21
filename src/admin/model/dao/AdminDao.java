@@ -148,6 +148,40 @@ public class AdminDao {
 		return cList;
 	}
 
+	
+	public ArrayList<AdminReport> selectReport(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		AdminReport r = null;
+		ArrayList<AdminReport> rList = null;
+		
+		String query = prop.getProperty("selectReport");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			rList = new ArrayList<AdminReport>();
+			while(rset.next()) {
+				r = new AdminReport();
+				r.setrDate(rset.getString("REPORT_DATE"));
+				r.setrContent(rset.getString("REPORT_CONT"));
+				
+				rList.add(r);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return rList;
+	}
+
+	
+	
 	// -------------------------------------------- Member
 	// -----------------------------------------------
 
@@ -1236,6 +1270,6 @@ public class AdminDao {
 		return result;
 	}
 
-
+	
 
 }
