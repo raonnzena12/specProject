@@ -401,9 +401,9 @@
   	
   	selectRlist();
   	
-  	/* setInterval(function(){
+  	setInterval(function(){
   		selectRlist();
-  	}, 3000); */
+  	}, 3000);
   	
   	// 댓글 삭제
   	

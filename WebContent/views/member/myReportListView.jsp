@@ -137,14 +137,14 @@
 			<li><a href="<%=request.getContextPath()%>/mypage.me">회원정보</a></li>
 			<li><a href="<%=request.getContextPath()%>/myBoardList.me">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/myReviewList.me">작성리뷰보기</a></li>
-			<li><a href="<%=request.getContextPath()%>/myReportList.me">작성댓글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReplyList.me">작성댓글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/myReportList.me" id="now">신고내역보기</a></li>
 		</ul>
     </nav>
     <div id="articleLayer">
 	    <div id="articleText">
 	    	<p class="font">신고 내역 보기</p>
-	    	<p class="total"><%=pIf.getListCount()%></p>
+	    	<p class="total">Total : <%=pIf.getListCount()%></p>
 	    </div>
     	<table id="articleTable" class="table">
 		  <thead>
