@@ -254,7 +254,9 @@
 		#ranking td,th{
 			text-align:center;
 		}
-	
+		.logoimg{
+			margin-top:30px;
+		}
 	</style>
 
 </head>
@@ -356,10 +358,10 @@
 			<article class="brandimg"><img class="img-rounded" src="../../image/logo/logo-samsung.png" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:samsung'"></article>
 			<article class="brandimg"><img class="img-rounded" src="../../image/logo/logo-lg.png" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:lgelec'"></article>
 			<article class="brandimg"><img class="img-rounded" src="../../image/logo/logo-apple.png" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:apple'"></article>
-			<article class="brandimg"><img class="img-rounded" src="../../image/logo/logo-sony.png" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:sonymobile'"></article>
-			<article class="brandimg"><img class="img-rounded" src="../../image/logo/logo-nokia.png" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:nokia'"></article>
-			<article class="brandimg"><img class="img-rounded" src="../../image/logo/logo-motorola.png" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:motorola'"></article>
-			<article class="brandimg"><img class="img-rounded" src="../../image/logo/logo-Pantech.png" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:pantech'"></article>
+			<article class="brandimg"><img class="img-rounded logoimg" src="../../image/logo/logo-sony.png" alt="" width="150px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:sonymobile'"></article>
+			<article class="brandimg"><img class="img-rounded logoimg" src="../../image/logo/logo-nokia.png" alt="" width="150px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:nokia'"></article>
+			<article class="brandimg"><img class="img-rounded logoimg" src="../../image/logo/logo-motorola.png" alt="" width="150px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:motorola'"></article>
+			<article class="brandimg"><img class="img-rounded logoimg" src="../../image/logo/logo-Pantech.png" alt="" width="150px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:pantech'"></article>
 		</section>
 		
 		<section id="mainAd2">
