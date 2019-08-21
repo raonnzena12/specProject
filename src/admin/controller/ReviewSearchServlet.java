@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import admin.model.service.AdminService;
 import admin.model.vo.*;
 
-@WebServlet("/reviewSearch.ad")
+@WebServlet("/reviewSearch.ad") 
 public class ReviewSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
