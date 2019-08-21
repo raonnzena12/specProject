@@ -77,7 +77,7 @@
                     </tr>
                     <tr>
                         <td>출시일</td>
-                        <td><input type="text" class="form-control" name="releaseDate" placeholder="2000-01-01"></td>
+                        <td><input type="text" class="form-control" name="releaseDate" placeholder="2000/01/01"></td>
                         <td>출시OS</td>
                         <td>
                         <div class="form-row align-items-center">

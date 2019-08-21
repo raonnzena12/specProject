@@ -57,6 +57,8 @@ public class CompareViewServlet extends HttpServlet {
 		
 		Mobile device1 = ms.selectMobile(com1);
 		Mobile device2 = ms.selectMobile(com2);
+		int result1 = ms.countUpMobile(com1);
+		int result2 = ms.countUpMobile(com2);
 		
 		request.setAttribute("device1", device1);
 		request.setAttribute("device2", device2);

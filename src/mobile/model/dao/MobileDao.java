@@ -1184,6 +1184,8 @@ public class MobileDao {
 		return ct;
 	}
 
+	
+	
 /* 	
  * for ( int i = 0 ; i < fileList.size(); i ++ ) {
 		Attachment at = fileList.get(i);
@@ -1195,5 +1197,137 @@ public class MobileDao {
 		 *  result += pstmt.executeUpdate();
 		*/
 	
+	//---------------------mainPage------------------------------
+	
+	/**
+	 * 모바일 매칭 랭킹 Dao
+	 * @return rankList
+	 */
+	public ArrayList<CompareT> mobileRank(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<CompareT> rankList = null;
+		
+		String query = prop.getProperty("mobileRank");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			rankList = new ArrayList<CompareT>();
+			
+			while(rset.next()) {
+				CompareT c = new CompareT(rset.getInt("COM_MNO1"),
+										rset.getString("MO_NAME1"),
+										rset.getInt("COM_MNO2"),
+										rset.getString("MO_NAME2")
+										);
+				rankList.add(c);
+			}
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return rankList;
+	}
+	
+	public ArrayList<Mobile> mobileHotRank(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Mobile> hList = null;
+		
+		String query = prop.getProperty("mobileHRank");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			hList = new ArrayList<Mobile>();
+			
+			while(rset.next()) {
+				hList.add(new Mobile(rset.getInt("MO_NO"),
+									rset.getString("MO_NAME"),
+									rset.getString("MO_NAME_EN")));
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return hList;
+	}
+
+
+	/**
+	 * 최근 업데이트된 폰 이미지 조회용 Dao
+	 * @param conn
+	 * @return img
+	 */
+	public ArrayList<MoImage> mobileImg(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<MoImage> img = null;
+		
+		String query = prop.getProperty("mobileUpdateImg");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			img = new ArrayList<MoImage>();
+			
+			while(rset.next()) {
+				img.add(new MoImage(rset.getInt("MO_NO"),
+						rset.getString("MI_FRONTNAME")));
+			}
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return img;
+	}
+
+	/**
+	 * 모바일 디바이스 조회수 올리는 DAO
+	 * @param conn
+	 * @param mId
+	 * @return result
+	 */
+	public int countUpMobile(Connection conn, int mId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("countUpMobile");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mId);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 
 }

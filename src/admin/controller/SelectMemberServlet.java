@@ -32,7 +32,11 @@ public class SelectMemberServlet extends HttpServlet {
 		
 		System.out.println("--------------------------- 서블릿 ---------------------------");
 		
-		String sort = request.getParameter("sort");
+		String sort = "no";
+		if(request.getParameter("sort") != null) {
+			sort = request.getParameter("sort");			
+		}
+		
 		int sortNum = 5;
 		if(request.getParameter("sortNum") != null) {
 			sortNum = Integer.parseInt(request.getParameter("sortNum"));

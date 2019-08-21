@@ -509,4 +509,59 @@ public class MobileService {
 		CompareT ct = new MobileDao().selectCompareTable(conn, mno);
 		return ct;
 	}
+
+	
+
+	
+	//------------------------------mainPage-----------------------------------
+	
+	/**
+	 * 매칭 폰 랭킻 조회용 Service
+	 * @return rankList
+	 */
+	public ArrayList<CompareT> mobileRank() {
+		Connection conn = getConnection();
+		
+		ArrayList<CompareT> rankList = new MobileDao().mobileRank(conn);
+		
+		return rankList;
+	}
+	
+	/**
+	 * 인기 폰 랭킹 조회용 Service
+	 * @return hList
+	 */
+	public ArrayList<Mobile> mobileHotRank() {
+		Connection conn = getConnection();
+		
+		ArrayList<Mobile> hList = new MobileDao().mobileHotRank(conn);
+		
+		return hList;
+	}
+	
+	/**
+	 * 최근 업데이트 폰 이미지 조회용 Service
+	 * @return img
+	 */
+	public ArrayList<MoImage> mobileImg() {
+		Connection conn = getConnection();
+		
+		ArrayList<MoImage> img = new MobileDao().mobileImg(conn);
+		
+		return img;
+	}
+
+	/**
+	 * 모바일 디바이스 조회수 올리는 Service
+	 * @param mId
+	 * @return result
+	 */
+	public int countUpMobile(int mId) {
+		Connection conn = getConnection();
+		int result = new MobileDao().countUpMobile(conn, mId);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+	
 }
