@@ -158,7 +158,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 						<tr>
 							<td><i class="material-icons">phone</i></td>
 							<th>신고 관리</th>
-							<td><a href="#">more></td>
+							<td><a href="<%=request.getContextPath()%>/adminReport.do">more></td>
 						</tr>
 					</table>
 				</div>

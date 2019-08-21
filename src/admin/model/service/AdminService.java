@@ -433,7 +433,71 @@ public class AdminService {
 		ArrayList<AdminReview> sList = new AdminDao().searchAdminReview(conn, type, keyWord, currentPage, limit);
 		return sList;
 	}
+	
+	
+////////////////////////////////////////////// REPORT 관리 ///////////////////////////////////////////////
 
+	
+	
+	
+	
+	/**
+	 * 관리자 신고된 글 sort로 불러오는 Service
+	 * @param sort
+	 * @return
+	 */
+	public int reportSortCount(int sort) {
+		Connection conn = getConnection();
+		int reportSortCount = new AdminDao().reportSortCount(conn, sort);
+		return reportSortCount;
+	}
+
+	/**
+	 * 관리자 신고된글 전체 개수 불러오는 service
+	 * @return
+	 */
+	public int reportTotalCount() {
+		Connection conn = getConnection();
+		int reportTotalCount = new AdminDao().reportTotalCount(conn);
+		return reportTotalCount;
+	}
+
+	/**
+	 * 관리자 신고된 글 전체 리스트 불러오는 서비스
+	 * @param currentPage
+	 * @param limit
+	 * @return
+	 */
+	public ArrayList<AdminReport> reportList(int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<AdminReport> rList = new AdminDao().reportList(conn, currentPage, limit);
+		
+		return rList;
+	}
+
+	public int reportUpdate(int tno, int refNo) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().updateReport(conn, tno, refNo);
+		
+		return result;
+	}
+
+	public int resultUpdate(int rNo) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().resultUpdate(conn, rNo);
+		
+		return result;
+	}
+
+	public int reportDelete(int tno, int refNo) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().reportDelete(conn, tno, refNo);
+		
+		return result;
+	}
 
 
 
