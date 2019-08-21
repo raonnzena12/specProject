@@ -108,7 +108,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 				<li><a href="<%=request.getContextPath()%>/adminBoard.do">글 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminComment.ad">댓글 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminReview.ad">리뷰 관리</a></li>
-				<li><a href="#">신고 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/adminReport.do">신고 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/loadAdminCalendar.do">일정 관리</a></li>
 			</ul>
 		</div>
@@ -292,33 +292,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			});
 		}
 		
-		function selectReport() {
-			$.ajax({
-				url : "../../adminSelectReview.do",
-				type : "post",
-				dataType : "json",
-				success : function(map) {
-					if(map != null) {
-						var $reportTable = $("#reportTable");
-						
- 						for(var i=0; i<2; i++) {
-							var $tr = $("<tr>");
-							var $icon = $("<td>").html('<i class="material-icons">textsms</i>');
-							var $title = $("<td>").text(map[i].rTitle);
-							var $enDate = $("<td>").text(map[i].rRegDate);
-							
-							$tr.append($icon);
-							$tr.append($title);
-							$tr.append($enDate);
-							$reportTable.append($tr);
-						}
-					}
-				},
-				error : function() {
-					alert('리뷰 정보를 불러오는 중 에러 발생');
-				}
-			});
-		}
+		
 		
 		function selectCalendar() {
 			$.ajax({
@@ -348,6 +322,34 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			});
 		}
 		
+		function selectReport() {
+			$.ajax({
+				url : "../../adminSelectReport.do",
+				type : "post",
+				dataType : "json",
+				success : function(map) {
+					if(map != null) {
+						var $reportTable = $("#reportTable");
+						
+ 						for(var i=0; i<2; i++) {
+							var $tr = $("<tr>");
+							var $icon = $("<td>").html('<i class="material-icons">phone</i>');
+							var $title = $("<td>").text(map[i].rContent);
+							var $enDate = $("<td>").text(map[i].rDate);
+							
+							$tr.append($icon);
+							$tr.append($title);
+							$tr.append($enDate);
+							$reportTable.append($tr);
+						}
+					}
+				},
+				error : function() {
+					alert('글 정보를 불러오는 중 에러 발생');
+				}
+			});
+		}
+		
 		selectMember(); 
 		
 		selectBoard();
@@ -355,6 +357,8 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		selectComment();
 		
 		selectReview();
+		
+		selectReport();
 		
 		selectCalendar();
 

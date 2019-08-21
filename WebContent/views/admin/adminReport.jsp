@@ -139,7 +139,7 @@
 				<li><a href="<%=request.getContextPath()%>/adminBoard.do">글 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminComment.ad">댓글 관리</a></li>
 				<li><a href="#">리뷰 관리</a></li>
-				<li><a href="#">신고 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/adminReport.do">신고 관리</a></li>
 				<li><a href="#">일정 관리</a></li>
 			</ul>
 		</div>
@@ -150,19 +150,6 @@
 			<table class="table table-sm table-hover border-bottom">
 				<thead>
 					<tr>
-					
-					
-					<%-- <th scope="col" style="width:80px">No<% if ( sort < 5 && sort > 0 ) { %><i class="material-icons arrow" id="noOrderBy">arrow_drop_down</i><% } %></th>
-					<th scope="col" id="typeSelector">글 제목<% if ( sort > 0 ) { %><i class="material-icons arrow" id="conTypeSelect">arrow_drop_down</i>
-						<div id="myDropdown" class="dropdown-content">
-							<a href='<%= request.getContextPath() %>/adminReport.do?currentPage=<%= currentPage %>&limit=<%=limit%>'>전체글</a>
-							<a href='<%= request.getContextPath() %>/adminReport.do?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=5'>처리</a>
-							<a href='<%= request.getContextPath() %>/adminReport.do?currentPage=<%= currentPage %>&limit=<%=limit%>&sort=6'>미처리</a>
-						</div>
-						<% } %>
-					</th>
-					 --%>
-					
 					
 					
 					<th scope="col" style="width:100px">닉네임</th>
