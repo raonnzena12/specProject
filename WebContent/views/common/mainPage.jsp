@@ -274,7 +274,8 @@
 			height:250px;
 			float:left;
 			display:block;
-			margin: 25px 50px 0 110px;
+			margin: 25px 60px 0 100px;
+			/* border:1px solid black; */
 		}
 		#rank2{
 			width:400px;
@@ -282,6 +283,7 @@
 			float:left;
 			display:block;
 			margin: 25px 0 0 0;
+			/* border:1px solid black; */
 		}
 		#ranking p{
 			text-align:center;
@@ -370,16 +372,20 @@
 			<article id="rank2">
 				<p class="text-warning">HOT SEARCH</p>
 				<table class="table table-condensed">
+					<thead>
 					<tr>
 						<th scope="col" width="30%">순위</th>
 						<th scope="col" width="70%">모델명</th>
 					</tr>
-					<%for(int i = 0 ; i < hList.size(); i++ ) { %>
-						<tr>
-							<td><%= i+1 %></td>
-							<td class="name" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=hList.get(i).getmNo()%>&page=1'"><%= hList.get(i).getmName()%></td>
-						</tr>
-					<% } %>
+					</thead>
+					<tbody>
+						<%for(int i = 0 ; i < hList.size(); i++ ) { %>
+							<tr>
+								<td><%= i+1 %></td>
+								<td class="name" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=hList.get(i).getmNo()%>&page=1'"><%= hList.get(i).getmName()%></td>
+							</tr>
+						<% } %>
+					</tbody>
 				</table>
 			</article>
 		</section>
