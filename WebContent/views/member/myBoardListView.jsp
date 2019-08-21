@@ -140,7 +140,7 @@
     <div id="articleLayer">
 	    <div id="articleText">
 	    	<p class="font">작성글 보기</p>
-	    	<p class="total"><%=bpi.getBoardCount()%></p>
+	    	<p class="total">Total : <%=bpi.getBoardCount()%></p>
 	    </div>
     	<table id="articleTable" class="table table-hover">
 		  <thead>

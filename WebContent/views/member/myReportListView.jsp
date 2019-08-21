@@ -144,7 +144,7 @@
     <div id="articleLayer">
 	    <div id="articleText">
 	    	<p class="font">신고 내역 보기</p>
-	    	<p class="total"><%=pIf.getListCount()%></p>
+	    	<p class="total">Total : <%=pIf.getListCount()%></p>
 	    </div>
     	<table id="articleTable" class="table">
 		  <thead>
