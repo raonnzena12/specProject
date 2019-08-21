@@ -14,6 +14,7 @@ import java.util.Properties;
 import admin.model.vo.AdminBoard;
 import admin.model.vo.AdminMember;
 import admin.model.vo.AdminReply;
+import admin.model.vo.AdminReport;
 import admin.model.vo.AdminReview;
 import board.model.vo.Board;
 import calendar.model.vo.Calendar;
@@ -1043,6 +1044,196 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return sList;
+	}
+
+	/**
+	 * 관리자 신고된 글 sort로 개수 불러오는 dao
+	 * @param conn
+	 * @param sort
+	 * @return
+	 */
+	public int reportSortCount(Connection conn, int sort) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+
+		String query = prop.getProperty("reportSortCount" + sort);
+
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+
+			if (rset.next()) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return totalCount;
+	}
+
+	
+	
+//////////////////////////////////////////////// report //////////////////////////////////////////////
+	
+	/**
+	 * 관리자 신고된 글 전체 개수 불러오는 dao
+	 * @param conn
+	 * @return
+	 */
+	public int reportTotalCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("reportTotalCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<AdminReport> reportList(Connection conn, int currentPage, int limit) {
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		ArrayList<AdminReport> rList = null;
+		AdminReport aReport = null;
+		
+		String query = prop.getProperty("reportList");
+		try {
+			pstmt = conn.prepareStatement(query);
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			rList = new ArrayList<AdminReport>();
+			while(rset.next()) {
+				aReport = new AdminReport();
+				aReport.setrNo(rset.getInt("REPORT_NO"));
+				aReport.setrContent(rset.getString("REPORT_CONT"));
+				aReport.setrRefNo(rset.getInt("REPORT_CONNO"));
+				aReport.setrDate(rset.getString("REPORT_DATE2"));
+				aReport.setrResult(rset.getInt("REPORT_RESULT"));
+				aReport.setrWriter(rset.getInt("REPORT_WRI"));
+				aReport.setrUser(rset.getInt("REPORT_USER"));
+				aReport.setrTableNo(rset.getInt("REPORT_REF_NO"));
+				aReport.setReRefCont(rset.getString("REPORT_REF_CONT"));
+				aReport.setReRefContType(rset.getString("REPORT_CON_TYPE"));
+				aReport.setReStatusType(rset.getString("REPORT_STATUS_TYPE"));
+				aReport.setrWriter2(rset.getString("USER_NAME"));
+				
+				rList.add(aReport);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rList;
+	}
+
+	public int updateReport(Connection conn, int tno, int refNo) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("updateReport"+tno);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, refNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	/**
+	 * 신고 처리 업데이트
+	 * @param conn
+	 * @param rNo
+	 * @return
+	 */
+	public int resultUpdate(Connection conn, int rNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("resultUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * 신고글 삭제 dao
+	 * @param conn
+	 * @param tno
+	 * @param refNo
+	 * @return
+	 */
+	public int reportDelete(Connection conn, int tno, int refNo) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("reportDelete"+tno);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, refNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
 
 
