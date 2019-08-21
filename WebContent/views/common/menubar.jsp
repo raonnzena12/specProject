@@ -91,7 +91,7 @@
     
     #mypageMenu{
     	width: 200px;
-        height: 200px;
+        height: 230px;
         background-color: white;
         border: 1px solid #ccc;
         float: right;
@@ -278,6 +278,7 @@
         		<li><a href="<%=request.getContextPath()%>/myBoardList.me">내글관리</a></li>
         		<li><a href="<%=request.getContextPath()%>/myReviewList.me">내리뷰관리</a></li>
         		<li><a href="<%=request.getContextPath()%>/myReplyList.me">내댓글관리</a></li>
+        		<li><a href="<%=request.getContextPath()%>/myReportList.me">신고내역보기</a></li>
         		<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
         	</ul>
         </div>
