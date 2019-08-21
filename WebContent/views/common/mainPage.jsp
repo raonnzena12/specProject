@@ -158,10 +158,13 @@
 			margin:auto;
 		}
 		#brand{
-			height:220px;
+			height:auto;
 			clear:both;
 			width:1080px;
 			margin:auto;
+		}
+		#brandLogo {
+			padding: 0 60px;
 		}
 		#mainAd2{
 			height:200px;
@@ -183,8 +186,6 @@
 			color:white;
 			text-align: center;
 			padding-top:50px;
-			
-			
 		}
 		#mainAd1-2{
 			width:270px;
@@ -253,6 +254,10 @@
 			bottom: 0;
 			left: 0;
 			right: 0;
+		}
+		.xiaomi {
+			width: 100px;
+			height: auto;
 		}
 		#subAd{
 			width:1060px;
@@ -403,6 +408,7 @@
 					<h4>BRAND</h4>
 					<a href='<%=request.getContextPath()%>/devicelist.mo'>More ></a>
 			</article>
+			<section id="brandLogo">
 			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-samsung.png" title="SAMSUNG" alt="SAMSUNG" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:samsung'"></article>
 			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-lg.png" title="LG" alt="LG" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:lgelec'"></article>
 			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-apple.png" title="APPLE" alt="APPLE" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:apple'"></article>
@@ -410,6 +416,8 @@
 			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-nokia.png" title="NOKIA" alt="NOKIA" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:nokia'"></article>
 			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-motorola.png" title="MOTOROLA" alt="MOTOROLA" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:motorola'"></article>
 			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-Pantech.png"title="PANTECH" alt="PANTECH" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:pantech'"></article>
+			<article class="brandimg"><img class="img-rounded logoimg xiaomi" src="image/logo/logo-Xiaomi.png"title="XIAOMI" alt="XIAOMI" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?'"></article>
+			</section>
 		</section>
 		
 		<section id="mainAd2">
