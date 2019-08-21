@@ -26,9 +26,6 @@
 <title>admin-review</title>
 <%@ include file ="/views/common/menubar.jsp" %>
 <style>
-	#tttt{
-		height: auto;
-	}
 	#adminContent {
 		width: 1200px;
 		min-height: 600px;
@@ -51,7 +48,6 @@
     	width : 20%;
     	min-height : 600px;
     	height: auto;
-    	border-right: 1px solid gray;
     	float: left;
     }
     .menu-ul {
@@ -74,6 +70,7 @@
     	height: 100%;
     	float: left;
     	padding: 50px 50px;
+    	border-left: 1px solid gray;
     }
 	.control span {
 		font-size: 12px;
@@ -245,14 +242,14 @@
 		<!-- 페이징 처리 시작! -->
 		<div class="pagingArea">
 			<!-- 맨 처음으로(<<) -->
-			<span class="pagingBtn clickBtn" onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=1&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=1&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;&lt;</span>
+			<span class="pagingBtn clickBtn" onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=1&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/reviewSearch.ad?currentPage=1&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;&lt;</span>
 		
 			<!-- 이전 페이지로(<) -->
 			<% if(currentPage <= 1 || currentPage <= pagingBarSize ) { %>
 				<span class="pagingBtn">&lt;</span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href=<% if (sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;</span>
+					onclick="location.href=<% if (sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/reviewSearch.ad?currentPage=<%= currentPage-pagingBarSize %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&lt;</span>
 			<% } %>
 			
 			<!-- 페이지 목록 -->
@@ -261,7 +258,7 @@
 					<span class="pagingBtn selectBtn"><%= p %></span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= p %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= p %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>"><%=p%></span>
+						onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= p %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/reviewSearch.ad?currentPage=<%= p %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>"><%=p%></span>
 				<% } %>
 			<%} %>
 			
@@ -270,12 +267,12 @@
 				<span class="pagingBtn"> &gt; </span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;</span>
+					onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/reviewSearch.ad?currentPage=<% if ( maxPage - currentPage >= pagingBarSize ) { %><%=currentPage+pagingBarSize%><% } else { %><%=maxPage%><% } %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;</span>
 			<% } %>
 			
 			<!-- 맨 끝으로(>>) -->
 			<span class="pagingBtn clickBtn"
-				onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;&gt;</span>
+				onclick="location.href=<% if ( sort != 0 ) { %>'<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&sort=<%=sort%>'<% } else { %>'<%= request.getContextPath() %>/reviewSearch.ad?currentPage=<%= maxPage %>&limit=<%=limit%>&type=<%=searchType%>&keyWord=<%=keyWord%>'<% } %>">&gt;&gt;</span>
 		</div>
 		<div class="input-group input-group-sm mb-3">
 		<select class="custom-select my-1 mr-sm-2 custom-select-sm" id="selectLimit">
@@ -384,9 +381,7 @@
 				var keyWord = $("#serarchKeyW").val().trim();
 				if ( keyWord.length == 0 ) return false;
 				var type = $("#searchSelect").val();
-
-				location.href='<%=request.getContextPath()%>/commentSearch.ad?type='+type+'&keyWord='+keyWord+'&limit=<%=limit%>';
-
+				location.href='<%=request.getContextPath()%>/reviewSearch.ad?type='+type+'&keyWord='+keyWord+'&limit=<%=limit%>';
 			});
 			// limit 변경했을때
 			$("#selectLimit").change(function(){
@@ -394,7 +389,7 @@
 				if ( limit != "---" && <%=sort!= 0%> ) {
 					location.href='<%= request.getContextPath() %>/adminReview.ad?currentPage=<%= currentPage %>&limit='+limit+'&sort=<%=sort%>';
 				} else {
-					location.href='<%= request.getContextPath() %>/commentSearch.ad?currentPage=<%= currentPage %>&limit='+limit+'&type=<%=searchType%>&keyWord=<%=keyWord%>';
+					location.href='<%= request.getContextPath() %>/reviewSearch.ad?currentPage=<%= currentPage %>&limit='+limit+'&type=<%=searchType%>&keyWord=<%=keyWord%>';
 				}
 			});
 			// sort 변경했을 때

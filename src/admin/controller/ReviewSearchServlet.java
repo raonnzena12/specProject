@@ -10,14 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import admin.model.service.AdminService;
-import admin.model.vo.AdminBoard;
-import admin.model.vo.AdminPageInfo;
+import admin.model.vo.*;
 
-@WebServlet("/boardSearch.ad")
-public class ContentSearchServlet extends HttpServlet {
+@WebServlet("/reviewSearch.ad")
+public class ReviewSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ContentSearchServlet() {
+    public ReviewSearchServlet() {
         super();
     }
 
@@ -26,7 +25,7 @@ public class ContentSearchServlet extends HttpServlet {
 		String keyWord = request.getParameter("keyWord");
 		
 		AdminService aService = new AdminService();
-		int totalContent =  aService.contentCount(type, keyWord);
+		int totalContent =  aService.reviewCount(type, keyWord);
 		
 		// 페이징 처리용 변수 선언
 		int limit = 0; // 한 페이지에 보여질 게시글 수
@@ -57,12 +56,11 @@ public class ContentSearchServlet extends HttpServlet {
 		AdminPageInfo pInf = new AdminPageInfo(totalContent, limit, pagingBarSize, currentPage, maxPage, startPage, endPage, sort, type, keyWord);
 		
 		
-		ArrayList<AdminBoard> sList = aService.searchAdminBoard(type, keyWord, currentPage, limit);
+		ArrayList<AdminReview> sList = aService.searchAdminReview(type, keyWord, currentPage, limit);
 		
 			request.setAttribute("sList", sList);
 			request.setAttribute("pInf", pInf);
-			request.getRequestDispatcher("views/admin/adminContent.jsp").forward(request, response);
-		
+			request.getRequestDispatcher("views/admin/adminReview.jsp").forward(request, response);
 		
 	}
 
