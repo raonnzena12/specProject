@@ -142,6 +142,9 @@
 		font-weight: 400;
 		z-index: 1000;
 	}
+	.clear {
+		clear:both;
+	}
 </style>
 </head>
 <body>

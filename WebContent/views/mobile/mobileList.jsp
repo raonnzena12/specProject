@@ -35,7 +35,7 @@
     #mobileList .sidenav {
         height: 100%; /* Full-height: remove this if you want "auto" height */
         width: 250px; /* Set the width of the sidebar */
-        position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+        position: absolute; /* Fixed Sidebar (stay in place on scroll) */
         z-index: 1; /* Stay on top */
         top: 0; /* Stay at the top */
         left: 0;
@@ -721,7 +721,12 @@
         }
         $(function(){
             $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-                if($(window).scrollTop() >= ($(document).height() - $(window).height() - 0.5) ){
+            	console.log($(window).scrollTop());
+            	console.log($(document).height());
+            	console.log($(window).height());
+            	console.log($(document).height() - $(window).height());
+            	console.log($(window).scrollTop() >= ($(document).height() - $(window).height() - 0.5));
+                if($(window).scrollTop() >= ($(document).height() - $(window).height()-0.5 ) ) {
                     if ( currentPage == maxPage ) return false;
                     $("#loadingImg").css("opacity","1");
                     setTimeout(function(){
