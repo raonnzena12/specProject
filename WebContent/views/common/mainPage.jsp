@@ -295,6 +295,9 @@
 			text-align:center;
 			font-weight:bold;
 		}
+		#ranking .name{
+			cursor: pointer;
+		}
 	</style>
 
 </head>
@@ -355,7 +358,7 @@
 				</thead>
 				<tbody>
 					<%for(int i = 0 ; i < rankList.size() ; i++ ) { %>
-						<tr>
+						<tr class="name" onclick="location.href='<%=request.getContextPath()%>/compareSpec.mo?com1=<%=rankList.get(i).getComDevice1()%>&com2=<%=rankList.get(i).getComDevice2()%>'">
 							<td><%= i+1 %></td>
 							<td><%= rankList.get(i).getComDevice1Name()%></td>
 							<td><%= rankList.get(i).getComDevice2Name()%></td>
@@ -374,7 +377,7 @@
 					<%for(int i = 0 ; i < hList.size(); i++ ) { %>
 						<tr>
 							<td><%= i+1 %></td>
-							<td><%= hList.get(i).getmName()%></td>
+							<td class="name" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=hList.get(i).getmNo()%>&page=1'"><%= hList.get(i).getmName()%></td>
 						</tr>
 					<% } %>
 				</table>
@@ -411,14 +414,14 @@
 					<a href='<%=request.getContextPath()%>/devicelist.mo'>More ></a>
 			</article>
 			<section id="brandLogo">
-			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-samsung.png" title="SAMSUNG" alt="SAMSUNG" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:samsung'"></article>
-			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-lg.png" title="LG" alt="LG" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:lgelec'"></article>
-			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-apple.png" title="APPLE" alt="APPLE" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:apple'"></article>
-			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-sony.png" title="SONY" alt="SONY" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:sonymobile'"></article>
-			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-nokia.png" title="NOKIA" alt="NOKIA" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:nokia'"></article>
-			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-motorola.png" title="MOTOROLA" alt="MOTOROLA" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:motorola'"></article>
-			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-Pantech.png"title="PANTECH" alt="PANTECH" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:pantech'"></article>
-			<article class="brandimg"><img class="img-rounded logoimg xiaomi" src="image/logo/logo-Xiaomi.png"title="XIAOMI" alt="XIAOMI" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?'"></article>
+				<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-samsung.png" title="SAMSUNG" alt="SAMSUNG" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:samsung'"></article>
+				<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-lg.png" title="LG" alt="LG" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:lgelec'"></article>
+				<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-apple.png" title="APPLE" alt="APPLE" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:apple'"></article>
+				<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-sony.png" title="SONY" alt="SONY" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:sonymobile'"></article>
+				<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-nokia.png" title="NOKIA" alt="NOKIA" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:nokia'"></article>
+				<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-motorola.png" title="MOTOROLA" alt="MOTOROLA" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:motorola'"></article>
+				<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-Pantech.png"title="PANTECH" alt="PANTECH" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:pantech'"></article>
+				<article class="brandimg"><img class="img-rounded logoimg xiaomi" src="image/logo/logo-Xiaomi.png"title="XIAOMI" alt="XIAOMI" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?'"></article>
 			</section>
 		</section>
 		
