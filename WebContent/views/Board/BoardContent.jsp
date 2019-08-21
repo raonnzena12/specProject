@@ -273,7 +273,7 @@
 		<button type="button" class="btn btn-secondary" id="listbtnbtn" onclick="location.href='<%=request.getContextPath()%>/maintotal.bo?bno=<%=request.getAttribute("bcode")%>'">목록</button>
 		
 		<a href="#boardcontent" class="updown"><i class="material-icons" id="listbtndown">arrow_upward</i></a>
-		<a href="#footer" class="updown"><i class = "material-icons" id="listbtnup">arrow_downward</i></a>
+		<!-- <a href="#footer" class="updown"><i class = "material-icons" id="listbtnup">arrow_downward</i></a> -->
 	</section>
 	<br>
 	<br>
@@ -356,7 +356,7 @@
   						var $p = $("<p>").text("등록된 댓글이 없습니다.").css("textalign","center");
   					}else{
 	  					var $tr = $("<tr>");
-	  					var $writerTh = $("<th>").text(rList[i].bcWriter).css("width","10%").attr("scope", "row");
+	  					var $writerTh = $("<th>").text(rList[i].bcWriter).css("width","8%").attr("scope", "row");
 	  					var $contentTd = $("<td>").attr("id","contentTd").css("width","60%");
 	  					
 	  						if(rList[i].cStatus == "2"){
@@ -374,7 +374,7 @@
 	  					var $button4 = $("<button>").addClass("btn btn-link").attr({"type":"button", "id":"subdangerNone", "onclick":"dangerNoneBtn();"}).text("신고").css({"color":"gray", "font-weight":"bold"});
 	  					var $button2 = $("<button>").addClass("btn btn-link subupdate").attr({"type":"button", "id":"subupdate"}).text("수정").css({"color":"black", "font-weight":"bold"});
 		  				var $button3 = $("<button>").addClass("btn btn-link subdelete").attr({"type":"button", "id":"subdelete"}).text("삭제").css({"color":"black", "font-weight":"bold"});
-		  				var $dateTd = $("<td>").text(rList[i].cRegdate).css("width","10%");
+		  				var $dateTd = $("<td>").text(rList[i].cRegdate).css({"width":"12%", "text-align":"center"});
 		  				
 		  				if(rList[i].cStatus != 3){
 		  					if( <%=loginUser.getUserNo()%> == rList[i].cWriter){
