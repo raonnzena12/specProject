@@ -21,10 +21,10 @@ import calendar.model.vo.Calendar;
 import oracle.sql.DATE;
 
 @WebServlet("/loadCalendar.do")
-public class loadCalendarServlet extends HttpServlet {
+public class LoadCalendarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public loadCalendarServlet() {
+    public LoadCalendarServlet() {
         super();
     }
 

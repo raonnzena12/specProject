@@ -111,7 +111,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 				<li><a href="<%=request.getContextPath()%>/adminComment.ad">댓글 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminReview.ad">리뷰 관리</a></li>
 				<li><a href="#">신고 관리</a></li>
-				<li><a href="#">일정 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/loadAdminCalendar.do">일정 관리</a></li>
 			</ul>
 		</div>
 
@@ -167,7 +167,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 						<tr>
 							<td><i class="material-icons">calendar_today</i></td>
 							<th>일정 관리</th>
-							<td><a href="#">more></td>
+							<td><a href="<%=request.getContextPath()%>/loadAdminCalendar.do">more></td>
 						</tr>
 					</table>
 				</div>

@@ -10,10 +10,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Calendar(admin) : SPEC</title>
-<%@ include file ="/views/common/menubar.jsp" %>
 <link href='<%= request.getContextPath() %>/css/fullcalendar.min.css' rel='stylesheet' />
 <link href='<%= request.getContextPath() %>/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src='<%= request.getContextPath() %>/js/moment.min.js'></script>
 <script src='<%= request.getContextPath() %>/js/fullcalendar.min.js'></script>
 <script src='<%= request.getContextPath() %>/js/ko.js'></script>
@@ -32,7 +32,6 @@
 		loadCalendar(3);  
 
  		$("#calendar").fullCalendar({
-			// put your options and callbacks here
 			
 			selectable: true,
       		dayClick: function() {
@@ -44,34 +43,7 @@
       			id = info.id;
       			console.log(info);
       			return false;
-      			
-/*       	    	if(confirm('삭제하시겠습니까?')) {
-      	    		$("#calendar").fullCalendar('removeEvents', function(eventObject) {
-      	    			return false;
-      	    		});
-      	    	}
-      	    	return false; */
-      			
       	    }
-      		/*
-       		select: function(start, end) {
-       			
-      	        var title = prompt('제목 입력 :');
-      	        var url = prompt('주소 입력 : ');
-      	        var eventData;
-      	        if (title) {
-      	          eventData = {
-      	            title: title,
-      	            url: url,
-      	            start: start,
-      	            end: end
-      	          };
-      	          $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-      	        }
-      	     	
-      	        $('#calendar').fullCalendar('unselect');
-      	    }
-      	    */
     	});
 
 	});
@@ -79,7 +51,7 @@
 	function loadCalendar(code) {
 		
 		$.ajax({
-			url :"../../loadCalendar.do",
+			url :"<%=request.getContextPath()%>/loadCalendar.do",
 			type : "get",
 			dataType : "json",
 			data : { code : code },
@@ -90,7 +62,7 @@
 	                return true;
 	            });
 				
-				// code에 따라 이벤트 불러오기
+				// code 값에 따라 이벤트 불러오기
 				$.each(map, function(i) {
  					if(map[i].status == 'Y') {
  						var eventData;
@@ -300,7 +272,7 @@
   }
   
   .modalRegister {
-  	width: 60%;
+  	width: 70%;
   	height: 100%;
   	margin: auto;
 	/* border: solid 1px black; */
@@ -312,6 +284,7 @@
   	height: 80%;
   	padding-top : 40px;
   }
+  
   .modalRegister button {
   	margin-top: 40px;
   }
