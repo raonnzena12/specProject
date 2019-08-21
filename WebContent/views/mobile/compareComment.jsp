@@ -54,6 +54,9 @@
     .swal2-confirm.btn.btn-primary { 
         margin-left: 10px;
     }
+    section.comment {
+    	padding-bottom: 100px;
+    }
 </style>
 <script>
     // 페이지 로딩시 코멘트 로딩 함수 한번 호출

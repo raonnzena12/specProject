@@ -6,23 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0px;
-        padding: 0px;
-        text-decoration: none;
-        user-select: none;
-    }
-
-    body {
-        /* font-family: 'Noto Sans KR', sans-serif; */
-        font-size: 14px !important;
-        /* min-width: 1200px !important; */
-        width: 100%;
-        margin: auto;
-        height: auto;
-    }
-    
     #footer-1 {
     	width: 100%;
     	height: 80%;

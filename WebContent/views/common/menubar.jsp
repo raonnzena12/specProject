@@ -47,15 +47,19 @@
         min-height: 100%;
         height: auto;
         position: relative;
-        
+        margin-bottom: 180px !important;
+        padding-bottom: 80px !important;
     }
-         footer {
+/*     .clear {
+    	margin-bottom: 80px;
+    } */
+    footer {
         background-color: #8ba7c9;
         width: 100%;
         height: 180px;
-        z-index: 2;
-        bottom: 0;
-        margin: auto;
+        z-index: 1000;
+        bottom: -180px;
+        /* margin: auto; */
         color: white;
     	text-align: center;
         position: absolute;
@@ -242,13 +246,13 @@
 	});
 </script>
 </head>
-<body id="tttt">
+<body>
 	<header class="navbar sticky-top navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
         <section id="logo" onclick="location.href='<%=request.getContextPath()%>'">SPEC</section>
         <div id="menubarNav" class="navbar-nav-scroll">
             <ul class="navbar-nav bd-navbar-nav flex-row" >
                 <li class="nav-item"><a href="<%=request.getContextPath()%>/devicelist.mo">MOBILE</a></li>
-                <li class="nav-item"><a href="#" id="compareOpen">COMPARE</a></li>
+                <%-- <li class="nav-item"><a href="#" id="compareOpen">COMPARE</a></li> --%>
                 <li class="nav-item"><a href="<%=request.getContextPath()%>/calendar.do">CALENDAR</a></li>
                 <li class="nav-item"><a href="<%=request.getContextPath()%>/maintotal.bo?bno=0">COMMUNITY</a></li>
             </ul>
