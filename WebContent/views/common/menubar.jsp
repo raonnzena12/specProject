@@ -91,7 +91,7 @@
     
     #mypageMenu{
     	width: 200px;
-        height: 180px;
+        height: 200px;
         background-color: white;
         border: 1px solid #ccc;
         float: right;
