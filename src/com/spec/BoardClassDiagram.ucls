@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.2.3" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+<class-diagram version="1.2.3" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="board.controller.BoardContentServlet" project="SpecProject" 
     file="/SpecProject/src/board/controller/BoardContentServlet.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="53" width="167" x="524" y="7"/>    
@@ -165,7 +165,7 @@
   </class>  
   <class id="19" language="java" name="board.model.dao.BoardDao" project="SpecProject" 
     file="/SpecProject/src/board/model/dao/BoardDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1284" y="245"/>    
+    <position height="-1" width="-1" x="2217" y="511"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -174,7 +174,7 @@
   </class>  
   <class id="20" language="java" name="board.model.service.BoardService" project="SpecProject" 
     file="/SpecProject/src/board/model/service/BoardService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="945" y="228"/>    
+    <position height="-1" width="-1" x="1398" y="494"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -183,7 +183,7 @@
   </class>  
   <class id="21" language="java" name="board.model.vo.Board" project="SpecProject" 
     file="/SpecProject/src/board/model/vo/Board.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="214" y="291"/>    
+    <position height="-1" width="-1" x="2427" y="1850"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -192,7 +192,7 @@
   </class>  
   <class id="22" language="java" name="board.model.vo.BoardPageInfo" project="SpecProject" 
     file="/SpecProject/src/board/model/vo/BoardPageInfo.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="141" y="1104"/>    
+    <position height="-1" width="-1" x="1994" y="1543"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -201,7 +201,7 @@
   </class>  
   <class id="23" language="java" name="board.model.vo.BoardReport" project="SpecProject" 
     file="/SpecProject/src/board/model/vo/BoardReport.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="157" y="1631"/>    
+    <position height="-1" width="-1" x="1650" y="1577"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -210,7 +210,7 @@
   </class>  
   <class id="24" language="java" name="board.model.vo.Reply" project="SpecProject" 
     file="/SpecProject/src/board/model/vo/Reply.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="197" y="2463"/>    
+    <position height="-1" width="-1" x="1237" y="1849"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -218,87 +218,87 @@
     </display>  
   </class>  
   <dependency id="25">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="22"/>  
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="20"/>  
   </dependency>  
   <dependency id="26">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="20"/>  
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="24"/>  
   </dependency>  
   <dependency id="27">    
     <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="21"/>  
+    <end type="TARGET" refId="23"/>  
   </dependency>  
   <dependency id="28">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
   <dependency id="29">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="20"/>  
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="24"/>  
   </dependency>  
   <dependency id="30">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="20"/>  
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="21"/>  
   </dependency>  
   <dependency id="31">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="20"/>  
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="21"/>  
   </dependency>  
   <dependency id="32">    
     <end type="SOURCE" refId="15"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
   <dependency id="33">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="24"/>  
-  </dependency>  
-  <dependency id="34">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="20"/>  
-  </dependency>  
-  <dependency id="35">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
-  <dependency id="36">    
-    <end type="SOURCE" refId="12"/>    
+  <dependency id="34">    
+    <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="35">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="36">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="21"/>  
   </dependency>  
   <dependency id="37">    
     <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="24"/>  
+    <end type="TARGET" refId="21"/>  
   </dependency>  
   <dependency id="38">    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="21"/>  
   </dependency>  
   <dependency id="39">    
-    <end type="SOURCE" refId="13"/>    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
   <dependency id="40">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="41">    
-    <end type="SOURCE" refId="16"/>    
+    <end type="SOURCE" refId="13"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
+  <dependency id="41">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
   <dependency id="42">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="21"/>  
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="20"/>  
   </dependency>  
   <dependency id="43">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="21"/>  
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="20"/>  
   </dependency>  
   <dependency id="44">    
-    <end type="SOURCE" refId="2"/>    
+    <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
   <dependency id="45">    
-    <end type="SOURCE" refId="1"/>    
+    <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
   <dependency id="46">    
@@ -306,60 +306,60 @@
     <end type="TARGET" refId="19"/>  
   </dependency>  
   <dependency id="47">    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="24"/>  
-  </dependency>  
-  <dependency id="48">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="24"/>  
-  </dependency>  
-  <dependency id="49">    
     <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="50">    
-    <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
-  <dependency id="51">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <dependency id="52">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="24"/>  
-  </dependency>  
-  <dependency id="53">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="54">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="55">    
+  <dependency id="48">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="23"/>  
   </dependency>  
-  <dependency id="56">    
-    <end type="SOURCE" refId="20"/>    
+  <dependency id="49">    
+    <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="24"/>  
   </dependency>  
-  <dependency id="57">    
+  <dependency id="50">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="51">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="22"/>  
   </dependency>  
+  <dependency id="52">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="53">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="54">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="55">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="56">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="57">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
   <dependency id="58">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="23"/>  
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="20"/>  
   </dependency>  
   <dependency id="59">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="20"/>  
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="24"/>  
   </dependency>  
   <dependency id="60">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="20"/>  
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="23"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

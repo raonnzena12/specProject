@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.3" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="member" project="SpecProject" file="/SpecProject/src/member" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="50" width="101" x="384" y="254"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="mobile" project="SpecProject" file="/SpecProject/src/mobile" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="50" width="101" x="525" y="254"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="admin" project="SpecProject" file="/SpecProject/src/admin" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="50" width="101" x="666" y="254"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="wrapper" project="SpecProject" file="/SpecProject/src/wrapper" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="50" width="101" x="807" y="254"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="common" project="SpecProject" file="/SpecProject/src/common" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="420" y="137"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="util" project="SpecProject" file="/SpecProject/src/util" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="561" y="137"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="calendar" project="SpecProject" file="/SpecProject/src/calendar" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="702" y="137"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="filter" project="SpecProject" file="/SpecProject/src/filter" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="869" y="379"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="9" language="java" name="board" project="SpecProject" file="/SpecProject/src/board" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="984" y="137"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="10" language="java" name="sql" project="SpecProject" file="/SpecProject/src/sql" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1061" y="213"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
