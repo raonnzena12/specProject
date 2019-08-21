@@ -10,6 +10,16 @@ public class MoImage {
 	private Date miUploadDate;
 	
 	public MoImage() {}
+	
+	
+
+	public MoImage(int refMno, String miFrontImage) {
+		super();
+		this.refMno = refMno;
+		this.miFrontImage = miFrontImage;
+	}
+
+
 
 	public MoImage(int refMno, String miFrontImage, String miBackImage, String miPath, Date miUploadDate) {
 		super();

@@ -509,4 +509,32 @@ public class MobileService {
 		CompareT ct = new MobileDao().selectCompareTable(conn, mno);
 		return ct;
 	}
+
+	
+
+	
+	//------------------------------mainPage-----------------------------------
+	
+	public ArrayList<CompareT> mobileRank() {
+		Connection conn = getConnection();
+		
+		ArrayList<CompareT> rankList = new MobileDao().mobileRank(conn);
+		
+		return rankList;
+	}
+
+	/**
+	 * 최근 업데이트 폰 이미지 조회용 Service
+	 * @return img
+	 */
+	public ArrayList<MoImage> mobileImg() {
+		Connection conn = getConnection();
+		
+		ArrayList<MoImage> img = new MobileDao().mobileImg(conn);
+		
+		return img;
+	}
+	
+	
+	
 }

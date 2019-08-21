@@ -1,10 +1,15 @@
+<%@page import="mobile.model.vo.MoImage"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="mobile.model.vo.CompareT" import="java.util.ArrayList" import="mobile.model.vo.MoImage"%>
+<%
+	ArrayList<CompareT> rankList = (ArrayList<CompareT>)request.getAttribute("rankList");
+	ArrayList<MoImage> img = (ArrayList<MoImage>)request.getAttribute("img");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SPEC</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Open+Sans" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -22,7 +27,7 @@
 			clear:both;
 		}
 		
-		h2 {
+		/* h2 {
 			color: #333;
 			text-align: center;
 			text-transform: uppercase;
@@ -41,7 +46,7 @@
 			left: 0;
 			right: 0;
 			bottom: -10px;
-		}
+		} */
 		.col-center {
 			margin: 0 auto;
 			float: none !important;
@@ -58,18 +63,20 @@
 		    min-height: 290px;
 		}
 		.carousel .item .img-box {
-			width: 135px;
-			height: 135px;
+			width: 590px;
+			height: 300px;
 			margin: 0 auto;
-			padding: 5px;
-			border: 1px solid #ddd;
-			border-radius: 50%;
+			/* padding: 5px; */
+			/* border: 1px solid #ddd; */
+			/* border-radius: 50%; */
 		}
 		.carousel .img-box img {
 			width: 100%;
 			height: 100%;
 			display: block;
-			border-radius: 50%;
+			margin:0;
+			padding:0;
+			/* border-radius: 50%; */
 		}
 		.carousel .testimonial {
 			padding: 30px 0 10px;
@@ -117,7 +124,7 @@
 		}
 		/* ----------------------------------------------------- */
 		 #main > section, article{
-			border:1px solid black;
+		/* 	border:1px solid black; */
 			width:1080px;
 			margin:auto;
 		}
@@ -128,6 +135,9 @@
 			/* border:1px solid black; */
 			
 		}
+		/* .container div{
+			border:1px solid black;
+		} */
 		#ranking{
 			height:300px;
 			clear:both;
@@ -135,19 +145,20 @@
 			margin:auto;
 		}
 		#mainAd1{
-			height:200px;
+			height:220px;
 			width:1080px;
 			margin:auto;
+			clear:both;
 			
 		}
 		#updated{
-			height:250px;
+			height:290px;
 			clear:both;
 			width:1080px;
 			margin:auto;
 		}
 		#brand{
-			height:200px;
+			height:220px;
 			clear:both;
 			width:1080px;
 			margin:auto;
@@ -167,7 +178,11 @@
 			display:inline-block;
 			float:left;
 			margin: 4px 0 0 0;
-			background-color:gray;
+			background-color:#4F90CC;
+			font-size: 50px;
+			color:white;
+			text-align: center;
+			padding-top:50px;
 			
 			
 		}
@@ -177,7 +192,11 @@
 			display:inline-block;
 			float:right;
 			margin: 4px 0 0 0;
-			background-color:gray;
+			background-color:#4F90CC;
+			font-size: 50px;
+			color:white;
+			text-align: center;
+			padding-top:50px;
 			
 		}
 		.updated{
@@ -185,8 +204,9 @@
 			height:200px;
 			display: block;
 			float:left;
-			margin:10px 7px 5px 8px;
-			background-color:gray;
+			margin:20px 7px 5px 8px;
+			padding-left:20px;
+			cursor: pointer;
 			
 		}
 		.updatedtitle{
@@ -194,15 +214,17 @@
 			height:30px;
 			display:inline;
 			float:left;
+			margin-top:20px;
 			
 			
 		}
-		#updated p, #brand p{
+		#updated a, #brand a{
 			display:block;
 			float:left;
 			padding:10px 5px 0 0;
 			color: gray;
 			font-weight:bold;
+			text-decoration: none;
 			
 		}
 		#updated h4, #brand h4{
@@ -227,7 +249,11 @@
 			width:1060px;
 			height:180px;
 			margin: 8px 0 0 9px;
-			background-color:gray;
+			background-color:#4F90CC;
+			font-size: 50px;
+			color:white;
+			text-align: center;
+			padding-top:50px;
 		}
 		#rank1{
 			width:400px;
@@ -253,6 +279,7 @@
 		}
 		#ranking td,th{
 			text-align:center;
+			font-weight:bold;
 		}
 		.logoimg{
 			margin-top:30px;
@@ -267,7 +294,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-center m-auto div">
-				<h2>Testimonials</h2>
+				<h2></h2>
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 					<!-- Carousel indicators -->
 					<ol class="carousel-indicators">
@@ -278,19 +305,19 @@
 					<!-- Wrapper for carousel items -->
 					<div class="carousel-inner">
 						<div class="item carousel-item active">
-							<div class="img-box"><img src="/examples/images/clients/1.jpg" alt=""></div>
-							<p class="testimonial"></p>
-							<p class="overview"><b>Paula Wilson</b>, Media Analyst</p>
+							<div class="img-box"><img src="image/mobileImages/galaxynote10.jpg" title="GALAXY NOTE 10" alt=""></div>
+							<!-- <p class="testimonial"></p>
+							<p class="overview"><b>Paula Wilson</b>, Media Analyst</p> -->
 						</div>
 						<div class="item carousel-item">
-							<div class="img-box"><img src="/examples/images/clients/2.jpg" alt=""></div>
-							<p class="testimonial"></p>
-							<p class="overview"><b>Antonio Moreno</b>, Web Developer</p>
+							<div class="img-box"><img src="image/mobileImages/lgv50.png" title="LG V50" alt=""></div>
+							<!-- <p class="testimonial"></p>
+							<p class="overview"><b>Antonio Moreno</b>, Web Developer</p> -->
 						</div>
 						<div class="item carousel-item">
-							<div class="img-box"><img src="/examples/images/clients/3.jpg" alt=""></div>
-							<p class="testimonial"></p>
-							<p class="overview"><b>Michael Holz</b>, Seo Analyst</p>
+							<div class="img-box"><img src="image/mobileImages/iphone.jpg" title="LG V50" alt=""></div>
+							<!-- <p class="testimonial"></p>
+							<p class="overview"><b>Michael Holz</b>, Seo Analyst</p> -->
 						</div>
 					</div>
 					<!-- Carousel controls -->
@@ -309,18 +336,25 @@
 			<article id="rank1">
 				<p class="text-primary">TOP MATCHING</p>
 				<table class="table table-condensed">
+				<thead>
 					<tr>
 						<th scope="col" width="30%">순위</th>
-						<th scope="col" width="70%">모델명</th>
+						<th colspan="2" scope="col" width="70%">모델명</th>
 					</tr>
-					<tr>
-						<td>1.</td>
-						<td>phone</td>
-					</tr>
+				</thead>
+				<tbody>
+					<%for(int i = 0 ; i < rankList.size() ; i++ ) { %>
+						<tr>
+							<td><%= i+1 %></td>
+							<td><%= rankList.get(i).getComDevice1Name()%></td>
+							<td><%= rankList.get(i).getComDevice2Name()%></td>
+						</tr>
+					<% } %>
+				</tbody>
 				</table>
 			</article>
 			<article id="rank2">
-				<p class="text-warning">TOP S-USER HAVE</p>
+				<p class="text-warning">TOP S-USER WANT</p>
 				<table class="table table-condensed">
 					<tr>
 						<th scope="col" width="30%">순위</th>
@@ -335,37 +369,45 @@
 		</section>
 		
 		<section id="mainAd">
-			<article id="mainAd1-1">ad</article>
-			<article id="mainAd1-2">ad</article>
+			<article id="mainAd1-1">AD</article>
+			<article id="mainAd1-2">AD</article>
 		</section>
 		<section id="updated">
 		
 			<article class="updatedtitle">
 					<h4>LAST UPDATED</h4>
-					<p>More ></p>
+					<a href='<%=request.getContextPath()%>/devicelist.mo'>More ></a>
 			</article>
-			<article class="updated"></article>
-			<article class="updated"></article>
-			<article class="updated"></article>
-			<article class="updated"></article>
-			<article class="updated"></article>
+			<%for(int i = 0; i < 5; i++){ %>
+				<% if (img.get(i).getMiFrontImage() == null) { %>
+	                 <article class="updated"><img class="img-rounded" src="<%=request.getContextPath()%>/image/smartphoneG.png" width="150px" height="200px" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'"></article>
+	            <% } else { %>
+	                 <article class="updated"><img class="img-rounded" src="<%=request.getContextPath()%>/image/mobileImages/<%=img.get(i).getMiFrontImage()%>" width="150px" height="200px" class="deviceFImage" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'"></article>
+	            <% } %>
+			<%} %>
+			
+			<%-- <article class="updated"><img class="img-rounded" src="image/mobileImages/spec_19081910181324809.png" title="Galaxy Note 10" alt="" width="150px" height="200px" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=5&page=1'"></article>
+			<article class="updated"><img class="img-rounded" src="image/mobileImages/spec_19081910181324809.png" title="Galaxy Note 10" alt="" width="150px" height="200px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:samsung'"></article>
+			<article class="updated"><img class="img-rounded" src="image/mobileImages/spec_19081910181324809.png" title="Galaxy Note 10" alt="" width="150px" height="200px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:samsung'"></article>
+			<article class="updated"><img class="img-rounded" src="image/mobileImages/spec_19081910181324809.png" title="Galaxy Note 10" alt="" width="150px" height="200px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:samsung'"></article>
+			<article class="updated"><img class="img-rounded" src="image/mobileImages/spec_19081910181324809.png" title="Galaxy Note 10" alt="" width="150px" height="200px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:samsung'"></article> --%>
 		</section>
 		<section id="brand">
 			<article class="updatedtitle">
 					<h4>BRAND</h4>
-					<p>More ></p>
+					<a href='<%=request.getContextPath()%>/devicelist.mo'>More ></a>
 			</article>
-			<article class="brandimg"><img class="img-rounded" src="../../image/logo/logo-samsung.png" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:samsung'"></article>
-			<article class="brandimg"><img class="img-rounded" src="../../image/logo/logo-lg.png" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:lgelec'"></article>
-			<article class="brandimg"><img class="img-rounded" src="../../image/logo/logo-apple.png" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:apple'"></article>
-			<article class="brandimg"><img class="img-rounded logoimg" src="../../image/logo/logo-sony.png" alt="" width="150px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:sonymobile'"></article>
-			<article class="brandimg"><img class="img-rounded logoimg" src="../../image/logo/logo-nokia.png" alt="" width="150px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:nokia'"></article>
-			<article class="brandimg"><img class="img-rounded logoimg" src="../../image/logo/logo-motorola.png" alt="" width="150px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:motorola'"></article>
-			<article class="brandimg"><img class="img-rounded logoimg" src="../../image/logo/logo-Pantech.png" alt="" width="150px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:pantech'"></article>
+			<article class="brandimg"><img class="img-rounded" src="image/logo/logo-samsung.png" title="SAMSUNG" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:samsung'"></article>
+			<article class="brandimg"><img class="img-rounded" src="image/logo/logo-lg.png" title="LG" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:lgelec'"></article>
+			<article class="brandimg"><img class="img-rounded" src="image/logo/logo-apple.png" title="APPLE" alt="" width="150px" height="120px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:apple'"></article>
+			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-sony.png" title="SONY" alt="" width="140px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:sonymobile'"></article>
+			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-nokia.png" title="NOKIA" alt="" width="140px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:nokia'"></article>
+			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-motorola.png" title="MOTOROLA" alt="" width="140px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:motorola'"></article>
+			<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-Pantech.png"title="PANTECH" alt="" width="140px" height="60px" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:pantech'"></article>
 		</section>
 		
 		<section id="mainAd2">
-			<article id="subAd">ad</article>
+			<article id="subAd">AD</article>
 		</section>
 	</section>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

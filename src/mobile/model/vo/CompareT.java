@@ -9,6 +9,18 @@ public class CompareT {
 	private String comDevice2Name;
 	
 	public CompareT() {}
+	
+	
+
+	public CompareT(int comDevice1, String comDevice1Name, int comDevice2, String comDevice2Name) {
+		super();
+		this.comDevice1 = comDevice1;
+		this.comDevice1Name = comDevice1Name;
+		this.comDevice2 = comDevice2;
+		this.comDevice2Name = comDevice2Name;
+	}
+
+
 
 	public CompareT(int comDevice1, int comDevice2) {
 		super();

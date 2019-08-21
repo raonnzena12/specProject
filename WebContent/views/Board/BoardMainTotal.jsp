@@ -59,11 +59,12 @@
 	            clear : both;
 	            
 	        }
-	         #ad{
+	        #ad{
 	            width: 1080px;
 	            height: 200px;
 	            margin: auto;
 	            padding: 0;
+	            
 	        }
 	        #blist{
 	            width: 1080px;
@@ -92,8 +93,12 @@
 	            height: 80%;
 	           /*  margin-top: 20px; */
 	            margin-left: 38px;
-	            background-color: gray;
+	            background-color:#4F90CC;
 	            color : white;
+	            font-size: 50px;
+				text-align: center;
+				padding-top:40px;
+	            
 	        }
 	       /*  #menu{
 	            width: 1080px;
@@ -175,7 +180,7 @@
 	</script>
 	
     <section id="ad">
-     <article id="ad-2">광고</article>
+     <article id="ad-2">AD</article>
    	</section>
    	
    	<section id="blist">
