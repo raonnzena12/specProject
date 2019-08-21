@@ -1,9 +1,9 @@
-<%@page import="mobile.model.vo.MoImage"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="mobile.model.vo.CompareT" import="java.util.ArrayList" import="mobile.model.vo.MoImage"%>
+    pageEncoding="UTF-8" import="mobile.model.vo.CompareT" import="java.util.ArrayList" import="mobile.model.vo.MoImage" import="mobile.model.vo.Mobile" import="mobile.model.vo.MoImage"%>
 <%
 	ArrayList<CompareT> rankList = (ArrayList<CompareT>)request.getAttribute("rankList");
 	ArrayList<MoImage> img = (ArrayList<MoImage>)request.getAttribute("img");
+	ArrayList<Mobile> hList = (ArrayList<Mobile>)request.getAttribute("hList");
 %>
 <!DOCTYPE html>
 <html>
@@ -354,16 +354,18 @@
 				</table>
 			</article>
 			<article id="rank2">
-				<p class="text-warning">TOP S-USER WANT</p>
+				<p class="text-warning">HOT SEARCH</p>
 				<table class="table table-condensed">
 					<tr>
 						<th scope="col" width="30%">순위</th>
 						<th scope="col" width="70%">모델명</th>
 					</tr>
-					<tr>
-						<td>1.</td>
-						<td>phone</td>
-					</tr>
+					<%for(int i = 0 ; i < hList.size(); i++ ) { %>
+						<tr>
+							<td><%= i+1 %></td>
+							<td><%= hList.get(i).getmName()%></td>
+						</tr>
+					<% } %>
 				</table>
 			</article>
 		</section>
