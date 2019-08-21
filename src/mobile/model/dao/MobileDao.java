@@ -1304,7 +1304,30 @@ public class MobileDao {
 		return img;
 	}
 
-	
+	/**
+	 * 모바일 디바이스 조회수 올리는 DAO
+	 * @param conn
+	 * @param mId
+	 * @return result
+	 */
+	public int countUpMobile(Connection conn, int mId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("countUpMobile");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mId);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 
 }

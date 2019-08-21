@@ -551,8 +551,17 @@ public class MobileService {
 		return img;
 	}
 
-	
-	
-	
+	/**
+	 * 모바일 디바이스 조회수 올리는 Service
+	 * @param mId
+	 * @return result
+	 */
+	public int countUpMobile(int mId) {
+		Connection conn = getConnection();
+		int result = new MobileDao().countUpMobile(conn, mId);
+		if ( result > 0 ) commit(conn);
+		else rollback(conn);
+		return result;
+	}
 	
 }

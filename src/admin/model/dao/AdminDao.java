@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
-
+ 
 import admin.model.vo.AdminBoard;
 import admin.model.vo.AdminMember;
 import admin.model.vo.AdminReply;
@@ -890,7 +890,38 @@ public class AdminDao {
 		}
 		return totalCount;
 	}
-
+	
+	/**
+	 * 관리자 // 필터링된 리뷰 갯수를 받아오는 DAO
+	 * @param conn
+	 * @param type
+	 * @param keyWord
+	 * @return totalCOunt
+	 */
+	public int reviewCount(Connection conn, int type, String keyWord) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		String query = prop.getProperty("reviewCount"+type);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, keyWord);
+			rset = pstmt.executeQuery();
+			
+			if ( rset.next() ) {
+				totalCount = rset.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalCount;
+	}
 
 	/**
 	 * 관리자 // 리뷰 리스트를 반환하는 DAO
@@ -976,6 +1007,42 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	/**
+	 * 관리자// 필터링된 리스트를 받아오는 DAO
+	 * @param conn
+	 * @param type
+	 * @param keyWord
+	 * @param currentPage
+	 * @param limit
+	 * @return sList
+	 */
+	public ArrayList<AdminReview> searchAdminReview(Connection conn, int type, String keyWord, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminReview> sList = new ArrayList<AdminReview>();
+		
+		String query = prop.getProperty("searchAdminReview"+type);
+		try {
+			pstmt = conn.prepareStatement(query);
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setString(1, keyWord);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while ( rset.next() ) {
+				sList.add(new AdminReview(rset.getInt("RE_NO"), rset.getString("RE_TITLE"), rset.getString("RE_CONTENT"), rset.getDouble("RE_STAR"), rset.getDate("RE_REGDATE"), rset.getDate("RE_MODIDATE"), rset.getInt("RE_WRITER"), rset.getString("USER_NAME"), rset.getInt("RE_MNO"), rset.getInt("RE_STATUS"), rset.getString("MO_NAME"), rset.getInt("LCOUNT"), rset.getString("BRAND_NAME")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sList;
 	}
 
 

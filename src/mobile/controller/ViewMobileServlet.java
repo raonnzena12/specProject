@@ -24,8 +24,9 @@ public class ViewMobileServlet extends HttpServlet {
 		int specPage = Integer.parseInt(request.getParameter("page"));
 		// 스펙/리뷰/비교중 한 페이지로 연결해주기 위해 파라미터의 page를 받는다
 		
-		Mobile device = new MobileService().selectMobile(mId);
-		
+		MobileService mService = new MobileService();
+		Mobile device = mService.selectMobile(mId);
+		int result = mService.countUpMobile(mId);
 		String page = "";
 		if ( device != null && specPage == 1 ) {
 			request.setAttribute("device", device);
@@ -33,7 +34,6 @@ public class ViewMobileServlet extends HttpServlet {
 		} else if ( device != null && specPage == 2 ) {
 			request.setAttribute("device", device);
 			page = "/views/mobile/mobileReview.jsp"; 
-			
 		} else { 
 			request.setAttribute("msg", "로딩 실패");
 			page = "/views/common/errorPage.jsp";
@@ -44,7 +44,9 @@ public class ViewMobileServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		doGet(request, response);
 		int mno = Integer.parseInt(request.getParameter("mno"));
-		Mobile device = new MobileService().selectMobile(mno);
+		MobileService mService = new MobileService();
+		Mobile device = mService.selectMobile(mno);
+		int result = mService.countUpMobile(mno);
 		
 		new Gson().toJson(device, response.getWriter());
 	}

@@ -4,7 +4,7 @@ import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-
+ 
 import admin.model.dao.AdminDao;
 import admin.model.util.CreateQuery;
 import admin.model.vo.*;
@@ -363,6 +363,18 @@ public class AdminService {
 	}
 
 	/**
+	 * 관리자 // 필터링된 리뷰 갯수를 받아오는 Service
+	 * @param type
+	 * @param keyWord
+	 * @return totalCount
+	 */
+	public int reviewCount(int type, String keyWord) {
+		Connection conn = getConnection();
+		int totalCount = new AdminDao().reviewCount(conn, type, keyWord);
+		return totalCount;
+	}
+	
+	/**
 	 * 관리자 // 리뷰 리스트 받아오는 Service
 	 * @param currentPage
 	 * @param limit
@@ -407,6 +419,21 @@ public class AdminService {
 		}
 		return result;
 	}
+
+	/**
+	 * 관리자 // 필터링된 리스트를 받아오는 Service
+	 * @param type
+	 * @param keyWord
+	 * @param currentPage
+	 * @param limit
+	 * @return sList
+	 */
+	public ArrayList<AdminReview> searchAdminReview(int type, String keyWord, int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<AdminReview> sList = new AdminDao().searchAdminReview(conn, type, keyWord, currentPage, limit);
+		return sList;
+	}
+
 
 
 

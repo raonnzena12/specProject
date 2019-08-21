@@ -7,23 +7,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import calendar.model.service.CalendarService;
-
-@WebServlet("/deleteCalendar.do")
-public class deleteCalendarServlet extends HttpServlet {
+@WebServlet("/AdminCalendar.do")
+public class AdminCalendarFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public deleteCalendarServlet() {
+    public AdminCalendarFormServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int id = Integer.parseInt(request.getParameter("id"));
-		
-		int result = new CalendarService().deleteCalendar(id);
-		
-		response.getWriter().print(result);
+		response.sendRedirect(request.getContextPath() + "/views/calendar/calendarAdmin.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

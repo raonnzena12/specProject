@@ -47,14 +47,7 @@ public class InsertMobileServlet extends HttpServlet {
 //			    String value = request.getParameter(key);
 //			    if ( value != null) specMap.put(key, value);
 //			} 
-			String date = request.getParameter("releaseDate");
-			Date releaseDate;
-			try {
-				releaseDate = Date.valueOf(date);
-			} catch ( Exception e ) {
-				e.printStackTrace();
-				releaseDate = null;
-			}
+			String releaseDate = request.getParameter("releaseDate");
 			String os = request.getParameter("osCode");
 			int osCode = 0;
 			if ( os != null && !os.equals("") ) osCode = Integer.parseInt(os); 
@@ -163,14 +156,7 @@ public class InsertMobileServlet extends HttpServlet {
 //			    String value = request.getParameter(key);
 //			    if ( value != null) specMap.put(key, value);
 //			} 
-			String date = multiRequest.getParameter("releaseDate");
-			Date releaseDate;
-			try {
-				releaseDate = Date.valueOf(date);
-			} catch ( Exception e ) {
-				e.printStackTrace();
-				releaseDate = null;
-			}
+			String releaseDate = multiRequest.getParameter("releaseDate");
 			int osCode = Integer.parseInt(multiRequest.getParameter("osCode"));
 			String osVersion = multiRequest.getParameter("osVersion");
 			String material = multiRequest.getParameter("material");

@@ -48,7 +48,6 @@
     	width : 20%;
     	min-height : 600px;
     	height: auto;
-    	border-right: 1px solid gray;
     	float: left;
     }
     .menu-ul {
@@ -71,6 +70,7 @@
     	height: 100%;
     	float: left;
     	padding: 50px 50px;
+		border-left: 1px solid gray;
     }
 	.control span {
 		font-size: 12px;

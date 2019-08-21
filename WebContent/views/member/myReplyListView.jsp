@@ -144,7 +144,7 @@
     <div id="articleLayer">
 	    <div id="articleText">
 	    	<p class="font">작성 댓글 보기</p>
-	    	<p class="total"><%=boardCount%></p>
+	    	<p class="total">Total : <%=boardCount%></p>
 	    </div>
     	<table id="articleTable" class="table table-hover">
 		  <thead>

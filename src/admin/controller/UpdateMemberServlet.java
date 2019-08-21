@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import admin.model.service.AdminService;
 
 @WebServlet("/adminUpdateMember.do")
-public class updateMemberServlet extends HttpServlet {
+public class UpdateMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public updateMemberServlet() {
+    public UpdateMemberServlet() {
         super();
     }
 

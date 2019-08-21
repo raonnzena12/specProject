@@ -38,7 +38,7 @@
 	function loadCalendar(code) {
 		
 		$.ajax({
-			url :"../../loadCalendar.do",
+			url :"<%=request.getContextPath()%>/loadCalendar.do",
 			type : "get",
 			dataType : "json",
 			data : { code : code },
@@ -117,7 +117,6 @@
 	
 	<div class="outer">
 		<div class="header">
-			<button type="button" class="btn btn-primary" onclick="registerEvent();" style="float:left">일정 등록</button>
 			<div class="selectCode">
 				<button type="button" class="btn btn-dark btn-sm" onclick="loadCalendar(3)">전체</button>
 				<button type="button" class="btn btn-warning btn-sm" onclick="loadCalendar(0)">기사</button>
