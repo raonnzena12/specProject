@@ -234,10 +234,10 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			<ul class="menu-ul">
 				<li><a href="<%=request.getContextPath() %>/adminSelectMember.do">회원관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminBoard.do">글 관리</a></li>
-				<li><a href="#">댓글 관리</a></li>
-				<li><a href="#">리뷰 관리</a></li>
-				<li><a href="#">신고 관리</a></li>
-				<li><a href="#">일정 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/adminComment.ad">댓글 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/adminReview.ad">리뷰 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/adminReport.do">신고 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/loadAdminCalendar.do">일정 관리</a></li>
 			</ul>
 		</div>
 		<div class="content-outer">
