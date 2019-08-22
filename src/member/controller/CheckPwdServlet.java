@@ -31,8 +31,6 @@ public class CheckPwdServlet extends HttpServlet {
 		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		System.out.println(loginUser.toString());
-		System.out.println(code);
 		String page = "";
 		if(checkPwd.equals(loginUser.getUserPwd())) {
 			/*page = "views/member/updateInfoForm.jsp";*/

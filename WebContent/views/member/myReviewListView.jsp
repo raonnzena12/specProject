@@ -128,7 +128,7 @@
 			<li><a href="<%=request.getContextPath()%>/mypage.me" >회원정보</a></li>
 			<li><a href="<%=request.getContextPath()%>/myBoardList.me">작성글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/myReviewList.me" id="now">작성리뷰보기</a></li>
-			<li><a href="<%=request.getContextPath()%>/myReportList.me">작성댓글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReplyList.me">작성댓글보기</a></li>
 			<li><a href="<%=request.getContextPath()%>/myReportList.me">신고내역보기</a></li>
 		</ul>
     </nav>
@@ -208,6 +208,7 @@
 		<script>
 		// 게시판 상세보기
 		
+		<%if(!rList.isEmpty()){%>
 		$("#reviewTable td").mouseenter(function(){
 			$(this).parent().css("cursor","pointer");
 		}).click(function(){
@@ -215,15 +216,14 @@
 			
 			console.log(mno);
 			// 로그인 한 사람만 게시글 상세보기 가능
-			<%if(!rList.isEmpty()){%>
 				<% if(loginUser != null ){ %>
 					location.href="<%= request.getContextPath() %>/spec.mo?mno="+mno + "&page=2";
 				<% } else{ %>
 					alert("로그인해야만 상세보기가 가능합니다!");
 				<% } %>
-			<% } %>
 		});
 		
+		<% } %>
 		// 페이징바 마우스오버 이벤트
 		$(".clickBtn").mouseenter(function(){
 			$(this).css("cursor","pointer");
