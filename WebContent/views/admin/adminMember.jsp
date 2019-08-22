@@ -110,8 +110,10 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     	margin-bottom: 10px;
     }
     
-    .menu-ul a {
+    a {
     	color: gray;
+    	text-decoration-line: none;
+		color: #333;
     }
     
     .content-outer {
@@ -142,7 +144,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     
     .content-1 tr {
     	height: 30px;
-    	border-bottom: 1px solid gray;
+    	border-bottom: 1px solid #d3d3d3;
     }
     
     .content-1 th:nth-child(1), .content-1 td:nth-child(1) {
@@ -230,7 +232,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	<div class="outer">
 		<div class="menu-outer">
 			<ul class="menu-ul">
-				<li><a href="#">회원관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/adminSelectMember.do">회원관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminBoard.do">글 관리</a></li>
 				<li><a href="#">댓글 관리</a></li>
 				<li><a href="#">리뷰 관리</a></li>

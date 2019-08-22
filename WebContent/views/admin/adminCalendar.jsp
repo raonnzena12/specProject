@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String sort = "no";
-	int sortNum = 5;
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>admin-page</title>
 <%@ include file ="/views/common/menubar.jsp" %>
+<%@ include file ="/views/common/footer.jsp" %>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
 integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -106,7 +103,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	<div class="outer">
 		<div class="menu-outer">
 			<ul class="menu-ul">
-				<li><a href="<%=request.getContextPath() %>/adminSelectMember.do?sort=<%=sort%>&sortNum=<%=sortNum%>">회원관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/adminSelectMember.do">회원관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminBoard.do">글 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminComment.ad">댓글 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminReview.ad">리뷰 관리</a></li>

@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>MENUBAR</title>
-<%@ include file ="/views/common/footer.jsp" %>
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">

@@ -1120,3 +1120,4 @@ SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM (SELECT R.*, MO_NAME, (SELECT COUNT(
 
 select * from mobile_view
 order by "πﬂ∏≈¿œ" DESC NULLS LAST;
+

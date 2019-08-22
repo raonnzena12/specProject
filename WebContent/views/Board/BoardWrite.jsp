@@ -223,6 +223,7 @@
 			/* console.log(content); */
 			window.open("","preview","width=900px, height=700px");
 			writeBoard.submit();
+			$(this).bulr();
 			writeBoard.action = "<%= request.getContextPath()%>/write.bo";
 		});
 		

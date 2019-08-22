@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String sort = "no";
-	int sortNum = 5;
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +27,6 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     .menu-outer {
     	width : 20%;
     	height : 100%;
-    	border-right: 1px solid gray;
     	float: left;
     }
     
@@ -49,13 +44,16 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     	margin-bottom: 10px;
     }
     
-    .menu-ul a {
+    a {
     	color: gray;
+    	text-decoration-line: none;
+		color: #333;
     }
     
     .content-outer {
     	width: 70%;
     	height: 600px;
+    	border-left: 1px solid gray;
     	float: left;
     }
     
@@ -106,11 +104,11 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	<div class="outer">
 		<div class="menu-outer">
 			<ul class="menu-ul">
-				<li><a href="<%=request.getContextPath() %>/adminSelectMember.do?sort=<%=sort%>&sortNum=<%=sortNum%>">회원관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/adminSelectMember.do">회원관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminBoard.do">글 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminComment.ad">댓글 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/adminReview.ad">리뷰 관리</a></li>
-				<li><a href="#">신고 관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/adminReport.do">신고 관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/loadAdminCalendar.do">일정 관리</a></li>
 			</ul>
 		</div>
@@ -122,7 +120,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 						<tr>
 							<th><i class="material-icons">supervisor_account</i></th>
 							<th>회원 관리</th>
-							<td><a href="<%=request.getContextPath() %>/adminSelectMember.do?sort=<%=sort%>&sortNum=<%=sortNum%>">more></td>
+							<td><a href="<%=request.getContextPath() %>/adminSelectMember.do">more></td>
 						</tr>
 					</table>
 				</div>
@@ -131,7 +129,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 						<tr>
 							<td><i class="material-icons">format_list_numbered</i></td>
 							<th>글 관리</th>
-							<td><a href="#">more></td>
+							<td><a href="<%=request.getContextPath()%>/adminBoard.do">more></td>
 						</tr>
 					</table>
 				</div>
@@ -140,7 +138,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 						<tr>
 							<td><i class="material-icons">reply_all</i></td>
 							<th>댓글 관리</td>
-							<td><a href="#">more></td>
+							<td><a href="<%=request.getContextPath()%>/adminComment.ad">more></td>
 						</tr>
 					</table>
 				</div>
@@ -149,7 +147,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 						<tr>
 							<td><i class="material-icons">rate_review</i></td>
 							<th>리뷰 관리</th>
-							<td><a href="#">more></td>
+							<td><a href="<%=request.getContextPath()%>/adminReview.ad">more></td>
 						</tr>
 					</table>
 				</div>
@@ -158,7 +156,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 						<tr>
 							<td><i class="material-icons">phone</i></td>
 							<th>신고 관리</th>
-							<td><a href="#">more></td>
+							<td><a href="<%=request.getContextPath()%>/adminReport.do">more></td>
 						</tr>
 					</table>
 				</div>
@@ -294,33 +292,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			});
 		}
 		
-		function selectReport() {
-			$.ajax({
-				url : "../../adminSelectReview.do",
-				type : "post",
-				dataType : "json",
-				success : function(map) {
-					if(map != null) {
-						var $reportTable = $("#reportTable");
-						
- 						for(var i=0; i<2; i++) {
-							var $tr = $("<tr>");
-							var $icon = $("<td>").html('<i class="material-icons">textsms</i>');
-							var $title = $("<td>").text(map[i].rTitle);
-							var $enDate = $("<td>").text(map[i].rRegDate);
-							
-							$tr.append($icon);
-							$tr.append($title);
-							$tr.append($enDate);
-							$reportTable.append($tr);
-						}
-					}
-				},
-				error : function() {
-					alert('리뷰 정보를 불러오는 중 에러 발생');
-				}
-			});
-		}
+		
 		
 		function selectCalendar() {
 			$.ajax({
@@ -350,6 +322,34 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			});
 		}
 		
+		function selectReport() {
+			$.ajax({
+				url : "../../adminSelectReport.do",
+				type : "post",
+				dataType : "json",
+				success : function(map) {
+					if(map != null) {
+						var $reportTable = $("#reportTable");
+						
+ 						for(var i=0; i<2; i++) {
+							var $tr = $("<tr>");
+							var $icon = $("<td>").html('<i class="material-icons">phone</i>');
+							var $title = $("<td>").text(map[i].rContent);
+							var $enDate = $("<td>").text(map[i].rDate);
+							
+							$tr.append($icon);
+							$tr.append($title);
+							$tr.append($enDate);
+							$reportTable.append($tr);
+						}
+					}
+				},
+				error : function() {
+					alert('글 정보를 불러오는 중 에러 발생');
+				}
+			});
+		}
+		
 		selectMember(); 
 		
 		selectBoard();
@@ -357,6 +357,8 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		selectComment();
 		
 		selectReview();
+		
+		selectReport();
 		
 		selectCalendar();
 

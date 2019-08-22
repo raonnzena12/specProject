@@ -12,9 +12,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Smartphone</title>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <%@ include file ="../common/menubarForMobile.jsp" %>
+<!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
 
 <style>
     #mobileList ul {
@@ -226,6 +227,7 @@
     }
     .loading {
         text-align: center;
+        padding-top: 100px;
     }
     #loadingImg {
         opacity: 0;
@@ -234,6 +236,11 @@
     }
     #slider-battery {
         margin: 0 0 15px 0;
+    }
+    .addarea {
+    	color: white;
+    	background-color: #ccc;
+    	text-align :center;
     }
 </style>
 <script>
@@ -347,7 +354,7 @@
             $div.append($deviceCon);
             $listArea.append($div);
             if ( i == 4 ) {
-                var $adCon = $("<div>").addClass("deviceCon").text("AD");
+                var $adCon = $("<div>").addClass("deviceCon addarea").text("AD");
                 $addiv.append($adCon);
                 $listArea.append($addiv);
             }
@@ -425,12 +432,12 @@
         $("#batType").on("change", function(){
             var batType = $(this).val();
             console.log(batType);
-            var urlString = "batType:"
+            var urlString = "bType:"
             if ( batType == 0 ) {
-                deleteUrl("batType");
+                deleteUrl("bType");
             } else {
                 urlString += batType;
-                assembleUrl("batType",urlString);
+                assembleUrl("bType",urlString);
             }
             filtering();
         });
@@ -550,7 +557,6 @@
 </script>
 </head>
 <body>
-    <%@ include file ="../common/menubar.jsp" %>
     <section id="mobileList">
         <!-- side navigation -->
         <div class="sidenav">
@@ -721,7 +727,12 @@
         }
         $(function(){
             $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-                if($(window).scrollTop() >= ($(document).height() - $(window).height() - 0.5) ){
+            	console.log($(window).scrollTop());
+            	console.log($(document).height());
+            	console.log($(window).height());
+            	console.log($(document).height() - $(window).height());
+            	console.log($(window).scrollTop() >= ($(document).height() - $(window).height() - 0.5));
+                if($(window).scrollTop() >= ($(document).height() - $(window).height()-0.5 ) ) {
                     if ( currentPage == maxPage ) return false;
                     $("#loadingImg").css("opacity","1");
                     setTimeout(function(){

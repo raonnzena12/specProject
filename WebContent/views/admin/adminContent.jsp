@@ -130,6 +130,9 @@
 		font-weight: 400;
 		z-index: 1000;
 	}
+	.clear {
+		clear: both;
+	}
 </style>
 </head>
 <body>
@@ -180,7 +183,7 @@
 					<tr>
 						<th scope="row"><input type="checkbox" name="selectContent" value="<%=b.getbNo()%>"></th>
 						<th scope="row cnoNum"><%=b.getbNo()%></th>
-						<td><a href="content.bo?bno=<%=b.getbNo()%>" target="_blank">
+						<td><a href="content.bo?bno=<%=b.getbNo()%>&bcode=0" target="_blank">
 							<% if ( b.getbStatusCode() == 1 ) { %>
 								<%=b.getbTitle()%>
 							<% } else if ( b.getbStatusCode() == 2 ) { %>
