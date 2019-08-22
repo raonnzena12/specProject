@@ -1173,6 +1173,7 @@ public class AdminDao {
 				aReport.setReRefContType(rset.getString("REPORT_CON_TYPE"));
 				aReport.setReStatusType(rset.getString("REPORT_STATUS_TYPE"));
 				aReport.setrWriter2(rset.getString("USER_NAME"));
+				aReport.setrRefConNo(rset.getInt("REPORT_CONNO"));
 				
 				rList.add(aReport);
 			}
@@ -1186,7 +1187,7 @@ public class AdminDao {
 		return rList;
 	}
 
-	public int updateReport(Connection conn, int tno, int refNo) {
+	public int updateReport(Connection conn, int tno, int refConNo) {
 		PreparedStatement pstmt = null;
 		
 		int result = 0;
@@ -1195,7 +1196,7 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, refNo);
+			pstmt.setInt(1, refConNo);
 			
 			result = pstmt.executeUpdate();
 			

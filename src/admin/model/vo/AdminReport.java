@@ -11,6 +11,7 @@ public class AdminReport {
 	private int rWriter;
 	private int rUser;
 	private int rRefNo;
+	private int rRefConNo;
 	
 	
 	private String reRefCont;
@@ -174,6 +175,16 @@ public class AdminReport {
 
 	public void setrWriter2(String rWriter2) {
 		this.rWriter2 = rWriter2;
+	}
+	
+	
+
+	public int getrRefConNo() {
+		return rRefConNo;
+	}
+
+	public void setrRefConNo(int rRefConNo) {
+		this.rRefConNo = rRefConNo;
 	}
 
 	@Override
