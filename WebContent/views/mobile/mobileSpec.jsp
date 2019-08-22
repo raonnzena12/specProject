@@ -154,7 +154,8 @@
         case "KT Tech" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-KT_Tech.png");<% break; 
         case "SK 텔레시스" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-sk telesys.png");<% break; 
         case "소니 모바일" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-sony.png");<% break; 
-        case "노키아" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-nokia.png");<% break; 
+        case "노키아" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-nokia.png");<% break;
+        case "샤오미" : %> $("#summaryLogo").attr("src","<%=request.getContextPath()%>/image/logo/logo-Xiaomi.png");<% break;
         } 
         switch ( mo.getmOsName() ) {
         case "안드로이드": %> $("#summaryOS").attr("src","image/OS/And.png"); <%break;

@@ -402,9 +402,9 @@
 			</article>
 			<%for(int i = 0; i < 5; i++){ %>
 				<% if (img.get(i).getMiFrontImage() == null) { %>
-	                 <article class="updated"><img class="img-rounded" src="<%=request.getContextPath()%>/image/smartphoneG.png" width="150px" height="200px" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'"></article>
+	                 <article class="updated"><img class="img-rounded" src="<%=request.getContextPath()%>/image/smartphoneG.png" width="auto" height="200px" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'"></article>
 	            <% } else { %>
-	                 <article class="updated"><img class="img-rounded" src="<%=request.getContextPath()%>/image/mobileImages/<%=img.get(i).getMiFrontImage()%>" width="150px" height="200px" class="deviceFImage" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'"></article>
+	                 <article class="updated"><img class="img-rounded" src="<%=request.getContextPath()%>/image/mobileImages/<%=img.get(i).getMiFrontImage()%>" width="auto" height="200px" class="deviceFImage" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'"></article>
 	            <% } %>
 			<%} %>
 			
@@ -427,7 +427,7 @@
 				<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-nokia.png" title="NOKIA" alt="NOKIA" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:nokia'"></article>
 				<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-motorola.png" title="MOTOROLA" alt="MOTOROLA" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:motorola'"></article>
 				<article class="brandimg"><img class="img-rounded logoimg" src="image/logo/logo-Pantech.png"title="PANTECH" alt="PANTECH" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:pantech'"></article>
-				<article class="brandimg"><img class="img-rounded logoimg xiaomi" src="image/logo/logo-Xiaomi.png"title="XIAOMI" alt="XIAOMI" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?'"></article>
+				<article class="brandimg"><img class="img-rounded logoimg xiaomi" src="image/logo/logo-Xiaomi.png"title="XIAOMI" alt="XIAOMI" onclick="location.href='<%=request.getContextPath()%>/devicelist.mo?brand:xiaomi'"></article>
 			</section>
 		</section>
 		
