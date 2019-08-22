@@ -13,7 +13,7 @@
 	
 	<script>
 		$(document).ready(function(){
-			location.href="<%=request.getContextPath()%>/mainPageRank.bo";
+			location.href="<%=request.getContextPath()%>/main.spec";
 		});
 	</script>
 </body>
