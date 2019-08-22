@@ -79,10 +79,10 @@
 	<nav id="mypageNav">
 		<ul>
 			<li><a href="<%=request.getContextPath()%>/mypage.me" id="info">회원정보</a></li>
-			<li><a href="<%=request.getContextPath()%>/views/member/myArticleList.jsp">작성글보기</a></li>
-			<li><a href="<%=request.getContextPath()%>/views/member/myReviewList.jsp">작성리뷰보기</a></li>
-			<li><a href="#">작성댓글보기</a></li>
-			<li><a href="<%=request.getContextPath()%>/myReportList.me">작성댓글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myBoardList.me">작성글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReviewList.me">작성리뷰보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReplyList.me">작성댓글보기</a></li>
+			<li><a href="<%=request.getContextPath()%>/myReportList.me">신고내역보기</a></li>
 		</ul>
     </nav>
     
