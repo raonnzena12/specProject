@@ -281,7 +281,7 @@
 			width:400px;
 			height:250px;
 			float:left;
-			display:block;
+			display:block; 
 			margin: 25px 0 0 0;
 			/* border:1px solid black; */
 		}
