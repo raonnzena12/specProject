@@ -73,7 +73,7 @@ public class TotalReviewServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		maxPage = (int)Math.ceil((double)totalContent/limit);
+		maxPage = (int)(Math.ceil((double)totalContent/limit));
 		startPage = ((currentPage-1)/limit)*pagingBarSize +1;
 		endPage = startPage + pagingBarSize - 1 ;
 		if ( endPage >= maxPage ) endPage = maxPage;
