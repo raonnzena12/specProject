@@ -24,13 +24,16 @@
 		loadCalendar(3);  
 
  		$("#calendar").fullCalendar({
-			// put your options and callbacks here
 			
 			selectable: true,
-      		eventLimit: true, // allow "more" link when too many events
-      		dayClick: function() {
-      		},
-      		lang: "ko"
+      		eventLimit: false,
+      		lang: "ko",
+      		eventClick: function(event) {
+      			if(event.url) {
+      				window.open(event.url, "_blank");
+      				return false;
+      			}
+      		}
     	});
 
 	});

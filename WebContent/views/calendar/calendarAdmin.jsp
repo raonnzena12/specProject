@@ -39,9 +39,8 @@
       		lang: "ko",
  			
       		eventClick: function(info) {
-      			updateEvent();
+      			updateEvent(info);
       			id = info.id;
-      			console.log(info);
       			return false;
       	    }
     	});
@@ -137,10 +136,17 @@
 	}
 	
 	function registerEvent() {
+		$("input[name=title]").val('');
+		$("input[name=url]").val('');
+		$("input[name=date]").val('');
 		$(".registerModal").css("display", "block");
 	}
 	
-	function updateEvent() {
+	function updateEvent(info) {
+		var startDate = info.start.format("YYYY-MM-DD");
+		$("input[name=updateTitle]").val(info.title);
+		$("input[name=updateUrl]").val(info.url);
+		$("input[name=updateDate]").val(startDate);
 		$(".updateModal").css("display", "block");
 	}
 	
@@ -383,7 +389,7 @@
 		   			</tr>
 		   			<tr>
 		   				<td><label name="updateDate">날짜 지정</label></td>
-		   				<td><input type="date" name="updateDate"></td>
+		   				<td><input type="date" name="updateDate" id="updateDate"></td>
 		   			</tr>
 		   			<tr>
 		   				<td>공개 여부</td>
