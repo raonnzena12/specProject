@@ -321,8 +321,8 @@ JavaScript
 			});
     		
     		
-    		var deviceArr = [];
-    		var mobile;
+    		
+    		///////////////////////////// 휴대폰 기종 검색 자동완성 ////////////////////////////
 			var $mb = {};
     		$("#joinForm input[name=device]").on("input",function(){
     			var device = $(this).val().replace(/(\s*)/g,"");
@@ -343,16 +343,12 @@ JavaScript
     						//console.log(sList[i].mNameEn);
     						var k = sList[i].mNameEn;
     						var v = sList[i].mNo;
-    						//console.log(k + " / " + v);
-    						
     						
     						$mb[k] = v;
-    						
     						
 	    					console.log("each success : "+Object.keys($mb));
 							
 						});
-						
 	    				console.log("after each success : "+$mb);
     				}
     			});
@@ -365,7 +361,7 @@ JavaScript
     		});
     		
     		
-    		
+    		////////////////////////////////////////////////////////////////////////////////////////////
     		
     		$("#joinForm").submit(function(){
     			
@@ -380,8 +376,6 @@ JavaScript
     					$("#joinForm input[name=phone]").focus();
     					return false;
     				}
-    				
-    			
     				
     			}
     			if(!eCk){alert("사용 가능한 이메일을 입력해주세요."); return false;}

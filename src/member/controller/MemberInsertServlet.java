@@ -60,8 +60,8 @@ public class MemberInsertServlet extends HttpServlet {
 			 String from = "specprojectmanager@gmail.com";
 			 String to = member.getUserEmail();
 			 String subject = "SPEC 회원가입을 위한 이메일 확인 메일 입니다.";
-			 String content = "다음 링크에 접속하여 이메일 확인을 진행하세요." +
-					"<a href='" + host + "emailCheckAction.me?code=" + new SHA256().getSHA256(to) + "&email="+to +"'>이메일 인증하기</a>";
+			 String content = "다음 링크에 접속하여 이메일 확인을 진행하세요.<br>" +
+					"<h2><a href='" + host + "emailCheckAction.me?code=" + new SHA256().getSHA256(to) + "&email="+to +"'>이메일 인증하기</a></h2>";
 
 			// SMTP에 접속하기 위한 정보를 기입합니다.
 			Properties p = new Properties();

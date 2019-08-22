@@ -52,7 +52,6 @@ public class EmailCheckAction extends HttpServlet {
 			page = "views/common/errorPage.jsp";
 		}
 		
-		System.out.println(email);
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 
