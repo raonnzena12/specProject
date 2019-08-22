@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Member;
+
 @WebServlet("/loadAdminCalendar.do")
 public class LoadAdminCalendarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -16,7 +18,17 @@ public class LoadAdminCalendarServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect(request.getContextPath() + "/views/admin/adminCalendar.jsp");
+		
+		Member loginUser = null;
+		if ( request.getSession().getAttribute("loginUser") != null ) {
+			loginUser = (Member)request.getSession().getAttribute("loginUser");
+		}
+		
+		if ( loginUser == null || loginUser.getUserStatus() != 0 ) {
+			response.sendRedirect(request.getContextPath());
+		} else {
+			response.sendRedirect(request.getContextPath() + "/views/admin/adminCalendar.jsp");
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
