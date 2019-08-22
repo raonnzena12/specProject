@@ -12,9 +12,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Smartphone</title>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <%@ include file ="../common/menubarForMobile.jsp" %>
+<!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
 
 <style>
     #mobileList ul {
@@ -35,7 +36,7 @@
     #mobileList .sidenav {
         height: 100%; /* Full-height: remove this if you want "auto" height */
         width: 250px; /* Set the width of the sidebar */
-        position: absolute; /* Fixed Sidebar (stay in place on scroll) */
+        position: fixed; /* Fixed Sidebar (stay in place on scroll) */
         z-index: 1; /* Stay on top */
         top: 0; /* Stay at the top */
         left: 0;
@@ -226,6 +227,7 @@
     }
     .loading {
         text-align: center;
+        padding-top: 100px;
     }
     #loadingImg {
         opacity: 0;
@@ -425,12 +427,12 @@
         $("#batType").on("change", function(){
             var batType = $(this).val();
             console.log(batType);
-            var urlString = "batType:"
+            var urlString = "bType:"
             if ( batType == 0 ) {
-                deleteUrl("batType");
+                deleteUrl("bType");
             } else {
                 urlString += batType;
-                assembleUrl("batType",urlString);
+                assembleUrl("bType",urlString);
             }
             filtering();
         });
@@ -550,7 +552,6 @@
 </script>
 </head>
 <body>
-    <%@ include file ="../common/menubar.jsp" %>
     <section id="mobileList">
         <!-- side navigation -->
         <div class="sidenav">
