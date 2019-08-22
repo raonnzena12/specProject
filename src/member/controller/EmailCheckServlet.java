@@ -33,8 +33,6 @@ public class EmailCheckServlet extends HttpServlet {
 		
 		int result = new MemberService().checkEmail(email);
 		
-		System.out.println(result);
-		
 		PrintWriter out = response.getWriter();
 		
 		out.print(result);

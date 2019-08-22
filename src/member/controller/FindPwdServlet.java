@@ -41,8 +41,8 @@ public class FindPwdServlet extends HttpServlet {
 		String from = "specprojectmanager@gmail.com";
 		String to = userEmail;
 		String subject = "SPEC 비밀번호 재설정을 위한 확인 메일 입니다.";
-		String content = "다음 링크에 접속하여 이메일 확인을 진행하세요." +
-					"<a href='" + host + "updatePwdForm.me?email="+to +"'>이메일 인증하기</a>";
+		String content = "다음 링크에 접속하여 비밀번호 재설정을 진행하세요.<br>" +
+					"<h2><a href='" + host + "updatePwdForm.me?email="+to +"'>비밀번호 재설정 하기</a></h2>";
 
 		// SMTP에 접속하기 위한 정보를 기입합니다.
 		Properties p = new Properties();
@@ -78,7 +78,7 @@ public class FindPwdServlet extends HttpServlet {
 			script.close();
 			return;
 		}
-		request.setAttribute("msg", "이메일 주소로 비밀번호 재설정 메일이 전송되었습니다. 이메일에 들어가셔서 인증해주세요");
+		request.setAttribute("msg", "이메일 주소로 비밀번호 재설정 메일이 전송되었습니다. 이메일에 들어가셔서 비밀번호를 재설정해주세요");
 		page = "views/member/checkEmailVerify.jsp";
 
 		request.getRequestDispatcher(page).forward(request, response);
