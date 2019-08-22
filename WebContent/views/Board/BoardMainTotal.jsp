@@ -298,19 +298,21 @@
     
     <script>
     	// 게시판 상세보기
-    	$(function(){
+    	$(function(){ 
     		$("#boardlisttable td").click(function(){
     			var bcode = <%=request.getAttribute("bno")%>;
     			var bno = $(this).parent().children().eq(0).text();
     			<%if(loginUser !=null){%>	
     				location.href="<%= request.getContextPath() %>/content.bo?bno="+bno +"&bcode="+ bcode;
-    				<%-- location.href="<%= request.getContextPath()%>/replyCount.bo?bno="+bno; --%>
+    				
     			<% } else{ %>
 					alert("로그인해야만 상세보기가 가능합니다!");
 				<% } %>
-    			<%-- &bpi=<%=request.getAttribute("bpi")%>&tlist=<%=request.getAttribute("tlist")%> --%>
+    			
     		});
     	});
+    	
+    	<%-- console.log(<%=loginUser%>); --%>
     </script>
 	
 </body>
