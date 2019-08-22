@@ -521,6 +521,19 @@ public class AdminService {
 		return result;
 	}
 
+	public int reportRestore(int tno, int refNo) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().reportRestore(conn, tno, refNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 
 
 
