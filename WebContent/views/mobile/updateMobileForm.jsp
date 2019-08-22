@@ -125,17 +125,17 @@
             <div class="nameInsert">
                 <label>브랜드<select name="brand" id="brand"  class="form-control">
                     <option>-----</option>
-                    <option value="1" <%if (mBrandName.equals("삼성전자")) { %> selected<% } %>>삼성</option>
-                    <option value="2" <%if (mBrandName.equals("LG전자")) { %> selected<% } %>>LG전자</option>
-                    <option value="3" <%if (mBrandName.equals("애플")) { %> selected<% } %>>애플</option>
-                    <option value="4" <%if (mBrandName.equals("팬택")) { %> selected<% } %>>팬택</option>
-                    <option value="5" <%if (mBrandName.equals("HTC")) { %> selected<% } %>>HTC</option>
-                    <option value="6" <%if (mBrandName.equals("모토로라")) { %> selected<% } %>>모토로라</option>
-                    <option value="7" <%if (mBrandName.equals("KT Tech")) { %> selected<% } %>>KT Tech</option>
-                    <option value="8" <%if (mBrandName.equals("SK 텔레시스")) { %> selected<% } %>>SK 텔레시스</option>
-                    <option value="9" <%if (mBrandName.equals("소니 모바일")) { %> selected<% } %>>소니 모바일</option>
-                    <option value="10" <%if (mBrandName.equals("노키아")) { %> selected<% } %>>노키아</option>
-                    <option value="11" <%if (mBrandName.equals("샤오미")) { %> selected<% } %>>샤오미</option>
+                    <option value="1" <%if (mBrandName!= null && mBrandName.equals("삼성전자")) { %> selected<% } %>>삼성</option>
+                    <option value="2" <%if (mBrandName!= null && mBrandName.equals("LG전자")) { %> selected<% } %>>LG전자</option>
+                    <option value="3" <%if (mBrandName!= null && mBrandName.equals("애플")) { %> selected<% } %>>애플</option>
+                    <option value="4" <%if (mBrandName!= null && mBrandName.equals("팬택")) { %> selected<% } %>>팬택</option>
+                    <option value="5" <%if (mBrandName!= null && mBrandName.equals("HTC")) { %> selected<% } %>>HTC</option>
+                    <option value="6" <%if (mBrandName!= null && mBrandName.equals("모토로라")) { %> selected<% } %>>모토로라</option>
+                    <option value="7" <%if (mBrandName!= null && mBrandName.equals("KT Tech")) { %> selected<% } %>>KT Tech</option>
+                    <option value="8" <%if (mBrandName!= null && mBrandName.equals("SK 텔레시스")) { %> selected<% } %>>SK 텔레시스</option>
+                    <option value="9" <%if (mBrandName!= null && mBrandName.equals("소니 모바일")) { %> selected<% } %>>소니 모바일</option>
+                    <option value="10" <%if (mBrandName!= null && mBrandName.equals("노키아")) { %> selected<% } %>>노키아</option>
+                    <option value="11" <%if (mBrandName!= null && mBrandName.equals("샤오미")) { %> selected<% } %>>샤오미</option>
                 </select></label>
                 <br><br>
                 <label>모델번호<input type="text" name="moCode" id="moCode" class="form-control" placeholder="모델번호 입력" value="<%=mCode%>"></label>
@@ -286,10 +286,10 @@
                         <td>
                             <select id="batteryType" class="form-control" name="batteryType">
                             <option>-----</option>
-                            <option value="Lithium" <%if (mBatteryType.equals("Lithium")) { %> selected<% } %>>Lithium</option>
-                            <option value="Li-Polymer" <%if (mBatteryType.equals("Li-Polymer")) { %> selected<% } %>>Li-Polymer</option>
-                            <option value="Li-Ion" <%if (mBatteryType.equals("Li-Ion")) { %> selected<% } %>>Li-Ion</option>
-                            <option value="Li-Ion Polymer" <%if (mBatteryType.equals("Li-Ion Polymer")) { %> selected<% } %>>Li-Ion Polymer</option>
+                            <option value="Lithium" <%if (mBatteryType!=null && mBatteryType.equals("Lithium")) { %> selected<% } %>>Lithium</option>
+                            <option value="Li-Polymer" <%if (mBatteryType!=null && mBatteryType.equals("Li-Polymer")) { %> selected<% } %>>Li-Polymer</option>
+                            <option value="Li-Ion" <%if (mBatteryType!=null && mBatteryType.equals("Li-Ion")) { %> selected<% } %>>Li-Ion</option>
+                            <option value="Li-Ion Polymer" <%if (mBatteryType!=null && mBatteryType.equals("Li-Ion Polymer")) { %> selected<% } %>>Li-Ion Polymer</option>
                             </select>
                         </td>
                     </tr>
@@ -298,7 +298,7 @@
                         <td>
                             <select id="fastCharging" class="form-control" name="fastCharging">
                             <option>-----</option>
-                            <option value="고속충전" <%if (mFastCharsing.equals("급속충전") ||mFastCharsing.equals("고속충전")) { %> selected<% } %>>지원</option>
+                            <option value="고속충전" <%if (mFastCharsing != null && (mFastCharsing.equals("급속충전") ||mFastCharsing.equals("고속충전"))) { %> selected<% } %>>지원</option>
                             <option>미지원</option>
                             </select>
                         </td>
@@ -306,8 +306,8 @@
                         <td>
                             <select id="removableBattery" class="form-control" name="removableBattery">
                             <option>-----</option>
-                            <option value="일체형" <%if (mRemovableBat.equals("일체형")) { %> selected<% } %>>일체형</option>
-                            <option value="분리형" <%if (mRemovableBat.equals("분리형")) { %> selected<% } %>>분리형</option>
+                            <option value="일체형" <%if (mRemovableBat!=null && mRemovableBat.equals("일체형")) { %> selected<% } %>>일체형</option>
+                            <option value="분리형" <%if (mRemovableBat!=null && mRemovableBat.equals("분리형")) { %> selected<% } %>>분리형</option>
                             </select>
                         </td>
                     </tr>
@@ -354,8 +354,8 @@
                         <td>
                             <select id="payment" class="form-control" name="payment">
                             <option>-----</option>
-                            <option value="유" <%if (mPayment.equals("유")) { %> selected<% } %>>유</option>
-                            <option value="무" <%if (mPayment.equals("무")) { %> selected<% } %>>무</option>
+                            <option value="유" <%if (mPayment!= null && mPayment.equals("유")) { %> selected<% } %>>유</option>
+                            <option value="무" <%if (mPayment!= null && mPayment.equals("무")) { %> selected<% } %>>무</option>
                             </select>
                         </td>
                         <td>인증</td>
