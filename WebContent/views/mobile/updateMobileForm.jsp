@@ -161,9 +161,9 @@
                             <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
                             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="osCode">
                                 <option value="0">OS선택</option>
-                                <option value="1">안드로이드</option>
-                                <option value="2">iOS</option>
-                                <option value="3">etc</option>
+                                <option value="1" <% if ( mOsName != null && mOsName.equals("안드로이드") ) { %>selected<% } %>>안드로이드</option>
+                                <option value="2" <% if ( mOsName != null && mOsName.equals("iOS") ) { %>selected<% } %>>iOS</option>
+                                <option value="3" <% if ( mOsName != null && mOsName.equals("미확인") ) { %>selected<% } %>>etc</option>
                             </select>
                             </div>
                             <input type="text" class="form-control" name="osVersion" id="osVersion" <% if( mOsVersion != null ) { %>value="<%=mOsVersion%>" <% } %>>
