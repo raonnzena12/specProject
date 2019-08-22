@@ -1271,6 +1271,31 @@ public class AdminDao {
 		return result;
 	}
 
+	public int reportRestore(Connection conn, int tno, int refNo) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("reportRestore"+tno);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, refNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 	
 
 }

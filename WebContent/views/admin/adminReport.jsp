@@ -161,11 +161,11 @@
 					
 					<th scope="col" style="width:60px">글번호</th>
 					<th scope="col" style="width:100px">닉네임</th>
-					<th scope="col" style="width:80px">처리현황</th>
+					<th scope="col" style="width:70px">처리현황</th>
 					<th scope="col" style="width:80px">상태</th>
 					<th scope="col" style="width:120px">신고사유</th>
 					<th scope="col" style="width:100px">게시판</th>
-					<th scope="col" style="width:120px">작성일</th>
+					<th scope="col" style="width:100px">작성일</th>
 					<th scope="col" style="width:80px;">글관리</th>
 					</tr>
 				</thead>
@@ -186,7 +186,7 @@
 						<td id="<%=a.getrTableNo()%>"><a class="conDetail" ><% String tmp =""; if(a.getrContent().replaceAll("<br>"," ").length() > 20){ tmp = a.getrContent().replaceAll("<br>"," ").substring(10) + "...";}else{ tmp = a.getrContent().replaceAll("<br>"," ");} %><%= tmp %></a></td>
 						<td id="<%=a.getrRefNo()%>"><a class="refDetail"><% if(a.getrTableNo() ==  1){%>글<%}else if(a.getrTableNo() ==  2){ %>댓글<%}else if(a.getrTableNo() ==  4){ %>모바일 리뷰<%}else if(a.getrTableNo() ==  5){ %>모바일 댓글<%}else{ %>비교 댓글<%} %><br>[<%= a.getReRefContType()%>]</a></td>
 						<td><%=a.getrDate()%></td>
-						<td class="control" id="<%=a.getrNo()%>"><span class="report">경고</span><span class="delete">삭제</span></td>
+						<td class="control" id="<%=a.getrNo()%>"><span class="report">경고</span><span class="delete">삭제</span><span class="normal">일반</span></td>
 					</tr>
 						<% }
 					} %>
@@ -283,6 +283,27 @@
 				});
 			});
 			
+			// 일반처리를 하나 눌렀을 떄
+			$(".normal").click(function(){
+				var tno = $(this).parent().parent().children().eq(4).attr("id");
+				var refNo = $(this).parent().parent().children().eq(0).attr("id");
+				var rNo = $(this).parent().attr("id");
+				Swal.fire({
+				title: '게시글 회복',
+				text: "해당 글을 회복시키겠습니까?",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '예',
+				cancelButtonText: '취소'
+				}).then((result) => {
+				if (result.value) {
+					restoreBoard(tno, refNo, rNo);
+				}
+				});
+			});
+			
 			
 			$(".refDetail").click(function(){
 				var tno = $(this).parent().parent().children().eq(4).attr("id");
@@ -315,6 +336,11 @@
 		function reportBoard(tno,refNo,rNo){
 			
 			location.href="<%=request.getContextPath()%>/reportUpdate.ad?tno="+tno+"&refNo="+refNo+ "&rNo="+rNo;
+			
+		}
+		function restoreBoard(tno,refNo,rNo){
+			
+			location.href="<%=request.getContextPath()%>/reportRestore.ad?tno="+tno+"&refNo="+refNo+ "&rNo="+rNo;
 			
 		}
 	</script>
