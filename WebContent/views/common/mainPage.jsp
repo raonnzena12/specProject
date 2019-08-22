@@ -397,7 +397,7 @@
 		<section id="updated">
 		
 			<article class="updatedtitle">
-					<h4>LAST UPDATED</h4>
+					<h4>LAST RELEASED</h4>
 					<a href='<%=request.getContextPath()%>/devicelist.mo'>More ></a>
 			</article>
 			<%for(int i = 0; i < 5; i++){ %>
