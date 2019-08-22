@@ -37,7 +37,7 @@
 		<div id="footer-1">
 			<div id="footer-nav">
 				<ul>
-					<li><a href="#">이용약관</a></li> |				
+					<li><a href="views/common/TermsOfService.jsp">이용약관</a></li> |				
 					<li><a href="#">개인정보 취급방침</a></li> |				
 					<li><a href="#">개발자</a></li>		
 				</ul>

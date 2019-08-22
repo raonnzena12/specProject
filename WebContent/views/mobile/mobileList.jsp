@@ -30,7 +30,7 @@
     }
     #mobileList .sidenav>ul>div {
         /* display: none; */
-        background-color: #eee;
+        background-color: #f5f5f5;
         padding: 15px;
     }
     #mobileList .sidenav {
@@ -243,12 +243,14 @@
     	text-align :center;
         line-height: 80px;
     }
+    #slider-screen {
+        background-color: #fff;
+    }
 </style>
 <script>
     // 주소창 변경용 기본함수
     function ChangeUrl(page, url) {
         if (typeof (history.pushState) != "undefined") {
-            // var obj = { Page: null, Url: null };
             history.pushState({page: page, url:url}, page, ""+url);
         } else {
             alert("Browser does not support HTML5.");
@@ -379,6 +381,32 @@
                 $("#countNum").html(listCount);
             }
         });
+    }
+    // 쿼리스트링으로 옆에 선택메뉴 선택하기
+    function searchSelect(){
+        var address = document.location.href.split("?");
+        var qString = "";
+        if ( address.length != 1 ) {
+            qString = address[1];
+        }
+        var qsArr = qString.split(",");
+        $.each(qsArr, function(i) {
+            if ( qsArr[i].includes("brand") ) {
+                var brandArr = qsArr[i].split(":");
+                brandSelect(brandArr);
+            }
+        });
+    }
+    function brandSelect(brandArr) {
+        $("input:checkbox[value=samsung]").prop("checked", true);
+        $.each(brandArr, function(i) {
+            if ( i != 0 ) {
+            var $tmp = $("#"+brandArr[i]);
+            $tmp.prop("checked",true);
+            $("label[for="+brandArr[i]+"]").trigger("click");
+                console.log($tmp.prop("checked"));
+            }
+        })
     }
     $(function() {
         // 사이드바 필터메뉴 수납
@@ -555,6 +583,7 @@
 
     // 시작시 함수 한번 호출 (주소창 값으로 필터링 하기 위해)
     filtering();
+    searchSelect();
 </script>
 </head>
 <body>
@@ -577,27 +606,22 @@
                     <input type="checkbox" name="brand" id="sktelesys" value="sktelesys"><label for="sktelesys">SK 텔레시스</label>
                     <input type="checkbox" name="brand" id="sonymobile" value="sonymobile"><label for="sonymobile">소니 모바일</label>
                     <input type="checkbox" name="brand" id="nokia" value="nokia"><label for="nokia">노키아</label>
+                    <input type="checkbox" name="brand" id="xiaomi" value="xiaomi"><label for="xiaomi">Xiaomi</label>
                 </div>
                 <li class="sideOpen">
                     Screen <span class="incfilteringOn"><i class="material-icons">done_outline</i></span>
                 </li>
                 <div>
                     <p>
-                        <!-- <label for="ScreenAmount">Price range:</label> -->
                         <input type="text" id="ScreenAmount" readonly style="border:0; font-weight:bold;">
                     </p>
                     <div id="slider-screen"></div>
                 </div>
-                <!-- <li class="sideOpen">
-                    Color <span class="filteringOn"><i class="material-icons">done_outline</i></span>
-                </li>
-                <div>색상</div> -->
                 <li class="sideOpen">
                     Battery <span class="batfilteringOn"><i class="material-icons">done_outline</i></span>
                 </li>
                 <div>
                 	<p>
-					  <!-- <label for="batAmount">Price range:</label> -->
 					  <input type="text" id="batAmount" readonly style="border:0; font-weight:bold;">
 					</p>
                     <div id="slider-battery"></div>

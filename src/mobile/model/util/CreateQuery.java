@@ -17,6 +17,7 @@ public class CreateQuery {
 			case "sktelesys" : query += "\'SK 텔레시스\'"; break;
 			case "sonymobile" : query += "\'소니 모바일\'"; break;
 			case "nokia" : query += "\'노키아\'"; break;
+			case "xiaomi" : query += "\'샤오미\'"; break;
 			default : break;
 			}
 			query += ( i == bArr.length-1 || i == 0 ) ? "" : ","; 
