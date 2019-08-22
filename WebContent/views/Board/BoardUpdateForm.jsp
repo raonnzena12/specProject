@@ -105,6 +105,9 @@
             }
             
 	</style>
+	
+	<base target="_self"/>
+
 </head>
 <body>
 	<script>
@@ -186,8 +189,8 @@
             
  	</section>
 	<section id="btn" class="sec">
-		<button type="button" class="btn btn-secondary btn1" id="preveal">미리보기</button>
-		<button type="submit" class="btn btn-secondary btn1" id="titleupdate">글 수정</button>
+		<!-- <button type="button" class="btn btn-secondary btn1" id="preveal">미리보기</button> -->
+		<button type="submit" class="btn btn-secondary btn1" id="write">글 수정</button>
 		<button type="reset" class="btn btn-secondary btn1" id="cancel" onclick="javascript:history.back();">취소</button>
 	</section>
 	
@@ -197,15 +200,15 @@
 	
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 	<script>
-		$("#preveal").click(function(){
+		<%-- $("#preveal").click(function(){
 			var updateBoard = document.getElementById("updateBoard");
 			updateBoard.target = "preview";
 			updateBoard.action = "<%=request.getContextPath()%>/preview.bo";
 			/* console.log(content); */
-			window.open("","preview","width=900px, height=700px");
+			window.open("","preview","width=900px, height=700px, resizable = no, scrollbars = no");
 			updateBoard.submit();
 			updateBoard.action = "<%= request.getContextPath()%>/update.bo";
-		});
+		}); --%>
 		
   		
 			$("#updateBoard").submit(function(){

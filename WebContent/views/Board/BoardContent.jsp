@@ -228,8 +228,10 @@
 	   	<% if(loginUser.getUserNo() == b.getbWriter()){ %>
 	   		<button type="button" class="btn btn-secondary" id="deletebtn" onclick="deleteBoard();">삭제</button>
 	   		<button type="button" class="btn btn-secondary" id="motifybtn" onclick="updateBoard();">수정</button>
-	   	<% }else if(b.getbWriter() != 0){ %>
-	   		<%if(report.getBrWriter() != loginUser.getUserNo()){ %>
+	   	<% }else if(b.getbWriter() != 0){ 
+	   		
+	   		%>
+	   		<%if(report != null && report.getBrWriter() != loginUser.getUserNo()){ %>
 	   			<button type="button" class="btn btn-secondary" id="dangerbtn" onclick="dangerBoard();">신고</button>
 	   		<%}else{ %>
 	   			<button type="button" class="btn btn-secondary" id="dangerNoneBtn" onclick="dangerNoneBtn();">신고</button>
