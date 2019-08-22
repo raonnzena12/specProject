@@ -237,6 +237,11 @@
     #slider-battery {
         margin: 0 0 15px 0;
     }
+    .addarea {
+    	color: white;
+    	background-color: #ccc;
+    	text-align :center;
+    }
 </style>
 <script>
     // 주소창 변경용 기본함수
@@ -349,7 +354,7 @@
             $div.append($deviceCon);
             $listArea.append($div);
             if ( i == 4 ) {
-                var $adCon = $("<div>").addClass("deviceCon").text("AD");
+                var $adCon = $("<div>").addClass("deviceCon addarea").text("AD");
                 $addiv.append($adCon);
                 $listArea.append($addiv);
             }

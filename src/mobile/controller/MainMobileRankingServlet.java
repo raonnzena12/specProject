@@ -15,7 +15,7 @@ import mobile.model.vo.MoImage;
 import mobile.model.vo.Mobile;
 
 
-@WebServlet("/mainPageRank.bo")
+@WebServlet("/main.spec")
 public class MainMobileRankingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
