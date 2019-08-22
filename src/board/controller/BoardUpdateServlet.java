@@ -29,12 +29,14 @@ public class BoardUpdateServlet extends HttpServlet {
 		String content = request.getParameter("summernote");
 		int brand = Integer.parseInt(request.getParameter("brand"));
 		
+		int bcode = Integer.parseInt(request.getParameter("bcode"));
+		
 		content = content.replace("\n", "<br>");
 		
 		int result = new BoardService().updateBoard(bno, category, title, content, brand);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/content.bo?bno="+bno);
+			response.sendRedirect(request.getContextPath() + "/content.bo?bno="+bno+ "&bcode="+ bcode);
 		}else {
 			request.setAttribute("msg", "게시글 수정 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
