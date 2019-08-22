@@ -184,7 +184,7 @@
                        
                         <tr>
                             <td colspan="2"><label>휴대폰 기종</label><input class="form-control" type="text" name="device" <%if(loginUser.getUserDevice() == null){ %> placeholder="기종찾기"<%}else{ %>value="<%=loginUser.getUserDevice() %>"<%} %>></td>
-                            <td><input type="hidden" name="userMno" <%if(loginUser.getUserMno() != 0){ %> value="<%=loginUser.getUserMno()%>"<%}else{ %>value="0"<%} %>></td>
+                            <td><input type="hidden" name="userMno" ></td>
                         </tr>
                     </table>
                 </div>
@@ -304,8 +304,15 @@
         		
 			$("#updateBtn").click(function(){
 				
-    			var	deviceVal = $mb[$("#updateForm input[name=device]").val()];
-    			$("#updateForm input[name=userMno]").val(deviceVal);
+				console.log('<%=loginUser.getUserNo()%>');
+				if($("#updateForm input[name=device]").val() == ''){
+					if('<%=loginUser.getUserMno()%>'!= 0){
+						$("#updateForm input[name=userMno]").val('');
+					}
+				}else{
+    				var	deviceVal = $mb[$("#updateForm input[name=device]").val()];
+    				$("#updateForm input[name=userMno]").val(deviceVal);
+				}
     			
     			if($("#updateForm input[name=userName]").val().trim() == '<%=loginUser.getUserName()%>'){
 					$("#updateForm input[name=userName]").removeClass('is-invalid');
