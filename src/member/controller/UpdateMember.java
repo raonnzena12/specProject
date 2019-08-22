@@ -40,6 +40,8 @@ public class UpdateMember extends HttpServlet {
 		
 		if(request.getParameter("userMno") != "") {
 			mno = Integer.parseInt(request.getParameter("userMno"));
+		}else {
+			
 		}
 		
 		if(request.getParameter("phone") != "") {

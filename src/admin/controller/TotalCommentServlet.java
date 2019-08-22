@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import admin.model.service.AdminService;
 import admin.model.vo.*;
+import member.model.vo.Member;
 
 @WebServlet("/adminComment.ad")
 public class TotalCommentServlet extends HttpServlet {
@@ -21,6 +22,15 @@ public class TotalCommentServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member loginUser = null;
+		if ( request.getSession().getAttribute("loginUser") != null ) {
+			loginUser = (Member)request.getSession().getAttribute("loginUser");
+		}
+		
+		if ( loginUser == null || loginUser.getUserStatus() != 0 ) {
+			response.sendRedirect(request.getContextPath());
+		} else {
+		
 		// sort 정렬값 구하기
 		int sort = 0;
 		if ( request.getParameter("sort") == null ) {
@@ -73,6 +83,7 @@ public class TotalCommentServlet extends HttpServlet {
 			request.setAttribute("cList", cList);
 			request.setAttribute("pInf", pInf);
 			request.getRequestDispatcher("views/admin/adminComment.jsp").forward(request, response);
+		}
 		
 	}
 

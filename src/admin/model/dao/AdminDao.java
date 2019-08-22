@@ -1163,7 +1163,7 @@ public class AdminDao {
 				aReport = new AdminReport();
 				aReport.setrNo(rset.getInt("REPORT_NO"));
 				aReport.setrContent(rset.getString("REPORT_CONT"));
-				aReport.setrRefNo(rset.getInt("REPORT_CONNO"));
+				aReport.setrRefNo(rset.getInt("REF_NO"));
 				aReport.setrDate(rset.getString("REPORT_DATE2"));
 				aReport.setrResult(rset.getInt("REPORT_RESULT"));
 				aReport.setrWriter(rset.getInt("REPORT_WRI"));

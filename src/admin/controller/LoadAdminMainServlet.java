@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Member;
+
 @WebServlet("/loadAdminMain.do")
 public class LoadAdminMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -17,7 +19,17 @@ public class LoadAdminMainServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.sendRedirect(request.getContextPath() + "/views/admin/adminMain.jsp");
+		Member loginUser = null;
+		if ( request.getSession().getAttribute("loginUser") != null ) {
+			loginUser = (Member)request.getSession().getAttribute("loginUser");
+		}
+		
+		if ( loginUser == null || loginUser.getUserStatus() != 0 ) {
+			response.sendRedirect(request.getContextPath());
+		} else {
+			response.sendRedirect(request.getContextPath() + "/views/admin/adminMain.jsp");
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

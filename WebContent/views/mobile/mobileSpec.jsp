@@ -46,6 +46,7 @@
     #brand {
         width: 200px;
         height: 200px;
+        position: relative;
     }
     #size {
         width: 180px;
@@ -79,6 +80,8 @@
         height: 80px;
         font-weight: 600;
         text-align: center;
+        background: url(image/OS/battery.png) no-repeat center;
+        background-size: 120px;
         /* line-height: 80px; */
     }
     #specSummary div {
@@ -127,6 +130,16 @@
     .insertMobileBottom {
         width: 900px;
         margin: 0 auto;
+    }
+    #summaryLogo {
+    	width: 80%;
+    	height: auto;
+    	position: absolute;
+    	margin : auto;
+    	top: 0;
+    	bottom: 0;
+    	left: 0;
+    	right: 0;
     }
 </style>
 <script>

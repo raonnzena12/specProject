@@ -262,7 +262,11 @@ public class MemberDao {
 			pstmt.setString(1,member.getUserName());
 			pstmt.setString(2, member.getPhone());
 			pstmt.setString(3, member.getUserEvent()+"");
-			pstmt.setInt(4,member.getUserMno());
+			if(member.getUserMno() == 0) {
+				pstmt.setString(4,"");
+			}else {
+				pstmt.setInt(4,member.getUserMno());
+			}
 			pstmt.setString(5, member.getUserDevice());
 			pstmt.setString(6, member.getUserEmail());
 				

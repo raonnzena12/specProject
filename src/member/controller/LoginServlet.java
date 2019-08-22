@@ -32,16 +32,30 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(userPwd);
 		Member loginUser = new MemberService().loginMember(member);
 		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setMaxInactiveInterval(14400);
-			
-			session.setAttribute("loginUser", loginUser);
-			
-			response.sendRedirect(request.getContextPath());
+			if(loginUser.getUserStatus() == 1 || loginUser.getUserStatus() == 0) {
+				HttpSession session = request.getSession();
+				session.setMaxInactiveInterval(14400);
+				
+				session.setAttribute("loginUser", loginUser);
+				
+				response.sendRedirect(request.getContextPath());
+			} else if(loginUser.getUserStatus() == 2) {
+				request.setAttribute("msg", "정지된 회원입니다.");
+				
+				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+				
+				view.forward(request, response);
+			} else {
+				request.setAttribute("msg", "탈퇴한 회원입니다.");
+				
+				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+				
+				view.forward(request, response);
+			}
 			
 		} else {
 			
-			request.setAttribute("msg", "로그인 실패");
+			request.setAttribute("msg", "존재하는 아이디를 찾을 수 없습니다.");
 			
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			
