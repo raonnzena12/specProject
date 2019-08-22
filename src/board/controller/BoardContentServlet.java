@@ -27,6 +27,7 @@ public class BoardContentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.parseInt(request.getParameter("bno"));
 		int bcode = Integer.parseInt(request.getParameter("bcode"));
+		System.out.println(bcode);
 		
 		Board board = new BoardService().contentBoard(bNo);
 		int replycount = new BoardService().getReplyCount(bNo);

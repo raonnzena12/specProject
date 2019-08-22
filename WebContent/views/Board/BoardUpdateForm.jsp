@@ -187,28 +187,28 @@
  	</section>
 	<section id="btn" class="sec">
 		<button type="button" class="btn btn-secondary btn1" id="preveal">미리보기</button>
-		<button type="submit" class="btn btn-secondary btn1" id="write">글 수정</button>
+		<button type="submit" class="btn btn-secondary btn1" id="titleupdate">글 수정</button>
 		<button type="reset" class="btn btn-secondary btn1" id="cancel" onclick="javascript:history.back();">취소</button>
 	</section>
 	
-	
+	<input type="hidden" name="bcode" value="<%=b.getbCode()%>">
 	</form>
 	
 	
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 	<script>
 		$("#preveal").click(function(){
-			var writeBoard = document.getElementById("updateBoard");
-			writeBoard.target = "preview";
-			writeBoard.action = "<%=request.getContextPath()%>/preview.bo";
+			var updateBoard = document.getElementById("updateBoard");
+			updateBoard.target = "preview";
+			updateBoard.action = "<%=request.getContextPath()%>/preview.bo";
 			/* console.log(content); */
-			window.open("","preview","width=900px, height=600px");
-			writeBoard.submit();
-			writeBoard.action = "<%= request.getContextPath()%>/update.bo";
+			window.open("","preview","width=900px, height=700px");
+			updateBoard.submit();
+			updateBoard.action = "<%= request.getContextPath()%>/update.bo";
 		});
 		
   		
-			$("#writeBoard").submit(function(){
+			$("#updateBoard").submit(function(){
 				if($("#category").val() == "category"){
 		  			alert("카테고리를 선택하세요.");
 		  			return false;
