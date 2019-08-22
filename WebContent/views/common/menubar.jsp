@@ -267,7 +267,7 @@
                 <i class="material-icons" id="account">account_circle</i>
                 <div class="loginmenu" id="veil"></div>
             	<% if(loginUser == null){ %>
-        <div id="login-menu" class="dropdown-menu dropdown-menu-right loginmenu" aria-labelledby="account" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div id="login-menu" class=" dropdown-menu-right loginmenu" aria-labelledby="account" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <form action="<%=request.getContextPath()%>/login.me">
             	<table id="login-table">
 	                <tr>
