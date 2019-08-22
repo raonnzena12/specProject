@@ -139,13 +139,13 @@ public class SpecMobileUpdateServlet extends HttpServlet {
 			MoImage mo = new MoImage();
 			mo.setMiPath(savePath);
 			if ( saveFiles.size() > 1 ) {
-				mo.setMiBackImage(saveFiles.get(1));
-			}
-			if ( saveFiles.size() > 0 ) {
+				mo.setMiFrontImage(saveFiles.get(1));
+				mo.setMiBackImage(saveFiles.get(0));
+			} else if ( saveFiles.size() > 0 ) {
 				mo.setMiFrontImage(saveFiles.get(0));
 			}
-			if ( !mFrontImage.equals("") && !mFrontImage.contains("#") ) mo.setMiFrontImage(mFrontImage);
-			if ( !mBackImage.equals("") && !mBackImage.contains("#") ) mo.setMiBackImage(mBackImage);
+			if ( mFrontImage != null && !mFrontImage.equals("") && !mFrontImage.contains("#") ) mo.setMiFrontImage(mFrontImage);
+			if ( mBackImage != null && !mBackImage.equals("") && !mBackImage.contains("#") ) mo.setMiBackImage(mBackImage);
 			MobileService moService = new MobileService();
 			int result = 0, result2 = 0, result3 = 0;
 			result = moService.updateMobileSummary(mno, mi1);
