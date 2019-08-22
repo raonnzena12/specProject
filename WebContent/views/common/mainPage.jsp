@@ -202,7 +202,7 @@
 		}
 		.updated{
 			width:200px;
-			height:200px;
+			height:220px;
 			display: block;
 			float:left;
 			margin:20px 7px 5px 8px;
@@ -261,13 +261,13 @@
 		}
 		#subAd{
 			width:1060px;
-			height:180px;
-			margin: 8px 0 0 9px;
+			height:200px;
+			margin: 15px 0 0 9px;
 			background-color:#4F90CC;
 			font-size: 50px;
 			color:white;
 			text-align: center;
-			padding-top:50px;
+			padding-top:60px;
 		}
 		#rank1{
 			width:400px;
