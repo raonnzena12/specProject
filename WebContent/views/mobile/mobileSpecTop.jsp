@@ -131,7 +131,7 @@
             <br><br>
             <label><%= device.getmName() %></label>
         </div>
-        <div id="mobileCount">좋아요 / 소지수</div>
+        <div id="mobileCount"></div>
         <div id="clear"></div>
         <div id="mobileTab">
             <div class="tab" id="1"><a>SPEC</a><div class="bar"></div></div>
