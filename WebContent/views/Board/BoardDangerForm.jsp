@@ -27,7 +27,7 @@
         	padding : 0;
         	clear : both;
         }
-        section{
+        #dangerBoard section{
         	/* border:1px solid black; */
         	width: 1080px;
          	/* height: auto; */
@@ -130,6 +130,7 @@
 			    <button type="reset" class="btn btn-secondary dangerBtn" data-toggle="tooltip" data-placement="bottom" data-original-title="Tooltip on bottom" onclick="javascript:history.back();">취소</button>
 			    <button type="submit" class="btn btn-primary dangerBtn" id="dangerBtn">신고</button>
 		  	</section>
+		  	<input type="hidden" name="bcode" value="<%=b.getbCode()%>">
 	</form>
 	<script>
 		$("#dangerBtn").on("click", function(){
