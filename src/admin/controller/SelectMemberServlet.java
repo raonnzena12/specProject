@@ -30,8 +30,6 @@ public class SelectMemberServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		System.out.println("--------------------------- 서블릿 ---------------------------");
-		
 		String sort = "no";
 		if(request.getParameter("sort") != null) {
 			sort = request.getParameter("sort");			
@@ -107,7 +105,6 @@ public class SelectMemberServlet extends HttpServlet {
 			}else {
 				count = aService.getMemberCount();
 			}
-			System.out.println("count : " + count);
 			
 			int limit = sortNum;
 			int pagingBarSize = 10;
@@ -136,23 +133,14 @@ public class SelectMemberServlet extends HttpServlet {
 			
 			AdminPageInfo pInf = new AdminPageInfo(count, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
 			
-			System.out.println("pInf : " + pInf);
-			
 			//------------------------- Member list 받아오기 -----------------------------
-			
-			System.out.println("sort : " + sort);
-			System.out.println("isSort : " + isSort);
-			System.out.println("sortNum : " + sortNum);
-			System.out.println("currentPage : " + currentPage);
-			System.out.println("searchSort : " + searchSort);
 
 			if(sort.contains("search")) {
 				list = aService.selectMemberSearch(searchSort, searchText, sortNum, currentPage);
 			}else {				
 				list = aService.selectMemberSort(sort, isSort, sortNum, currentPage);
 			}
-			System.out.println("list 크기 : " + list.size());
-
+			
 			String page = "";
 			if(list != null) {
 				page = "views/admin/adminMember.jsp";			

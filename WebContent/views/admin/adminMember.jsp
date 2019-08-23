@@ -4,8 +4,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-	System.out.println("--------------------- adminMember.jsp -----------------------");
-
 	ArrayList<AdminMember> list = (ArrayList<AdminMember>)request.getAttribute("list");
 	AdminPageInfo pInf = (AdminPageInfo)request.getAttribute("pInf");
 	
@@ -55,13 +53,6 @@
 	int endPage = pInf.getEndPage();
 	int limit = pInf.getLimit();
 	int pagingBarSize = pInf.getPagingBarSize();
-	
-	System.out.println("isSort : " + isSort);
-	System.out.println("sort : " + sort);
-	System.out.println("pInf : " + pInf);
-	System.out.println("searchSort : " + searchSort);
-	System.out.println("searchText : " + searchText);
-	System.out.println("status : " + status);
 %>
 <!DOCTYPE html>
 <html>
@@ -226,7 +217,9 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		background-color: white;
 		color : gray;
 	}
-    
+    .clear {
+    	clear: both;
+    }
 </style>
 <body>
 	<div class="outer">
@@ -359,6 +352,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 				</div>
 			</div>
 		</div>
+		<div class="clear"></div>
 	</div>
 	
 	<script>
@@ -541,6 +535,15 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			var searchText = $("#searchInput").val();
 			sort = "search";
 			location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=1&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>&searchSort='+searchSort+'&searchText='+searchText+'';
+		});
+		
+		$("#searchInput").keydown(function(key){
+			if(key.keyCode == 13) {
+				var searchSort = $(".searchSelect option:selected").val();
+				var searchText = $("#searchInput").val();
+				sort = "search";
+				location.href='<%= request.getContextPath() %>/adminSelectMember.do?currentPage=1&sort='+sort+'&sortNum='+sortNum+'&isSort=<%=isSort%>&searchSort='+searchSort+'&searchText='+searchText+'';
+			}
 		});
 		
 		

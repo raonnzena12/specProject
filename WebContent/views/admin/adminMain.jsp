@@ -181,7 +181,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			var currentPage = 0;
 
 			$.ajax({
-				url : "../../adminSelectMember.do",
+				url : "adminSelectMember.do",
 				type : "post",
 				dataType : "json",
 				data : {sort : sort, sortNum : sortNum},
@@ -210,7 +210,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		
 		function selectBoard() {
 			$.ajax({
-				url : "../../adminSelectBoard.do",
+				url : "adminSelectBoard.do",
 				type : "post",
 				dataType : "json",
 				success : function(map) {
@@ -238,7 +238,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		
 		function selectComment() {
 			$.ajax({
-				url : "../../adminSelectComment.do",
+				url : "adminSelectComment.do",
 				type : "post",
 				dataType : "json",
 				success : function(map) {
@@ -266,7 +266,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		
 		function selectReview() {
 			$.ajax({
-				url : "../../adminSelectReview.do",
+				url : "adminSelectReview.do",
 				type : "post",
 				dataType : "json",
 				success : function(map) {
@@ -296,7 +296,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		
 		function selectCalendar() {
 			$.ajax({
-				url : "../../adminSelectCalendar.do",
+				url : "adminSelectCalendar.do",
 				type : "post",
 				dataType : "json",
 				success : function(map) {
@@ -324,7 +324,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		
 		function selectReport() {
 			$.ajax({
-				url : "../../adminSelectReport.do",
+				url : "adminSelectReport.do",
 				type : "post",
 				dataType : "json",
 				success : function(map) {
