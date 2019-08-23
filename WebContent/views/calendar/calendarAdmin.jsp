@@ -160,7 +160,7 @@
 		$(".registerModal").css("display", "none");
 		
 		$.ajax({
-			url : "../../insertCalendar.do",
+			url : "insertCalendar.do",
 			type : "get",
 			data : {title : title, url : url, date : date, status : status, code : code},
 			success : function(check) {
@@ -185,7 +185,7 @@
 		$(".updateModal").css("display", "none");
 		
 		$.ajax({
-			url : "../../updateCalendar.do",
+			url : "updateCalendar.do",
 			type : "get",
 			data : {id : id, title : title, url : url, date : date, status : status, code : code},
 			success : function(check) {
@@ -204,7 +204,7 @@
 		$(".updateModal").css("display", "none");
 		
 		$.ajax({
-			url : "../../deleteCalendar.do",
+			url : "deleteCalendar.do",
 			type : "get",
 			data : {id : id},
 			success : function(check) {
