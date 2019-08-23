@@ -143,7 +143,7 @@
                         result.dismiss === Swal.DismissReason.timer
                     ) {
                         opener.location.href="javascript:loadReivew();"
-                        if (opener!= null) {
+                        if (opener!= null) { 
                             opener.updateForm = null;
                             self.close();
                         }

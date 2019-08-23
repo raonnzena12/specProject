@@ -77,7 +77,7 @@ public class MobileService {
 	public int getListCount(ArrayList<String[]> queryList) {
 		Connection conn = getConnection();
 		CreateQuery cq = new CreateQuery();
-		String query = "";
+		String query = ""; 
 		// 쿼리문 조합
 		if ( !queryList.isEmpty() ) {
 			for ( String[] strArr : queryList ) {
