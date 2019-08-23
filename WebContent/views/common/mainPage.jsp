@@ -420,14 +420,14 @@
 			<%for(int i = 0; i < 5; i++){ %>
 				<% if (img.get(i).getMiFrontImage() == null) { %>
 	                 <article class="updated">
-	                 	<img class="img-rounded phoneimg" title="<%=img.get(i).getMiName()%>" src="<%=request.getContextPath()%>/image/smartphoneG.png" width="100px" height="200px" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'">
-	                 	<div class="phonename"><%=img.get(i).getMiName()%></div>
+	                 	<img class="img-rounded phoneimg" id="phoneimg1" title="<%=img.get(i).getMiName()%>" src="<%=request.getContextPath()%>/image/smartphoneG.png" width="100px" height="200px" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'">
+	                 	<div class="phonename" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'"><%=img.get(i).getMiName()%></div>
 	                 	<%-- <span style="display:block;"><%=img.get(i).getMiName()%></span> --%>
 	                 </article>
 	            <% } else { %>
 	                 <article class="updated">
 	                 	<img class="img-rounded phoneimg" title="<%=img.get(i).getMiName()%>" src="<%=request.getContextPath()%>/image/mobileImages/<%=img.get(i).getMiFrontImage()%>" width="auto" height="200px" class="deviceFImage" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'">
-	                 	<div class="phonename"><%=img.get(i).getMiName()%></div>
+	                 	<div class="phonename" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'"><%=img.get(i).getMiName()%></div> 
 	                 	<%-- <span style="display:block;"><%=img.get(i).getMiName()%></span> --%>
 	                 </article>
 	            <% } %>
