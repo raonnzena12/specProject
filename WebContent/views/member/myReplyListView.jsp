@@ -149,7 +149,7 @@
     	<table id="articleTable" class="table table-hover">
 		  <thead>
 		    <tr>
-		      <!-- th scope="col" width="80px">번호</th> -->
+		      <th scope="col" width="80px">번호</th>
 		      <th scope="col" width="60px" class="white">page</th>
 		      <th scope="col" width="60px" class="white">ref</th>
 		      <th scope="col" width="400px">내용</th>
@@ -167,7 +167,7 @@
             	<% }else{ %>
             		<%for(Reply r : rList){ %>
             		<tr>
-            			<%-- <td><%= r.getcNo()%></td> --%>
+            			<td><%= r.getcNo()%></td>
             			<td class="white"><%= r.getcTableNo()%></td>
             			<td class="white"><%= r.getRefNo()%></td>
             			<td><% String tmp =""; if(r.getcContent().replaceAll("<br>"," ").length() > 20){ tmp = r.getcContent().replaceAll("<br>"," ").substring(10) + "...";}else{ tmp = r.getcContent().replaceAll("<br>"," ");} %><%= tmp %></td>
@@ -228,10 +228,13 @@
 			var rno = $(this).parent().children().eq(2).text();
 			// 로그인 한 사람만 게시글 상세보기 가능
 				<% if(loginUser != null){ %>
+					// 게시판 댓글
 					if(tno == 1){
 						location.href="<%= request.getContextPath() %>/content.bo?bno="+rno +"&bcode=0";
+					// 모바일 댓글
 					}else if(tno == 2){
 						location.href="<%= request.getContextPath() %>/spec.mo?mno="+rno +"&page=1";
+					// 비교 댓글
 					}else{
 						location.href="<%= request.getContextPath() %>/compareSpec.mo?mno="+rno;
 					}
