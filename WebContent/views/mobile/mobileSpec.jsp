@@ -206,9 +206,9 @@
                     </tr>
                     <tr>
                         <td>출시일</td>
-                        <td><% if ( mo.getmReleaseDate() != null ) { %><%= mo.getmReleaseDate() %><% } %></td>
+                        <td><% if ( mo.getmReleaseDate() != null && !mo.getmReleaseDate().equals("null") ) { %><%= mo.getmReleaseDate() %><% } %></td>
                         <td>출시OS</td>
-                        <td><% if ( mo.getmOsName() != null ) { %><%= mo.getmOsName() %> <%= mo.getmOsVersion()%><% } %></td>
+                        <td><% if ( mo.getmOsName() != null&& !mo.getmOsName().equals("null") ) { %><%= mo.getmOsName() %><% } if (mo.getmOsVersion() != null && !mo.getmOsVersion().equals("null")){ %> <%= mo.getmOsVersion()%><% } %></td>
                     </tr>
                 </table>
             </div>
@@ -217,15 +217,15 @@
                 <table class="table border-bottom">
                     <tr>
                         <td>주요재질</td>
-                        <td><% if ( mo.getmMaterial() != null ) { %><%= mo.getmMaterial() %><% } %></td>
+                        <td><% if ( mo.getmMaterial() != null&& !mo.getmMaterial().equals("null") ) { %><%= mo.getmMaterial() %><% } %></td>
                         <td>크기(WxHxD, mm)</td>
-                        <td><% if ( mo.getmSize() != null ){ %><%= mo.getmSize() %><% } %></td>
+                        <td><% if ( mo.getmSize() != null&& !mo.getmSize().equals("null") ){ %><%= mo.getmSize() %><% } %></td>
                     </tr>
                     <tr>
                         <td>무게(g)</td>
-                        <td><% if ( mo.getmWeight() != null){ %><%= mo.getmWeight() %><% } %></td>
+                        <td><% if ( mo.getmWeight() != null&& !mo.getmWeight().equals("null") ){ %><%= mo.getmWeight() %><% } %></td>
                         <td>연결단자</td>
-                        <td><% if ( mo.getmLink() != null ){ %><%= mo.getmLink() %><% } %></td>
+                        <td><% if ( mo.getmLink() != null && !mo.getmLink().equals("null") ){ %><%= mo.getmLink() %><% } %></td>
                     </tr>
                 </table>
             </div>
@@ -236,19 +236,19 @@
                         <td>액정크기(인치)</td>
                         <td><% if ( mo.getmInch() != 0 ){ %><%= mo.getmInch() %><% } %></td>
                         <td>화면해상도</td>
-                        <td><% if ( mo.getmResolution() != null ){ %><%= mo.getmResolution() %><% } %></td>
+                        <td><% if ( mo.getmResolution() != null && !mo.getmResolution().equals("null") ){ %><%= mo.getmResolution() %><% } %></td>
                     </tr>
                     <tr>
                         <td>Pixel/Inch</td>
-                        <td><% if ( mo.getmPixel() != null ){ %><%= mo.getmPixel() %><% } %></td>
+                        <td><% if ( mo.getmPixel() != null && !mo.getmPixel().equals("null") ){ %><%= mo.getmPixel() %><% } %></td>
                         <td>화면 타입</td>
-                        <td><% if ( mo.getmDisplayType() != null ){ %><%= mo.getmDisplayType() %><% } %></td>
+                        <td><% if ( mo.getmDisplayType() != null && !mo.getmDisplayType().equals("null") ){ %><%= mo.getmDisplayType() %><% } %></td>
                     </tr>
                     <tr>
                         <td>화면 폭</td>
-                        <td><% if ( mo.getmDisWidth() != null ){ %><%= mo.getmDisWidth() %><% } %></td>
+                        <td><% if ( mo.getmDisWidth() != null && !mo.getmDisWidth().equals("null") ){ %><%= mo.getmDisWidth() %><% } %></td>
                         <td>화면 높이</td>
-                        <td><% if ( mo.getmDisHeight() != null ){ %><%= mo.getmDisHeight() %><% } %></td>
+                        <td><% if ( mo.getmDisHeight() != null && !mo.getmDisHeight().equals("null") ){ %><%= mo.getmDisHeight() %><% } %></td>
                     </tr>
                 </table>
             </div>
@@ -257,27 +257,27 @@
                 <table class="table border-bottom">
                     <tr>
                         <td>AP</td>
-                        <td><% if ( mo.getmAp() != null ){ %><%= mo.getmAp() %><% } %></td>
+                        <td><% if ( mo.getmAp() != null && !mo.getmAp().equals("null")  ){ %><%= mo.getmAp() %><% } %></td>
                         <td>CPU</td>
-                        <td><% if ( mo.getmCpu() != null ){ %><%= mo.getmCpu() %><% } %></td>
+                        <td><% if ( mo.getmCpu() != null && !mo.getmCpu().equals("null")  ){ %><%= mo.getmCpu() %><% } %></td>
                     </tr>
                     <tr>
                         <td>CPU코어</td>
-                        <td><% if ( mo.getmCpuCore() != null ){ %><%= mo.getmCpuCore() %><% } %></td>
+                        <td><% if ( mo.getmCpuCore() != null && !mo.getmCpuCore().equals("null")  ){ %><%= mo.getmCpuCore() %><% } %></td>
                         <td>CPU클럭</td>
-                        <td><% if ( mo.getmCpuClock() != null ){ %><%= mo.getmCpuClock() %><% } %></td>
+                        <td><% if ( mo.getmCpuClock() != null && !mo.getmCpuClock().equals("null")  ){ %><%= mo.getmCpuClock() %><% } %></td>
                     </tr>
                     <tr>
                         <td>GPU</td>
-                        <td><% if ( mo.getmGpu() != null ){ %><%= mo.getmGpu() %><% } %></td>
+                        <td><% if ( mo.getmGpu() != null && !mo.getmGpu().equals("null")  ){ %><%= mo.getmGpu() %><% } %></td>
                         <td>메모리(RAM)</td>
-                        <td><% if ( mo.getmRam() != null ){ %><%= mo.getmRam() %><% } %></td>
+                        <td><% if ( mo.getmRam() != null && !mo.getmRam().equals("null")  ){ %><%= mo.getmRam() %><% } %></td>
                     </tr>
                     <tr>
                         <td>내장메모리</td>
-                        <td><% if ( mo.getmInnerMemory() != null ){ %><%= mo.getmInnerMemory() %><% } %></td>
+                        <td><% if ( mo.getmInnerMemory() != null && !mo.getmInnerMemory().equals("null")  ){ %><%= mo.getmInnerMemory() %><% } %></td>
                         <td>외장메모리</td>
-                        <td><% if ( mo.getmOuterMemory() != null ){ %><%= mo.getmOuterMemory() %><% } %></td>
+                        <td><% if ( mo.getmOuterMemory() != null && !mo.getmOuterMemory().equals("null")  ){ %><%= mo.getmOuterMemory() %><% } %></td>
                     </tr>
                 </table>
             </div>
@@ -286,33 +286,33 @@
                 <table class="table border-bottom">
                     <tr>
                         <td>카메라 센서</td>
-                        <td><% if ( mo.getmSensor() != null ){ %><%= mo.getmSensor() %><% } %></td>
+                        <td><% if ( mo.getmSensor() != null && !mo.getmSensor().equals("null") ){ %><%= mo.getmSensor() %><% } %></td>
                         <td>카메라 조리개</td>
-                        <td><% if ( mo.getmIris() != null ){ %><%= mo.getmIris() %><% } %></td>
+                        <td><% if ( mo.getmIris() != null && !mo.getmIris().equals("null") ){ %><%= mo.getmIris() %><% } %></td>
                     </tr>
                     <tr>
                         <td>Flash</td>
-                        <td><% if ( mo.getmFlash() != null ){ %><%= mo.getmFlash() %><% } %></td>
+                        <td><% if ( mo.getmFlash() != null && !mo.getmFlash().equals("null") ){ %><%= mo.getmFlash() %><% } %></td>
                         <td>사진촬영 해상도</td>
-                        <td><% if ( mo.getmPicResolution() != null ){ %><%= mo.getmPicResolution() %><% } %></td>
+                        <td><% if ( mo.getmPicResolution() != null && !mo.getmPicResolution().equals("null") ){ %><%= mo.getmPicResolution() %><% } %></td>
                     </tr>
                     <tr>
                         <td>동영상녹화 해상도</td>
-                        <td><% if ( mo.getmVidResolution() != null ){ %><%= mo.getmVidResolution() %><% } %></td>
+                        <td><% if ( mo.getmVidResolution() != null && !mo.getmVidResolution().equals("null") ){ %><%= mo.getmVidResolution() %><% } %></td>
                         <td>동영상녹화 프레임</td>
-                        <td><% if ( mo.getmVidFrame() != null ){ %><%= mo.getmVidFrame() %><% } %></td>
+                        <td><% if ( mo.getmVidFrame() != null && !mo.getmVidFrame().equals("null") ){ %><%= mo.getmVidFrame() %><% } %></td>
                     </tr>
                     <tr>
                         <td>전면 해상도</td>
-                        <td><% if ( mo.getmFrontResolution() != null ){ %><%= mo.getmFrontResolution() %><% } %></td>
+                        <td><% if ( mo.getmFrontResolution() != null && !mo.getmFrontResolution().equals("null") ){ %><%= mo.getmFrontResolution() %><% } %></td>
                         <td>전면 동영상 해상도</td>
-                        <td><% if ( mo.getmFrontVidResolution() != null ){ %><%= mo.getmFrontVidResolution() %><% } %></td>
+                        <td><% if ( mo.getmFrontVidResolution() != null && !mo.getmFrontVidResolution().equals("null") ){ %><%= mo.getmFrontVidResolution() %><% } %></td>
                     </tr>
                     <tr>
                         <td>전면 비디오 프레임</td>
-                        <td><% if ( mo.getmFrontVidFrame() != null ){ %><%= mo.getmFrontVidFrame() %><% } %></td>
+                        <td><% if ( mo.getmFrontVidFrame() != null && !mo.getmFrontVidFrame().equals("null") ){ %><%= mo.getmFrontVidFrame() %><% } %></td>
                         <td>카메라 특징</td>
-                        <td><% if ( mo.getmCamera() != null ){ %><%= mo.getmCamera() %><% } %></td>
+                        <td><% if ( mo.getmCamera() != null && !mo.getmCamera().equals("null") ){ %><%= mo.getmCamera() %><% } %></td>
                     </tr>
                 </table>
             </div>
@@ -323,17 +323,17 @@
                         <td>배터리(mAH)</td>
                         <td><% if ( mo.getmBattery() != 0 ){ %><%= mo.getmBattery() %><% } %></td>
                         <td>배터리타입</td>
-                        <td><% if ( mo.getmBatteryType() != null ){ %><%= mo.getmBatteryType() %><% } %></td>
+                        <td><% if ( mo.getmBatteryType() != null && !mo.getmBatteryType().equals("null") ){ %><%= mo.getmBatteryType() %><% } %></td>
                     </tr>
                     <tr>
                         <td>고속 충전</td>
-                        <td><% if ( mo.getmFastCharsing() != null ){ %><%= mo.getmFastCharsing() %><% } %></td>
+                        <td><% if ( mo.getmFastCharsing() != null && !mo.getmFastCharsing().equals("null") ){ %><%= mo.getmFastCharsing() %><% } %></td>
                         <td>배터리 탈착</td>
-                        <td><% if ( mo.getmRemovableBat() != null ){ %><%= mo.getmRemovableBat() %><% } %></td>
+                        <td><% if ( mo.getmRemovableBat() != null && !mo.getmRemovableBat().equals("null") ){ %><%= mo.getmRemovableBat() %><% } %></td>
                     </tr>
                     <tr>
                         <td>무선 충전</td>
-                        <td><% if ( mo.getmWireless() != null ){ %><%= mo.getmWireless() %><% } %></td>
+                        <td><% if ( mo.getmWireless() != null && !mo.getmWireless().equals("null") ){ %><%= mo.getmWireless() %><% } %></td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -344,15 +344,15 @@
                 <table class="table border-bottom">
                     <tr>
                         <td>대기 시간</td>
-                        <td><% if ( mo.getmStandBy() != null ){ %><%= mo.getmStandBy() %><% } %></td>
+                        <td><% if ( mo.getmStandBy() != null && !mo.getmStandBy().equals("null") ){ %><%= mo.getmStandBy() %><% } %></td>
                         <td>통신규격</td>
-                        <td><% if ( mo.getmProtocol() != null ){ %><%= mo.getmProtocol() %><% } %></td>
+                        <td><% if ( mo.getmProtocol() != null && !mo.getmProtocol().equals("null") ){ %><%= mo.getmProtocol() %><% } %></td>
                     </tr>
                     <tr>
                         <td>WiFi</td>
-                        <td><% if ( mo.getmWifi() != null ){ %><%= mo.getmWifi() %><% } %></td>
+                        <td><% if ( mo.getmWifi() != null && !mo.getmWifi().equals("null") ){ %><%= mo.getmWifi() %><% } %></td>
                         <td>블루투스 버전</td>
-                        <td><% if ( mo.getmBluetooth() != null ){ %><%= mo.getmBluetooth() %><% } %></td>
+                        <td><% if ( mo.getmBluetooth() != null && !mo.getmBluetooth().equals("null") ){ %><%= mo.getmBluetooth() %><% } %></td>
                     </tr>
                 </table>
             </div>
@@ -361,19 +361,19 @@
                 <table class="table border-bottom">
                     <tr>
                         <td>USB버전</td>
-                        <td><% if ( mo.getmUsb() != null ){ %><%= mo.getmUsb() %><% } %></td>
+                        <td><% if ( mo.getmUsb() != null && !mo.getmUsb().equals("null") ){ %><%= mo.getmUsb() %><% } %></td>
                         <td>생체인식</td>
-                        <td><% if ( mo.getmBio() != null ){ %><%= mo.getmBio() %><% } %></td>
+                        <td><% if ( mo.getmBio() != null && !mo.getmBio().equals("null") ){ %><%= mo.getmBio() %><% } %></td>
                     </tr>
                     <tr>
                         <td>모바일결제</td>
-                        <td><% if ( mo.getmPayment() != null ){ %><%= mo.getmPayment() %><% } %></td>
+                        <td><% if ( mo.getmPayment() != null && !mo.getmPayment().equals("null") ){ %><%= mo.getmPayment() %><% } %></td>
                         <td>인증</td>
-                        <td><% if ( mo.getmVerify() != null ){ %><%= mo.getmVerify() %><% } %></td>
+                        <td><% if ( mo.getmVerify() != null && !mo.getmVerify().equals("null") ){ %><%= mo.getmVerify() %><% } %></td>
                     </tr>
                     <tr>
                         <td>기타</td>
-                        <td><% if ( mo.getmEtc() != null ){ %><%= mo.getmEtc() %><% } %></td>
+                        <td><% if ( mo.getmEtc() != null && !mo.getmBio().equals("null") ){ %><%= mo.getmEtc() %><% } %></td>
                         <td></td>
                         <td></td>
                     </tr>

@@ -1121,3 +1121,5 @@ SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM (SELECT R.*, MO_NAME, (SELECT COUNT(
 select * from mobile_view
 order by "πﬂ∏≈¿œ" DESC NULLS LAST;
 
+update user_table set user_mno = '' where user_no = 1;
+commit;
