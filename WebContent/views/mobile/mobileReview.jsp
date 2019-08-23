@@ -316,7 +316,7 @@
                 }).then((result) => {
                 if (result.value) {
                     delReview(rno);
-                }
+                } 
             });
         });
         $(document).on("click", ".editReview", function(){

@@ -49,7 +49,7 @@
     }
     #commCon {
         resize: none;
-    }
+    } 
     /* 커스텀 컨펌버튼 속 버튼 마진 */
     .swal2-confirm.btn.btn-primary { 
         margin-left: 10px;

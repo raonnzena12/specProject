@@ -57,7 +57,7 @@
     section.comment {
     	padding-bottom: 100px;
     }
-        .reported {
+        .reported { 
         text-decoration: line-through !important; 
         color: #aaa !important;
     }

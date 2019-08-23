@@ -9,7 +9,7 @@ import mobile.model.vo.*;
 
 public class MobileDao {
 	private Properties prop = new Properties();
-	
+	 
 	public MobileDao() {
 		String fileName = MobileDao.class.getResource("/sql/mobile/mobile-query.properties").getPath();
 		try {
