@@ -101,7 +101,12 @@
             }
             #cancel{
                 float: right;
-                margin-right: 10px;
+                margin-left: 10px;
+                display:block;
+            }
+            #write{
+            	float: right;
+            	display:block;
             }
             
 	</style>
@@ -190,8 +195,9 @@
  	</section>
 	<section id="btn" class="sec">
 		<!-- <button type="button" class="btn btn-secondary btn1" id="preveal">미리보기</button> -->
-		<button type="submit" class="btn btn-secondary btn1" id="write">글 수정</button>
+		
 		<button type="reset" class="btn btn-secondary btn1" id="cancel" onclick="javascript:history.back();">취소</button>
+		<button type="submit" class="btn btn-secondary btn1" id="write">글 수정</button>
 	</section>
 	
 	<input type="hidden" name="bcode" value="<%=b.getbCode()%>">
