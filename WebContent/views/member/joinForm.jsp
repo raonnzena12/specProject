@@ -146,13 +146,13 @@ JavaScript
                 <div id="input1">
                     <table>
                         <tr>
-                        	<td width="275px"><input type="text" name="userEmail" class="form-control" placeholder="이메일 주소" required></td>
+                        	<td width="275px"><label>이메일</label><input type="text" name="userEmail" class="form-control" placeholder="이메일 주소" required></td>
                         </tr>
                         <tr>
-                        	<td><input type="text" name="userName" class="form-control" placeholder="닉네임" required></td>
+                        	<td><label>닉네임(한 영 대소문자 숫자 포함 4자이상 25자 이하)</label><input type="text" name="userName" class="form-control" placeholder="닉네임" required></td>
                         </tr>
                         <tr>
-                        	<td><input type="password" name="pwd" class="form-control" placeholder="비밀번호" required autocomplete=off></td>
+                        	<td><label>비밀번호(영문 대소문자 숫자 포함 6자이상 12자이하)</label><input type="password" name="pwd" class="form-control" placeholder="비밀번호" required autocomplete=off></td>
                         </tr>
                         <tr>
                         	<td><input type="password" name="pwd2" class="form-control" placeholder="비밀번호 확인" required></td>
