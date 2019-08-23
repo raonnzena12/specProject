@@ -37,7 +37,7 @@ public class FindPwdServlet extends HttpServlet {
 		
 		String page = "";
 		
-		String host = "http://192.168.10.65:8080/SpecProject/";
+		String host = "http://localhost:8080/SpecProject/";
 		String from = "specprojectmanager@gmail.com";
 		String to = userEmail;
 		String subject = "SPEC 비밀번호 재설정을 위한 확인 메일 입니다.";
