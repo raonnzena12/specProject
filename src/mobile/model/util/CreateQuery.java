@@ -48,9 +48,12 @@ public class CreateQuery {
 		String query = "";
 		for ( int i = 0 ; i < strArr.length ; i++ ) {
 			switch( strArr[i] ) {
-			case "fastC" : query += " AND \"고속충전\" = \'급속충전\'"; break;
-			case "wirelessC" : query += " AND \"무선충전\" = \'무선충전 지원\'"; break;
+			case "fastC" : query += " AND \"고속충전\" IS NOT NULL"; break;
+			case "wirelessC" : query += " AND \"무선충전\" IS NOT NULL"; break;
 			case "removable" : query += " AND \"탈착여부\" = \'분리형\'"; break; 
+//			case "fastC" : query += " AND \"고속충전\" = \'급속충전\'"; break;
+//			case "wirelessC" : query += " AND \"무선충전\" = \'무선충전 지원\'"; break;
+//			case "removable" : query += " AND \"탈착여부\" = \'분리형\'"; break; 
 			}
 		}
 		query += " ";
