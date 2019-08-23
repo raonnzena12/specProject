@@ -171,7 +171,7 @@
             			<td class="white"><%= r.getcTableNo()%></td>
             			<td class="white"><%= r.getRefNo()%></td>
             			<td><% String tmp =""; if(r.getcContent().replaceAll("<br>"," ").length() > 20){ tmp = r.getcContent().replaceAll("<br>"," ").substring(10) + "...";}else{ tmp = r.getcContent().replaceAll("<br>"," ");} %><%= tmp %></td>
-            			<td>[<%= r.getRefContType()%>]<br><%if(r.getRefCont() != null){ %><%=r.getRefCont() %><%} %></td>
+            			<td><%if(r.getRefContType() != null){ %>[<%= r.getRefContType()%>]<%} %><br><%if(r.getRefCont() != null){ %><%=r.getRefCont() %><%} %></td>
             			<td><%= r.getcRegdate2()%></td>
             			<td><%= r.getcModidate2()%></td>
             		</tr>
