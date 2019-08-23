@@ -28,10 +28,12 @@ public class BoardDangerSerlvet extends HttpServlet {
 		int dwriter = Integer.parseInt(request.getParameter("dwriter"));
 		String content = request.getParameter("dangerContent");
 		
+		int bcode = Integer.parseInt(request.getParameter("bcode"));
+		
 		int result = new BoardService().dangerBoard(bno, user, dwriter, content);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/content.bo?bno=" + bno);
+			response.sendRedirect(request.getContextPath() + "/content.bo?bno=" + bno+"&bcode="+ bcode);
 		}else {
 			request.setAttribute("msg", "게시글 신고 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

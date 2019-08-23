@@ -1290,7 +1290,8 @@ public class MobileDao {
 			
 			while(rset.next()) {
 				img.add(new MoImage(rset.getInt("MO_NO"),
-						rset.getString("MI_FRONTNAME")));
+						rset.getString("MI_FRONTNAME"),
+						rset.getString("MO_NAME")));
 			}
 			
 			
