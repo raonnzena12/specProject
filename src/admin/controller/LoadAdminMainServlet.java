@@ -1,6 +1,8 @@
 package admin.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,15 +22,22 @@ public class LoadAdminMainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member loginUser = null;
+		String page = "";
+		
 		if ( request.getSession().getAttribute("loginUser") != null ) {
 			loginUser = (Member)request.getSession().getAttribute("loginUser");
 		}
 		
 		if ( loginUser == null || loginUser.getUserStatus() != 0 ) {
-			response.sendRedirect(request.getContextPath());
+			page = "/";
+			//response.sendRedirect(request.getContextPath());
 		} else {
-			response.sendRedirect(request.getContextPath() + "/views/admin/adminMain.jsp");
+			page = "views/admin/adminMain.jsp";
+			//response.sendRedirect(request.getContextPath() + "/views/admin/adminMain.jsp");
 		}
+		
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
 		
 	}
 

@@ -46,8 +46,10 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
     	margin-bottom: 10px;
     }
     
-    .menu-ul a {
+    a {
     	color: gray;
+    	text-decoration-line: none;
+		color: #333;
     }
     
     .content-outer {
@@ -113,7 +115,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		</div>
 
 		<div class="content-outer">
-			<iframe src="../../AdminCalendar.do" width="100%" height="100%" frameborder="0"></iframe>
+			<iframe src="AdminCalendar.do" width="100%" height="100%" frameborder="0"></iframe>
 		</div>
 	</div>
 	
