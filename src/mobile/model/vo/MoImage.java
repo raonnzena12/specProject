@@ -8,10 +8,19 @@ public class MoImage {
 	private String miBackImage;
 	private String miPath;
 	private Date miUploadDate;
+	private String miName;
 	
 	public MoImage() {}
 	
 	
+	
+
+	public MoImage(int refMno, String miFrontImage, String miName) {
+		super();
+		this.refMno = refMno;
+		this.miFrontImage = miFrontImage;
+		this.miName = miName;
+	}
 
 	public MoImage(int refMno, String miFrontImage) {
 		super();
@@ -29,6 +38,22 @@ public class MoImage {
 		this.miPath = miPath;
 		this.miUploadDate = miUploadDate;
 	}
+	
+	
+
+	public MoImage(int refMno, String miFrontImage, String miBackImage, String miPath, Date miUploadDate,
+			String miName) {
+		super();
+		this.refMno = refMno;
+		this.miFrontImage = miFrontImage;
+		this.miBackImage = miBackImage;
+		this.miPath = miPath;
+		this.miUploadDate = miUploadDate;
+		this.miName = miName;
+	}
+
+
+
 
 	public int getRefMno() {
 		return refMno;
@@ -69,10 +94,18 @@ public class MoImage {
 	public void setMiUploadDate(Date miUploadDate) {
 		this.miUploadDate = miUploadDate;
 	}
+	
+	public String getMiName() {
+		return miName;
+	}
+
+	public void setMiName(String miName) {
+		this.miName = miName;
+	}
 
 	@Override
 	public String toString() {
 		return refMno + " / " + miFrontImage + " / " + miBackImage + " / " + miPath + " / "
-				+ miUploadDate;
+				+ miUploadDate + " / " + miName;
 	}
 }

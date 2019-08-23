@@ -152,7 +152,7 @@
 			
 		}
 		#updated{
-			height:290px;
+			height:300px;
 			clear:both;
 			width:1080px;
 			margin:auto;
@@ -202,13 +202,29 @@
 		}
 		.updated{
 			width:200px;
-			height:220px;
+			height:240xp;
 			display: block;
 			float:left;
 			margin:20px 7px 5px 8px;
-			padding-left:20px;
+			/* padding:auto; */
 			cursor: pointer;
-			
+			/* border:1px solid black; */
+		}
+		.phonename{
+			width:100%;
+			height:30px;
+			/* border:1px solid black; */
+			display:block;
+			text-align: center;
+			margin:10px 0 0 0;
+			clear:both;
+			padding:0;
+			float:left;
+			font-weight:bold;
+			/* margin-left:28px; */
+		}
+		.phoneimg{
+			margin:0 0 0 50px;
 		}
 		.updatedtitle{
 			width:1080px;
@@ -233,6 +249,7 @@
 			color: #00264B;
 			font-weight:bold;
 		}
+		
 		.brandimg{
 			width:200px;
 			height:150px;
@@ -402,9 +419,17 @@
 			</article>
 			<%for(int i = 0; i < 5; i++){ %>
 				<% if (img.get(i).getMiFrontImage() == null) { %>
-	                 <article class="updated"><img class="img-rounded" src="<%=request.getContextPath()%>/image/smartphoneG.png" width="auto" height="200px" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'"></article>
+	                 <article class="updated">
+	                 	<img class="img-rounded phoneimg" title="<%=img.get(i).getMiName()%>" src="<%=request.getContextPath()%>/image/smartphoneG.png" width="100px" height="200px" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'">
+	                 	<div class="phonename"><%=img.get(i).getMiName()%></div>
+	                 	<%-- <span style="display:block;"><%=img.get(i).getMiName()%></span> --%>
+	                 </article>
 	            <% } else { %>
-	                 <article class="updated"><img class="img-rounded" src="<%=request.getContextPath()%>/image/mobileImages/<%=img.get(i).getMiFrontImage()%>" width="auto" height="200px" class="deviceFImage" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'"></article>
+	                 <article class="updated">
+	                 	<img class="img-rounded phoneimg" title="<%=img.get(i).getMiName()%>" src="<%=request.getContextPath()%>/image/mobileImages/<%=img.get(i).getMiFrontImage()%>" width="auto" height="200px" class="deviceFImage" onclick="location.href='<%=request.getContextPath()%>/spec.mo?currentPage=1&mno=<%=img.get(i).getRefMno()%>&page=1'">
+	                 	<div class="phonename"><%=img.get(i).getMiName()%></div>
+	                 	<%-- <span style="display:block;"><%=img.get(i).getMiName()%></span> --%>
+	                 </article>
 	            <% } %>
 			<%} %>
 			

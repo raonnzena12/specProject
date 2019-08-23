@@ -231,10 +231,10 @@
 	   	<% }else if(b.getbWriter() != 0){ 
 	   		
 	   		%>
-	   		<%if(report != null && report.getBrWriter() != loginUser.getUserNo()){ %>
-	   			<button type="button" class="btn btn-secondary" id="dangerbtn" onclick="dangerBoard();">신고</button>
-	   		<%}else{ %>
+	   		<%if(report != null && report.getBrWriter() == loginUser.getUserNo()){ %>
 	   			<button type="button" class="btn btn-secondary" id="dangerNoneBtn" onclick="dangerNoneBtn();">신고</button>
+	   		<%}else if(report == null){ %>
+	   			<button type="button" class="btn btn-secondary" id="dangerbtn" onclick="dangerBoard();">신고</button>
 	   		<%} %>
 	   	<%} %>
 	   	<script>
