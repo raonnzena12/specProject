@@ -84,7 +84,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <button type="button" class="btn btn-default btn-lg border">취소</button>
+                        <button type="button" class="btn btn-default btn-lg border" onclick="self.close();">취소</button>
                         <button type="button" class="btn btn-primary btn-lg" id="submitBtn">신고</button>
                     </td>
                 </tr>

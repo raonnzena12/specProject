@@ -62,6 +62,7 @@ public class MobileCommentReportServlet extends HttpServlet {
 		}
 		
 		Report report = new Report(rContent, rTableNo, rWriter, rUser, rRefNo);
+		System.out.println(rWriter);
 		int result = new MobileService().insertReport(report);
 		
 		response.getWriter().print(result);		

@@ -55,7 +55,8 @@
         margin-left: 10px;
     }
     .reported {
-        color: #aaa;
+        text-decoration: line-through !important; 
+        color: #aaa !important;
     }
 </style>
 <script>
@@ -206,7 +207,7 @@
                 else if ( cList[i].mcoWriter == userNo ) { // 내 댓글일 경우 수정 / 삭제 출력
                     $control.append($modify, $delete);
                 } else { // 내 댓글이 아닐 경우 신고 출력
-                    if ( cList[i].mcoIreport == 1 ) {
+                    if ( cList[i].mcoIreport > 0 ) {
                         $report.addClass("reported");
                     }
                     $control.append($report);
@@ -317,6 +318,10 @@
             });
             // 댓글 신고 눌렀을때의 동작
             $(document).on("click", ".reportComm", function(){
+                if ( $(this).hasClass("reported") ) {
+                    Swal.fire( '신고 불가!', '이미 신고한 댓글입니다!', 'warning' );
+                    return false;
+                }
                 var id = $(this).parent().attr("id");
                 reportComment(id);
             });
