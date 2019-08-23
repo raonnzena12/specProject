@@ -43,8 +43,9 @@
 				</ul>
 			</div>
 		</div>
+		<div>문의 / specprojectmanager@gmail.com</div>
 		<div id="footer-2">
-			<p>Copyright © 2019 HSH All Right Reserved</p>
+			<p>Copyright © 2019 SPEC All Right Reserved</p>
 		</div>
 	</footer>
 
